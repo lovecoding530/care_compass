@@ -1,0 +1,3 @@
+rootProject.name = 'palliative_care_app'
+
+include ':app'
