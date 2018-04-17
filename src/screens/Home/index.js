@@ -1,0 +1,50 @@
+import React, { Component } from 'react';
+import {
+    Platform,
+    StyleSheet,
+    Image,
+    ImageBackground,
+    View,
+    Text,
+    TouchableOpacity,
+} from 'react-native';
+
+import {Colors} from '../../theme';
+import Styles from './styles';
+
+export default class Home extends Component {
+    constructor(props) {
+        super(props);
+        this.state = ({
+        })
+    }
+
+    componentDidMount() {
+    }
+
+    render() {
+        return (
+            <View style={Styles.container}>
+                <View style={Styles.containerLeft}>
+                    <TouchableOpacity style={Styles.item}>
+                        <Text style={Styles.itemText}>Discussion Starter</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={Styles.item}>
+                        <Text style={Styles.itemText}>Card Game</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={Styles.containerRight}>
+                    <TouchableOpacity style={Styles.item}>
+                        <Text style={Styles.itemText}>User Guide</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={Styles.item}>
+                        <Text style={Styles.itemText}>Resources</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={Styles.item}>
+                        <Text style={Styles.itemText}>Journal</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        );
+    }
+}

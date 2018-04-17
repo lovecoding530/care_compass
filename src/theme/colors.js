@@ -1,7 +1,7 @@
 const colors = {
     buttonPrimary: '#E01021',
-    backgroundPrimary: '#37646F',
-    backgroundSecondary : '#B22E2F',
+    backgroundPrimary: '#fff',
+    backgroundSecondary : '#E4E4E4',
     backgroundThird : '#65bf89',
     brandThird: '#1E80C7',
   
@@ -23,8 +23,8 @@ const colors = {
   
     alphaPrimary: '#F0F3EA90',
     golden: '#FFAA00',
-    greycolor: '#AAAAAA',
-
+    gray: '#AAAAAA',
+    lightGray: '#d3d3d3',
     
   };
   

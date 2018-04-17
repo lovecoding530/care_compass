@@ -32,17 +32,20 @@ export default class Splash extends Component {
     }
 
     componentDidMount() {
+        const {navigate} = this.props.navigation;
         setTimeout(()=>{
-            alert("Downloaded all app data.")
+            // alert("Downloaded all app data.")
             this.setState({
                 animating: false,
             })
-        }, 3000)
+            navigate("DrawerStack");
+        }, 500)
     }
 
     render() {
         return (
             <ImageBackground style={Styles.backgroundImage}>
+                <Text style={Styles.logoText}>Dying To Talk</Text>
                 <ActivityIndicator animating={this.state.animating} size='large' color={Colors.golden} />
             </ImageBackground>
         );

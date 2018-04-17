@@ -1,6 +1,12 @@
-const React = require("react-native");
-const { Dimensions, Platform, StyleSheet } = React;
+import React, { Component } from 'react';
+import {
+    Platform,
+    StyleSheet,
+    Dimensions,
+} from 'react-native';
+
 const deviceHeight = Dimensions.get("window").height;
+
 export default {
     container: {
         flex: 1,
@@ -17,4 +23,9 @@ export default {
     },
     indicator: {
     },
+    logoText: {
+        fontSize: 40,
+        fontWeight: 'bold',
+        margin: 40,
+    }
 };

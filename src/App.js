@@ -12,12 +12,12 @@ import {
   View,
 } from 'react-native';
 
-import Splash from "./screens/Splash";
+import {PrimaryNav} from "./Router";
 
 export default class App extends Component {
   render() {
     return (
-      <Splash />
+      <PrimaryNav />
     );
   }
 }
