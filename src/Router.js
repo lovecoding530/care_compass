@@ -9,12 +9,13 @@ import { Button, Icon, Text} from 'native-base';
 import Menu from "./Menu";
 import Splash from "./screens/Splash";
 import Home from "./screens/Home";
+import DiscussionStarter from "./screens/DiscussionStarter";
 
 const MenuIcon = ({ navigate }) => {
     return (
         <Button 
             iconLeft 
-            style={{backgroundColor: 'gray', marginHorizontal: 8}}
+            style={{backgroundColor: 'gray', margin: 8}}
             onPress={() => navigate('DrawerOpen')}>
             <Icon name='menu' />
             <Text>MENU</Text>
@@ -22,9 +23,21 @@ const MenuIcon = ({ navigate }) => {
     );
 }
 
-const BackIcon = (navigation) => {
+const BackIcon = ({ navigate, go }) => {
     return (
         <Icon name='arrow-back' />
+    );
+}
+
+const HomeIcon = ({ navigate, goBack }) => {
+    return (
+        <Button 
+            iconLeft 
+            style={{backgroundColor: 'gray', margin: 8}}
+            onPress={() => goBack()}>
+            <Icon name='home' />
+            <Text>HOME</Text>
+        </Button>
     );
 }
 
@@ -33,9 +46,19 @@ export const HomeStack = StackNavigator({
         screen: Home,
         navigationOptions: ({ navigation }) => ({
             headerTitle: <Text style={{fontSize: 20, fontWeight: 'bold'}}>Dying To Talk</Text>  ,
-            headerStyle: { backgroundColor: Colors.lightGray, height: 56},
+            headerStyle: { backgroundColor: Colors.lightGray, height: 60},
             headerTitleStyle: {color: '#a7c3f2'},
             headerRight: <MenuIcon {...navigation} />,
+        }),
+    },
+    DiscussionStarter: {
+        screen: DiscussionStarter,
+        navigationOptions: ({ navigation }) => ({
+            headerTitle: <Text style={{fontSize: 20, fontWeight: 'bold'}}>Dying To Talk</Text>  ,
+            headerStyle: { backgroundColor: Colors.lightGray, height: 60},
+            headerTitleStyle: {color: '#a7c3f2'},
+            headerRight: <MenuIcon {...navigation} />,
+            headerLeft: <HomeIcon {...navigation} />,
         }),
     },
 });
