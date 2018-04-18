@@ -38,7 +38,7 @@ export default class Splash extends Component {
             this.setState({
                 animating: false,
             })
-            navigate("DrawerStack");
+           navigate("OnBoardingScreen");
         }, 500)
     }
 
