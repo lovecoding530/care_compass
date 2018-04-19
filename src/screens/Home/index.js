@@ -9,7 +9,7 @@ import {
     TouchableOpacity,
 } from 'react-native';
 
-import {Colors} from '../../theme';
+import {Colors} from '@theme';
 import Styles from './styles';
 
 export default class Home extends Component {

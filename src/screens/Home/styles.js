@@ -5,7 +5,7 @@ import {
     Dimensions,
 } from 'react-native';
 
-import {Colors} from '../../theme';
+import {Colors} from '@theme';
 
 const deviceHeight = Dimensions.get("window").height;
 
@@ -13,7 +13,7 @@ export default {
 
     container: {
         flex: 1, 
-        backgroundColor: Colors.backgroundSecondary,
+        backgroundColor: Colors.backgroundPrimary,
         padding: 16,
         flexDirection: 'row'
     },
@@ -27,7 +27,7 @@ export default {
     },
 
     item: {
-        backgroundColor: Colors.lightGray,
+        backgroundColor: Colors.backgroundSecondary,
         borderRadius: 4,
         shadowColor: 'black',
         shadowOffset: { width: 0, height: 2 },

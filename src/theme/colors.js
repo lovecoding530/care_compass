@@ -1,14 +1,14 @@
 const colors = {
-    buttonPrimary: '#E01021',
     backgroundPrimary: '#fff',
-    backgroundSecondary : '#E4E4E4',
-    backgroundThird : '#65bf89',
-    brandThird: '#1E80C7',
+    backgroundSecondary : '#f4f4f4',
+    backgroundThird : '#E4E4E4',
+
+    buttonPrimary: '#A2A2A2',
   
-    textPrimary: '#FFFFFF',
+    nav: '#d3d3d3',
+
+    textPrimary: 'gray',
     textSecondary: '#000000',
-    textThird: '#555555',
-    textFourth: '#89979F',
     textPlaceholder: '#DDDDDD',
     fieldPlaceholder: '#999999',
   
@@ -25,6 +25,7 @@ const colors = {
     golden: '#FFAA00',
     gray: '#AAAAAA',
     lightGray: '#d3d3d3',
+    white: "#fff"
     
   };
   

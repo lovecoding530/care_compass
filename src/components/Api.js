@@ -1,3 +1,7 @@
+/**
+ * @providesModule @api
+ */
+
 import React, { Component } from 'react';
 import {
     Platform,
@@ -11,23 +15,31 @@ const API_CARD_GAME = API_ROOT + "/card-game/"
 const API_RESOURCES = API_ROOT + "/resources/"
 const API_USER_GUIDE = API_ROOT + "/user-guides/"
 
-export async function getJSONwithCache(url){
-    try {
-        let response = await fetch(url)
-        let json = await response.json() 
-        await AsyncStorage.setItem(url, JSON.stringify(json))            
-        return json
-    } catch (error) {
-        console.error(error)
+export async function getJSONwithCache(url, fromCached){
+    if (fromCached) {
+        const cached = await AsyncStorage.getItem(url)
+        return JSON.parse(cached)                        
+    }else{
         try {
-            const cached = await AsyncStorage.getItem(url)
-            return JSON.parse(cached)                    
+            let response = await fetch(url)
+            let json = await response.json() 
+            await AsyncStorage.setItem(url, JSON.stringify(json))            
+            return json
         } catch (error) {
-            return null
-        }
+            try {
+                const cached = await AsyncStorage.getItem(url)
+                return JSON.parse(cached)                    
+            } catch (error) {
+                return null
+            }
+        }    
     }
 }
 
-export async function getBundle() {
-    return await getJSONwithCache(API_BUNDLE)
+export async function getBundle(fromCached = false) {
+    return await getJSONwithCache(API_BUNDLE, fromCached)
+}
+
+export async function getDiscussionStarter(fromCached = false) {
+    return await getJSONwithCache(API_DISCUSSION_STARTER, fromCached)
 }

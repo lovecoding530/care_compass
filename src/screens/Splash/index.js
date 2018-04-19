@@ -9,9 +9,9 @@ import {
 } from 'react-native';
 import Spinner from "react-native-spinkit";
 
-import {Colors} from '../../theme';
+import {Colors} from '@theme';
 import Styles from './styles';
-import {getBundle} from '../../components/Api';
+import {getBundle} from '@api';
 
 export default class Splash extends Component {
     constructor(props) {
@@ -26,7 +26,7 @@ export default class Splash extends Component {
         
         let json = await getBundle()
 
-        alert(JSON.stringify(json))
+        // alert(JSON.stringify(json))
 
         this.setState({
             animating: false,
