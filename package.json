@@ -10,9 +10,8 @@
     "native-base": "^2.4.2",
     "react": "16.3.1",
     "react-native": "0.55.2",
-<<<<<<< HEAD
     "react-native-spinkit": "^1.1.1",
->>>>>>> b8dddfaa5db8ce1b9c2649edeac9709f65bc90ab
+    "react-native-responsive-dimensions": "^1.0.2",
     "react-navigation": "^1.5.11"
   },
   "devDependencies": {

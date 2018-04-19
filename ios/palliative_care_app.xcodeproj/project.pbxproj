@@ -394,10 +394,8 @@
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-<<<<<<< HEAD
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				782F52B057404FEBB7AA3990 /* libRNSpinkit.a in Frameworks */,
->>>>>>> b8dddfaa5db8ce1b9c2649edeac9709f65bc90ab
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -652,7 +650,6 @@
 			);
 			name = Resources;
 			sourceTree = "<group>";
-<<<<<<< HEAD
 		};
 		EF4C6BA820875B290076FD84 /* Recovered References */ = {
 			isa = PBXGroup;
@@ -660,7 +657,6 @@
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
->>>>>>> b8dddfaa5db8ce1b9c2649edeac9709f65bc90ab
 		};
 /* End PBXGroup section */
 
@@ -751,11 +747,9 @@
 						DevelopmentTeam = GR249U759A;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
-<<<<<<< HEAD
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = GR249U759A;
 					};
->>>>>>> b8dddfaa5db8ce1b9c2649edeac9709f65bc90ab
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = GR249U759A;
@@ -1254,13 +1248,11 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = palliative_care_appTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-<<<<<<< HEAD
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
->>>>>>> b8dddfaa5db8ce1b9c2649edeac9709f65bc90ab
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1287,13 +1279,11 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = palliative_care_appTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-<<<<<<< HEAD
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
->>>>>>> b8dddfaa5db8ce1b9c2649edeac9709f65bc90ab
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1393,12 +1383,10 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "palliative_care_app-tvOS/Info.plist";
-<<<<<<< HEAD
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
->>>>>>> b8dddfaa5db8ce1b9c2649edeac9709f65bc90ab
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1434,12 +1422,10 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "palliative_care_app-tvOS/Info.plist";
-<<<<<<< HEAD
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
->>>>>>> b8dddfaa5db8ce1b9c2649edeac9709f65bc90ab
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1474,13 +1460,11 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "palliative_care_app-tvOSTests/Info.plist";
-<<<<<<< HEAD
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
->>>>>>> b8dddfaa5db8ce1b9c2649edeac9709f65bc90ab
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1515,13 +1499,11 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "palliative_care_app-tvOSTests/Info.plist";
-<<<<<<< HEAD
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
->>>>>>> b8dddfaa5db8ce1b9c2649edeac9709f65bc90ab
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
