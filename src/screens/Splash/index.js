@@ -23,7 +23,6 @@ export default class Splash extends Component {
 
     async componentDidMount() {
         const {navigate} = this.props.navigation;
-        
         let json = await getBundle()
 
         // alert(JSON.stringify(json))
@@ -32,7 +31,7 @@ export default class Splash extends Component {
             animating: false,
         })
 
-        navigate("DrawerStack");
+        navigate("OnBoardingScreen");
     }
 
     render() {

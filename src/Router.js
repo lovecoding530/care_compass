@@ -12,6 +12,7 @@ import {Colors} from '@theme'
 import { Button, Icon, Text} from 'native-base';
 import Menu from "./Menu";
 import Splash from "./screens/Splash";
+import OnBoarding from "./screens/OnBoarding";
 import Home from "./screens/Home";
 import {Intro, ActivityList} from "./screens/DiscussionStarter";
 
@@ -89,6 +90,7 @@ export const DrawerStack = DrawerNavigator(
 
 export const PrimaryNav = StackNavigator({
     SplashScreen: { screen: Splash },
+    OnBoardingScreen: { screen: OnBoarding },
     DrawerStack: { screen: DrawerStack }
 }, {
     headerMode: 'none',
