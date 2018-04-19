@@ -31,8 +31,6 @@ export default class ActivityList extends Component {
         for(var i = 0; i < activities.length; i ++){
             activityIndexes.push(i + 1);
         }
-        activityIndexes.push(2);
-        activityIndexes.push(2);
 
         this.setState({
             activityIndexes: activityIndexes
