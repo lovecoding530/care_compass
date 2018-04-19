@@ -9,6 +9,9 @@ export default class Menu extends Component {
                 <View style={styles.logo}>
                     <Text style={styles.logoText}> Dying To Talk </Text>
                 </View>
+                <View>
+                    
+                </View>
             </View>
         );
     }
