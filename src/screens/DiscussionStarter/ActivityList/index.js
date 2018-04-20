@@ -19,7 +19,6 @@ export default class ActivityList extends Component {
         super(props);
         this.state = ({
             activityIndexes: [],
-            col: 2,
         })
     }
 
@@ -37,9 +36,10 @@ export default class ActivityList extends Component {
         })
     }
 
-    renderActivityItem({item}){
+    renderActivityItem({item, index}){
+        const {navigate} = this.props.navigation
         return (
-            <TouchableOpacity style={Styles.item}>
+            <TouchableOpacity style={Styles.item} onPress={() => {navigate("Activity", {activityIndex: index})}}>
                 <Text medium bold>Activity {item}</Text>
             </TouchableOpacity>
         )
@@ -56,7 +56,7 @@ export default class ActivityList extends Component {
                 <FlatList
                     numColumns = {2}
                     data = {this.state.activityIndexes}
-                    renderItem = {this.renderActivityItem}
+                    renderItem = {this.renderActivityItem.bind(this)}
                     keyExtractor = {(index) => index.toString()}
                     />
             </View>

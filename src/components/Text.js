@@ -5,16 +5,9 @@
 import PropTypes from "prop-types";
 import React, {Component} from 'react';
 import { Text, StyleSheet } from "react-native";
-import {Colors} from '@theme'
+import {Colors, FontSizes} from '@theme'
 
 export default (props) => {
-    const fontSizes = {
-        small: 12,
-        smallMedium: 18,
-        medium: 24,
-        mediumLarge: 36,
-        large: 48,
-    };
 
     const colors = {
         light: Colors.white,
@@ -22,18 +15,22 @@ export default (props) => {
     }
 
     var style = {
-        fontSize: fontSizes.smallMedium,
+        fontSize: FontSizes.smallMedium,
         color: colors.dark,
-        textAlign: 'center'
+        textAlign: 'left'
     }
 
+    var positions = ['left', 'center', 'right']
+
     Object.keys(props).forEach(propKey => {
-        if (propKey in fontSizes){
-            var fontSize = fontSizes[propKey];
+        if (propKey in FontSizes){
+            var fontSize = FontSizes[propKey];
             style.fontSize = fontSize;
         }else if (propKey in colors){
             var color = colors[propKey];
             style.color = color;
+        }else if (positions.includes(propKey)){
+            style.textAlign = propKey;
         }else if (propKey == 'bold'){
             style.fontWeight = 'bold';
         }else{
