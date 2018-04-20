@@ -5,16 +5,16 @@ import {
     Image,
     ImageBackground,
     View,
-    Text,
     TouchableOpacity,
     Dimensions,
     ScrollView
 } from 'react-native';
 
-import {Colors} from '../../theme'; // use for theme color
-import Styles from './styles'; // use for style
+import Styles from '@OnBoardingstyles';
 const { width, height } = Dimensions.get('window');// use for device height and width
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions'; // use for responsive screen UI
+import Button from '@button'
+import Text from '@text'
 
 let swiperprops; // use to get props for navigating to home screen
 
@@ -27,7 +27,6 @@ class Swiper extends Component {
         super(props);
         console.log(props);
     }
-
 
   // Props for ScrollView component
   static defaultProps = {
@@ -278,37 +277,25 @@ class Swiper extends Component {
    */
   renderButton = () => {
     const lastScreen = this.state.index === this.state.total - 1;
+    const firstScreen = this.state.index === 0;
     return (
       <View pointerEvents="box-none"  style={[Styles.buttonWrapper, Styles.fullScreen]}>
         {lastScreen
           // Show this button on the last screen
-          // TODO: Add a handler that would send a user to your app after onboarding is complete
           ? <View style={Styles.buttonContainer}>
-              <TouchableOpacity onPress={() => this.swipePrev()}>
-                <View style={Styles.buttonPrev}>
-                  <Text style={Styles.prevText}>Previous</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => this.onDone()}>
-                <View style={Styles.buttonNext}>
-                  <Text style={Styles.nextText}>Done</Text>
-                </View>
-              </TouchableOpacity>
-              
-             </View>
-          // Or this one otherwise
-          : <View style={Styles.buttonContainer}>
-              <TouchableOpacity onPress={() => this.swipePrev()}>
-                <View style={Styles.buttonPrev}>
-                  <Text style={Styles.prevText}>Previous</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => this.swipe()}>
-                <View style={Styles.buttonNext}>
-                  <Text style={Styles.nextText}>Next</Text>
-                </View>
-              </TouchableOpacity>
+              <Button light buttonStyles={Styles.buttonPrev} onPress={() => this.swipePrev()}>Previous</Button>
+              <Button dark buttonStyles={Styles.buttonNext} onPress={() => this.onDone()}>Done</Button>
             </View>
+          : firstScreen
+          // Show this button on the First screen
+          ? <View style={Styles.buttonContainer}>
+              <Button dark  buttonStyles={Styles.buttonNext} onPress={() => this.swipe()}>Next</Button>
+            </View>
+             // Or this one otherwise
+             :  <View style={Styles.buttonContainer}>
+                  <Button light buttonStyles={Styles.buttonPrev} onPress={() => this.swipePrev()}>Previous</Button>
+                  <Button dark buttonStyles={Styles.buttonNext} onPress={() => this.swipe()}>Next</Button>
+                </View>
         }
       </View>
     );
@@ -330,7 +317,7 @@ class Swiper extends Component {
           <View style={{flex: 1}}/>
           <Image style={Styles.bottomlogo} source={require('../../../assets/OnBoarding/OnBoarding_bottom_logo.png')}/>
           <View style={{flex: 55}}/>
-          <Text style={Styles.bottomText}>Use dying to talk developed by Palliative care </Text>
+          <Text  small style={Styles.bottomText}>Use dying to talk developed by Palliative care </Text>
         </View>
       </View>
     );
@@ -353,7 +340,7 @@ export default class OnBoarding extends Component {
     }
 
     /**
-    * Render View with Swiper
+    * Render View with Swip
     */
     render() {
         return (
@@ -361,20 +348,20 @@ export default class OnBoarding extends Component {
             <View style={Styles.slide}>
               <Image style={Styles.logo} source={require('../../../assets/OnBoarding/OnBoarding_logo.png')}/>
               <Image style={Styles.middleimage} source={require('../../../assets/OnBoarding/OnBoarding_middleimage.png')}/>
-              <Text style={Styles.descText}>Start discussion with us by choose activity and give answers of our questions.</Text>
+              <Text smallMedium style={Styles.descText}>Start discussion with us by choose activity and give answers of our questions.</Text>
+
             </View>
             <View style={Styles.slide}>
               <Image style={Styles.logo} source={require('../../../assets/OnBoarding/OnBoarding_logo.png')}/>
               <Image style={Styles.middleimage} source={require('../../../assets/OnBoarding/OnBoarding_middleimage.png')}/>
-              <Text style={Styles.descText}>Play card game by set card priority and submit to us.</Text>
+              <Text smallMedium style={Styles.descText}>Play card game by set card priority and submit to us.</Text>
             </View>
             <View style={Styles.slide}>
               <Image style={Styles.logo} source={require('../../../assets/OnBoarding/OnBoarding_logo.png')}/>
               <Image style={Styles.middleimage} source={require('../../../assets/OnBoarding/OnBoarding_middleimage.png')}/>
-              <Text style={Styles.descText}>Use our resources link and user guidance to learn more.</Text>
+              <Text smallMedium style={Styles.descText}>Use our resources link and user guidance to learn more.</Text>
             </View>
           </Swiper>
         );
     }
 }
-

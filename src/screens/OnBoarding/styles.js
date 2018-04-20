@@ -1,3 +1,7 @@
+/**
+ * @providesModule @OnBoardingstyles
+ */
+
 import React, { Component } from 'react';
 import {
     Platform,
@@ -5,7 +9,8 @@ import {
     Dimensions,
 } from 'react-native';
 
-import {Colors} from '../../theme'; // use for theme color
+//import {Colors} from '../../theme'; // use for theme color
+import {Colors} from '@theme'
 const { width, height } = Dimensions.get('window'); // Detect screen width and height
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';// use for responsive screen UI
 
@@ -26,11 +31,7 @@ export default {
     width:responsiveWidth(65),
   },
   descText: {
-    color: Colors.gray,
-    fontFamily: 'Avenir',
-    fontSize:responsiveFontSize(1.8),
     marginHorizontal: 40,
-    textAlign: 'center',
     marginVertical:responsiveHeight(4)
   },
   fullScreen: {
@@ -81,11 +82,8 @@ export default {
     justifyContent:'center',
     alignItems:'center'
   },
-  buttonPrev: {     
-    borderWidth: 2,     
-    borderColor: Colors.gray,   
-    margin:responsiveWidth(2),  
-    width:responsiveWidth(20),
+  buttonPrev: {         
+    width:responsiveWidth(22),
     height:responsiveHeight(5),
     alignItems:'center',
     justifyContent:'center'
@@ -97,15 +95,11 @@ export default {
     fontFamily: 'Avenir',
     fontSize:responsiveFontSize(1.5)
   },
-  buttonNext: {  
-    borderWidth: 2,     
-    borderColor: Colors.gray,   
-    margin:responsiveWidth(2),  
-    width:responsiveWidth(20),
+  buttonNext: {       
+    width:responsiveWidth(22),
     height:responsiveHeight(5),
     alignItems:'center',
     justifyContent:'center',
-    backgroundColor: Colors.gray,
   },
   nextText: {
     color: Colors.alphaPrimary,
@@ -130,7 +124,6 @@ export default {
   bottomText:{
     marginTop:Platform.OS === 'ios' ? responsiveHeight(10) : responsiveHeight(7),
     textAlign:'right',
-    fontSize:responsiveFontSize(1.3),
     color: Colors.gray,
   }
 };

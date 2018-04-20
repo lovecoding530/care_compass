@@ -19,7 +19,7 @@ export default (props) => {
 
     if(dark){
         return(
-            <TouchableOpacity style={[styles.darkButton, buttonStyles]}>
+            <TouchableOpacity style={[styles.darkButton, buttonStyles]} onPress={onPress}>
                 <Text style={[styles.darkButtonText, textStyles]}>{children}</Text>
             </TouchableOpacity>
         )    
