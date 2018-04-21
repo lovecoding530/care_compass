@@ -4,26 +4,49 @@
 
 import PropTypes from "prop-types";
 import React, {Component} from 'react';
-import { TouchableOpacity, Text, StyleSheet } from "react-native";
-import {Colors} from '@theme'
+import { TouchableOpacity, StyleSheet } from "react-native";
+import {Colors, FontSizes} from '@theme'
+import Text from '@text'
 
 export default (props) => {
-    const {buttonStyles, textStyles, dark, light, children, onPress} = props;
-    if(light){
-        return(
-            <TouchableOpacity style={[styles.lightButton, buttonStyles]} onPress={onPress}>
-                <Text style={[styles.lightButtonText, textStyles]}>{children}</Text>
-            </TouchableOpacity>
-        )
+    const {buttonStyles, textStyles, children, onPress} = props;
+
+    const colors = {
+        light: Colors.white,
+        dark: Colors.textPrimary,
     }
 
-    if(dark){
-        return(
-            <TouchableOpacity style={[styles.darkButton, buttonStyles]} onPress={onPress}>
-                <Text style={[styles.darkButtonText, textStyles]}>{children}</Text>
-            </TouchableOpacity>
-        )    
+    var textProps = {}
+
+    var buttonStyle = {
+        padding: 8,
+        margin: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
     }
+
+    Object.keys(props).forEach(propKey => {
+        if (propKey in FontSizes){
+            textProps[propKey] = true
+        }else if (propKey == 'light'){
+            buttonStyle.borderWidth = 2;
+            buttonStyle.borderColor = Colors.buttonPrimary;
+            textProps.dark = true
+        }else if (propKey == 'dark'){
+            buttonStyle.backgroundColor = Colors.buttonPrimary;
+            textProps.light = true
+        }else if (propKey == 'bold'){
+            textProps.bold = true;
+        }else{
+
+        }
+    });
+
+    return(
+        <TouchableOpacity style={[buttonStyle, buttonStyles]} onPress={onPress}>
+            <Text {...textProps} style={textStyles}>{children}</Text>
+        </TouchableOpacity>
+    )
 }
 
 const styles = StyleSheet.create({
