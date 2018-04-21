@@ -13,6 +13,7 @@ import {Colors} from '@theme';
 import Styles from './styles';
 import Button from '@button'
 import Text from '@text'
+import ProgressBar from '@progressbar'
 import Choices from "@choices";
 import ManyChoices from "@manychoices";
 
@@ -45,6 +46,7 @@ export default class ActivityList extends Component {
 
     onChangedAnswer(questionIndex, answerIndex){
         // alert("onChangedAnswer" + answerIndex)
+        this.forceUpdate()
     }
 
     renderQuestions(){
@@ -96,10 +98,18 @@ export default class ActivityList extends Component {
     render() {
         return (
             <View style={Styles.container}>
-                <Text mediumLarge bold center style={Styles.title}>Activity {this.state.activityIndex + 1}: Reflecting</Text>
+                <View style={Styles.title}>
+                    <Text mediumLarge bold center>Activity {this.state.activityIndex + 1}: </Text>
+                    <Text mediumLarge center>{" "}Reflecting</Text>
+                </View>
+                <ProgressBar total={3} progress={1} style={Styles.pregressBar}/>
                 <ScrollView ref={ref => this.scrollView = ref}>
                     {this.renderQuestions()}
                 </ScrollView>
+                <View style={Styles.buttonBar}>
+                    <Button light>FINISH</Button>
+                    <Button dark>N E X T</Button>
+                </View>
             </View>
         );
     }
