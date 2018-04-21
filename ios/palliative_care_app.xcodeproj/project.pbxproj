@@ -5,7 +5,6 @@
 	};
 	objectVersion = 50;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -41,7 +40,6 @@
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		6176FCD391B94EC7B7831F73 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8FAF1E2B938A47C089EF7D26 /* Foundation.ttf */; };
 		6205AB6B6FCC4F7CB2CFAFD1 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DF3D35B053924C46BC358AEA /* Zocial.ttf */; };
-		6C93BAE38F2948879CF4CC4E /* libRNSpinkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 460AB4E4A3A14239BC5B8747 /* libRNSpinkit.a */; };
 		7E14103F411345F3B0B141E0 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3454477AAC8340F5ACAF67AE /* rubicon-icon-font.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		884F224924F3437AA11EB311 /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D0A0219AA4B43368543BBAE /* Roboto.ttf */; };
@@ -50,6 +48,7 @@
 		AA7EFD44A4BD4E96B728ACC3 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0873FE7F647B454685366312 /* Entypo.ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B81DEE2B5358415A8FFB722E /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1A40379F3F1C44DCADDE308D /* SimpleLineIcons.ttf */; };
+		EF37974D208B0B3700A3AAC3 /* libRNSpinkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 843C9CFE208944FC006615C3 /* libRNSpinkit.a */; };
 		FCA3EE1D6AE54653A224DC1A /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F31F227F2EFF4EDDA1F06288 /* FontAwesome.ttf */; };
 /* End PBXBuildFile section */
 
@@ -399,6 +398,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF37974D208B0B3700A3AAC3 /* libRNSpinkit.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -412,7 +412,6 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
-				6C93BAE38F2948879CF4CC4E /* libRNSpinkit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -681,6 +680,7 @@
 			isa = PBXGroup;
 			children = (
 				460AB4E4A3A14239BC5B8747 /* libRNSpinkit.a */,
+				C20E7A382FDC4FBC97921CD9 /* libRCTOrientationListener.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1303,7 +1303,6 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1333,7 +1332,6 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1433,7 +1431,6 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1471,7 +1468,6 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1509,7 +1505,6 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1547,7 +1542,6 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",

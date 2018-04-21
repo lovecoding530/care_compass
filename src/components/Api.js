@@ -43,3 +43,7 @@ export async function getBundle(fromCached = false) {
 export async function getDiscussionStarter(fromCached = false) {
     return await getJSONwithCache(API_DISCUSSION_STARTER, fromCached)
 }
+
+export async function getResources(fromCached = false) {
+    return await getJSONwithCache(API_RESOURCES, fromCached)
+}
