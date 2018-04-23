@@ -4,7 +4,7 @@
 
 import PropTypes from "prop-types";
 import React, {Component} from 'react';
-import { TouchableOpacity, StyleSheet } from "react-native";
+import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import {Colors, FontSizes} from '@theme'
 import Text from '@text'
 
