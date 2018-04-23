@@ -6,6 +6,10 @@ import {
     View,
 } from 'react-native';
 
+import Styles from './styles';
+import Text from '@text'
+import Footer from '@footer'
+import Button from '@button'
 
 export default class ResourceDetail extends Component {
     constructor(props) {
@@ -18,8 +22,19 @@ export default class ResourceDetail extends Component {
 
     render() {
         return (
-            <View >
-                
+            <View style={Styles.container}>
+                <Text style={Styles.title}>resources name</Text>
+                <Image style={Styles.middleimage} source={require('../../../../assets/OnBoarding/OnBoarding_middleimage.png')}/>
+                <Text style={Styles.subtitle}>
+                    View detail of resources and use to learn more
+                </Text>
+                <View style={Styles.buttonContainer}>
+                    <Button light >GO BACK</Button>
+                  <Button dark >VIEW</Button>
+                </View>
+                 
+                <Footer />
+
             </View>
         );
     }

@@ -33,10 +33,6 @@ export default {
         margin: 8,
     },
 
-    buttomBar: {
-        flexDirection: 'row',
-    },
-
     item: {
         width: width/3,
         height: width/8,
@@ -50,5 +46,10 @@ export default {
         justifyContent: 'center',
         alignItems: 'center',
     },
+    buttonContainer: {
+    flexDirection:'row',
+    justifyContent:'center',
+    alignItems:'center'
+  },
 
 };

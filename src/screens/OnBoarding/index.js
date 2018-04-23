@@ -7,13 +7,15 @@ import {
     View,
     TouchableOpacity,
     Dimensions,
-    ScrollView
+    ScrollView,
 } from 'react-native';
 
 import Styles from '@OnBoardingstyles';
 const { width, height } = Dimensions.get('window');// use for device height and width
+const orientation = (width > height) ? 'LANDSCAPE' : 'PORTRAIT';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions'; // use for responsive screen UI
 import Button from '@button'
+import Footer from '@footer'
 import Text from '@text'
 
 let swiperprops; // use to get props for navigating to home screen
@@ -224,7 +226,7 @@ class Swiper extends Component {
       >
         {pages.map((page, i) =>
           // Render each slide inside a View
-          <View style={{width:responsiveWidth(100)}} key={i}>
+          <View key={i}>
             {page}
           </View>
         )}
@@ -257,7 +259,7 @@ class Swiper extends Component {
     return (
       <View
         pointerEvents="none"
-        style={[Styles.fullScreen,Styles.pagination]}
+        style={[Styles.pagination]}
       >
         {dots}
       </View>
@@ -279,7 +281,7 @@ class Swiper extends Component {
     const lastScreen = this.state.index === this.state.total - 1;
     const firstScreen = this.state.index === 0;
     return (
-      <View pointerEvents="box-none"  style={[Styles.buttonWrapper, Styles.fullScreen]}>
+      <View pointerEvents="box-none"    >
         {lastScreen
           // Show this button on the last screen
           ? <View style={Styles.buttonContainer}>
@@ -306,19 +308,14 @@ class Swiper extends Component {
   */
   render = ({ children } = this.props) => {
     return (
-      <View style={[Styles.container, Styles.fullScreen]}>
+      <View style={[Styles.container]}>
         {/* Render screens */}
         {this.renderScrollView(children)}
         {/* Render Continue or Done button */}
         {this.renderButton()}
         {/* Render pagination */}
         {this.renderPagination()}
-        <View style={Styles.bottomContainer}>
-          <View style={{flex: 1}}/>
-          <Image style={Styles.bottomlogo} source={require('../../../assets/OnBoarding/OnBoarding_bottom_logo.png')}/>
-          <View style={{flex: 55}}/>
-          <Text  small style={Styles.bottomText}>Use dying to talk developed by Palliative care </Text>
-        </View>
+        <Footer />
       </View>
     );
   }
@@ -362,6 +359,10 @@ export default class OnBoarding extends Component {
               <Text smallMedium style={Styles.descText}>Use our resources link and user guidance to learn more.</Text>
             </View>
           </Swiper>
+        )
+
+      return(
+          <View/>
         );
     }
 }
