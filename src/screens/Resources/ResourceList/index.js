@@ -6,6 +6,7 @@ import {
     TouchableOpacity,
     FlatList,
     View,
+    ScrollView,
 } from 'react-native';
 
 import Styles from './styles';
@@ -21,7 +22,7 @@ export default class Resources extends Component {
         super(props);
         Props=this.props;
         this.state = ({
-            resourceIndexes: [1,2,3,4],
+            resourceIndexes: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
         })
     }
 
@@ -49,22 +50,28 @@ export default class Resources extends Component {
 
     render() {
         return (
+            
             <View style={Styles.container}>
-                <Text style={Styles.title}>Resources</Text>
-                <Text style={Styles.subtitle}>
-                    View list of resources and use to learn more
-                </Text>
+                <View style={Styles.scrollcontainer}> 
+                    <ScrollView contentContainerStyle={Styles.scroll}>
+                        <Text style={Styles.title}>Resources</Text>
+                        <Text style={Styles.subtitle}>
+                            View list of resources and use to learn more
+                        </Text>
                  
-                <FlatList
-                    numColumns = {2}
-                    data = {this.state.resourceIndexes}
-                    renderItem = {this.renderResourceItem}
-                    keyExtractor = {(index) => index.toString()}
-                    />
-
+                        <FlatList
+                            numColumns = {2}
+                            data = {this.state.resourceIndexes}
+                            renderItem = {this.renderResourceItem}
+                            keyExtractor = {(index) => index.toString()}
+                        />
+                    </ScrollView>
+                </View>
                 <Footer />
-
             </View>
+             
+
+           
         );
     }
 }

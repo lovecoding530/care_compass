@@ -4,6 +4,7 @@ import {
     StyleSheet,
     Image,
     View,
+    Linking
 } from 'react-native';
 
 import Styles from './styles';
@@ -30,7 +31,7 @@ export default class ResourceDetail extends Component {
                 </Text>
                 <View style={Styles.buttonContainer}>
                     <Button light >GO BACK</Button>
-                  <Button dark >VIEW</Button>
+                  <Button dark onPress={ ()=> Linking.openURL('https://google.com') } >VIEW</Button>
                 </View>
                  
                 <Footer />

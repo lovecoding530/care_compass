@@ -9,9 +9,9 @@ import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-nat
 const { width, height } = Dimensions.get('window'); // Detect screen width and heightonsive screen UI
 
 export default (props) => {
-
+    const {footerStyles} = props;
     return (
-      <View style={styles.fixedFooter}>
+      <View style={[styles.fixedFooter,footerStyles]}>
           <Image style={styles.bottomlogo} source={require('../../assets/OnBoarding/OnBoarding_bottom_logo.png')}/>
           <View style={{flex: 55}}/>
           <Text  small style={styles.bottomText}>Use dying to talk developed by Palliative care </Text>
