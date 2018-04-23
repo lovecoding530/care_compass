@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingLeft: 8,
-        height: 50,
+        minHeight: 50,
     },
 
     icon: {

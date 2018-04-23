@@ -18,42 +18,30 @@ import Choice from '@choice'
 export default class Choices extends Component {
     constructor(props) {
         super(props);
-        var {data} = props
-
-        var choiceData = data.map((text, index) => {
-            var odd = index % 2 == 0
-            return {
-                index: index,
-                text: text,
-                selected: false,
-                disabled: false,
-                odd: odd,
-            }
-        })
+        var {data, selectedIndex} = props
 
         this.state = {
-            choiceData: choiceData
+            choiceData: this.getChoiceData(data, selectedIndex)
         }
     }
 
-    onItemPressed(choiceIndex){
-        var choiceItem = this.state.choiceData[choiceIndex]
-        // alert(JSON.stringify(choiceItem))
-        var choiceData = this.state.choiceData.map((itemData, index) => {
+    getChoiceData(data, selectedIndex){
+
+        var choiceData = data.map((text, index) => {
             var odd = index % 2 == 0
-            if(choiceItem.selected){
+            if(selectedIndex < 0){
                 return {
                     index: index,
-                    text: itemData.text,
+                    text: text,
                     selected: false,
                     disabled: false,
                     odd: odd,
                 }        
             }else{
-                if(choiceItem.index == index){
+                if(selectedIndex == index){
                     return {
                         index: index,
-                        text: itemData.text,
+                        text: text,
                         selected: true,
                         disabled: false,
                         odd: odd,
@@ -61,18 +49,34 @@ export default class Choices extends Component {
                 }else{
                     return {
                         index: index,
-                        text: itemData.text,
+                        text: text,
                         selected: false,
                         disabled: true,
                         odd: odd,
                     }                        
                 }
             }
-        }) 
+        })
+
+        return choiceData
+    }
+
+    onItemPressed(choiceIndex){
+        var choiceItem = this.state.choiceData[choiceIndex]
+        // alert(JSON.stringify(choiceItem))
+        var selectedIndex;
+        if(choiceItem.selected) selectedIndex = -1;
+        else                    selectedIndex = choiceIndex
         
         this.setState({
-            choiceData: choiceData
-        })
+            choiceData: this.getChoiceData(this.props.data, selectedIndex)
+        })    
+
+        //react bug Not render until scroll
+        this.props.scrollViewRef.scrollTo({y: -1})
+        this.props.scrollViewRef.scrollTo({y: 1})
+
+        this.props.onChangedAnswer(this.props.questionIndex, selectedIndex)
     }
 
     render() {
