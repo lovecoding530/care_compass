@@ -18,21 +18,18 @@ export default {
         justifyContent: 'center',
         alignItems: 'center',
     },
-
     title: {
         fontSize: 36,
         fontWeight: 'bold',
         color: Colors.textPrimary,
         margin: 8,
     },
-
     subtitle: {
         fontSize: 24,
         color: Colors.textPrimary,
         textAlign: 'center',
         margin: 8,
     },
-
     item: {
         width: width/3,
         height: width/8,

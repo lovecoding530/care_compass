@@ -109,7 +109,11 @@ export const DrawerStack = DrawerNavigator(
 export const PrimaryNav = StackNavigator({
     SplashScreen: { screen: Splash },
     OnBoardingScreen: { screen: OnBoarding },
-    DrawerStack: { screen: DrawerStack }
+    DrawerStack: { screen: DrawerStack },
+    
+    
+    
+    
 }, {
     headerMode: 'none',
 })
