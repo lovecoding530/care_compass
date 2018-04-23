@@ -5,7 +5,7 @@ import {
     Dimensions,
 } from 'react-native';
 
-import {Colors} from '@theme';
+import {Colors, FontSizes} from '@theme';
 
 const { width } = Dimensions.get('window');
 
@@ -19,11 +19,15 @@ export default {
         paddingHorizontal: 100,
     },
 
-    introContainer: {
+    pregressBar: {
+        marginHorizontal: 100,
+        marginVertical: 30,
     },
 
     title: {
         margin: 8,
+        flexDirection: 'row',
+        justifyContent: 'center'
     },
 
     icon: {
@@ -31,16 +35,27 @@ export default {
     },
 
     questionItem: {
-        marginVertical: 10,
+        marginTop: 10,
+        marginBottom: 30,
     },
 
     questionTitle: {
-        marginVertical: 20,
-        marginHorizontal: 40,
+        marginBottom: 15,
+        marginHorizontal: 20,
     },
 
     textArea: {
         backgroundColor: Colors.backgroundSecondary,
-        height: 150,
-    }
+        height: 120,
+        color: Colors.textPrimary,
+        fontSize: FontSizes.smallMedium,
+        padding: 8,
+    },
+
+    buttonBar: {
+        flexDirection: 'row',
+        marginVertical: 16,
+        justifyContent: 'space-between',
+    },
+
 };

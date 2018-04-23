@@ -13,6 +13,7 @@ import {Colors} from '@theme';
 import Styles from './styles';
 import Button from '@button'
 import Text from '@text'
+import ProgressBar from '@progressbar'
 import Choices from "@choices";
 import ManyChoices from "@manychoices";
 
@@ -24,6 +25,8 @@ export default class ActivityList extends Component {
         const {activityIndex} = this.props.navigation.state.params
         this.state = ({
             activityIndex: activityIndex,
+            pageIndex: 0,
+            pageTotalCount: 1,
             activity: {
                 stage: "Discussion Starter",
                 pre_commencement_text: "Pre commencement text",
@@ -37,9 +40,11 @@ export default class ActivityList extends Component {
 
         const ds = await getDiscussionStarter(true)
         const activities = ds[0].discussion_starter
-
+        const activity = activities[this.state.activityIndex]
+        const pageTotalCount = parseInt((activity.questions.length - 1) / 3) + 1
         this.setState({
-            activity: activities[this.state.activityIndex]
+            pageTotalCount: pageTotalCount,
+            activity: activity,
         })
     }
 
@@ -47,8 +52,22 @@ export default class ActivityList extends Component {
         // alert("onChangedAnswer" + answerIndex)
     }
 
+    onNext(){
+        if(this.state.pageIndex < (this.state.pageTotalCount - 1)){
+            this.setState({
+                pageIndex: this.state.pageIndex + 1,
+            })            
+        }else{
+            const {navigate} = this.props.navigation
+            navigate("UpNext", {activityIndex: this.state.activityIndex})
+        }
+    }
+
     renderQuestions(){
-        var questionList = this.state.activity.questions.map((questionData, index) => {
+        var startIndex = this.state.pageIndex * 3
+        var endIndex = startIndex + 3
+        var pageQuestions = this.state.activity.questions.slice(startIndex, endIndex)
+        var questionList = pageQuestions.map((questionData, index) => {
             const {question, question_type, question_choices, category, question_audio_url} = questionData;            
             if(question_type == "freetext") {
                 return (
@@ -58,8 +77,7 @@ export default class ActivityList extends Component {
                             style={Styles.textArea}
                             multiline={true}
                             numberOfLines={4}
-                            onChangeText={(text) => this.setState({text})}
-                            value={"Text Area"}/>
+                            onChangeText={(text) => this.setState({text})}/>
                     </View>
                 )
             }else if(question_type == "choices"){
@@ -96,10 +114,18 @@ export default class ActivityList extends Component {
     render() {
         return (
             <View style={Styles.container}>
-                <Text mediumLarge bold center style={Styles.title}>Activity {this.state.activityIndex + 1}: Reflecting</Text>
+                <View style={Styles.title}>
+                    <Text mediumLarge bold center>Activity {this.state.activityIndex + 1}: </Text>
+                    <Text mediumLarge center>{" "}{this.state.activity.stage}</Text>
+                </View>
+                <ProgressBar total={this.state.pageTotalCount} progress={this.state.pageIndex+1} style={Styles.pregressBar}/>
                 <ScrollView ref={ref => this.scrollView = ref}>
                     {this.renderQuestions()}
                 </ScrollView>
+                <View style={Styles.buttonBar}>
+                    <Button light>FINISH</Button>
+                    <Button dark onPress={this.onNext.bind(this)}>N E X T</Button>
+                </View>
             </View>
         );
     }

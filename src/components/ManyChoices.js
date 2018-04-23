@@ -8,12 +8,14 @@ import {
     Image,
     TouchableOpacity,
     View,
+    FlatList,
 } from 'react-native';
 
 import {Colors} from '@theme';
 import Button from '@button'
 import Text from '@text'
 import Choice from '@choice'
+import { copy } from "@utils";
 
 export default class ManyChoices extends Component {
     constructor(props) {
@@ -52,7 +54,7 @@ export default class ManyChoices extends Component {
     }
 
     onItemPressed(choiceIndex){
-        var choiceData = this.state.choiceData
+        var choiceData = copy(this.state.choiceData)
         var choiceItem = choiceData[choiceIndex]
         choiceData[choiceIndex].selected = !choiceItem.selected
         
@@ -61,24 +63,23 @@ export default class ManyChoices extends Component {
         })    
 
         //react bug Not render until scroll
-        this.props.scrollViewRef.scrollTo({y: -1})
-        this.props.scrollViewRef.scrollTo({y: 1})
+        this.flatList.scrollToOffset({offset: -1})
+        this.flatList.scrollToOffset({offset: 1})
 
         // this.props.onChangedAnswer(this.props.questionIndex, selectedIndex)
     }
 
     render() {
-        var choiceList = this.state.choiceData.map((itemData, index) => {
-            return (
-                <View key={index}>
-                    <Choice {...itemData} onPress={this.onItemPressed.bind(this)}/>
-                </View>
-            )
-        })
         return (
-            <View removeClippedSubviews={false}>
-                {choiceList}
-            </View>
+            <FlatList
+                ref = {ref=>this.flatList = ref}
+                scrollEnabled={false}
+                data = {this.state.choiceData}
+                renderItem = {({item, index})=>
+                    <Choice {...item} onPress={this.onItemPressed.bind(this)}/>
+                }
+                keyExtractor = {(item, index) => index.toString()}
+            />
         )
     }
 }

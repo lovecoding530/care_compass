@@ -8,6 +8,7 @@ import {
     Image,
     TouchableOpacity,
     View,
+    FlatList,
 } from 'react-native';
 
 import {Colors} from '@theme';
@@ -73,24 +74,23 @@ export default class Choices extends Component {
         })    
 
         //react bug Not render until scroll
-        this.props.scrollViewRef.scrollTo({y: -1})
-        this.props.scrollViewRef.scrollTo({y: 1})
+        this.flatList.scrollToOffset({offset: -1})
+        this.flatList.scrollToOffset({offset: 1})
 
         this.props.onChangedAnswer(this.props.questionIndex, selectedIndex)
     }
 
     render() {
-        var choiceList = this.state.choiceData.map((itemData, index) => {
-            return (
-                <View key={index}>
-                    <Choice {...itemData} onPress={this.onItemPressed.bind(this)}/>
-                </View>
-            )
-        })
         return (
-            <View removeClippedSubviews={false}>
-                {choiceList}
-            </View>
+            <FlatList
+                ref = {ref=>this.flatList = ref}
+                scrollEnabled={false}
+                data = {this.state.choiceData}
+                renderItem = {({item, index})=>
+                    <Choice {...item} onPress={this.onItemPressed.bind(this)}/>
+                }
+                keyExtractor = {(item, index) => index.toString()}
+                />
         )
     }
 }

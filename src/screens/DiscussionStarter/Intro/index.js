@@ -52,7 +52,7 @@ export default class intro extends Component {
                     </Text>
                     <View style={Styles.buttonBar}>
                         <Button light onPress={()=>{navigate('ActivityList')}}>SKIP AHEAD</Button>
-                        <Button dark>START THE CONVERSATION</Button>
+                        <Button dark onPress={()=>{navigate("Activity", {activityIndex: 0})}}>START THE CONVERSATION</Button>
                     </View>
                 </View>
             </View>
