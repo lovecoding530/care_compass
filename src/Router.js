@@ -15,6 +15,7 @@ import Splash from "./screens/Splash";
 import OnBoarding from "./screens/OnBoarding";
 import Home from "./screens/Home";
 import {Intro, ActivityList, Activity, UpNext, Complete} from "./screens/DiscussionStarter";
+import {ResourceList, ResourceDetail} from "./screens/Resources";
 
 const MenuIcon = ({ navigate }) => {
     return (
@@ -56,6 +57,13 @@ export const DiscussionStarterStack = StackNavigator({
     headerMode: 'none',
 });
 
+export const ResourcesStack = StackNavigator({
+    ResourceList: {screen: ResourceList},
+    ResourceDetail: {screen: ResourceDetail},
+}, {
+    headerMode: 'none',
+});
+
 export const HomeStack = StackNavigator({
     Home: {
         screen: Home,
@@ -68,6 +76,16 @@ export const HomeStack = StackNavigator({
     },
     DiscussionStarter: {
         screen: DiscussionStarterStack,
+        navigationOptions: ({ navigation }) => ({
+            headerTitle: <Text style={{fontSize: 20, fontWeight: 'bold'}}>Dying To Talk</Text>  ,
+            headerStyle: { backgroundColor: Colors.nav, height: 60},
+            headerTitleStyle: {color: '#a7c3f2'},
+            headerRight: <MenuIcon {...navigation} />,
+            headerLeft: <HomeIcon {...navigation} />,
+        }),
+    },
+    Resources: {
+        screen: ResourcesStack,
         navigationOptions: ({ navigation }) => ({
             headerTitle: <Text style={{fontSize: 20, fontWeight: 'bold'}}>Dying To Talk</Text>  ,
             headerStyle: { backgroundColor: Colors.nav, height: 60},
@@ -94,7 +112,11 @@ export const DrawerStack = DrawerNavigator(
 export const PrimaryNav = StackNavigator({
     SplashScreen: { screen: Splash },
     OnBoardingScreen: { screen: OnBoarding },
-    DrawerStack: { screen: DrawerStack }
+    DrawerStack: { screen: DrawerStack },
+    
+    
+    
+    
 }, {
     headerMode: 'none',
 })

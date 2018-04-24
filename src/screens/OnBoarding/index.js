@@ -5,16 +5,19 @@ import {
     Image,
     ImageBackground,
     View,
-    Text,
     TouchableOpacity,
     Dimensions,
-    ScrollView
+    ScrollView,
+    Orientation
 } from 'react-native';
 
-import {Colors} from '../../theme'; // use for theme color
-import Styles from './styles'; // use for style
-const { width, height } = Dimensions.get('window');// use for device height and width
+import Styles from '@OnBoardingstyles';
+let { width, height } = Dimensions.get('window');// use for device height and width
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions'; // use for responsive screen UI
+import Button from '@button'
+import Footer from '@footer'
+import Text from '@text'
+import {Colors} from '@theme'
 
 let swiperprops; // use to get props for navigating to home screen
 
@@ -25,9 +28,7 @@ class Swiper extends Component {
 
   constructor(props) {
         super(props);
-        console.log(props);
     }
-
 
   // Props for ScrollView component
   static defaultProps = {
@@ -225,7 +226,7 @@ class Swiper extends Component {
       >
         {pages.map((page, i) =>
           // Render each slide inside a View
-          <View style={{width:responsiveWidth(100)}} key={i}>
+          <View key={i}>
             {page}
           </View>
         )}
@@ -241,8 +242,8 @@ class Swiper extends Component {
       return null;
     }
 
-    const ActiveDot = <View style={[Styles.dot, Styles.activeDot]} />,
-      Dot = <View style={Styles.dot} />;
+    const ActiveDot = <View style={[Styles.dot, Styles.activeDot,{ marginBottom: this.state.height/7,width: width/8,}]} />,
+      Dot = <View style={[Styles.dot,{width: width/8}]} />;
 
     let dots = [];
 
@@ -258,7 +259,7 @@ class Swiper extends Component {
     return (
       <View
         pointerEvents="none"
-        style={[Styles.fullScreen,Styles.pagination]}
+        style={[Styles.pagination]}
       >
         {dots}
       </View>
@@ -278,60 +279,94 @@ class Swiper extends Component {
    */
   renderButton = () => {
     const lastScreen = this.state.index === this.state.total - 1;
+    const firstScreen = this.state.index === 0;
+    if (width < height)
+    {
+      return (
+
+        <View pointerEvents="box-none"    >
+          {lastScreen
+            // Show this button on the last screen
+            ? <View style={Styles.buttonContainer}>
+                <Button light buttonStyles={[Styles.buttonPrev,{width:width/4,height:height/19,}]} onPress={() => this.swipePrev()}>Previous</Button>
+                <Button dark buttonStyles={[Styles.buttonNext,{width:width/4,height:height/19,}]} onPress={() => this.onDone()}>Done</Button>
+              </View>
+            : firstScreen
+            // Show this button on the First screen
+            ? <View style={Styles.buttonContainer}>
+                <Button dark  buttonStyles={[Styles.buttonNext,{width:width/4,height:height/19,}]} onPress={() => this.swipe()}>Next</Button>
+              </View>
+               // Or this one otherwise
+               :  <View style={Styles.buttonContainer}>
+                    <Button light buttonStyles={[Styles.buttonPrev,{width:width/4,height:height/19,}]} onPress={() => this.swipePrev()}>Previous</Button>
+                    <Button dark buttonStyles={[Styles.buttonNext,{width:width/4,height:height/19,}]} onPress={() => this.swipe()}>Next</Button>
+                  </View>
+          }
+        </View>
+      )
+    }
     return (
-      <View pointerEvents="box-none"  style={[Styles.buttonWrapper, Styles.fullScreen]}>
+
+      <View pointerEvents="box-none"    >
         {lastScreen
           // Show this button on the last screen
-          // TODO: Add a handler that would send a user to your app after onboarding is complete
           ? <View style={Styles.buttonContainer}>
-              <TouchableOpacity onPress={() => this.swipePrev()}>
-                <View style={Styles.buttonPrev}>
-                  <Text style={Styles.prevText}>Previous</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => this.onDone()}>
-                <View style={Styles.buttonNext}>
-                  <Text style={Styles.nextText}>Done</Text>
-                </View>
-              </TouchableOpacity>
-              
-             </View>
-          // Or this one otherwise
-          : <View style={Styles.buttonContainer}>
-              <TouchableOpacity onPress={() => this.swipePrev()}>
-                <View style={Styles.buttonPrev}>
-                  <Text style={Styles.prevText}>Previous</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => this.swipe()}>
-                <View style={Styles.buttonNext}>
-                  <Text style={Styles.nextText}>Next</Text>
-                </View>
-              </TouchableOpacity>
+              <Button light buttonStyles={[Styles.buttonPrev,{width:width/4,height:height/10,}]} onPress={() => this.swipePrev()}>Previous</Button>
+              <Button dark buttonStyles={[Styles.buttonNext,{width:width/4,height:height/10,}]} onPress={() => this.onDone()}>Done</Button>
             </View>
+          : firstScreen
+          // Show this button on the First screen
+          ? <View style={Styles.buttonContainer}>
+              <Button dark  buttonStyles={[Styles.buttonNext,{width:width/4,height:height/10,}]} onPress={() => this.swipe()}>Next</Button>
+            </View>
+             // Or this one otherwise
+             :  <View style={Styles.buttonContainer}>
+                  <Button light buttonStyles={[Styles.buttonPrev,{width:width/4,height:height/10,}]} onPress={() => this.swipePrev()}>Previous</Button>
+                  <Button dark buttonStyles={[Styles.buttonNext,{width:width/4,height:height/10,}]} onPress={() => this.swipe()}>Next</Button>
+                </View>
         }
       </View>
-    );
+    )
   }
+
+  onLayout(e) {
+       width = Dimensions.get('window').width
+       height = Dimensions.get('window').height
+
+       this.state.width=width;
+       this.state.height=height;
+
+       this.forceUpdate();
+    }
 
   /**
   * Render the component
   */
   render = ({ children } = this.props) => {
+    if (width < height)
+    {
     return (
-      <View style={[Styles.container, Styles.fullScreen]}>
+      <View style={[Styles.container]} onLayout={this.onLayout.bind(this)}>
         {/* Render screens */}
         {this.renderScrollView(children)}
         {/* Render Continue or Done button */}
         {this.renderButton()}
         {/* Render pagination */}
         {this.renderPagination()}
-        <View style={Styles.bottomContainer}>
-          <View style={{flex: 1}}/>
-          <Image style={Styles.bottomlogo} source={require('../../../assets/OnBoarding/OnBoarding_bottom_logo.png')}/>
-          <View style={{flex: 55}}/>
-          <Text style={Styles.bottomText}>Use dying to talk developed by Palliative care </Text>
-        </View>
+        <Footer/>
+      </View>
+    )
+  }
+  return(
+      <View style={[Styles.container]} onLayout={this.onLayout.bind(this)}>
+        {/* Render screens */}
+        {this.renderScrollView(children)}
+        {/* Render Continue or Done button */}
+        {this.renderButton()}
+        {/* Render pagination */}
+        {this.renderPagination()}
+        <Footer/>
+        
       </View>
     );
   }
@@ -352,29 +387,61 @@ export default class OnBoarding extends Component {
     componentDidMount() {
     }
 
+     onLayout(e) {
+       width = Dimensions.get('window').width
+       height = Dimensions.get('window').height
+
+       this.forceUpdate();
+    }
+
     /**
-    * Render View with Swiper
+    * Render View with Swip
     */
     render() {
+      if (width < height)
+      { 
         return (
-          <Swiper>
-            <View style={Styles.slide}>
-              <Image style={Styles.logo} source={require('../../../assets/OnBoarding/OnBoarding_logo.png')}/>
-              <Image style={Styles.middleimage} source={require('../../../assets/OnBoarding/OnBoarding_middleimage.png')}/>
-              <Text style={Styles.descText}>Start discussion with us by choose activity and give answers of our questions.</Text>
+          <Swiper onLayout={this.onLayout.bind(this)}>
+            <View style={[Styles.slide,{width:width}]} >
+              <Image style={{marginBottom:height/25,marginTop:height/10,height:height/6,width:width/3,}} source={require('../../../assets/OnBoarding/OnBoarding_logo.png')}/>
+              <Image style={{height:height/3,width:width/1.5,}}  source={require('../../../assets/OnBoarding/OnBoarding_middleimage.png')}/>
+              <Text smallMedium style={Styles.descText}>Start discussion with us by choose activity and give answers of our questions.</Text>
             </View>
-            <View style={Styles.slide}>
-              <Image style={Styles.logo} source={require('../../../assets/OnBoarding/OnBoarding_logo.png')}/>
-              <Image style={Styles.middleimage} source={require('../../../assets/OnBoarding/OnBoarding_middleimage.png')}/>
-              <Text style={Styles.descText}>Play card game by set card priority and submit to us.</Text>
+            <View style={[Styles.slide,{width:width}]} >
+              <Image style={{marginBottom:height/25,marginTop:height/10,height:height/6,width:width/3,}}  source={require('../../../assets/OnBoarding/OnBoarding_logo.png')}/>
+              <Image style={{height:height/3,width:width/1.5,}} source={require('../../../assets/OnBoarding/OnBoarding_middleimage.png')}/>
+              <Text smallMedium style={Styles.descText}>Play card game by set card priority and submit to us.</Text>
             </View>
-            <View style={Styles.slide}>
-              <Image style={Styles.logo} source={require('../../../assets/OnBoarding/OnBoarding_logo.png')}/>
-              <Image style={Styles.middleimage} source={require('../../../assets/OnBoarding/OnBoarding_middleimage.png')}/>
-              <Text style={Styles.descText}>Use our resources link and user guidance to learn more.</Text>
+            <View style={[Styles.slide,{width:width}]} >
+              <Image style={{marginBottom:height/25,marginTop:height/10,height:height/6,width:width/3,}}  source={require('../../../assets/OnBoarding/OnBoarding_logo.png')}/>
+              <Image style={{height:height/3,width:width/1.5,}} source={require('../../../assets/OnBoarding/OnBoarding_middleimage.png')}/>
+              <Text smallMedium style={Styles.descText}>Use our resources link and user guidance to learn more.</Text>
             </View>
           </Swiper>
-        );
+        )
+      }
+      return(
+        <Swiper onLayout={this.onLayout.bind(this)}>
+            <View style={[Styles.slide,{width:width}]} >
+              <Image style={{height:height/5,width:width/6,}} source={require('../../../assets/OnBoarding/OnBoarding_logo.png')}/>
+              <Image style={{height:height/2.5,width:width/1.5,}} source={require('../../../assets/OnBoarding/OnBoarding_middleimage.png')}/>
+              <Text smallMedium style={{marginTop:height/25}}>Start discussion with us by choose activity and give answers of our questions.</Text>
+            </View>
+            <View style={[Styles.slide,{width:width}]} >
+              <Image style={{height:height/5,width:width/6,}} source={require('../../../assets/OnBoarding/OnBoarding_logo.png')}/>
+              <Image style={{height:height/2.5,width:width/1.5,}} source={require('../../../assets/OnBoarding/OnBoarding_middleimage.png')}/>
+              <Text smallMedium style={{marginTop:height/25}}>Play card game by set card priority and submit to us.</Text>
+            </View>
+            <View style={[Styles.slide,{width:width}]} >
+              <Image style={{height:height/5,width:width/6,}} source={require('../../../assets/OnBoarding/OnBoarding_logo.png')}/>
+              <Image style={{height:height/2.5,width:width/1.5,}} source={require('../../../assets/OnBoarding/OnBoarding_middleimage.png')}/>
+              <Text smallMedium style={{marginTop:height/25}}>Use our resources link and user guidance to learn more.</Text>
+            </View>
+          </Swiper>
+        )
     }
 }
 
+// const Styles = StyleSheet.create({
+ 
+// });

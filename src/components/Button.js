@@ -50,5 +50,33 @@ export default (props) => {
 }
 
 const styles = StyleSheet.create({
+    lightButton: {
+        borderWidth: 2,
+        borderColor: Colors.buttonPrimary,
+        padding: 8,
+        margin: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 44,
+    },
+
+    darkButton: {
+        backgroundColor: Colors.buttonPrimary,
+        padding: 8,
+        margin: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 44,
+    },
+
+    lightButtonText: {
+        color: Colors.textPrimary,
+        fontSize: 18,
+    },
+
+    darkButtonText: {
+        color: '#fff',
+        fontSize: 18,
+    },
 
 });
