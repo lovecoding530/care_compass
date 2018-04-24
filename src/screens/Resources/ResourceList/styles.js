@@ -29,6 +29,12 @@ export default {
         color: Colors.textPrimary,
         margin: 8,
     },
+    txttitle: {
+        fontSize: width/30,
+        fontWeight: 'bold',
+        color: Colors.textPrimary,
+        margin: 8,
+    },
     subtitle: {
         fontSize: 24,
         color: Colors.textPrimary,

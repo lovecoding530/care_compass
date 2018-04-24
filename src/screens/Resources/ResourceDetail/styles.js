@@ -20,15 +20,25 @@ export default {
     },
     title: {
         fontSize: 36,
+        marginTop: 50,
         fontWeight: 'bold',
         color: Colors.textPrimary,
-        margin: 8,
+        marginLeft: 8,
+        marginRight: 8,
+        marginBottom: 8,        
+    },
+    viewImage:{
+        alignItems: 'center'
     },
     subtitle: {
-        fontSize: 24,
+        fontSize: 12,
         color: Colors.textPrimary,
         textAlign: 'center',
         margin: 8,
+    },
+    middleimage: {
+        height:Dimensions.get('window').height/3,
+        width:Dimensions.get('window').width/1.5
     },
     item: {
         width: width/3,
