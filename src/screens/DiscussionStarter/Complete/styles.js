@@ -42,4 +42,9 @@ export default {
         justifyContent: 'center',
     },
 
+    checkIcon: {
+        width: 32,
+        height: 32,
+        marginRight: 8,
+    }
 };

@@ -57,5 +57,11 @@ export default {
         marginHorizontal : 50, 
         justifyContent: 'center',
     },
+    
+    checkIcon: {
+        width: 32,
+        height: 32,
+        marginRight: 8,
+    }
 
 };

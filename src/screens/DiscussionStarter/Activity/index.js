@@ -18,6 +18,7 @@ import Choices from "@choices";
 import ManyChoices from "@manychoices";
 
 import { getDiscussionStarter } from "@api";
+import { Loader } from '@components';
 
 export default class Activity extends Component {
     constructor(props) {
@@ -33,6 +34,7 @@ export default class Activity extends Component {
                 icon: "",
                 questions: []
             },
+            loaderVisible: true
         })
     }
 
@@ -47,6 +49,10 @@ export default class Activity extends Component {
             activity: activity,
             activityCount: activities.length,
         })
+
+        setTimeout(()=>{
+            this.setState({loaderVisible: false})
+        }, 2000)
     }
 
     onChangedAnswer(questionIndex, answerIndex){
@@ -119,6 +125,7 @@ export default class Activity extends Component {
     render() {
         return (
             <View style={Styles.container}>
+                <Loader loading={this.state.loaderVisible}/>
                 <View style={Styles.title}>
                     <Text mediumLarge bold center>Activity {this.state.activityIndex + 1}: </Text>
                     <Text mediumLarge center>{" "}{this.state.activity.stage}</Text>

@@ -2,6 +2,7 @@ const colors = {
     backgroundPrimary: '#fff',
     backgroundSecondary : '#f4f4f4',
     backgroundThird : '#E4E4E4',
+    backgroundModal: '#ccca',
 
     buttonPrimary: '#A2A2A2',
   

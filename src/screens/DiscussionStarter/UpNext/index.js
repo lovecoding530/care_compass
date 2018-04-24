@@ -9,7 +9,7 @@ import {
     ScrollView,
     TextInput,
 } from 'react-native';
-import {Colors} from '@theme';
+import {Colors, Images} from '@theme';
 import Styles from './styles';
 import Button from '@button'
 import Text from '@text'
@@ -48,6 +48,7 @@ export default class ActivityList extends Component {
             <View style={Styles.container}>
                 <View style={Styles.current}>
                     <View style={Styles.currentTitle}>
+                        <Image source={Images.check} style={Styles.checkIcon}/>
                         <Text medium bold>Activity {this.state.activityIndex + 1}: </Text>
                         <Text medium>
                             {" "}{this.state.activities[this.state.activityIndex].stage}
