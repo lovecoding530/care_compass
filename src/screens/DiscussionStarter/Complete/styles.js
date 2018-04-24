@@ -19,35 +19,19 @@ export default {
         paddingHorizontal: 100,
     },
 
-    current: {
+    item: {
         marginVertical: 50, 
     },
 
-    next: {
-        marginVertical: 50, 
-    },
-
-    currentTitle: {
+    itemTitle: {
         padding: 16,
         flexDirection: 'row',
         backgroundColor: Colors.backgroundSecondary,
     },
 
-    currentPrecomment: {
+    itemPrecomment: {
         padding : 16, 
         borderWidth: 1.5,
-        borderColor: Colors.backgroundSecondary,
-    },
-
-    nextTitle: {
-        padding: 16,
-        flexDirection: 'row',
-        justifyContent: 'center',
-    },
-
-    nextPrecomment: {
-        paddingHorizontal : 50, 
-        borderWidth: 1,
         borderColor: Colors.backgroundSecondary,
     },
 

@@ -70,7 +70,7 @@ export default class ActivityList extends Component {
                 </View>
                 }
                 <View style={Styles.buttonBar}>
-                    <Button light>FINISH HERE</Button>
+                    <Button light onPress={() => {navigate("Complete", {activityIndex: this.state.nextActivityIndex})}}>FINISH HERE</Button>
                     <Button dark onPress={() => {navigate("Activity", {activityIndex: this.state.nextActivityIndex})}}>START ACTIVITY {this.state.activityIndex + 2}</Button>
                 </View>
             </View>

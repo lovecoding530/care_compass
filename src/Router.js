@@ -14,7 +14,7 @@ import Menu from "./Menu";
 import Splash from "./screens/Splash";
 import OnBoarding from "./screens/OnBoarding";
 import Home from "./screens/Home";
-import {Intro, ActivityList, Activity, UpNext} from "./screens/DiscussionStarter";
+import {Intro, ActivityList, Activity, UpNext, Complete} from "./screens/DiscussionStarter";
 import {ResourceList, ResourceDetail} from "./screens/Resources";
 
 const MenuIcon = ({ navigate }) => {
@@ -52,6 +52,7 @@ export const DiscussionStarterStack = StackNavigator({
     ActivityList: {screen: ActivityList},
     Activity: {screen: Activity},
     UpNext: {screen: UpNext},
+    Complete: {screen: Complete},
 }, {
     headerMode: 'none',
 });
