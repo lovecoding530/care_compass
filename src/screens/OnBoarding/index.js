@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import Styles from '@OnBoardingstyles';
+let portrait_width = Dimensions.get('window').width;
 let { width, height } = Dimensions.get('window');// use for device height and width
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions'; // use for responsive screen UI
 import Button from '@button'
@@ -242,7 +243,7 @@ class Swiper extends Component {
       return null;
     }
 
-    const ActiveDot = <View style={[Styles.dot, Styles.activeDot,{ marginBottom: this.state.height/7,width: width/8,}]} />,
+    const ActiveDot = <View style={[Styles.dot, Styles.activeDot,{ marginBottom: height/7,width: width/8,}]} />,
       Dot = <View style={[Styles.dot,{width: width/8}]} />;
 
     let dots = [];
@@ -277,14 +278,14 @@ class Swiper extends Component {
   /**
    * Render Next or Done button
    */
-  renderButton = () => {
+  renderButton = () => {  
     const lastScreen = this.state.index === this.state.total - 1;
     const firstScreen = this.state.index === 0;
     if (width < height)
     {
       return (
 
-        <View pointerEvents="box-none"    >
+        <View pointerEvents="box-none">
           {lastScreen
             // Show this button on the last screen
             ? <View style={Styles.buttonContainer}>
@@ -307,7 +308,7 @@ class Swiper extends Component {
     }
     return (
 
-      <View pointerEvents="box-none"    >
+      <View pointerEvents="box-none" >
         {lastScreen
           // Show this button on the last screen
           ? <View style={Styles.buttonContainer}>
@@ -330,45 +331,49 @@ class Swiper extends Component {
   }
 
   onLayout(e) {
-       width = Dimensions.get('window').width
-       height = Dimensions.get('window').height
+    new_width = Dimensions.get('window').width
+    new_height = Dimensions.get('window').height
 
-       this.state.width=width;
-       this.state.height=height;
+      if(new_width > new_height)
+      {
+        this.setState({ width: new_width, height: new_height });
+           // diff = this.state.index,
+        let x = this.state.index * new_width;
+        let y = 0;
+          // Call scrollTo on scrollView component to perform the swipe
+        this.scrollView && this.scrollView.scrollTo({ x, y, animated: true });
+        
+      }
+      else
+      {
+        if(this.state.index==1)
+        {
+          let x = portrait_width;
+          let y = 0;
+          // Call scrollTo on scrollView component to perform the swipe
+          this.scrollView && this.scrollView.scrollTo({ x, y, animated: true });
+        }  
 
-       this.forceUpdate();
+      }
+      this.forceUpdate();
     }
 
   /**
   * Render the component
   */
   render = ({ children } = this.props) => {
-    if (width < height)
-    {
+   
     return (
-      <View style={[Styles.container]} onLayout={this.onLayout.bind(this)}>
-        {/* Render screens */}
-        {this.renderScrollView(children)}
-        {/* Render Continue or Done button */}
-        {this.renderButton()}
-        {/* Render pagination */}
-        {this.renderPagination()}
-        <Footer/>
-      </View>
+        <View style={[Styles.container]} onLayout={this.onLayout.bind(this)}>
+          {/* Render screens */}
+          {this.renderScrollView(children)}
+          {/* Render Continue or Done button */}
+          {this.renderButton()}
+          {/* Render pagination */}
+          {this.renderPagination()}
+          <Footer/>
+        </View>
     )
-  }
-  return(
-      <View style={[Styles.container]} onLayout={this.onLayout.bind(this)}>
-        {/* Render screens */}
-        {this.renderScrollView(children)}
-        {/* Render Continue or Done button */}
-        {this.renderButton()}
-        {/* Render pagination */}
-        {this.renderPagination()}
-        <Footer/>
-        
-      </View>
-    );
   }
 }
 
