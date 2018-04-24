@@ -19,7 +19,7 @@ import ManyChoices from "@manychoices";
 
 import { getDiscussionStarter } from "@api";
 
-export default class ActivityList extends Component {
+export default class Activity extends Component {
     constructor(props) {
         super(props);
         const {activityIndex} = this.props.navigation.state.params
@@ -45,6 +45,7 @@ export default class ActivityList extends Component {
         this.setState({
             pageTotalCount: pageTotalCount,
             activity: activity,
+            activityCount: activities.length,
         })
     }
 
@@ -59,7 +60,11 @@ export default class ActivityList extends Component {
             })            
         }else{
             const {navigate} = this.props.navigation
-            navigate("UpNext", {activityIndex: this.state.activityIndex})
+            if(this.state.activityIndex + 1 >= this.state.activityCount){
+                navigate({routeName: "Complete", key: "Complete", params: {activityIndex: this.state.activityIndex}})
+            }else{
+                navigate("UpNext", {activityIndex: this.state.activityIndex})
+            }
         }
     }
 
