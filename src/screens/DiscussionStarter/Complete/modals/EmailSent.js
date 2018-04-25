@@ -21,8 +21,8 @@ export default EmailSent =  (props) => {
             <View style={styles.container}>
                 <View style={styles.modal}>
                     <Image source={Images.check} style={styles.checkIcon}/>
-                    <Text medium center>EmailSent</Text>
-                    <Button light buttonStyles={styles.closeButton}>Close</Button>
+                    <Text medium center>Email Sent</Text>
+                    <Button light buttonStyles={styles.closeButton} onPress={()=>props.onCancel()}>Close</Button>
                 </View>
             </View>
         </Modal>

@@ -43,6 +43,7 @@ export default class ActivityList extends Component {
     }
 
     render() { 
+        const {navigate} = this.props.navigation
         return (
             this.state.activityCount > 0 ?
             <View style={Styles.container}>

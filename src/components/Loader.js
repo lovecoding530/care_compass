@@ -17,7 +17,7 @@ const Loader = props => {
     return (
         <Modal
             transparent={true}
-            animationType={'none'}
+            animationType={'slide'}
             visible={loading}
             onRequestClose={() => {console.log('close modal')}}>
             <View style={styles.modalBackground}>

@@ -5,13 +5,14 @@ import {
     Modal,
     TextInput,
 } from 'react-native';
-import {Colors} from '@theme';
+import {Colors, FontSizes} from '@theme';
 import Button from '@button'
 import Text from '@text'
 
 import { getDiscussionStarter } from "@api";
 
 export default Email =  (props) => {
+    var name, email = ""
     return (
         <Modal
             animationType="slide"
@@ -23,15 +24,21 @@ export default Email =  (props) => {
                     <Text medium center style={styles.title}>Email the results</Text>
                     <View>
                         <Text center>Name</Text>
-                        <TextInput style={styles.textInput}/>
+                        <TextInput 
+                            style={styles.textInput}
+                            onChangeText={(text) => name = text}
+                            />
                     </View>
                     <View>
                         <Text center>Email</Text>
-                        <TextInput style={styles.textInput}/>
+                        <TextInput 
+                            style={styles.textInput}
+                            onChangeText={(text) => email = text}
+                            />
                     </View>
                     <View style={styles.buttons}>
                         <Button light onPress={()=>props.onCancel()}>CANCEL</Button>
-                        <Button dark>SEND</Button>
+                        <Button dark onPress={()=>props.onSend(name, email)}>SEND</Button>
                     </View>
                 </View>
             </View>
@@ -67,6 +74,8 @@ const styles = StyleSheet.create({
         height: 44,
         backgroundColor: Colors.backgroundSecondary,
         marginVertical: 10,
+        fontSize: FontSizes.smallMedium,
+        color: Colors.textPrimary
     },
 
     buttons: {

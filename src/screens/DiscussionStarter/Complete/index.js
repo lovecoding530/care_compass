@@ -62,7 +62,24 @@ export default class Complete extends Component {
     }
 
     onShareEmail() {
-
+        this.setState({
+            modalVisible: {
+                share: false,
+                downloaded: false,
+                email: false,
+                emailSent: false,
+            }
+        })        
+        setTimeout(()=>{
+            this.setState({
+                modalVisible: {
+                    share: false,
+                    downloaded: false,
+                    email: true,
+                    emailSent: false,
+                }
+            })                        
+        }, 200)
     }
 
     onShareDownload() {
@@ -81,6 +98,19 @@ export default class Complete extends Component {
                     downloaded: true,
                     email: false,
                     emailSent: false,
+                }
+            })                        
+        }, 1000)
+    }
+
+    onSendEmail(name, email){
+        setTimeout(()=>{
+            this.setState({
+                modalVisible: {
+                    share: false,
+                    downloaded: false,
+                    email: false,
+                    emailSent: true,
                 }
             })                        
         }, 1000)
@@ -120,6 +150,7 @@ export default class Complete extends Component {
                     data = {this.state.activities}
                     renderItem = {this.renderActivityItem.bind(this)}
                     keyExtractor = {(item, index) => index.toString()}
+                    style={Styles.flatList}
                     />
                 <View style={Styles.buttonBar}>
                     <Button light onPress={this.onExit.bind(this)}>EXIT</Button>
@@ -130,6 +161,15 @@ export default class Complete extends Component {
                     visible={this.state.modalVisible.share} 
                     onDownload={this.onShareDownload.bind(this)}
                     onEmail={this.onShareEmail.bind(this)}
+                    onCancel={this.onShareCancel.bind(this)}
+                    />
+                <EmailModal 
+                    visible={this.state.modalVisible.email} 
+                    onSend={this.onSendEmail.bind(this)}
+                    onCancel={this.onShareCancel.bind(this)}
+                    />
+                <EmailSentModal 
+                    visible={this.state.modalVisible.emailSent} 
                     onCancel={this.onShareCancel.bind(this)}
                     />
                 <DownloadedModal 
