@@ -22,17 +22,16 @@ export default class Resources extends Component {
         super(props);
         Props=this.props;
         this.state = ({
-            resourceIndexes: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
+            resourceIndexes: [],
         })
     }
 
     async componentDidMount() {
-        const ds = await getResources(true)
-        const resources = ds[0].discussion_starter
+        const ds = await getResources(false)
 
         var resourceIndexes = [];
-        for(var i = 0; i < resources.length; i ++){
-            resourceIndexes.push(i + 1);
+        for(var i = 0; i < ds.resources.length; i ++){
+            resourceIndexes.push(ds.resources[i]);
         }
 
         this.setState({
@@ -42,8 +41,8 @@ export default class Resources extends Component {
 
     renderResourceItem({item}){
         return (
-            <TouchableOpacity style={Styles.item} onPress={()=>{Props.navigation.navigate("ResourceDetail")}}>
-                <Text medium bold>Resource {item}</Text>
+            <TouchableOpacity style={Styles.item} onPress={()=>{Props.navigation.navigate("ResourceDetail", { items: item })}}>
+                <Text style={Styles.txttitle}>{item.title}</Text>
             </TouchableOpacity>
         )
     }
@@ -54,7 +53,7 @@ export default class Resources extends Component {
             <View style={Styles.container}>
                 <View style={Styles.scrollcontainer}> 
                     <ScrollView contentContainerStyle={Styles.scroll}>
-                        <Text style={Styles.title}>Resources</Text>
+                        <Text bold style={Styles.title}>resources</Text>
                         <Text style={Styles.subtitle}>
                             View list of resources and use to learn more
                         </Text>
@@ -63,7 +62,7 @@ export default class Resources extends Component {
                             numColumns = {2}
                             data = {this.state.resourceIndexes}
                             renderItem = {this.renderResourceItem}
-                            keyExtractor = {(index) => index.toString()}
+                            keyExtractor={item => item.title}
                         />
                     </ScrollView>
                 </View>
