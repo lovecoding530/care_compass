@@ -19,8 +19,12 @@ export default {
         paddingHorizontal: 100,
     },
 
+    flatList: {
+        marginVertical: 30,
+    },
+
     item: {
-        marginVertical: 50, 
+        marginVertical: 10, 
     },
 
     itemTitle: {
@@ -42,4 +46,9 @@ export default {
         justifyContent: 'center',
     },
 
+    checkIcon: {
+        width: 32,
+        height: 32,
+        marginRight: 8,
+    }
 };

@@ -14,9 +14,7 @@ export default {
 
     container: {
         flex: 1, 
-        backgroundColor: '#ccca',
-        paddingVertical: 60,
-        paddingHorizontal: 100,
+        backgroundColor: Colors.backgroundModal,
         justifyContent: 'center',
         alignItems: 'center'
     },

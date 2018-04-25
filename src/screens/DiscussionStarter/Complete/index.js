@@ -9,11 +9,14 @@ import {
     Modal,
     Alert,
 } from 'react-native';
-import {Colors} from '@theme';
+import {Colors, Images} from '@theme';
 import Styles from './styles';
 import Button from '@button'
 import Text from '@text'
-import Share from '../Share'
+import ShareModal from './modals/Share'
+import EmailModal from './modals/Email'
+import DownloadedModal from './modals/Downloaded'
+import EmailSentModal from './modals/EmailSent'
 
 import { getDiscussionStarter } from "@api";
 
@@ -25,7 +28,12 @@ export default class Complete extends Component {
             activityIndex: activityIndex,
             activities: [],
             activityCount: 0,
-            modalVisible: false,
+            modalVisible: {
+                share: false,
+                downloaded: false,
+                email: false,
+                emailSent: false,
+            },
         })
     }
 
@@ -53,10 +61,77 @@ export default class Complete extends Component {
         )
     }
 
+    onShareEmail() {
+        this.setState({
+            modalVisible: {
+                share: false,
+                downloaded: false,
+                email: false,
+                emailSent: false,
+            }
+        })        
+        setTimeout(()=>{
+            this.setState({
+                modalVisible: {
+                    share: false,
+                    downloaded: false,
+                    email: true,
+                    emailSent: false,
+                }
+            })                        
+        }, 200)
+    }
+
+    onShareDownload() {
+        this.setState({
+            modalVisible: {
+                share: false,
+                downloaded: false,
+                email: false,
+                emailSent: false,
+            }
+        })        
+        setTimeout(()=>{
+            this.setState({
+                modalVisible: {
+                    share: false,
+                    downloaded: true,
+                    email: false,
+                    emailSent: false,
+                }
+            })                        
+        }, 1000)
+    }
+
+    onSendEmail(name, email){
+        setTimeout(()=>{
+            this.setState({
+                modalVisible: {
+                    share: false,
+                    downloaded: false,
+                    email: false,
+                    emailSent: true,
+                }
+            })                        
+        }, 1000)
+    }
+
+    onShareCancel() {
+        this.setState({
+            modalVisible: {
+                share: false,
+                downloaded: false,
+                email: false,
+                emailSent: false,
+            }
+        })
+    }
+
     renderActivityItem({item, index}){
         return (
             <View style={Styles.item}>
                 <View style={Styles.itemTitle}>
+                    <Image source={Images.check} style={Styles.checkIcon}/>
                     <Text medium bold>Activity {index + 1}: </Text>
                     <Text medium>
                         {" "}{item.stage}
@@ -75,19 +150,32 @@ export default class Complete extends Component {
                     data = {this.state.activities}
                     renderItem = {this.renderActivityItem.bind(this)}
                     keyExtractor = {(item, index) => index.toString()}
+                    style={Styles.flatList}
                     />
                 <View style={Styles.buttonBar}>
                     <Button light onPress={this.onExit.bind(this)}>EXIT</Button>
                     <Button dark onPress={() => {this.setState({modalVisible: true})}}>SHARE RESULTS</Button>
                 </View>
                 <Text medium center>Need more information? Try our resources</Text>
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={this.state.modalVisible}
-                    >
-                    <Share onCancel={()=>{this.setState({modalVisible: false})}}/>
-                </Modal>
+                <ShareModal 
+                    visible={this.state.modalVisible.share} 
+                    onDownload={this.onShareDownload.bind(this)}
+                    onEmail={this.onShareEmail.bind(this)}
+                    onCancel={this.onShareCancel.bind(this)}
+                    />
+                <EmailModal 
+                    visible={this.state.modalVisible.email} 
+                    onSend={this.onSendEmail.bind(this)}
+                    onCancel={this.onShareCancel.bind(this)}
+                    />
+                <EmailSentModal 
+                    visible={this.state.modalVisible.emailSent} 
+                    onCancel={this.onShareCancel.bind(this)}
+                    />
+                <DownloadedModal 
+                    visible={this.state.modalVisible.downloaded} 
+                    onCancel={this.onShareCancel.bind(this)}
+                    />
             </View>
         );
     }

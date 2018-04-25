@@ -23,7 +23,7 @@ export default class Home extends Component {
     }
 
     render() {
-        return (
+        return ( 
             <View style={Styles.container}>
                 <View style={Styles.containerLeft}>
                     <TouchableOpacity style={Styles.item} onPress={()=>{this.props.navigation.navigate({routeName: "DiscussionStarter", key: "DiscussionStarter"})}}>

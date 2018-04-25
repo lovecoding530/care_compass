@@ -8,5 +8,6 @@ import Choice from "./Choice";
 import ManyChoices from "./ManyChoices";
 import Choices from "./Choices";
 import ProgressBar from "./ProgressBar";
+import Loader from "./Loader";
 
-export {Button, Text, Choice, ManyChoices, Choices, ProgressBar}
+export {Button, Text, Choice, ManyChoices, Choices, ProgressBar, Loader}

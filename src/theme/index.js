@@ -3,6 +3,7 @@
  */
 
 import Colors from './colors';
+import Images from './images';
 const FontSizes = {
     small: 14,
     smallMedium: 18,
@@ -10,4 +11,4 @@ const FontSizes = {
     mediumLarge: 36,
     large: 48,
 };
-export { Colors, FontSizes };
+export { Colors, Images, FontSizes };
