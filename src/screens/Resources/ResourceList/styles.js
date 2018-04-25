@@ -24,8 +24,8 @@ export default {
         marginBottom:height/15,
     },
     title: {
-        fontSize: 36,
-        fontWeight: 'bold',
+        fontSize: width/15,
+        marginTop: height/18,
         color: Colors.textPrimary,
         margin: 8,
     },
@@ -36,10 +36,10 @@ export default {
         margin: 8,
     },
     subtitle: {
-        fontSize: 24,
+        fontSize: width/30,
         color: Colors.textPrimary,
         textAlign: 'center',
-        margin: 8,
+        marginBottom: height/25,
     },
     buttomBar: {
         flexDirection: 'row',

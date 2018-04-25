@@ -53,7 +53,7 @@ export default class Resources extends Component {
             <View style={Styles.container}>
                 <View style={Styles.scrollcontainer}> 
                     <ScrollView contentContainerStyle={Styles.scroll}>
-                        <Text style={Styles.title}>Resources</Text>
+                        <Text bold style={Styles.title}>resources</Text>
                         <Text style={Styles.subtitle}>
                             View list of resources and use to learn more
                         </Text>

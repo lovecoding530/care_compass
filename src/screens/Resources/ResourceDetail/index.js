@@ -29,11 +29,12 @@ export default class ResourceDetail extends Component {
         })
     }
 
-    render() {
+    render() {   
         return (
             <View style={Styles.container}>
-               <ScrollView> 
-                    <Text style={Styles.title}>{this.state.title}</Text>
+            <View style={Styles.scrollcontainer}> 
+               <ScrollView contentContainerStyle={Styles.scroll}> 
+                    <Text bold style={Styles.title}>{this.state.title}</Text>
                     <View style={Styles.viewImage}>
                         <Image style={Styles.middleimage} source={{uri: this.state.image}}/>
                     </View>                
@@ -41,10 +42,11 @@ export default class ResourceDetail extends Component {
                         {this.state.subtitle}
                     </Text>
                     <View style={Styles.buttonContainer}>
-                        <Button light >GO BACK</Button>
+                        <Button light onPress={ ()=> this.props.navigation.goBack() }>GO BACK</Button>
                       <Button dark onPress={ ()=> Linking.openURL(this.state.link) } >VIEW</Button>
                     </View>
                 </ScrollView> 
+                </View>
                 <Footer />
             </View>
         );

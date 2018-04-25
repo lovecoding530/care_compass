@@ -7,7 +7,7 @@ import {
 
 import {Colors} from '@theme';
 
-const { width } = Dimensions.get('window');
+const { width,height } = Dimensions.get('window');
 
 
 export default {
@@ -15,26 +15,31 @@ export default {
     container: {
         flex: 1, 
         backgroundColor: Colors.backgroundPrimary,
+    },
+    scroll:{
         justifyContent: 'center',
         alignItems: 'center',
     },
+    scrollcontainer:{
+        marginBottom:height/15,
+    },
     title: {
-        fontSize: 36,
-        marginTop: 50,
-        fontWeight: 'bold',
+        fontSize: width/18,
+        marginTop: height/10,
+        marginBottom:height/30,
         color: Colors.textPrimary,
-        marginLeft: 8,
-        marginRight: 8,
-        marginBottom: 8,        
+              
     },
     viewImage:{
         alignItems: 'center'
     },
     subtitle: {
-        fontSize: 12,
+        fontSize: width/30,
         color: Colors.textPrimary,
         textAlign: 'center',
-        margin: 8,
+        marginTop:height/30,
+        marginBottom:height/30,
+        marginHorizontal:width/10
     },
     middleimage: {
         height:Dimensions.get('window').height/3,
