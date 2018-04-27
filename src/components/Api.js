@@ -47,3 +47,12 @@ export async function getDiscussionStarter(fromCached = false) {
 export async function getResources(fromCached = false) {
     return await getJSONwithCache(API_RESOURCES, fromCached)
 }
+
+export async function getUserGuides(fromCached = false) {
+    return await getJSONwithCache(API_USER_GUIDE, fromCached)
+}
+
+export async function getUserGuidesDetail(slug,itemSlug,fromCached = false) {
+    const API_USER_GUIDE_DETAIL = `${API_USER_GUIDE}${slug}/${itemSlug}/`;
+    return await getJSONwithCache(API_USER_GUIDE_DETAIL, fromCached)
+}
