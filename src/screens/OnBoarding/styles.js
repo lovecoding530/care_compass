@@ -34,11 +34,12 @@ export default {
   },
   descText: {
     marginHorizontal: width/10,
-    marginVertical:height/25
+    marginVertical:height/25,
+    textAlign:'center'
   },
   container: {
     flex: 1, 
-    backgroundColor: 'red',
+    backgroundColor: Colors.backgroundPrimary,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -52,8 +53,7 @@ export default {
     height: 5,
     marginLeft: 2,
     marginRight: 2,
-    marginTop: 3,
-    marginBottom: 3
+    width: width/8,
   },
   activeDot: {
     backgroundColor: 'gray',
