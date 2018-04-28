@@ -114,9 +114,6 @@ export const PrimaryNav = StackNavigator({
     OnBoardingScreen: { screen: OnBoarding },
     DrawerStack: { screen: DrawerStack },
     
-    
-    
-    
 }, {
     headerMode: 'none',
 })
