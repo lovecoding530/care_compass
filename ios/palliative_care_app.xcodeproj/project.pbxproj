@@ -5,6 +5,7 @@
 	};
 	objectVersion = 50;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -794,9 +795,6 @@
 						DevelopmentTeam = GR249U759A;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
-					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = GR249U759A;
-					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = GR249U759A;
@@ -1382,10 +1380,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = R6XH8645JQ;
+				DEVELOPMENT_TEAM = GR249U759A;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-spinkit/ios/**",
@@ -1404,8 +1402,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.techequipt.dying-to-talk";
 				PRODUCT_NAME = palliative_care_app;
-				PROVISIONING_PROFILE = "fcbe0fbc-c49e-48a9-a6bf-8aa772fcf275";
-				PROVISIONING_PROFILE_SPECIFIER = "PCA Development";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1415,10 +1413,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = R6XH8645JQ;
+				DEVELOPMENT_TEAM = GR249U759A;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-spinkit/ios/**",
@@ -1437,8 +1435,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.techequipt.dying-to-talk";
 				PRODUCT_NAME = palliative_care_app;
-				PROVISIONING_PROFILE = "ed60174e-4a90-479d-b55b-0d93acc6dfca";
-				PROVISIONING_PROFILE_SPECIFIER = "Dying To Talk (Live)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};

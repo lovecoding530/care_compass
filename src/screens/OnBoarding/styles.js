@@ -20,12 +20,12 @@ export default {
     alignItems: 'center',  
   },
   scrollcontainer:{
-        marginBottom:height/15,
-    },
+    marginBottom:height/15,
+  },
   logo:{
-    marginBottom:height/25,
+    marginBottom:height/30,
     marginTop:height/10,
-    height:height/8,
+    height:height/6,
     width:width/3,
   },
   middleimage:{
@@ -34,11 +34,12 @@ export default {
   },
   descText: {
     marginHorizontal: width/10,
-    marginVertical:height/25
+    marginVertical:height/25,
+    textAlign:'center'
   },
   container: {
     flex: 1, 
-    backgroundColor: Colors.backgroundPrimary,
+    backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -65,13 +66,13 @@ export default {
   },
   buttonPrev: {         
     width:width/4,
-    height:height/19,
+    height:height/18,
     alignItems:'center',
     justifyContent:'center'
   },
   buttonNext: {       
     width:width/4,
-    height:height/19,
+    height:height/18,
     alignItems:'center',
     justifyContent:'center',
   },

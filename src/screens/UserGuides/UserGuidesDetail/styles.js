@@ -17,8 +17,6 @@ export default {
         backgroundColor: Colors.backgroundPrimary,
     },
     scroll:{
-        justifyContent: 'center',
-        alignItems: 'center',
     },
     scrollcontainer:{
         flex : 1,
@@ -27,10 +25,8 @@ export default {
     title: {
         fontSize: width/15,
         marginTop: height/10,
-        color: Colors.textPrimary,       
-    },
-    viewImage:{
-        alignItems: 'center'
+        color: Colors.textPrimary, 
+        textAlign: 'center',      
     },
     subtitle: {
         fontSize: width/25,
@@ -39,27 +35,45 @@ export default {
         marginBottom: height/50,
         marginTop:2,
     },
+    viewImage:{
+        alignItems: 'center',
+        marginVertical: height/30,
+    },
     middleimage: {
         height:Dimensions.get('window').height/3,
         width:Dimensions.get('window').width/1.5
     },
-    item: {
-        width: width/3,
-        height: width/8,
-        backgroundColor: Colors.backgroundSecondary,
-        borderRadius: 4,
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.5,
-        shadowRadius: 2,
-        margin: 8,        
-        justifyContent: 'center',
-        alignItems: 'center',
+    viewBody:{
+        marginHorizontal : width/9,
+        alignItems: 'center'
     },
     buttonContainer: {
-    flexDirection:'row',
-    justifyContent:'center',
-    alignItems:'center'
-  },
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center'
+    },
+    item: {
+        marginVertical: height/40,
+    },
+    itemTitle: {
+        padding: 16,
+        flexDirection: 'row',
+        backgroundColor: Colors.backgroundSecondary,
+    },
+    txtQuestion: {
+        fontSize: width/30,
+    },
+    txtAnswer: {
+        fontSize: width/30,
+        padding : 16, 
+        borderWidth: 1.5,
+        borderColor: Colors.backgroundSecondary,
+    },
+    faqTitle: {
+        marginHorizontal : width/10,
+    },
+    flatList: {
+        marginHorizontal : width/10,
+    },
 
 };

@@ -53,31 +53,56 @@ class Swiper extends Component {
   };
 
   componentDidMount() {
-    
     Orientation.addOrientationListener(this._orientationDidChange);
   }
 
   _orientationDidChange = (orientation) => {
+   
     if (orientation === 'LANDSCAPE') {
 
       var new_width = Dimensions.get('window').width
       var new_height = Dimensions.get('window').height
-     // this.setState({ width: new_width, height: new_height });
+
       orientationWidth = new_width;
+
+      offset = orientationWidth * this.state.index;
+
+      this.internals = {
+        isScrolling: false,
+        offset
+      };
+
+
+      x = this.state.index * new_width,
+      y = 0;
+
+      this.scrollView && this.scrollView.scrollTo({ x, y, animated: true });
+
       this.forceUpdate();
-      // x = this.state.index * new_width,
-      //   y = 0;
-      //     // Call scrollTo on scrollView component to perform the swipe
-      //   this.scrollView && this.scrollView.scrollTo({ x, y, animated: true });
 
-    } else {
-       var new_width = Dimensions.get('window').width
-       var new_height = Dimensions.get('window').height
-        orientationWidth = new_width;
-         this.forceUpdate();
-      // this.setState({ width: new_width, height: new_height });
+    } 
+    else 
+    {
+      var new_width = Dimensions.get('window').width
+      var new_height = Dimensions.get('window').height
+      orientationWidth = new_width;
 
-      // do something with portrait layout
+      offset = orientationWidth * this.state.index;
+
+      this.internals = {
+        isScrolling: false,
+        offset
+      };
+
+      if(this.state.index==1)
+      {
+        x = this.state.index * new_width,
+        y = 0;
+    
+        this.scrollView && this.scrollView.scrollTo({ x, y, animated: true });
+      }
+        
+      this.forceUpdate()
     }
   }
 
@@ -102,7 +127,7 @@ class Swiper extends Component {
       // Current index
       index = total > 1 ? Math.min(props.index, total - 1) : 0,
       // Current offset
-      offset = width * index;
+      offset = orientationWidth * index;
 
     const state = {
       total,
@@ -141,7 +166,7 @@ class Swiper extends Component {
     this.updateIndex(e.nativeEvent.contentOffset
       ? e.nativeEvent.contentOffset.x
       // When scrolled with .scrollTo() on Android there is no contentOffset
-      : e.nativeEvent.position * this.state.width
+      : e.nativeEvent.position * orientationWidth
     );
   }
 
@@ -167,9 +192,11 @@ class Swiper extends Component {
   * Update index after scroll
   */
   updateIndex = (offset) => {
+  //  alert("internals"+this.internals.offset+"offset"+offset+"index"+this.state.index);
+
     const state = this.state,
       diff = offset - this.internals.offset,
-      step = state.width;
+      step = orientationWidth;
     let index = state.index;
 
     // Do nothing if offset didn't change
@@ -177,10 +204,9 @@ class Swiper extends Component {
       return;
     }
 
-
     // Make sure index is always an integer
-    index = parseInt(index + Math.round(diff / step), 10);
-
+    index = parseInt(index + Math.round(diff / step));
+   //  alert("updateindex"+index);
     // Update internal offset
     this.internals.offset = offset;
     // Update index in the state
@@ -200,10 +226,9 @@ class Swiper extends Component {
 
     const state = this.state
 
-
     // this.setState({ index: this.state.index + 1 });
       var diff = this.state.index + 1;
-      var x = diff * state.width;
+      var x = diff * orientationWidth;
       var y = 0;
 
     // Call scrollTo on scrollView component to perform the swipe
@@ -222,8 +247,6 @@ class Swiper extends Component {
         });
       });
     }
-
-      
   }
 
   /**
@@ -236,7 +259,7 @@ class Swiper extends Component {
     }
      // this.setState({ index: this.state.index - 1 });
       var diff = this.state.index - 1;
-      var x = diff * this.state.width;
+      var x = diff * orientationWidth;
       var y = 0;
 
     // Call scrollTo on scrollView component to perform the swipe
@@ -330,28 +353,20 @@ class Swiper extends Component {
 
         <View pointerEvents="box-none">
           {lastScreen
-            // Show this button on the last screen
             ? <View style={Styles.buttonContainer}>
                 <Button light buttonStyles={Styles.buttonPrev} onPress={() => this.swipePrev()}>Previous</Button>
                 <Button dark buttonStyles={Styles.buttonNext} onPress={() => this.onDone()}>Done</Button>
               </View>
             : firstScreen
-            // Show this button on the First screen
             ? <View style={Styles.buttonContainer}>
                 <Button dark  buttonStyles={Styles.buttonNext} onPress={() => this.swipe()}>Next</Button>
               </View>
-               // Or this one otherwise
                :   secondScreen 
-               ? 
-               <View style={[Styles.buttonContainer]}>
+               ?  <View style={[Styles.buttonContainer]}>
                     <Button light buttonStyles={Styles.buttonPrev} onPress={() => this.swipePrev()}>Previous</Button>
                     <Button dark buttonStyles={Styles.buttonNext} onPress={() => this.swipe()}>Next</Button>
                   </View>
-                  :
-                  <View style={[Styles.buttonContainer]}>
-                    <Button light buttonStyles={Styles.buttonPrev} onPress={() => this.swipePrev()}>Previous</Button>
-                    <Button dark buttonStyles={Styles.buttonNext} onPress={() => this.swipe()}>Next</Button>
-                  </View>
+                  : null
           }
         </View>
         );
@@ -363,7 +378,7 @@ class Swiper extends Component {
    
     return (
      
-      <View>
+      <View style={{backgroundColor:Colors.backgroundPrimary}}>
       <View style={Styles.scrollcontainer}> 
        <ScrollView contentContaineStyle={Styles.container}>
         {/* Render screens */}
@@ -376,7 +391,6 @@ class Swiper extends Component {
          </View>
         <Footer/>
       </View>
-     
     )
   }
 }
