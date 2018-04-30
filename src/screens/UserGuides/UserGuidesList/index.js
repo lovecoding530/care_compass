@@ -6,37 +6,104 @@ import {
     TouchableOpacity,
     FlatList,
     View,
-    ScrollView
+    ScrollView,
+    AsyncStorage
 } from 'react-native';
 
 import Styles from './styles';
 import Text from '@text'
 import Footer from '@footer'
-
-import { getUserGuides } from "@api";
+import { Loader } from '@components';
+import { getUserGuides,updateTimeInterval } from "@api";
+import moment from 'moment';
 
 export default class UserGuidesList extends Component {
     constructor(props) {
         super(props);
         this.state = ({
             activityIndexes: [],
-            slug:''
+            loaderVisible: true
         })
     }
 
     async componentDidMount() {
-        const ds = await getUserGuides(false)
-        const userguides = ds[0].guides
-        this.setState({slug : ds[0].slug});
+            try 
+            {
+                let value = await AsyncStorage.getItem('lastRefereshTimeUserGuide');
 
-        var userguideIndexes = [];
-        for(var i = 0; i < userguides.length; i ++){
-            userguideIndexes.push(userguides[i]);
-        }
+                if (value != null){
+                  // do something 
+                    var currrentTime = moment(new Date()).format("HH:mm:ss");
+                    var startTime=moment(value, "HH:mm:ss");
+                    var endTime=moment(currrentTime, "HH:mm:ss");
+                    var duration = moment.duration(endTime.diff(startTime));
+                    var difference = moment.utc(+duration).format('H');
 
-        this.setState({
-            userguideIndexes: userguideIndexes
-        })
+                    if(difference >= updateTimeInterval)
+                    {
+                        await AsyncStorage.setItem('lastRefereshTimeUserGuide', currrentTime);
+                        const ds = await getUserGuides()
+                        const userguides = ds[0].guides
+
+                        var userguideIndexes = [];
+                        for(var i = 0; i < userguides.length; i ++){
+                            userguideIndexes.push(userguides[i]);
+                        }
+
+                        this.setState({
+                            userguideIndexes: userguideIndexes
+                        })
+
+                        setTimeout(()=>{
+                            this.setState({loaderVisible: false})
+                        }, 2000)
+                    }
+                    else
+                    {
+                        const ds = await getUserGuides(true)
+                        const userguides = ds[0].guides
+
+                        var userguideIndexes = [];
+                        for(var i = 0; i < userguides.length; i ++){
+                            userguideIndexes.push(userguides[i]);
+                        }
+
+                        this.setState({
+                            userguideIndexes: userguideIndexes
+                        })
+
+                        setTimeout(()=>{
+                            this.setState({loaderVisible: false})
+                        }, 2000)
+                    }   
+                }
+                else {
+                  // do something else
+                    var currrentTime = moment(new Date()).format("HH:mm:ss");
+                    await AsyncStorage.setItem('lastRefereshTimeUserGuide', currrentTime); 
+                    const ds = await getUserGuides()
+                    const userguides = ds[0].guides
+
+                    var userguideIndexes = [];
+                    for(var i = 0; i < userguides.length; i ++){
+                        userguideIndexes.push(userguides[i]);
+                    }
+
+                    this.setState({
+                        userguideIndexes: userguideIndexes
+                    })
+
+                    setTimeout(()=>{
+                        this.setState({loaderVisible: false})
+                    }, 2000)
+                
+                } 
+            }
+            catch (error) {
+              // Error retrieving data
+            }
+
+      
     }
 
     renderUserGuideItem({item, index}){
@@ -44,7 +111,7 @@ export default class UserGuidesList extends Component {
         const first = index === 0;
         const second = index === 1;
         return (
-            <TouchableOpacity style={[first ? Styles.firstrowItem : second ? Styles.firstrowItem : Styles.item]} onPress={()=>{navigate("UserGuidesDetail", { slug : this.state.slug , itemSlug: item.slug })}}>
+            <TouchableOpacity style={[first ? Styles.firstrowItem : second ? Styles.firstrowItem : Styles.item]} onPress={()=>{navigate("UserGuidesDetail", {userguideIndex: index})}}>
                 <Text style={Styles.cardtitle}>{item.title}</Text>
             </TouchableOpacity>
         )
@@ -55,6 +122,7 @@ export default class UserGuidesList extends Component {
             <View style={Styles.container}>
              <View style={Styles.scrollcontainer}> 
              <ScrollView contentContainerStyle={Styles.scroll}>
+                <Loader loading={this.state.loaderVisible}/>
                 <Text bold style={Styles.title}>user guides</Text>
                 <Text style={Styles.subtitle}>
                     How to get the most out of this app

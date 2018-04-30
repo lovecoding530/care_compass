@@ -14,49 +14,55 @@ import Styles from './styles';
 import Text from '@text'
 import Footer from '@footer'
 import Button from '@button'
+import { Loader } from '@components';
 
-import { getUserGuidesDetail } from "@api";
+import { getUserGuides } from "@api";
 import HTMLView from 'react-native-htmlview';
 var BASE_URL = 'https://pca.techequipt.com.au'
 
 export default class UserGuidesDetail extends Component {
     constructor(props) {
         super(props);
-        const { params } = this.props.navigation.state;
+        const {userguideIndex} = this.props.navigation.state.params
         this._share=this._share.bind(this);
         this._showResult=this._showResult.bind(this);
         this.state = ({
-            slug : params.slug,
-            itemSlug : params.itemSlug,
+            userguideIndex: userguideIndex,
             title : '',
             image : '',
             body : '',
             faqs : [],
-            result : ''
+            result : '',
+            loaderVisible: true
         })
     }
 
     async componentDidMount() {
-        const ds = await getUserGuidesDetail(this.state.slug,this.state.itemSlug,false)
-        const userguidesDetail = ds[0].guides
+        const ds = await getUserGuides(true)
+        const userguides = ds[0].guides
+        const userguide = userguides[this.state.userguideIndex]
 
-        if(userguidesDetail[0].featured_image == null)
+        if(userguide.featured_image == null)
         {
             this.setState({
-                title : userguidesDetail[0].title,
-                body : userguidesDetail[0].body,
-                faqs : userguidesDetail[0].faqs,
+                title : userguide.title,
+                body : userguide.body,
+                faqs : userguide.faqs,
             })
         }
         else
         {
            this.setState({
-               title : userguidesDetail[0].title,
-               body : userguidesDetail[0].body,
-               faqs : userguidesDetail[0].faqs,
-                image: BASE_URL + userguidesDetail[0].featured_image.url,
+               title : userguide.title,
+               body : userguide.body,
+               faqs : userguide.faqs,
+                image: BASE_URL + userguide.featured_image.url,
             }) 
         }
+
+        setTimeout(()=>{
+            this.setState({loaderVisible: false})
+        }, 2000)
         
     }
     _showResult(result){
@@ -89,6 +95,7 @@ export default class UserGuidesDetail extends Component {
             <View style={Styles.container}>
             <View style={Styles.scrollcontainer}> 
                <ScrollView contentContainerStyle={Styles.scroll}> 
+                    <Loader loading={this.state.loaderVisible}/>
                     <Text bold style={Styles.title}>user guides</Text>
 
                     <Text style={Styles.subtitle}>
@@ -122,8 +129,6 @@ export default class UserGuidesDetail extends Component {
                             />
                         </View>
                     }
-
-                    
 
                     <View style={Styles.buttonContainer}>
                         <Button light onPress={ ()=> this.props.navigation.goBack() }>GO BACK</Button>
