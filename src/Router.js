@@ -14,7 +14,8 @@ import Menu from "./Menu";
 import Splash from "./screens/Splash";
 import OnBoarding from "./screens/OnBoarding";
 import Home from "./screens/Home";
-import {Intro, ActivityList, Activity, UpNext, Complete} from "./screens/DiscussionStarter";
+import {DSIntro, ActivityList, Activity, UpNext, Complete} from "./screens/DiscussionStarter";
+import {CDIntro, CDSingleView} from "./screens/CardGame";
 import {ResourceList, ResourceDetail} from "./screens/Resources";
 
 const MenuIcon = ({ navigate }) => {
@@ -48,11 +49,18 @@ const HomeIcon = ({ navigate, goBack }) => {
 }
 
 export const DiscussionStarterStack = StackNavigator({
-    Intro: {screen: Intro},
+    DSIntro: {screen: DSIntro},
     ActivityList: {screen: ActivityList},
     Activity: {screen: Activity},
     UpNext: {screen: UpNext},
     Complete: {screen: Complete},
+}, {
+    headerMode: 'none',
+});
+
+export const CardGameStack = StackNavigator({
+    CDIntro: {screen: CDIntro},
+    CDSingleView: {screen: CDSingleView},
 }, {
     headerMode: 'none',
 });
@@ -76,6 +84,16 @@ export const HomeStack = StackNavigator({
     },
     DiscussionStarter: {
         screen: DiscussionStarterStack,
+        navigationOptions: ({ navigation }) => ({
+            headerTitle: <Text style={{fontSize: 20, fontWeight: 'bold'}}>Dying To Talk</Text>  ,
+            headerStyle: { backgroundColor: Colors.nav, height: 60},
+            headerTitleStyle: {color: '#a7c3f2'},
+            headerRight: <MenuIcon {...navigation} />,
+            headerLeft: <HomeIcon {...navigation} />,
+        }),
+    },
+    CardGame: {
+        screen: CardGameStack,
         navigationOptions: ({ navigation }) => ({
             headerTitle: <Text style={{fontSize: 20, fontWeight: 'bold'}}>Dying To Talk</Text>  ,
             headerStyle: { backgroundColor: Colors.nav, height: 60},

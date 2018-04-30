@@ -39,7 +39,7 @@ const defaultStyles = StyleSheet.create({
         borderWidth: 1,
         borderColor: Colors.buttonPrimary,
         height: 8,
-        margin: 2,
+        margin: 1,
         flex: 1,
     }
 });

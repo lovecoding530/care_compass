@@ -66,7 +66,13 @@ export default class ManyChoices extends Component {
         this.flatList.scrollToOffset({offset: -1})
         this.flatList.scrollToOffset({offset: 1})
 
-        // this.props.onChangedAnswer(this.props.questionIndex, selectedIndex)
+        var selectedIndexes = []
+        
+        for (const choiceItem of choiceData) {
+            if(choiceItem.selected) selectedIndexes.push(choiceItem.index)            
+        }
+
+        this.props.onChangedAnswer(this.props.questionIndex, selectedIndexes)
     }
 
     render() {
