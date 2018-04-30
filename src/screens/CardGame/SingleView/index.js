@@ -68,6 +68,9 @@ export default class SingleView extends Component {
                 <View style={Styles.questionView}>
                     <Text medium center>{this.state.currentCard.question}</Text>
                 </View>
+                {this.state.currentCard.additional_info != "" &&
+                    <Text center style={Styles.additionalInfo}>Addtional Info</Text>
+                }
                 <View style={Styles.levelBar}>
                     <TouchableOpacity style={Styles.levelItem} onPress={this.onSelectedLevel.bind(this, 0)}>
                         <Image source={Images.check} style={Styles.levelIcon}/>
@@ -87,7 +90,7 @@ export default class SingleView extends Component {
                     <Text small center>Card {this.state.cardIndex+1} of {this.state.cardTotalCount}</Text>
                 </View>
                 <View style={Styles.buttonBar}>
-                    <Button light>LIST VIEW</Button>
+                    <Button light onPress={()=>navigate("CDListView")}>LIST VIEW</Button>
                     <Button dark onPress={()=>{navigate("CDSingleView", {cardIndex: this.state.cardIndex+1})}}>SKIP</Button>
                     <Button dark>FINISH</Button>
                 </View>

@@ -122,7 +122,7 @@ export default class Activity extends Component {
                         <Text center style={Styles.questionTitle}>{question}</Text>
                         <TextInput
                             style={Styles.textArea}
-                            value={"bbb"}
+                            value={""}
                             multiline={true}
                             numberOfLines={4}
                             onChangeText={(text) => this.onChangedAnswer(questionIndex, text)}/>
@@ -173,7 +173,7 @@ export default class Activity extends Component {
                 </ScrollView>
                 <View style={Styles.buttonBar}>
                     <Button light>FINISH</Button>
-                    <Button dark onPress={this.onNext.bind(this)}>N E X T</Button>
+                    <Button dark onPress={this.onNext.bind(this)}>NEXT</Button>
                 </View>
             </View>
         );
