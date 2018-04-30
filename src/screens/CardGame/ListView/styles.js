@@ -23,38 +23,46 @@ export default {
         marginVertical: 30,
     },
 
+    cardItem: {
+        marginBottom: 30,
+    },
+
+    question: {
+        flexDirection: 'row',
+        marginBottom: 15,
+    },
+
     questionView: {
         backgroundColor: Colors.backgroundThird,
-        height: 300,
-        marginHorizontal: 8,
-        marginVertical: 15,
-        justifyContent: 'center'
+        height: 144,
+        justifyContent: 'center',
+        flex: 1,
+        padding: 8,
     },
 
     additionalInfo: {
         backgroundColor: Colors.backgroundThird,
-        marginHorizontal: 8,
         marginBottom: 15,
         padding: 8,
     },
 
     levelBar: {
-        flexDirection: 'row',
         justifyContent: 'space-between',
     },
 
     levelItem: {
         backgroundColor: Colors.backgroundThird,
-        marginHorizontal: 8,
-        alignItems: 'center',
+        flexDirection: 'row',
+        marginLeft: 16,
+        justifyContent: 'center',
         padding: 8,
-        flex: 1,
+        width: 150,
     },
 
     levelIcon: {
-        width: 32,
-        height: 32,
-        marginVertical: 4,
+        width: 24,
+        height: 24,
+        marginHorizontal: 4,
     },
 
     progress: {
@@ -69,6 +77,7 @@ export default {
     buttonBar: {
         flexDirection: 'row',
         justifyContent: 'center',
+        marginVertical: 15,
     },
 
 };
