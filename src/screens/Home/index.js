@@ -29,7 +29,7 @@ export default class Home extends Component {
                     <TouchableOpacity style={Styles.item} onPress={()=>{this.props.navigation.navigate({routeName: "DiscussionStarter", key: "DiscussionStarter"})}}>
                         <Text style={Styles.itemText}>Discussion Starter</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={Styles.item}>
+                    <TouchableOpacity style={Styles.item} onPress={()=>{this.props.navigation.navigate({routeName: "CardGame", key: "CardGame"})}}>
                         <Text style={Styles.itemText}>Card Game</Text>
                     </TouchableOpacity>
                 </View>

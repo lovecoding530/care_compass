@@ -1,7 +1,7 @@
-import Intro from "./Intro";
+import DSIntro from "./Intro";
 import ActivityList from "./ActivityList"
 import Activity from "./Activity"
 import UpNext from "./UpNext"
 import Complete from "./Complete"
 
-export {Intro, ActivityList, Activity, UpNext, Complete}
+export {DSIntro, ActivityList, Activity, UpNext, Complete}

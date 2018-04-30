@@ -17,13 +17,15 @@ import ProgressBar from '@progressbar'
 import Choices from "@choices";
 import ManyChoices from "@manychoices";
 
-import { getDiscussionStarter } from "@api";
+import { getDiscussionStarter, postDiscussionAnswers} from "@api";
 import { Loader } from '@components';
+import DeviceInfo from 'react-native-device-info'
 
 export default class Activity extends Component {
     constructor(props) {
         super(props);
         const {activityIndex} = this.props.navigation.state.params
+        this.answers = {}
         this.state = ({
             activityIndex: activityIndex,
             pageIndex: 0,
@@ -34,13 +36,14 @@ export default class Activity extends Component {
                 icon: "",
                 questions: []
             },
-            loaderVisible: true
+            loaderVisible: false,
         })
     }
 
     async componentDidMount() {
 
         const ds = await getDiscussionStarter(true)
+        this.starterSlug = ds[0].slug
         const activities = ds[0].discussion_starter
         const activity = activities[this.state.activityIndex]
         const pageTotalCount = parseInt((activity.questions.length - 1) / 3) + 1
@@ -49,22 +52,54 @@ export default class Activity extends Component {
             activity: activity,
             activityCount: activities.length,
         })
-
-        setTimeout(()=>{
-            this.setState({loaderVisible: false})
-        }, 2000)
     }
 
-    onChangedAnswer(questionIndex, answerIndex){
-        // alert("onChangedAnswer" + answerIndex)
+    async sendAnswers(){
+        var ansswerResponse = {}
+        const uniqueId = DeviceInfo.getUniqueID();
+        ansswerResponse.uuid = uniqueId
+        ansswerResponse.starter = this.starterSlug
+        ansswerResponse.responses = Object.values(this.answers)
+        console.log(ansswerResponse)
+
+        this.setState({loaderVisible: true})
+        await postDiscussionAnswers(ansswerResponse)
+        this.setState({loaderVisible: false})
     }
 
-    onNext(){
+    onChangedAnswer(questionIndex, answerData){
+        let questionData = this.state.activity.questions[questionIndex]
+        const {question, question_type, question_choices} = questionData;            
+        const answerList = question_choices.split("\r\n")
+
+        var answer = {}
+        if(question_type == "freetext") {
+            answer.question = question
+            answer.question_id = ""
+            answer.response = answerData            
+        }else if(question_type == "choices"){
+            answer.question = question
+            answer.question_id = ""
+            answer.response = answerList[answerData]            
+        }else if(question_type == "manychoices"){
+            var selectedChoices = answerData.map(i => answerList[i])
+            answer.question = question
+            answer.question_id = ""
+            answer.response = selectedChoices           
+        }
+
+        this.answers[questionIndex] = answer
+        console.log(this.answers)
+    }
+
+    async onNext(){
         if(this.state.pageIndex < (this.state.pageTotalCount - 1)){
             this.setState({
                 pageIndex: this.state.pageIndex + 1,
             })            
         }else{
+            await this.sendAnswers()
+
             const {navigate} = this.props.navigation
             if(this.state.activityIndex + 1 >= this.state.activityCount){
                 navigate({routeName: "Complete", key: "Complete", params: {activityIndex: this.state.activityIndex}})
@@ -79,6 +114,7 @@ export default class Activity extends Component {
         var endIndex = startIndex + 3
         var pageQuestions = this.state.activity.questions.slice(startIndex, endIndex)
         var questionList = pageQuestions.map((questionData, index) => {
+            var questionIndex = startIndex + index
             const {question, question_type, question_choices, category, question_audio_url} = questionData;            
             if(question_type == "freetext") {
                 return (
@@ -86,9 +122,10 @@ export default class Activity extends Component {
                         <Text center style={Styles.questionTitle}>{question}</Text>
                         <TextInput
                             style={Styles.textArea}
+                            value={"bbb"}
                             multiline={true}
                             numberOfLines={4}
-                            onChangeText={(text) => this.setState({text})}/>
+                            onChangeText={(text) => this.onChangedAnswer(questionIndex, text)}/>
                     </View>
                 )
             }else if(question_type == "choices"){
@@ -98,7 +135,7 @@ export default class Activity extends Component {
                         <Text center style={Styles.questionTitle}>{question}</Text>
                         <Choices 
                             scrollViewRef = {this.scrollView}
-                            questionIndex={index}
+                            questionIndex={questionIndex}
                             data={answerList} 
                             selectedIndex={-1}
                             onChangedAnswer={this.onChangedAnswer.bind(this)}/>
@@ -111,7 +148,7 @@ export default class Activity extends Component {
                         <Text center style={Styles.questionTitle}>{question}</Text>
                         <ManyChoices 
                             scrollViewRef = {this.scrollView}
-                            questionIndex={index}
+                            questionIndex={questionIndex}
                             data={answerList} 
                             selectedIndexes={[]}
                             onChangedAnswer={this.onChangedAnswer.bind(this)}/>
