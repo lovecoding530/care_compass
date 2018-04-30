@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     width:width/5,
   },
   bottomText:{
-    marginTop:Platform.OS === 'ios' ? height/60 : height/60,
+    marginTop:Platform.OS === 'ios' ? height/60 : height/90,
     textAlign:'right',
     color: Colors.gray,
   },
