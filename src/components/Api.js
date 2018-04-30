@@ -7,6 +7,7 @@ import {
     Platform,
     AsyncStorage
 } from 'react-native';
+import moment from 'moment';
 
 const API_ROOT = "https://pca.techequipt.com.au/api"
 const API_BUNDLE = API_ROOT + "/bundle/"
@@ -15,6 +16,7 @@ const API_DISCUSSION_STARTER_LOG_RESPONSE = API_ROOT + "/discussion-starter/log-
 const API_CARD_GAME = API_ROOT + "/card-game/"
 const API_RESOURCES = API_ROOT + "/resources/"
 const API_USER_GUIDE = API_ROOT + "/user-guides/"
+export const updateTimeInterval = 1;
 
 export async function getJSONwithCache(url, fromCached){
     if (fromCached) {

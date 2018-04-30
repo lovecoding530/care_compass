@@ -12,28 +12,48 @@ import Styles from './styles';
 import Text from '@text'
 import Footer from '@footer'
 import Button from '@button'
-
+import { Loader } from '@components';
+import { getResources } from "@api";
 var BASE_URL = 'https://pca.techequipt.com.au'
 
 export default class ResourceDetail extends Component {
     constructor(props) {
         super(props);
-        const { params } = this.props.navigation.state;
+        const {resourceIndex} = this.props.navigation.state.params
         this.state = ({
-            title: params.items.title,
-            subtitle: params.items.information_text,
-            link: params.items.link,
-            image: BASE_URL + params.items.image.url,
-            width: params.items.image.width,
-            height: params.items.image.height
+            resourceIndex: resourceIndex,
+            title: '',
+            subtitle: '',
+            link: '',
+            image: '',
+            loaderVisible: true
         })
+    }
+
+    async componentDidMount() {
+        const ds = await getResources(true)
+        const resources = ds.resources
+        const resource = resources[this.state.resourceIndex]
+        
+        this.setState({
+            title: resource.title,
+            subtitle: resource.information_text,
+            link: resource.link,
+            image: BASE_URL + resource.image.url,
+        }) 
+
+        setTimeout(()=>{
+            this.setState({loaderVisible: false})
+        }, 2000)
+        
     }
 
     render() {   
         return (
             <View style={Styles.container}>
             <View style={Styles.scrollcontainer}> 
-               <ScrollView contentContainerStyle={Styles.scroll}> 
+                <Loader loading={this.state.loaderVisible}/>
+                <ScrollView contentContainerStyle={Styles.scroll}> 
                     <Text bold style={Styles.title}>{this.state.title}</Text>
                     <View style={Styles.viewImage}>
                         <Image style={Styles.middleimage} source={{uri: this.state.image}}/>
