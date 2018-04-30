@@ -40,8 +40,8 @@ export default class Home extends Component {
                     <TouchableOpacity style={Styles.item} onPress={()=>{this.props.navigation.navigate("Resources")}}>
                         <Text style={Styles.itemText}>Resources</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={Styles.item}>
-                        <Text style={Styles.itemText}>Journal</Text>
+                    <TouchableOpacity style={Styles.item} onPress={()=>{this.props.navigation.navigate("GetHelp")}}>
+                        <Text style={Styles.itemText}>Get Help</Text>
                     </TouchableOpacity>
                 </View>
             </View>
