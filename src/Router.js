@@ -17,6 +17,8 @@ import Home from "./screens/Home";
 import {DSIntro, ActivityList, Activity, UpNext, Complete} from "./screens/DiscussionStarter";
 import {CDIntro, CDSingleView} from "./screens/CardGame";
 import {ResourceList, ResourceDetail} from "./screens/Resources";
+import {UserGuidesList,UserGuidesDetail} from "./screens/UserGuides";
+
 
 const MenuIcon = ({ navigate }) => {
     return (
@@ -72,6 +74,13 @@ export const ResourcesStack = StackNavigator({
     headerMode: 'none',
 });
 
+export const UserGuidesStack = StackNavigator({
+    UserGuidesList: {screen: UserGuidesList},
+    UserGuidesDetail: {screen: UserGuidesDetail},
+}, {
+    headerMode: 'none',
+});
+
 export const HomeStack = StackNavigator({
     Home: {
         screen: Home,
@@ -104,6 +113,16 @@ export const HomeStack = StackNavigator({
     },
     Resources: {
         screen: ResourcesStack,
+        navigationOptions: ({ navigation }) => ({
+            headerTitle: <Text style={{fontSize: 20, fontWeight: 'bold'}}>Dying To Talk</Text>  ,
+            headerStyle: { backgroundColor: Colors.nav, height: 60},
+            headerTitleStyle: {color: '#a7c3f2'},
+            headerRight: <MenuIcon {...navigation} />,
+            headerLeft: <HomeIcon {...navigation} />,
+        }),
+    },
+    UserGuides: {
+        screen: UserGuidesStack,
         navigationOptions: ({ navigation }) => ({
             headerTitle: <Text style={{fontSize: 20, fontWeight: 'bold'}}>Dying To Talk</Text>  ,
             headerStyle: { backgroundColor: Colors.nav, height: 60},

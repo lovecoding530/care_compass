@@ -39,7 +39,7 @@ export default {
   },
   container: {
     flex: 1, 
-    backgroundColor: Colors.backgroundPrimary,
+    backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center',
   },

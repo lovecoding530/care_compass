@@ -99,3 +99,12 @@ export async function postJSONwithCache(url, json) {
 export async function postDiscussionAnswers(json) {
     await postJSONwithCache(API_DISCUSSION_STARTER_LOG_RESPONSE, json)
 }
+
+export async function getUserGuides(fromCached = false) {
+    return await getJSONwithCache(API_USER_GUIDE, fromCached)
+}
+
+export async function getUserGuidesDetail(slug,itemSlug,fromCached = false) {
+    const API_USER_GUIDE_DETAIL = `${API_USER_GUIDE}${slug}/${itemSlug}/`;
+    return await getJSONwithCache(API_USER_GUIDE_DETAIL, fromCached)
+}
