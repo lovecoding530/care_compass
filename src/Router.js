@@ -18,6 +18,7 @@ import {DSIntro, ActivityList, Activity, UpNext, Complete} from "./screens/Discu
 import {CDIntro, CDSingleView} from "./screens/CardGame";
 import {ResourceList, ResourceDetail} from "./screens/Resources";
 import {UserGuidesList,UserGuidesDetail} from "./screens/UserGuides";
+import {GetHelpList} from "./screens/GetHelp";
 
 
 const MenuIcon = ({ navigate }) => {
@@ -81,6 +82,12 @@ export const UserGuidesStack = StackNavigator({
     headerMode: 'none',
 });
 
+export const GetHelpStack = StackNavigator({
+    GetHelpList: {screen: GetHelpList},
+}, {
+    headerMode: 'none',
+});
+
 export const HomeStack = StackNavigator({
     Home: {
         screen: Home,
@@ -123,6 +130,16 @@ export const HomeStack = StackNavigator({
     },
     UserGuides: {
         screen: UserGuidesStack,
+        navigationOptions: ({ navigation }) => ({
+            headerTitle: <Text style={{fontSize: 20, fontWeight: 'bold'}}>Dying To Talk</Text>  ,
+            headerStyle: { backgroundColor: Colors.nav, height: 60},
+            headerTitleStyle: {color: '#a7c3f2'},
+            headerRight: <MenuIcon {...navigation} />,
+            headerLeft: <HomeIcon {...navigation} />,
+        }),
+    },
+    GetHelp: {
+        screen: GetHelpStack,
         navigationOptions: ({ navigation }) => ({
             headerTitle: <Text style={{fontSize: 20, fontWeight: 'bold'}}>Dying To Talk</Text>  ,
             headerStyle: { backgroundColor: Colors.nav, height: 60},
