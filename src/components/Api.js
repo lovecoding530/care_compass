@@ -7,6 +7,7 @@ import {
     Platform,
     AsyncStorage
 } from 'react-native';
+import moment from 'moment';
 
 const API_ROOT = "https://pca.techequipt.com.au/api"
 const API_BUNDLE = API_ROOT + "/bundle/"
@@ -14,6 +15,7 @@ const API_DISCUSSION_STARTER = API_ROOT + "/discussion-starter/"
 const API_CARD_GAME = API_ROOT + "/card-game/"
 const API_RESOURCES = API_ROOT + "/resources/"
 const API_USER_GUIDE = API_ROOT + "/user-guides/"
+export const updateTimeInterval = 1;
 
 export async function getJSONwithCache(url, fromCached){
     if (fromCached) {
@@ -46,4 +48,13 @@ export async function getDiscussionStarter(fromCached = false) {
 
 export async function getResources(fromCached = false) {
     return await getJSONwithCache(API_RESOURCES, fromCached)
+}
+
+export async function getUserGuides(fromCached = false) {
+    return await getJSONwithCache(API_USER_GUIDE, fromCached)
+}
+
+export async function getUserGuidesDetail(slug,itemSlug,fromCached = false) {
+    const API_USER_GUIDE_DETAIL = `${API_USER_GUIDE}${slug}/${itemSlug}/`;
+    return await getJSONwithCache(API_USER_GUIDE_DETAIL, fromCached)
 }
