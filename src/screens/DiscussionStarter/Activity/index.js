@@ -55,16 +55,18 @@ export default class Activity extends Component {
     }
 
     async sendAnswers(){
-        var ansswerResponse = {}
-        const uniqueId = DeviceInfo.getUniqueID();
-        ansswerResponse.uuid = uniqueId
-        ansswerResponse.starter = this.starterSlug
-        ansswerResponse.responses = Object.values(this.answers)
-        console.log(ansswerResponse)
-
-        this.setState({loaderVisible: true})
-        await postDiscussionAnswers(ansswerResponse)
-        this.setState({loaderVisible: false})
+        try {
+            var ansswerResponse = {}
+            const uniqueId = DeviceInfo.getUniqueID();
+            ansswerResponse.uuid = uniqueId
+            ansswerResponse.starter = this.starterSlug
+            ansswerResponse.responses = Object.values(this.answers)
+            this.setState({loaderVisible: true})
+            await postDiscussionAnswers(ansswerResponse)
+            this.setState({loaderVisible: false})
+        } catch (error) {
+            alert(error)            
+        }
     }
 
     onChangedAnswer(questionIndex, answerData){
@@ -99,14 +101,18 @@ export default class Activity extends Component {
             })            
         }else{
             await this.sendAnswers()
-
             const {navigate} = this.props.navigation
             if(this.state.activityIndex + 1 >= this.state.activityCount){
-                navigate({routeName: "Complete", key: "Complete", params: {activityIndex: this.state.activityIndex}})
+                navigate("Complete")
             }else{
                 navigate("UpNext", {activityIndex: this.state.activityIndex})
             }
         }
+    }
+
+    onFinish(){
+        const {navigate} = this.props.navigation
+        navigate("Complete")    
     }
 
     renderQuestions(){
@@ -172,7 +178,7 @@ export default class Activity extends Component {
                     {this.renderQuestions()}
                 </ScrollView>
                 <View style={Styles.buttonBar}>
-                    <Button light>FINISH</Button>
+                    <Button light onPress={this.onFinish.bind(this)}>FINISH</Button>
                     <Button dark onPress={this.onNext.bind(this)}>NEXT</Button>
                 </View>
             </View>

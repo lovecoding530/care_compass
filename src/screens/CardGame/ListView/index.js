@@ -19,6 +19,7 @@ import ManyChoices from "@manychoices";
 
 import { getCardGame} from "@api";
 import { Loader } from '@components';
+import { copy } from '@utils';
 import DeviceInfo from 'react-native-device-info'
 
 export default class ListView extends Component {
@@ -43,12 +44,25 @@ export default class ListView extends Component {
 
     }
 
-    onSelectedLevel(level){
-        const {navigate} = this.props.navigation
-        navigate("CDSingleView", {cardIndex: this.state.cardIndex+1})
+    onSelectedLevel(cardIndex, level){
+        var cards = copy(this.state.cards)
+        cards[cardIndex].selectedLevel = level
+        this.setState({
+            cards: cards,            
+        })
     }
 
     renderCardItem({item, index}){
+        let selectedLevel = item.selectedLevel
+        var levelItemStyles = [
+            {marginLeft: 16},
+            {marginLeft: 16},
+            {marginLeft: 16},
+        ]
+        if(selectedLevel >= 0) {
+            levelItemStyles[selectedLevel].marginLeft = 0
+            levelItemStyles[selectedLevel].width = 166
+        }
         var cardItem = 
             <View style={Styles.cardItem}>
                 <View style={Styles.question}>
@@ -56,15 +70,15 @@ export default class ListView extends Component {
                         <Text medium center>{item.question}</Text>
                     </View>
                     <View style={Styles.levelBar}>
-                        <TouchableOpacity style={Styles.levelItem} onPress={this.onSelectedLevel.bind(this, 0)}>
+                        <TouchableOpacity style={[Styles.levelItem, levelItemStyles[0]]} onPress={this.onSelectedLevel.bind(this, index, 0)}>
                             <Image source={Images.check} style={Styles.levelIcon}/>
                             <Text bold>NOT</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={Styles.levelItem} onPress={this.onSelectedLevel.bind(this, 1)}>
+                        <TouchableOpacity style={[Styles.levelItem, levelItemStyles[1]]} onPress={this.onSelectedLevel.bind(this, index, 1)}>
                             <Image source={Images.check} style={Styles.levelIcon}/>
                             <Text bold>SOMEWHAT</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={Styles.levelItem} onPress={this.onSelectedLevel.bind(this, 2)}>
+                        <TouchableOpacity style={[Styles.levelItem, levelItemStyles[2]]} onPress={this.onSelectedLevel.bind(this, index, 2)}>
                             <Image source={Images.check} style={Styles.levelIcon}/>
                             <Text bold>VERY</Text>
                         </TouchableOpacity>
