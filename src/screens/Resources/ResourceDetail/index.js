@@ -40,12 +40,8 @@ export default class ResourceDetail extends Component {
             subtitle: resource.information_text,
             link: resource.link,
             image: BASE_URL + resource.image.url,
+            loaderVisible: false
         }) 
-
-        setTimeout(()=>{
-            this.setState({loaderVisible: false})
-        }, 2000)
-        
     }
 
     render() {   

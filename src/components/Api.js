@@ -15,7 +15,7 @@ const API_DISCUSSION_STARTER = API_ROOT + "/discussion-starter/"
 const API_CARD_GAME = API_ROOT + "/card-game/"
 const API_RESOURCES = API_ROOT + "/resources/"
 const API_USER_GUIDE = API_ROOT + "/user-guides/"
-export const updateTimeInterval = 1;
+export const updateTimeInterval = 2;
 
 export async function getJSONwithCache(url, fromCached){
     if (fromCached) {
@@ -52,9 +52,4 @@ export async function getResources(fromCached = false) {
 
 export async function getUserGuides(fromCached = false) {
     return await getJSONwithCache(API_USER_GUIDE, fromCached)
-}
-
-export async function getUserGuidesDetail(slug,itemSlug,fromCached = false) {
-    const API_USER_GUIDE_DETAIL = `${API_USER_GUIDE}${slug}/${itemSlug}/`;
-    return await getJSONwithCache(API_USER_GUIDE_DETAIL, fromCached)
 }
