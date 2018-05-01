@@ -48,6 +48,7 @@ export default class UserGuidesDetail extends Component {
                 title : userguide.title,
                 body : userguide.body,
                 faqs : userguide.faqs,
+                loaderVisible: false
             })
         }
         else
@@ -57,12 +58,9 @@ export default class UserGuidesDetail extends Component {
                body : userguide.body,
                faqs : userguide.faqs,
                 image: BASE_URL + userguide.featured_image.url,
+                loaderVisible: false
             }) 
         }
-
-        setTimeout(()=>{
-            this.setState({loaderVisible: false})
-        }, 2000)
         
     }
     _showResult(result){
