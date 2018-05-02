@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import moment from 'moment';
 
+export const updateTimeInterval = 2;  // Number of hours to cache response
+export const API_HTML_ROOT = "https://pca.techequipt.com.au";
 const API_ROOT = "https://pca.techequipt.com.au/api"
 const API_BUNDLE = API_ROOT + "/bundle/"
 const API_DISCUSSION_STARTER = API_ROOT + "/discussion-starter/"
@@ -16,7 +18,6 @@ const API_DISCUSSION_STARTER_LOG_RESPONSE = API_ROOT + "/discussion-starter/log-
 const API_CARD_GAME = API_ROOT + "/card-game/"
 const API_RESOURCES = API_ROOT + "/resources/"
 const API_USER_GUIDE = API_ROOT + "/user-guides/"
-export const updateTimeInterval = 1;
 
 export async function getJSONwithCache(url, fromCached){
     if (fromCached) {

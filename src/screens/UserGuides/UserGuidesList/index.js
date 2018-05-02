@@ -21,7 +21,7 @@ export default class UserGuidesList extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-            activityIndexes: [],
+            userguideIndexes: [],
             loaderVisible: true
         })
     }
@@ -33,6 +33,7 @@ export default class UserGuidesList extends Component {
 
                 if (value != null){
                   // do something 
+
                     var currrentTime = moment(new Date()).format("HH:mm:ss");
                     var startTime=moment(value, "HH:mm:ss");
                     var endTime=moment(currrentTime, "HH:mm:ss");
@@ -51,15 +52,13 @@ export default class UserGuidesList extends Component {
                         }
 
                         this.setState({
-                            userguideIndexes: userguideIndexes
+                            userguideIndexes: userguideIndexes,
+                            loaderVisible: false
                         })
-
-                        setTimeout(()=>{
-                            this.setState({loaderVisible: false})
-                        }, 2000)
                     }
                     else
                     {
+
                         const ds = await getUserGuides(true)
                         const userguides = ds[0].guides
 
@@ -69,12 +68,9 @@ export default class UserGuidesList extends Component {
                         }
 
                         this.setState({
-                            userguideIndexes: userguideIndexes
+                            userguideIndexes: userguideIndexes,
+                            loaderVisible: false
                         })
-
-                        setTimeout(()=>{
-                            this.setState({loaderVisible: false})
-                        }, 2000)
                     }   
                 }
                 else {
@@ -90,13 +86,9 @@ export default class UserGuidesList extends Component {
                     }
 
                     this.setState({
-                        userguideIndexes: userguideIndexes
+                        userguideIndexes: userguideIndexes,
+                        loaderVisible: false
                     })
-
-                    setTimeout(()=>{
-                        this.setState({loaderVisible: false})
-                    }, 2000)
-                
                 } 
             }
             catch (error) {
