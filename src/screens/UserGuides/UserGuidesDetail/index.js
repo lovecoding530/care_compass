@@ -7,7 +7,9 @@ import {
     Linking,
     ScrollView,
     Share,
-    FlatList
+    FlatList,
+    Dimensions,
+    WebView
 } from 'react-native';
 
 import Styles from './styles';
@@ -16,9 +18,52 @@ import Footer from '@footer'
 import Button from '@button'
 import { Loader } from '@components';
 
-import { getUserGuides } from "@api";
+import { getUserGuides, API_HTML_ROOT } from "@api";
 import HTMLView from 'react-native-htmlview';
-var BASE_URL = 'https://pca.techequipt.com.au'
+const { width,height } = Dimensions.get('window');
+
+function renderNode(node, index, siblings, parent, defaultRenderer) {
+  if (node.name == 'iframe') {
+    const a = node.attribs;
+    const iframeHtml = `<iframe width=\"${width}\" height=\"${height/2}\" src=\"${a.src}" ></iframe>`;
+    return (
+      <View key={index} style={{width: width/4, height: height/8}}>
+        <WebView source={{html: iframeHtml}} />
+      </View>
+    );
+  }
+  if (node.name == 'img') {
+    const a = node.attribs;
+    const source = API_HTML_ROOT + a.src;
+    const imgHtml = `<img src=\"${source}" width=\"${width/1.5}\" height=\"${height/2.7}\" >`;
+    return (
+        <HTMLView
+                value={imgHtml}
+            />
+       
+    );
+  }
+
+  if (node.name == 'a') {
+    const a = node.attribs;
+    const source = API_HTML_ROOT + a.href;
+    const alinkHtml = `<a href="${source}" >help_content_doc</a>`;
+    const adocHtml = `<a href="${source}" >Dying To Talk</a>`;
+    return (
+        <View>
+        {index == 1 ? 
+            <HTMLView
+                value={adocHtml}
+            />
+            :
+             <HTMLView
+                value={alinkHtml}
+            />
+        }
+        </View>
+    );
+  }
+}
 
 export default class UserGuidesDetail extends Component {
     constructor(props) {
@@ -32,7 +77,6 @@ export default class UserGuidesDetail extends Component {
             image : '',
             body : '',
             faqs : [],
-            result : '',
             loaderVisible: true
         })
     }
@@ -57,14 +101,21 @@ export default class UserGuidesDetail extends Component {
                title : userguide.title,
                body : userguide.body,
                faqs : userguide.faqs,
-                image: BASE_URL + userguide.featured_image.url,
+                image: API_HTML_ROOT + userguide.featured_image.url,
                 loaderVisible: false
             }) 
         }
         
     }
     _showResult(result){
-        this.setState({result : result});
+        if(result.action == "sharedAction")
+        {
+            alert("Your content has been share successfully.");
+        }
+        else
+        {
+            alert("You have cancelled sharing.");
+        }
     }
 
     _share(){
@@ -103,6 +154,7 @@ export default class UserGuidesDetail extends Component {
                     <View style={Styles.viewBody}>
                         <HTMLView
                             value={this.state.body}
+                            renderNode={renderNode}
                         />
                     </View>
 
