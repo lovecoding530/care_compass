@@ -65,7 +65,6 @@ export default class Activity extends Component {
             await postDiscussionAnswers(ansswerResponse)
             this.setState({loaderVisible: false})
         } catch (error) {
-            alert(error)            
         }
     }
 
