@@ -23,9 +23,7 @@ import { getDiscussionStarter } from "@api";
 export default class Complete extends Component {
     constructor(props) {
         super(props);
-        const {activityIndex} = this.props.navigation.state.params
         this.state = ({
-            activityIndex: activityIndex,
             activities: [],
             activityCount: 0,
             modalVisible: {

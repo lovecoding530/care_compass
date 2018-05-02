@@ -19,36 +19,41 @@ import ManyChoices from "@manychoices";
 
 import { getCardGame} from "@api";
 import { Loader } from '@components';
+import { copy } from '@utils';
 import DeviceInfo from 'react-native-device-info'
 
 export default class ListView extends Component {
     constructor(props) {
         super(props);
+        const {cardGame} = this.props.navigation.state.params
         this.state = ({
-            loaderVisible: false,
-            cards: []
+            cardGame: cardGame,
         })
     }
 
-    async componentDidMount() {
-        const cd = await getCardGame(true)
-        const firstCardGame = cd[0]
-        const cards = firstCardGame.cards
+    componentDidMount() {
+    }
+
+    onSelectedLevel(cardIndex, level){
+        let cardGame = copy(this.state.cardGame)
+        cardGame.cards[cardIndex].selectedLevel = level
+
         this.setState({
-            cards: cards,
+            cardGame: cardGame,            
         })
-    }
-
-    onSkip(){
-
-    }
-
-    onSelectedLevel(level){
-        const {navigate} = this.props.navigation
-        navigate("CDSingleView", {cardIndex: this.state.cardIndex+1})
     }
 
     renderCardItem({item, index}){
+        let selectedLevel = item.selectedLevel
+        var levelItemStyles = [
+            {marginLeft: 16},
+            {marginLeft: 16},
+            {marginLeft: 16},
+        ]
+        if(selectedLevel >= 0) {
+            levelItemStyles[selectedLevel].marginLeft = 0
+            levelItemStyles[selectedLevel].width = 166
+        }
         var cardItem = 
             <View style={Styles.cardItem}>
                 <View style={Styles.question}>
@@ -56,16 +61,16 @@ export default class ListView extends Component {
                         <Text medium center>{item.question}</Text>
                     </View>
                     <View style={Styles.levelBar}>
-                        <TouchableOpacity style={Styles.levelItem} onPress={this.onSelectedLevel.bind(this, 0)}>
-                            <Image source={Images.check} style={Styles.levelIcon}/>
+                        <TouchableOpacity style={[Styles.levelItem, levelItemStyles[0]]} onPress={this.onSelectedLevel.bind(this, index, 0)}>
+                            <Image source={Images.levelNot} style={Styles.levelIcon}/>
                             <Text bold>NOT</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={Styles.levelItem} onPress={this.onSelectedLevel.bind(this, 1)}>
-                            <Image source={Images.check} style={Styles.levelIcon}/>
+                        <TouchableOpacity style={[Styles.levelItem, levelItemStyles[1]]} onPress={this.onSelectedLevel.bind(this, index, 1)}>
+                            <Image source={Images.levelSomewhat} style={Styles.levelIcon}/>
                             <Text bold>SOMEWHAT</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={Styles.levelItem} onPress={this.onSelectedLevel.bind(this, 2)}>
-                            <Image source={Images.check} style={Styles.levelIcon}/>
+                        <TouchableOpacity style={[Styles.levelItem, levelItemStyles[2]]} onPress={this.onSelectedLevel.bind(this, index, 2)}>
+                            <Image source={Images.levelVery} style={Styles.levelIcon}/>
                             <Text bold>VERY</Text>
                         </TouchableOpacity>
                     </View>
@@ -81,18 +86,17 @@ export default class ListView extends Component {
         const {navigate} = this.props.navigation
         return (
             <View style={Styles.container}>
-                <Loader loading={this.state.loaderVisible}/>
                 <View style={Styles.title}>
                     <Text mediumLarge bold center>How important is...</Text>
                 </View>
                 <FlatList
-                    data = {this.state.cards}
+                    data = {this.state.cardGame.cards}
                     renderItem = {this.renderCardItem.bind(this)}
                     keyExtractor = {(item, index) => index.toString()}
                 />
                 <View style={Styles.buttonBar}>
-                    <Button light>SINGLE VIEW</Button>
-                    <Button dark>FINISH</Button>
+                    <Button light onPress={()=>{navigate("CDSingleView", {cardIndex: 0, cardGame: this.state.cardGame})}}>SINGLE VIEW</Button>
+                    <Button dark onPress={()=>{navigate("CDSummary", {cardGame: this.state.cardGame})}}>FINISH</Button>
                 </View>
             </View>
         );
