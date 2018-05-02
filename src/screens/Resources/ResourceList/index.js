@@ -51,12 +51,9 @@ export default class Resources extends Component {
                         }
 
                         this.setState({
-                            resourceIndexes: resourceIndexes
+                            resourceIndexes: resourceIndexes,
+                            loaderVisible: false
                         })
-
-                        setTimeout(()=>{
-                            this.setState({loaderVisible: false})
-                        }, 2000)
                     }
                     else
                     {
@@ -68,12 +65,9 @@ export default class Resources extends Component {
                         }
 
                         this.setState({
-                            resourceIndexes: resourceIndexes
+                            resourceIndexes: resourceIndexes,
+                            loaderVisible: false
                         })
-
-                        setTimeout(()=>{
-                            this.setState({loaderVisible: false})
-                        }, 2000)
                     }   
                 }
                 else {
@@ -88,12 +82,9 @@ export default class Resources extends Component {
                     }
 
                     this.setState({
-                        resourceIndexes: resourceIndexes
+                        resourceIndexes: resourceIndexes,
+                        loaderVisible: false
                     })
-
-                    setTimeout(()=>{
-                        this.setState({loaderVisible: false})
-                    }, 2000)
                 } 
             }
             catch (error) {
