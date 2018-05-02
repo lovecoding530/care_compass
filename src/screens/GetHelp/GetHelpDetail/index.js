@@ -8,7 +8,8 @@ import {
     ScrollView,
     Share,
     TouchableOpacity,
-    Dimensions
+    Dimensions,
+    WebView
 } from 'react-native';
 
 import Styles from './styles';
@@ -16,16 +17,55 @@ import Text from '@text'
 import Footer from '@footer'
 import Button from '@button'
 import { Loader } from '@components';
+import EmailModal from '../../DiscussionStarter/Complete/modals/Email'
+import EmailSentModal from '../../DiscussionStarter/Complete/modals/EmailSent'
 
-import { getGetHelp } from "@api";
+import { getGetHelp, API_HTML_ROOT} from "@api";
 import HTMLView from 'react-native-htmlview';
-var BASE_URL = 'https://pca.techequipt.com.au'
 import Communications from 'react-native-communications';
+const { width,height } = Dimensions.get('window');
+
+function renderNode(node, index, siblings, parent, defaultRenderer) {
+  if (node.name == 'iframe') {
+    const a = node.attribs;
+    const iframeHtml = `<iframe width=\"${width}\" height=\"${height/2}\" src=\"${a.src}" ></iframe>`;
+    return (
+      <View key={index} style={{width: width/4, height: height/8}}>
+        <WebView source={{html: iframeHtml}} />
+      </View>
+    );
+  }
+  if (node.name == 'img') {
+    const a = node.attribs;
+    const source = API_HTML_ROOT + a.src;
+    const imgHtml = `<img src=\"${source}" width=\"${width/1.5}\" height=\"${height/2.7}\" >`;
+    return (
+        <HTMLView
+                value={imgHtml}
+            />
+       
+    );
+  }
+
+  if (node.name == 'a') {
+    const a = node.attribs;
+    const source = API_HTML_ROOT + a.href;
+    const aHtml = `<a href="${source}" >help_content_doc</a>`;
+    return (
+            <HTMLView
+                value={aHtml}
+            />
+       
+    );
+  }
+}
 
 export default class UserGuidesDetail extends Component {
     constructor(props) {
         super(props);
         const {gethelpIndexes} = this.props.navigation.state.params
+        this._share=this._share.bind(this);
+        this._showResult=this._showResult.bind(this);
         this.state = ({
             gethelpIndexes: gethelpIndexes,
             title : '',
@@ -35,6 +75,10 @@ export default class UserGuidesDetail extends Component {
             website : '',
             phonenumber : '',
             loaderVisible: true,
+            modalVisible: {
+                email: false,
+                emailSent: false,
+            },
         })
     }
 
@@ -55,6 +99,69 @@ export default class UserGuidesDetail extends Component {
         }) 
     }
 
+    _showResult(result){
+        if(result.action == "sharedAction")
+        {
+            alert("Your content has been share successfully.");
+        }
+        else
+        {
+            alert("You have cancelled sharing.");
+        } 
+    }
+
+    _share(){
+        Share.share({
+            message : 'Dying To Talk',
+            url : this.state.website
+        }).then(this._showResult.bind(this));
+    }
+
+    onShareEmail() {
+        this.setState({
+            modalVisible: {
+                share: false,
+                downloaded: false,
+                email: false,
+                emailSent: false,
+            }
+        })        
+        setTimeout(()=>{
+            this.setState({
+                modalVisible: {
+                    share: false,
+                    downloaded: false,
+                    email: true,
+                    emailSent: false,
+                }
+            })                        
+        }, 200)
+    }
+
+    onSendEmail(name, email){
+        setTimeout(()=>{
+            this.setState({
+                modalVisible: {
+                    share: false,
+                    downloaded: false,
+                    email: false,
+                    emailSent: true,
+                }
+            })                        
+        }, 1000)
+    }
+
+    onShareCancel() {
+        this.setState({
+            modalVisible: {
+                share: false,
+                downloaded: false,
+                email: false,
+                emailSent: false,
+            }
+        })
+    }
+
     render() {   
         return (
             <View style={Styles.container}>
@@ -69,12 +176,13 @@ export default class UserGuidesDetail extends Component {
                             {this.state.logo == null ?
                                 <Image style={Styles.logo} source={require('../../../../assets/images/default_appLogo.png')}/>
                                 :
-                                <Image style={Styles.logo} source={{uri:  BASE_URL + this.state.logo.url}}/>
+                                <Image style={Styles.logo} source={{uri:  API_HTML_ROOT + this.state.logo.url}}/>
                             }
                            
                         <View style={Styles.viewBody}>
                             <HTMLView
                                 value={this.state.description}
+                                renderNode={renderNode}
                             />
                         </View>
 
@@ -141,7 +249,7 @@ export default class UserGuidesDetail extends Component {
                                             <Text style={Styles.buttonText}>WEBSITE</Text>
                                         </View>
                                     </TouchableOpacity>
-                                    <TouchableOpacity style={Styles.button} >
+                                    <TouchableOpacity style={Styles.button} onPress={this.onShareEmail.bind(this)}>
                                         <View style={Styles.buttonView}>
                                             <View style={{justifyContent:'center'}}><Image  source={require('../../../../assets/images/icon_email.png')}/></View>
                                             <Text style={Styles.buttonText}>EMAIL</Text>
@@ -157,9 +265,18 @@ export default class UserGuidesDetail extends Component {
                         <View style={Styles.buttonContainer}>
                             <Button light onPress={ ()=> this.props.navigation.goBack() }>GO BACK</Button>
                             <View style={{flex:1}}/>
-                            <Button dark  >SHARE</Button>
+                            <Button dark  onPress={this._share}>SHARE</Button>
                         </View>
                     </View>
+                    <EmailModal 
+                        visible={this.state.modalVisible.email} 
+                        onSend={this.onSendEmail.bind(this)}
+                        onCancel={this.onShareCancel.bind(this)}
+                        />
+                    <EmailSentModal 
+                        visible={this.state.modalVisible.emailSent} 
+                        onCancel={this.onShareCancel.bind(this)}
+                        />
                 </ScrollView> 
                 </View>
                 <Footer />
