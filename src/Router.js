@@ -18,7 +18,7 @@ import {DSIntro, ActivityList, Activity, UpNext, Complete} from "./screens/Discu
 import {CDIntro, CDSingleView, CDListView} from "./screens/CardGame";
 import {ResourceList, ResourceDetail} from "./screens/Resources";
 import {UserGuidesList,UserGuidesDetail} from "./screens/UserGuides";
-import {GetHelpList} from "./screens/GetHelp";
+import {GetHelpList, GetHelpDetail} from "./screens/GetHelp";
 
 
 const MenuIcon = ({ navigate }) => {
@@ -85,6 +85,7 @@ export const UserGuidesStack = StackNavigator({
 
 export const GetHelpStack = StackNavigator({
     GetHelpList: {screen: GetHelpList},
+    GetHelpDetail: {screen: GetHelpDetail},
 }, {
     headerMode: 'none',
 });

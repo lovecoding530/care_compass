@@ -17,25 +17,26 @@ export default {
         backgroundColor: Colors.backgroundPrimary,
     },
     scroll:{
-        justifyContent: 'center',
+         justifyContent: 'center',
         alignItems: 'center',
     },
     scrollcontainer:{
-        flex:1,
+        flex : 1,
         marginBottom:height/15,
     },
     title: {
         fontSize: width/15,
         color: Colors.textPrimary,
     },
-    subtitle: {
-        fontSize: width/25,
-        color: Colors.textPrimary,
-        textAlign: 'center',
-        marginBottom: height/50,
-        marginTop:2,
+    viewBody:{
+        marginHorizontal : width/9,
+        alignItems: 'center',
     },
-    item: {
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    itemTop: {
         paddingVertical : height/45,
         width : width/1.2,
         backgroundColor: Colors.backgroundSecondary,
@@ -49,7 +50,7 @@ export default {
         justifyContent: 'center',
         alignItems: 'center',
     },
-    listitem: {
+    itemBottom: {
         width : width/1.2,
         backgroundColor: Colors.backgroundSecondary,
         borderRadius: 2,
@@ -57,40 +58,20 @@ export default {
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.5,
         shadowRadius: 2,
-        margin: 8,      
+        margin: 8,     
         justifyContent: 'center',
+        alignItems: 'center',
+        flex : 1
     },
-    listitemTopView: {
-        flexDirection : 'row',
-        flex : 1,
-        padding : 16,
+    logo: {
+        width:width/1.2,
+        height:height/1.5,
+        marginBottom : 8
     },
-    listitemBottomView: {
-        flexDirection : 'row',
-        flex : 1,
-    },
-    listTitle: {
-        fontSize: width/25,
-        color: Colors.textPrimary,
-        marginTop:2,
-    },
-    listDesc: {
-        fontSize: width/30,
-        color: Colors.textPrimary,
-        marginTop:2,
-    },
-    listTitleView: {
-        marginLeft:width/25,
-        flex:1
-    },
-    listLogo: {
-        width:width/3,
-        height:height/4
-    },
-    listButtonView:{
+    buttonView:{
         flexDirection : 'row',
     },
-    listButton: {       
+    button: {       
         width:width/3.6,
         height:height/18,
         backgroundColor : Colors.buttonPrimary,
@@ -98,12 +79,12 @@ export default {
         justifyContent:'center',
         padding: 8,
     },
-    listButtonText: {       
+    buttonText: {       
         paddingHorizontal:width/50,
         fontSize: width/30,
         marginTop : 2
     },
-    listButtonMiddle: {       
+    buttonMiddle: {       
         width:width/3.6,
         height:height/18,
         backgroundColor : Colors.borderSecondary,
@@ -111,4 +92,36 @@ export default {
         justifyContent:'center',
         padding: 8,
     },
+    listitemBottomView: {
+        flexDirection : 'row',
+        flex : 1,
+    },
+    buttonleft: {       
+        width:width/2.6,
+        height:height/18,
+        backgroundColor : Colors.buttonPrimary,
+        alignItems:'center',
+        justifyContent:'center',
+        padding: 8,
+    },
+    buttonright: {       
+        width:width/2.2,
+        height:height/18,
+        backgroundColor : Colors.borderSecondary,
+        alignItems:'center',
+        justifyContent:'center',
+        padding: 8,
+    },
+    contactText: {       
+        paddingHorizontal:width/50,
+        fontSize: width/50,
+        marginTop : 2
+    },
+    contactView: {       
+        flexDirection : 'row',
+        flex:1,
+        padding : 10
+    },
+    
+
 };
