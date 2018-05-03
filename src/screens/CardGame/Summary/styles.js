@@ -31,39 +31,41 @@ export default {
 
     cardItemWithStar: {
         flexDirection: 'row',
-        backgroundColor: Colors.backgroundSecondary,
-        padding: 6,
-        paddingRight: 0,
         marginVertical: 4,
+        alignItems: 'center',
     },
 
     cardItem: {
+        backgroundColor: Colors.backgroundSecondary,
         flexDirection: 'row',
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
+        padding: 8,
+        paddingRight: 0,
+        marginRight: 8,
     },
 
     question: {
+        marginHorizontal: 8,
         flex: 1,
     },
-
-    levelBar: {
-        justifyContent: 'space-between',
-    },
-
-    levelItem: {
-        backgroundColor: Colors.backgroundThird,
-        flexDirection: 'row',
-        marginLeft: 16,
-        justifyContent: 'center',
-        padding: 8,
-        width: 150,
+    
+    levelContainer: {
+        marginBottom: 40,
     },
 
     levelIcon: {
-        width: 30,
-        height: 30,
+        width: 24,
+        height: 24,
         marginRight: 4,
+        tintColor: Colors.textPrimary
+    },
+
+    dragIcon: {
+        width: 8,
+        height: 24,
+        marginRight: 4,
+        tintColor: Colors.textPrimary
     },
 
     progress: {

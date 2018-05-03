@@ -8,9 +8,8 @@ import {
 
 import {Colors} from '@theme';
 import Styles from './styles';
-import Button from '@button'
 import Text from '@text'
-import { Loader } from '@components';
+import { Loader, Button } from '@components';
 
 import { getCardGame } from "@api";
 
@@ -32,8 +31,10 @@ export default class intro extends Component {
         let json = await getCardGame()
         const firstCardGame = json[0]
 
+        var cardIndex = 0
         for (var card of firstCardGame.cards) {
             card.selectedLevel = -1
+            card.cardIndex = cardIndex ++
         }
 
         this.setState({
