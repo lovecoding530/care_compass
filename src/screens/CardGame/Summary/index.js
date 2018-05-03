@@ -11,14 +11,9 @@ import {
 } from 'react-native';
 import {Colors, Images} from '@theme';
 import Styles from './styles';
-import Button from '@button'
-import Text from '@text'
-import ProgressBar from '@progressbar'
-import Choices from "@choices";
-import ManyChoices from "@manychoices";
 
 import { getCardGame} from "@api";
-import { Loader } from '@components';
+import { Loader, Button, ImageButton, Text } from '@components';
 import { copy } from '@utils';
 import DeviceInfo from 'react-native-device-info'
 
@@ -27,14 +22,10 @@ export default class ListView extends Component {
         super(props);
         const {cardGame} = this.props.navigation.state.params
 
-        var groupedCardByLevel = {"-1": [], "0": [], "1": [], "2": []}
-        for (const card of cardGame.cards) {
-            groupedCardByLevel[card.selectedLevel].push(card)
-        }
 
         this.state = ({
             cardGame: cardGame,
-            groupedCardByLevel: groupedCardByLevel,
+            groupedCardByLevel: this.groupedCardByLevel(cardGame),
             loaderVisible: false,
         })
     }
@@ -42,17 +33,60 @@ export default class ListView extends Component {
     componentDidMount() {
     }
 
+    groupedCardByLevel(cardGame){
+        var groupedCardByLevel = {"-1": [], "0": [], "1": [], "2": []}
+        for (const card of cardGame.cards) {
+            groupedCardByLevel[card.selectedLevel].push(card)
+        }
+        return groupedCardByLevel
+    }
+
+    onSelectedLevel(cardIndex, level){
+        let cardGame = copy(this.state.cardGame)
+        cardGame.cards[cardIndex].selectedLevel = level
+
+        this.setState({
+            cardGame: cardGame,
+            groupedCardByLevel: this.groupedCardByLevel(cardGame),
+        })
+    }
+
+    onStarSelected(cardIndex){
+        let cardGame = copy(this.state.cardGame)
+        let star = cardGame.cards[cardIndex].star 
+        cardGame.cards[cardIndex].star = !star
+
+        this.setState({
+            cardGame: cardGame,
+            groupedCardByLevel: this.groupedCardByLevel(cardGame),
+        })        
+    }
+
     renderCardItem({item, index}){
+        var cardItemStyle = {
+            marginRight: 8,
+        }
+        if(item.selectedLevel < 2){
+            cardItemStyle.marginRight = 32            
+        }
         var cardItem = 
             <View style={Styles.cardItemWithStar}>
-                <View style={Styles.cardItem}>
-                    <Image source={Images.threeDots} style={Styles.levelIcon}/>
+                <View style={[Styles.cardItem, cardItemStyle]}>
+                    <Image source={Images.threeDots} style={Styles.dragIcon}/>
                     <Text style={Styles.question}>{item.question}</Text>
-                    <Image source={Images.levelNot} style={Styles.levelIcon}/>
-                    <Image source={Images.levelSomewhat} style={Styles.levelIcon}/>
-                    <Image source={Images.levelVery} style={Styles.levelIcon}/>
+                    {(item.selectedLevel != 0) &&
+                        <ImageButton source={Images.levelNot} style={Styles.levelIcon} onPress={this.onSelectedLevel.bind(this, item.cardIndex, 0)}/>
+                    }
+                    {(item.selectedLevel != 1) &&
+                        <ImageButton source={Images.levelSomewhat} style={Styles.levelIcon} onPress={this.onSelectedLevel.bind(this, item.cardIndex, 1)}/>
+                    }
+                    {(item.selectedLevel != 2) &&
+                        <ImageButton source={Images.levelVery} style={Styles.levelIcon} onPress={this.onSelectedLevel.bind(this, item.cardIndex, 2)}/>
+                    }
                 </View>
-                
+                {(item.selectedLevel == 2) &&
+                    <ImageButton source={(item.star)?Images.star:Images.starEmpty} style={Styles.levelIcon} onPress={this.onStarSelected.bind(this, item.cardIndex)}/>                
+                }
             </View>
         return cardItem
     }
@@ -67,7 +101,7 @@ export default class ListView extends Component {
                 </View>
                 <ScrollView>
                     {(this.state.groupedCardByLevel[2].length > 0) &&
-                    <View>
+                    <View style={Styles.levelContainer}>
                         <View style={Styles.importantBar}>
                             <Image source={Images.levelVery} style={Styles.levelIcon}/>
                             <Text bold>VERY IMPORTANT</Text>
@@ -80,9 +114,9 @@ export default class ListView extends Component {
                     </View>
                     }
                     {(this.state.groupedCardByLevel[1].length > 0) &&
-                    <View>
+                    <View style={Styles.levelContainer}>
                         <View style={Styles.importantBar}>
-                            <Image source={Images.levelVery} style={Styles.levelIcon}/>
+                            <Image source={Images.levelSomewhat} style={Styles.levelIcon}/>
                             <Text bold>SOMEWHAT IMPORTANT</Text>
                         </View>
                         <FlatList
@@ -93,9 +127,9 @@ export default class ListView extends Component {
                     </View>
                     }
                     {(this.state.groupedCardByLevel[0].length > 0) &&
-                    <View>
+                    <View style={Styles.levelContainer}>
                         <View style={Styles.importantBar}>
-                            <Image source={Images.levelVery} style={Styles.levelIcon}/>
+                            <Image source={Images.levelNot} style={Styles.levelIcon}/>
                             <Text bold>NOT IMPORTANT</Text>
                         </View>
                         <FlatList
@@ -106,9 +140,9 @@ export default class ListView extends Component {
                     </View>
                     }
                     {(this.state.groupedCardByLevel[-1].length > 0) &&
-                    <View>
+                    <View style={Styles.levelContainer}>
                         <View style={Styles.importantBar}>
-                            <Image source={Images.levelVery} style={Styles.levelIcon}/>
+                            <Image source={Images.skip} style={Styles.levelIcon}/>
                             <Text bold>SKIPPED</Text>
                         </View>
                         <FlatList

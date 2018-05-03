@@ -11,14 +11,9 @@ import {
 } from 'react-native';
 import {Colors, Images} from '@theme';
 import Styles from './styles';
-import Button from '@button'
-import Text from '@text'
-import ProgressBar from '@progressbar'
-import Choices from "@choices";
-import ManyChoices from "@manychoices";
 
 import { getCardGame} from "@api";
-import { Loader } from '@components';
+import { Loader, Button, Text, ProgressBar } from '@components';
 import DeviceInfo from 'react-native-device-info'
 
 export default class SingleView extends Component {
@@ -32,6 +27,7 @@ export default class SingleView extends Component {
             cardTotalCount: cards.length,
             currentCard: cards[cardIndex],
         })
+        // alert(JSON.stringify(cards[cardIndex]))
     }
 
     componentDidMount() {
