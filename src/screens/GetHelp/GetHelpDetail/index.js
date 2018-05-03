@@ -26,38 +26,42 @@ import Communications from 'react-native-communications';
 const { width,height } = Dimensions.get('window');
 
 function renderNode(node, index, siblings, parent, defaultRenderer) {
-  if (node.name == 'iframe') {
-    const a = node.attribs;
-    const iframeHtml = `<iframe width=\"${width}\" height=\"${height/2}\" src=\"${a.src}" ></iframe>`;
-    return (
-      <View key={index} style={{width: width/4, height: height/8}}>
-        <WebView source={{html: iframeHtml}} />
-      </View>
-    );
-  }
-  if (node.name == 'img') {
-    const a = node.attribs;
-    const source = API_HTML_ROOT + a.src;
-    const imgHtml = `<img src=\"${source}" width=\"${width/1.5}\" height=\"${height/2.7}\" >`;
-    return (
-        <HTMLView
+    if(Platform.OS === 'ios')
+    {
+      if (node.name == 'iframe') {
+        var atribute = node.attribs;
+        var iframeHtml = `<iframe width=\"${width}\" height=\"${height/2}\" src=\"${atribute.src}" ></iframe>`;
+        return (
+          <View key={index} style={{width: width/4, height: height/8}}>
+            <WebView source={{html: iframeHtml}} />
+          </View>
+        );
+      }
+    }
+    if (node.name == 'img') {
+        var atribute = node.attribs;
+        var source = API_HTML_ROOT + atribute.src;
+        var imgHtml = `<img src=\"${source}\" width=\"${width/1.5}\" height=\"${height/2.7}\" >`;
+        return (
+            <HTMLView
                 value={imgHtml}
             />
-       
-    );
-  }
+        );
+    }
 
-  if (node.name == 'a') {
-    const a = node.attribs;
-    const source = API_HTML_ROOT + a.href;
-    const aHtml = `<a href="${source}" >help_content_doc</a>`;
-    return (
+    if(Platform.OS === 'ios')
+    {
+      if (node.name == 'a') {
+        var atribute = node.attribs;
+        var source = API_HTML_ROOT + atribute.href;
+        var aHtml = `<a href=\"${source}\" >${node.children[0].data}</a>`;
+       return (
             <HTMLView
                 value={aHtml}
             />
-       
-    );
-  }
+      );
+      }
+    }
 }
 
 export default class UserGuidesDetail extends Component {
@@ -74,7 +78,7 @@ export default class UserGuidesDetail extends Component {
             email : '',
             website : '',
             phonenumber : '',
-            loaderVisible: true,
+            loaderVisible: false,
             modalVisible: {
                 email: false,
                 emailSent: false,
@@ -167,16 +171,18 @@ export default class UserGuidesDetail extends Component {
             <View style={Styles.container}>
             <View style={Styles.scrollcontainer}> 
                <ScrollView contentContainerStyle={Styles.scroll}> 
+
                     <Loader loading={this.state.loaderVisible}/>
                     <View style={Styles.itemTop}>
                         <Text bold style={Styles.title}>{this.state.title}</Text>
                     </View>
+
                     <View style={Styles.itemBottom}>
                        
                             {this.state.logo == null ?
-                                <Image style={Styles.logo} source={require('../../../../assets/images/default_appLogo.png')}/>
+                                <Image style={Styles.logo} source={require('../../../../assets/images/default_appLogo.png')} resizeMode="stretch"/>
                                 :
-                                <Image style={Styles.logo} source={{uri:  API_HTML_ROOT + this.state.logo.url}}/>
+                                <Image style={Styles.logo} source={{uri:  API_HTML_ROOT + this.state.logo.url}} resizeMode="stretch"/>
                             }
                            
                         <View style={Styles.viewBody}>
@@ -184,6 +190,7 @@ export default class UserGuidesDetail extends Component {
                                 value={this.state.description}
                                 renderNode={renderNode}
                             />
+                            
                         </View>
 
                         

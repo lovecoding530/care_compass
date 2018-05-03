@@ -17,9 +17,7 @@ import Text from '@text'
 import Footer from '@footer'
 import Button from '@button'
 import { Loader } from '@components';
-import { getGetHelp,updateTimeInterval } from "@api";
-const { width,height } = Dimensions.get('window');
-var BASE_URL = 'https://pca.techequipt.com.au'
+import { getGetHelp,updateTimeInterval,API_HTML_ROOT } from "@api";
 import Communications from 'react-native-communications';
 import moment from 'moment';
 
@@ -67,7 +65,6 @@ export default class GetHelpList extends Component {
                     }
                     else
                     {
-
                         const ds = await getGetHelp(true)
                         const gethelp = ds[0].services
 
@@ -117,9 +114,9 @@ export default class GetHelpList extends Component {
             <View style={Styles.listitem}>
                     <View style={Styles.listitemTopView}>
                         {item.logo == null ?
-                            <Image style={Styles.listLogo} source={require('../../../../assets/images/default_appLogo.png')}/>
+                            <Image style={Styles.listLogo} source={require('../../../../assets/images/default_appLogo.png')} resizeMode="stretch"/>
                             :
-                            <Image style={Styles.listLogo} source={{uri:  BASE_URL + item.logo.url}}/>
+                            <Image style={Styles.listLogo} source={{uri:  API_HTML_ROOT + item.logo.url}} resizeMode="stretch"/>
                         }
                         <View style={Styles.listTitleView}>
                             <Text bold style={Styles.listTitle}>{item.title}</Text>

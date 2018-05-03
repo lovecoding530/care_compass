@@ -84,8 +84,8 @@ export default {
         flex:1
     },
     listLogo: {
-        width:width/3,
-        height:height/4
+        width:width/2.5,
+        height:height/5
     },
     listButtonView:{
         flexDirection : 'row',

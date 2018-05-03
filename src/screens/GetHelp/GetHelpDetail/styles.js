@@ -65,7 +65,7 @@ export default {
     },
     logo: {
         width:width/1.2,
-        height:height/1.5,
+        height:height/2.5,
         marginBottom : 8
     },
     buttonView:{
