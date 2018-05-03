@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 
 import {Colors, FontSizes} from '@theme';
+import { Col } from 'native-base';
 
 const { width } = Dimensions.get('window');
 
@@ -23,38 +24,48 @@ export default {
         marginVertical: 30,
     },
 
-    questionView: {
-        backgroundColor: Colors.backgroundThird,
-        height: 300,
-        marginHorizontal: 8,
-        marginVertical: 15,
-        justifyContent: 'center'
+    importantBar: {
+        flexDirection: 'row',     
+        alignItems: 'center'   
     },
 
-    additionalInfo: {
-        backgroundColor: Colors.backgroundThird,
-        marginHorizontal: 8,
-        marginBottom: 15,
-        padding: 8,
-    },
-
-    levelBar: {
+    cardItemWithStar: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        marginVertical: 4,
+        alignItems: 'center',
     },
 
-    levelItem: {
-        backgroundColor: Colors.backgroundThird,
-        marginHorizontal: 8,
+    cardItem: {
+        backgroundColor: Colors.backgroundSecondary,
+        flexDirection: 'row',
+        flex: 1,
         alignItems: 'center',
         padding: 8,
+        paddingRight: 0,
+        marginRight: 8,
+    },
+
+    question: {
+        marginHorizontal: 8,
         flex: 1,
+    },
+    
+    levelContainer: {
+        marginBottom: 40,
     },
 
     levelIcon: {
-        width: 32,
-        height: 32,
-        marginVertical: 4,
+        width: 24,
+        height: 24,
+        marginRight: 4,
+        tintColor: Colors.textPrimary
+    },
+
+    dragIcon: {
+        width: 8,
+        height: 24,
+        marginRight: 4,
+        tintColor: Colors.textPrimary
     },
 
     progress: {
@@ -69,6 +80,7 @@ export default {
     buttonBar: {
         flexDirection: 'row',
         justifyContent: 'center',
+        marginVertical: 15,
     },
 
 };

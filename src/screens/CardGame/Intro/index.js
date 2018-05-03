@@ -8,9 +8,8 @@ import {
 
 import {Colors} from '@theme';
 import Styles from './styles';
-import Button from '@button'
 import Text from '@text'
-import { Loader } from '@components';
+import { Loader, Button } from '@components';
 
 import { getCardGame } from "@api";
 
@@ -18,25 +17,29 @@ export default class intro extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-            title: "Card Game Title",
-            description: "Card Game Description",
+            cardGame: {},
             loaderVisible: false,
         })
 
     }
-
+        
     async componentDidMount() {
         this.setState({
             loaderVisible: true,
         })
 
         let json = await getCardGame()
-        let firstCardGame = json[0]
+        const firstCardGame = json[0]
+
+        var cardIndex = 0
+        for (var card of firstCardGame.cards) {
+            card.selectedLevel = -1
+            card.cardIndex = cardIndex ++
+        }
 
         this.setState({
             loaderVisible: false,
-            title: firstCardGame.title,
-            description: firstCardGame.description
+            cardGame: firstCardGame,
         })
     }
 
@@ -48,15 +51,15 @@ export default class intro extends Component {
                 <View style={Styles.introContainer}>
                     <Text mediumLarge bold style={Styles.title}>Card Game</Text>
                     <Text medium bold style={Styles.subtitle}>
-                        {this.state.title}
+                        {this.state.cardGame.title}
                     </Text>
                     <Image style={Styles.icon}/>
                     <Text style={Styles.intro}>
-                        {this.state.description}
+                        {this.state.cardGame.description}
                     </Text>
                     <View style={Styles.buttonBar}>
                         <Button dark 
-                            onPress={()=>{navigate("CDSingleView", {cardIndex: 0})}}>{"  PLAY  "}</Button>
+                            onPress={()=>{navigate("CDSingleView", {cardIndex: 0, cardGame: this.state.cardGame})}}>{"  PLAY  "}</Button>
                     </View>
                 </View>
             </View>

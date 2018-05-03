@@ -8,27 +8,31 @@ import {
 
 import {Colors} from '@theme';
 import Styles from './styles';
-import Button from '@button'
+import {Button, Loader} from '@components'
 import Text from '@text'
 
 import { getDiscussionStarter } from "@api";
 
-export default class intro extends Component {
+export default class Intro extends Component {
     constructor(props) {
         super(props);
         this.state = ({
+            loaderVisible: false,
         })
 
     }
 
     async componentDidMount() {
+        this.setState({loaderVisible: true})
         let json = await getDiscussionStarter()
+        this.setState({loaderVisible: false})
     }
 
     render() {
         const {navigate} = this.props.navigation
         return (
             <View style={Styles.container}>
+                <Loader loading={this.state.loaderVisible}/>
                 <View style={Styles.introContainer}>
                     <Text mediumLarge bold style={Styles.title}>Discussion Starter</Text>
                     <Text medium bold style={Styles.subtitle}>
