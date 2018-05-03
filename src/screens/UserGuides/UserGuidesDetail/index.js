@@ -23,46 +23,44 @@ import HTMLView from 'react-native-htmlview';
 const { width,height } = Dimensions.get('window');
 
 function renderNode(node, index, siblings, parent, defaultRenderer) {
-  if (node.name == 'iframe') {
-    const a = node.attribs;
-    const iframeHtml = `<iframe width=\"${width}\" height=\"${height/2}\" src=\"${a.src}" ></iframe>`;
-    return (
-      <View key={index} style={{width: width/4, height: height/8}}>
-        <WebView source={{html: iframeHtml}} />
-      </View>
-    );
-  }
-  if (node.name == 'img') {
-    const a = node.attribs;
-    const source = API_HTML_ROOT + a.src;
-    const imgHtml = `<img src=\"${source}" width=\"${width/1.5}\" height=\"${height/2.7}\" >`;
-    return (
-        <HTMLView
+    if(Platform.OS === 'ios')
+    {
+      if (node.name == 'iframe') {
+        var atribute = node.attribs;
+        var iframeHtml = `<iframe width=\"${width}\" height=\"${height/2}\" src=\"${atribute.src}" ></iframe>`;
+        return (
+          <View key={index} style={{width: width/4, height: height/8}}>
+            <WebView source={{html: iframeHtml}} />
+          </View>
+        );
+      }
+    }
+    if (node.name == 'img') {
+        var atribute = node.attribs;
+        var source = API_HTML_ROOT + atribute.src;
+        var imgHtml = `<img src=\"${source}\" width=\"${width/1.5}\" height=\"${height/2.7}\" >`;
+        return (
+            <HTMLView
                 value={imgHtml}
             />
-       
-    );
-  }
+        );
+    }
 
-  if (node.name == 'a') {
-    const a = node.attribs;
-    const source = API_HTML_ROOT + a.href;
-    const alinkHtml = `<a href="${source}" >help_content_doc</a>`;
-    const adocHtml = `<a href="${source}" >Dying To Talk</a>`;
-    return (
-        <View>
-        {index == 1 ? 
+    if(Platform.OS === 'ios')
+    {
+      if (node.name == 'a') {
+        console.log("......",node);
+
+        var atribute = node.attribs;
+        var source = API_HTML_ROOT + atribute.href;
+        var aHtml = `<a href=\"${source}\" >${node.children[0].data}</a>`;
+       return (
             <HTMLView
-                value={adocHtml}
+                value={aHtml}
             />
-            :
-             <HTMLView
-                value={alinkHtml}
-            />
-        }
-        </View>
-    );
-  }
+      );
+      }
+    }
 }
 
 export default class UserGuidesDetail extends Component {
