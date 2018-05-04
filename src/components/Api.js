@@ -7,7 +7,10 @@ import {
     Platform,
     AsyncStorage
 } from 'react-native';
+import moment from 'moment';
 
+export const updateTimeInterval = 2;  // Number of hours to cache response
+export const API_HTML_ROOT = "https://pca.techequipt.com.au";
 const API_ROOT = "https://pca.techequipt.com.au/api"
 const API_BUNDLE = API_ROOT + "/bundle/"
 const API_DISCUSSION_STARTER = API_ROOT + "/discussion-starter/"
@@ -15,6 +18,7 @@ const API_DISCUSSION_STARTER_LOG_RESPONSE = API_ROOT + "/discussion-starter/log-
 const API_CARD_GAME = API_ROOT + "/card-game/"
 const API_RESOURCES = API_ROOT + "/resources/"
 const API_USER_GUIDE = API_ROOT + "/user-guides/"
+const API_GET_HELP = API_ROOT + "/get-help/"
 
 export async function getJSONwithCache(url, fromCached){
     if (fromCached) {
@@ -98,4 +102,17 @@ export async function postJSONwithCache(url, json) {
 
 export async function postDiscussionAnswers(json) {
     await postJSONwithCache(API_DISCUSSION_STARTER_LOG_RESPONSE, json)
+}
+
+export async function getUserGuides(fromCached = false) {
+    return await getJSONwithCache(API_USER_GUIDE, fromCached)
+}
+
+export async function getGetHelp(fromCached = false) {
+    return await getJSONwithCache(API_GET_HELP, fromCached)
+}
+
+export async function getUserGuidesDetail(slug,itemSlug,fromCached = false) {
+    const API_USER_GUIDE_DETAIL = `${API_USER_GUIDE}${slug}/${itemSlug}/`;
+    return await getJSONwithCache(API_USER_GUIDE_DETAIL, fromCached)
 }
