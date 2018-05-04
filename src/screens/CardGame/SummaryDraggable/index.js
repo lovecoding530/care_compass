@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import {
-    Platform,
     StyleSheet,
     Image,
     TouchableOpacity,
-    FlatList,
     View,
     ScrollView,
-    TextInput,
     TouchableHighlight,
+    Alert,
 } from 'react-native';
 import {Colors, Images} from '@theme';
 import Styles from './styles';
@@ -106,6 +104,19 @@ export default class SummaryDraggable extends Component {
         })
     }
 
+    onExit(){
+        const {navigate, goBack} = this.props.navigation
+        Alert.alert(
+            'Are you sure?',
+            'Are you sure to exit without share the results?',
+            [
+              {text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+              {text: 'YES', onPress: () => goBack("CardGame")},
+            ],
+            { cancelable: false }
+        )
+    }
+
     renderCardItem(item){
         if(item.section != null){
             var sectionItem = 
@@ -171,7 +182,7 @@ export default class SummaryDraggable extends Component {
                     renderRow={this.renderCardItem.bind(this)}
                 />
                 <View style={Styles.buttonBar}>
-                    <Button light>EXIT</Button>
+                    <Button light onPress={this.onExit.bind(this)}>EXIT</Button>
                     <Button dark>SHARE RESULTS</Button>
                 </View>
             </View>
