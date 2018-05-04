@@ -124,11 +124,10 @@ export default class SummaryDraggable extends Component {
     
             var cardItem = 
             <TouchableHighlight
-                underlayColor={'#eee'}
+                underlayColor={'#0000'}
                 style={{
-                    backgroundColor: '#F8F8F8',
                     borderBottomWidth: 1,
-                    borderColor: '#eee',
+                    borderColor: '#0000',
                 }}>
                 <View style={Styles.cardItemWithStar}>
                     <View style={[Styles.cardItem, cardItemStyle]}>
