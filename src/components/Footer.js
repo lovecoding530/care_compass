@@ -5,7 +5,6 @@ import React, {Component} from 'react';
 import {StyleSheet,Platform,View,Image,Dimensions } from "react-native";
 import {Colors} from '@theme'
 import Text from '@text'
-import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';// use for resp
 const { width, height } = Dimensions.get('window'); // Detect screen width and heightonsive screen UI
 
 export default (props) => {
