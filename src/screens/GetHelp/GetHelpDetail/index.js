@@ -35,7 +35,7 @@ function renderNode(node, index, siblings, parent, defaultRenderer) {
             var iframeHtml = `<iframe width=\"${atribute.width}\" height=\"${atribute.height}\" src=\"${atribute.src}" frameborder=\"0\" allow=\"autoplay; encrypted-media\" allowfullscreen></iframe>`;
             return (
               <View key={index} style={{width: width/3.5, height: height/10.5}}>
-                <WebView source={{html: iframeHtml}} />
+                <WebView source={{html: iframeHtml}}/>
               </View>
             );
           }
@@ -82,13 +82,33 @@ function renderNode(node, index, siblings, parent, defaultRenderer) {
             );
         }
         if (node.name == 'p') {
-             if(node.children[0] != 'undefine')
+             if(node.children[0] != null)
              {
-                // if(node.children[0].type == 'tag')
-                // {
-                //     alert(node.children[0].name)
-                // }
-                console.log(".......",node.children[0]);
+                console.log(".......",node);
+                if(node.children[0].name == 'a')
+                {
+                    var atribute = node.children[0].attribs;
+                    if(atribute.href.startsWith("https"))
+                    {
+                        var source = atribute.href;
+                        var aHtml = `<p><a href=\"${source}\" >${node.children[0].children[0].data}</a></p>`;
+                        return (
+                            <HTMLView
+                                value={aHtml}
+                            />
+                        );
+                    }
+                    else
+                    {
+                        var source = API_HTML_ROOT + atribute.href;
+                        var aHtml = `<p><a href=\"${source}\" >${node.children[0].children[0].data}</a></p>`;
+                        return (
+                            <HTMLView
+                                value={aHtml}
+                            />
+                        );
+                    }
+                }
              }
         }
     }
@@ -118,7 +138,7 @@ export default class UserGuidesDetail extends Component {
             email : '',
             website : '',
             phonenumber : '',
-            loaderVisible: false,
+            loaderVisible: true,
             modalVisible: {
                 email: false,
                 emailSent: false,
