@@ -77,16 +77,16 @@ export default class Activity extends Component {
         if(question_type == "freetext") {
             answer.question = question
             answer.question_id = ""
-            answer.response = answerData            
+            answer.response = answerData
         }else if(question_type == "choices"){
             answer.question = question
             answer.question_id = ""
-            answer.response = answerList[answerData]            
+            answer.response = answerList[answerData]
         }else if(question_type == "manychoices"){
             var selectedChoices = answerData.map(i => answerList[i])
             answer.question = question
             answer.question_id = ""
-            answer.response = selectedChoices           
+            answer.response = selectedChoices
         }
 
         this.answers[questionIndex] = answer
