@@ -117,7 +117,7 @@ export async function postDiscussionAnswers(discussionStarter) {
 
             const answerList = question_choices.split("\r\n")
 
-            var answer = {}    
+            var answer = {}
             if(question_type == "freetext") {
                 answer.question = question
                 answer.question_id = ""

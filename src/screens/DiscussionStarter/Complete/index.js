@@ -8,6 +8,7 @@ import {
     View,
     Modal,
     Alert,
+    Share,
 } from 'react-native';
 import {Colors, Images} from '@theme';
 import Styles from './styles';
@@ -18,6 +19,8 @@ import DownloadedModal from './modals/Downloaded'
 import EmailSentModal from './modals/EmailSent'
 
 import {postDiscussionAnswers} from "@api";
+import {getSharingHTMLFromResult} from "./HtmlResult";
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
 
 export default class Complete extends Component {
     constructor(props) {
@@ -55,7 +58,7 @@ export default class Complete extends Component {
                 ],
                 { cancelable: false }
             )
-        }, 200)
+        }, 500)
     }
 
     async onShare(){
@@ -64,7 +67,7 @@ export default class Complete extends Component {
         this.setState({loaderVisible: false})
         setTimeout(()=>{
             this.setState({modalVisible: true})
-        }, 200)
+        }, 500)
     }
 
     onShareEmail() {
@@ -88,7 +91,7 @@ export default class Complete extends Component {
         }, 200)
     }
 
-    onShareDownload() {
+    async onShareDownload() {
         this.setState({
             modalVisible: {
                 share: false,
@@ -96,17 +99,26 @@ export default class Complete extends Component {
                 email: false,
                 emailSent: false,
             }
-        })        
-        setTimeout(()=>{
-            this.setState({
-                modalVisible: {
-                    share: false,
-                    downloaded: true,
-                    email: false,
-                    emailSent: false,
-                }
-            })                        
-        }, 1000)
+        })
+        var html = getSharingHTMLFromResult(this.state.discussionStarter)
+        console.log(html)
+
+        let options = {
+            html: html,
+            fileName: 'test',
+            directory: 'docs',
+        };
+    
+        let file = await RNHTMLtoPDF.convert(options)
+        console.log(file.filePath)
+        setTimeout(() => {
+            Share.share({
+                title: "Share this!",
+                message: "I just wanted to show you this:",
+                url: file.filePath,
+                subject: "I am only visible for emails :(",
+            })
+        }, 500);
     }
 
     onSendEmail(name, email){
