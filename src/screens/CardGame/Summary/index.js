@@ -17,7 +17,7 @@ import { Loader, Button, ImageButton, Text } from '@components';
 import { copy } from '@utils';
 import DeviceInfo from 'react-native-device-info'
 
-export default class ListView extends Component {
+export default class Summary extends Component {
     constructor(props) {
         super(props);
         const {cardGame} = this.props.navigation.state.params
