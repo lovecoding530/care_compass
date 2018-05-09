@@ -35,7 +35,7 @@ export default class GetHelpList extends Component {
     async componentDidMount() {
         try 
             {
-                let value = await AsyncStorage.getItem('lastRefereshTimeUserGuide');
+                let value = await AsyncStorage.getItem('lastRefereshTimeGetHelp');
 
                 if (value != null){
 
@@ -47,7 +47,7 @@ export default class GetHelpList extends Component {
 
                     if(difference >= updateTimeInterval)
                     {
-                        await AsyncStorage.setItem('lastRefereshTimeUserGuide', currrentTime);
+                        await AsyncStorage.setItem('lastRefereshTimeGetHelp', currrentTime);
                         const ds = await getGetHelp()
                         const gethelp = ds[0].services
 
@@ -83,7 +83,7 @@ export default class GetHelpList extends Component {
                 }
                 else {
                     var currrentTime = moment(new Date()).format("HH:mm:ss");
-                    await AsyncStorage.setItem('lastRefereshTimeUserGuide', currrentTime); 
+                    await AsyncStorage.setItem('lastRefereshTimeGetHelp', currrentTime); 
                     const ds = await getGetHelp()
                     const gethelp = ds[0].services
 
