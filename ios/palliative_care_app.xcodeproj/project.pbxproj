@@ -43,7 +43,6 @@
 		6176FCD391B94EC7B7831F73 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8FAF1E2B938A47C089EF7D26 /* Foundation.ttf */; };
 		6205AB6B6FCC4F7CB2CFAFD1 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DF3D35B053924C46BC358AEA /* Zocial.ttf */; };
 		7E14103F411345F3B0B141E0 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3454477AAC8340F5ACAF67AE /* rubicon-icon-font.ttf */; };
-		822D1BFB32304BF29B646C7C /* RNHTMLtoPDFTests.xctest in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9BE70B8C9E4B2382B4AD51 /* RNHTMLtoPDFTests.xctest */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		884F224924F3437AA11EB311 /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D0A0219AA4B43368543BBAE /* Roboto.ttf */; };
 		8F987078A4E6484BBE34FB7E /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C67A8CF7BAE4C2386D72E78 /* Ionicons.ttf */; };
