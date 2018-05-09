@@ -17,8 +17,8 @@ import Text from '@text'
 import Footer from '@footer'
 import Button from '@button'
 import { Loader } from '@components';
-import EmailModal from '../../DiscussionStarter/Complete/modals/Email'
-import EmailSentModal from '../../DiscussionStarter/Complete/modals/EmailSent'
+import EmailModal from '../../modals/Email'
+import EmailSentModal from '../../modals/EmailSent'
 
 import { getGetHelp, API_HTML_ROOT} from "@api";
 import HTMLView from 'react-native-htmlview';

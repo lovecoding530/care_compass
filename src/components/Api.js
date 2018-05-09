@@ -17,6 +17,7 @@ const API_BUNDLE = API_ROOT + "/bundle/"
 const API_DISCUSSION_STARTER = API_ROOT + "/discussion-starter/"
 const API_DISCUSSION_STARTER_LOG_RESPONSE = API_ROOT + "/discussion-starter/log-response/"
 const API_CARD_GAME = API_ROOT + "/card-game/"
+const API_CARD_GAME_LOG_RESPONSE = API_ROOT + "/card-game/log-response/"
 const API_RESOURCES = API_ROOT + "/resources/"
 const API_USER_GUIDE = API_ROOT + "/user-guides/"
 const API_GET_HELP = API_ROOT + "/get-help/"
@@ -142,6 +143,30 @@ export async function postDiscussionAnswers(discussionStarter) {
         ansswerResponse.starter = discussionStarter.starterSlug
         ansswerResponse.responses = answers
         await postJSONwithCache(API_DISCUSSION_STARTER_LOG_RESPONSE, ansswerResponse)
+    } catch (error) {
+    }
+}
+
+export async function postCardGameAnswers(cardGame) {
+    var answers = []
+    var cards = cardGame.cards
+    for (const card of cards) {
+        const {question, selectedLevel, star} = card;
+
+        let starred = (star == true) ? true : false
+        var answer = {}
+        answer.question = question
+        answer.response = selectedLevel + 1 //{-1, 0, 1, 2} but response need {0, 1, 2, 3}
+        answer.starred = starred
+        answers.push(answer)
+    }
+    try {
+        var ansswerResponse = {}
+        const uniqueId = DeviceInfo.getUniqueID();
+        ansswerResponse.uuid = uniqueId
+        ansswerResponse.deck = cardGame.id
+        ansswerResponse.responses = answers
+        await postJSONwithCache(API_CARD_GAME_LOG_RESPONSE, ansswerResponse)
     } catch (error) {
     }
 }
