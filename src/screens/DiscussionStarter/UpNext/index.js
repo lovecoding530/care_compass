@@ -19,27 +19,15 @@ import { getDiscussionStarter } from "@api";
 export default class ActivityList extends Component {
     constructor(props) {
         super(props);
-        const {activityIndex} = this.props.navigation.state.params
+        const {activityIndex, discussionStarter} = this.props.navigation.state.params
+        const activities = discussionStarter.discussion_starter
         this.state = ({
+            discussionStarter: discussionStarter,
             activityIndex: activityIndex,
             nextActivityIndex: activityIndex + 1, 
-            activities: [],
-            activityCount: 0,
-        })
-    }
-
-    async componentDidMount() {
-
-        const ds = await getDiscussionStarter(true)
-        const activities = ds[0].discussion_starter
-        this.setState({
             activities: activities,
             activityCount: activities.length,
         })
-    }
-
-    onChangedAnswer(questionIndex, answerIndex){
-        // alert("onChangedAnswer" + answerIndex)
     }
 
     render() { 
@@ -72,8 +60,8 @@ export default class ActivityList extends Component {
                 </View>
                 }
                 <View style={Styles.buttonBar}>
-                    <Button light onPress={() => {navigate("Complete", {activityIndex: this.state.nextActivityIndex})}}>FINISH HERE</Button>
-                    <Button dark onPress={() => {navigate("Activity", {activityIndex: this.state.nextActivityIndex})}}>START ACTIVITY {this.state.activityIndex + 2}</Button>
+                    <Button light onPress={() => {navigate("Complete", {activityIndex: this.state.nextActivityIndex, discussionStarter: this.state.discussionStarter})}}>FINISH HERE</Button>
+                    <Button dark onPress={() => {navigate("Activity", {activityIndex: this.state.nextActivityIndex, discussionStarter: this.state.discussionStarter})}}>START ACTIVITY {this.state.activityIndex + 2}</Button>
                 </View>
             </View>
             :
