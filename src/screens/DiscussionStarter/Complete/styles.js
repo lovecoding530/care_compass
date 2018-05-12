@@ -9,46 +9,47 @@ import {Colors, FontSizes} from '@theme';
 
 const { width } = Dimensions.get('window');
 
+import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 
 export default {
 
     container: {
         flex: 1, 
         backgroundColor: Colors.backgroundPrimary,
-        paddingVertical: 60,
-        paddingHorizontal: 100,
+        paddingHorizontal: responsiveWidth(8),
+        paddingVertical: responsiveWidth(13),
     },
 
     flatList: {
-        marginVertical: 30,
+        marginVertical: responsiveWidth(4),
     },
 
     item: {
-        marginVertical: 10, 
+        marginVertical: responsiveWidth(1.2), 
     },
 
     itemTitle: {
-        padding: 16,
+        padding: responsiveWidth(2),
         flexDirection: 'row',
         backgroundColor: Colors.backgroundSecondary,
     },
 
     itemPrecomment: {
-        padding : 16, 
+        padding : responsiveWidth(2), 
         borderWidth: 1.5,
         borderColor: Colors.backgroundSecondary,
     },
 
     buttonBar: {
         flexDirection: 'row',
-        marginVertical: 16,
-        marginHorizontal : 50, 
+        marginVertical: responsiveWidth(2),
+        marginHorizontal : responsiveWidth(6.6), 
         justifyContent: 'center',
     },
 
     checkIcon: {
-        width: 32,
-        height: 32,
-        marginRight: 8,
+        width: responsiveHeight(3.2),
+        height: responsiveHeight(3.2),
+        marginRight: responsiveHeight(1),
     }
 };

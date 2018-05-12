@@ -10,6 +10,7 @@ import Button from '@button'
 import Text from '@text'
 
 import { getDiscussionStarter } from "@api";
+import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 
 export default Email =  (props) => {
     var name, email = ""
@@ -57,8 +58,8 @@ const styles = StyleSheet.create({
 
     modal: {
         backgroundColor: Colors.backgroundPrimary,
-        width: 300,
-        padding: 15,
+        width: responsiveWidth(50),
+        padding: responsiveWidth(2),
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.5,
@@ -67,13 +68,13 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        marginBottom: 10,
+        marginBottom: responsiveWidth(1.2),
     },
 
     textInput: {
-        height: 44,
+        height: responsiveHeight(4.4),
         backgroundColor: Colors.backgroundSecondary,
-        marginVertical: 10,
+        marginVertical: responsiveWidth(1.2),
         fontSize: FontSizes.smallMedium,
         color: Colors.textPrimary
     },

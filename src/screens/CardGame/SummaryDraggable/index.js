@@ -21,6 +21,7 @@ import SortableListView from 'react-native-sortable-listview';
 
 import {getSharingHTMLFromResult} from "./HtmlResult";
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 
 export default class SummaryDraggable extends Component {
     constructor(props) {
@@ -208,10 +209,10 @@ export default class SummaryDraggable extends Component {
             return sectionItem
         }else{
             var cardItemStyle = {
-                marginRight: 8,
+                marginRight: responsiveWidth(1),
             }
             if(item.selectedLevel < 2){
-                cardItemStyle.marginRight = 32            
+                cardItemStyle.marginRight = responsiveWidth(4)            
             }
     
             var cardItem = 

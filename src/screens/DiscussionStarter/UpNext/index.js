@@ -57,12 +57,12 @@ export default class ActivityList extends Component {
                     <Text center style={Styles.nextPrecomment}> 
                         {this.state.activities[this.state.nextActivityIndex].pre_commencement_text} 
                     </Text>
+                    <View style={Styles.buttonBar}>
+                        <Button light onPress={() => {navigate("Complete", {activityIndex: this.state.nextActivityIndex, discussionStarter: this.state.discussionStarter})}}>FINISH HERE</Button>
+                        <Button dark onPress={() => {navigate("Activity", {activityIndex: this.state.nextActivityIndex, discussionStarter: this.state.discussionStarter})}}>START ACTIVITY {this.state.activityIndex + 2}</Button>
+                    </View>
                 </View>
                 }
-                <View style={Styles.buttonBar}>
-                    <Button light onPress={() => {navigate("Complete", {activityIndex: this.state.nextActivityIndex, discussionStarter: this.state.discussionStarter})}}>FINISH HERE</Button>
-                    <Button dark onPress={() => {navigate("Activity", {activityIndex: this.state.nextActivityIndex, discussionStarter: this.state.discussionStarter})}}>START ACTIVITY {this.state.activityIndex + 2}</Button>
-                </View>
             </View>
             :
             <View/>

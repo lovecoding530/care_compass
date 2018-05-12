@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug iOS",
+            "name": "Debug iOS iPad",
             "program": "${workspaceRoot}/.vscode/launchReactNative.js",
             "type": "reactnative",
             "request": "launch",
@@ -13,6 +13,16 @@
             "sourceMaps": true,
             "outDir": "${workspaceRoot}/.vscode/.react",
             "target": "iPad Air 2"
+        },
+        {
+            "name": "Debug iOS iPhone",
+            "program": "${workspaceRoot}/.vscode/launchReactNative.js",
+            "type": "reactnative",
+            "request": "launch",
+            "platform": "ios",
+            "sourceMaps": true,
+            "outDir": "${workspaceRoot}/.vscode/.react",
+            "target": "iPhone 8 Plus"
         },
         {
             "type": "node",
