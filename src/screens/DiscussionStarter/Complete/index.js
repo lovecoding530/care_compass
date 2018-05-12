@@ -13,10 +13,7 @@ import {
 import {Colors, Images} from '@theme';
 import Styles from './styles';
 import {Button, Text, Loader } from '@components';
-import ShareModal from './modals/Share'
-import EmailModal from './modals/Email'
-import DownloadedModal from './modals/Downloaded'
-import EmailSentModal from './modals/EmailSent'
+import { ShareModal, EmailModal, EmailSentModal, DownloadedModal} from '../../modals';
 
 import {postDiscussionAnswers} from "@api";
 import {getSharingHTMLFromResult} from "./HtmlResult";
@@ -39,6 +36,32 @@ export default class Complete extends Component {
                 email: false,
                 emailSent: false,
             },
+        })
+    }
+
+    openModal(modal){
+        this.closeModal()
+        setTimeout(() => {
+            this.setState({
+                modalVisible: {
+                    share: false,
+                    downloaded: false,
+                    email: false,
+                    emailSent: false,
+                    ...modal,
+                }
+            })                
+        }, 500);
+    }
+
+    closeModal(){
+        this.setState({
+            modalVisible: {
+                share: false,
+                downloaded: false,
+                email: false,
+                emailSent: false,
+            }
         })
     }
 
@@ -65,41 +88,16 @@ export default class Complete extends Component {
         this.setState({loaderVisible: true})
         await postDiscussionAnswers(this.state.discussionStarter)
         this.setState({loaderVisible: false})
-        setTimeout(()=>{
-            this.setState({modalVisible: true})
-        }, 500)
+        this.openModal({share: true})
     }
 
     onShareEmail() {
-        this.setState({
-            modalVisible: {
-                share: false,
-                downloaded: false,
-                email: false,
-                emailSent: false,
-            }
-        })        
-        setTimeout(()=>{
-            this.setState({
-                modalVisible: {
-                    share: false,
-                    downloaded: false,
-                    email: true,
-                    emailSent: false,
-                }
-            })                        
-        }, 200)
+        this.openModal({email: true})
     }
 
     async onShareDownload() {
-        this.setState({
-            modalVisible: {
-                share: false,
-                downloaded: false,
-                email: false,
-                emailSent: false,
-            }
-        })
+        this.closeModal()
+
         var html = getSharingHTMLFromResult(this.state.discussionStarter)
         console.log(html)
 
@@ -122,27 +120,11 @@ export default class Complete extends Component {
     }
 
     onSendEmail(name, email){
-        setTimeout(()=>{
-            this.setState({
-                modalVisible: {
-                    share: false,
-                    downloaded: false,
-                    email: false,
-                    emailSent: true,
-                }
-            })                        
-        }, 1000)
+        this.openModal({emailSent: true})
     }
 
     onShareCancel() {
-        this.setState({
-            modalVisible: {
-                share: false,
-                downloaded: false,
-                email: false,
-                emailSent: false,
-            }
-        })
+        this.closeModal()
     }
 
     renderActivityItem({item, index}){

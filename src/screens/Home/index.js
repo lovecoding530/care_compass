@@ -5,12 +5,13 @@ import {
     Image,
     ImageBackground,
     View,
-    Text,
     TouchableOpacity,
+    Dimensions,
 } from 'react-native';
 
 import {Colors} from '@theme';
 import Styles from './styles';
+import Text from '@text'
 
 export default class Home extends Component {
     constructor(props) {
@@ -20,6 +21,7 @@ export default class Home extends Component {
     }
 
     componentDidMount() {
+        console.log(Dimensions.get('window'))
     }
 
     render() {
@@ -27,21 +29,21 @@ export default class Home extends Component {
             <View style={Styles.container}>
                 <View style={Styles.containerLeft}>
                     <TouchableOpacity style={Styles.item} onPress={()=>{this.props.navigation.navigate({routeName: "DiscussionStarter", key: "DiscussionStarter"})}}>
-                        <Text style={Styles.itemText}>Discussion Starter</Text>
+                        <Text medium bold>Discussion Starter</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={Styles.item} onPress={()=>{this.props.navigation.navigate({routeName: "CardGame", key: "CardGame"})}}>
-                        <Text style={Styles.itemText}>Card Game</Text>
+                        <Text medium bold>Card Game</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={Styles.containerRight}>
                     <TouchableOpacity style={Styles.item} onPress={()=>{this.props.navigation.navigate("UserGuides")}}>
-                        <Text style={Styles.itemText}>User Guide</Text>
+                        <Text medium bold>User Guide</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={Styles.item} onPress={()=>{this.props.navigation.navigate("Resources")}}>
-                        <Text style={Styles.itemText}>Resources</Text>
+                        <Text medium bold>Resources</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={Styles.item} onPress={()=>{this.props.navigation.navigate("GetHelp")}}>
-                        <Text style={Styles.itemText}>Get Help</Text>
+                        <Text medium bold>Get Help</Text>
                     </TouchableOpacity>
                 </View>
             </View>

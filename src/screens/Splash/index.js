@@ -12,6 +12,7 @@ import Spinner from "react-native-spinkit";
 import {Colors} from '@theme';
 import Styles from './styles';
 import {getBundle} from '@api';
+import { responsiveWidth } from 'react-native-responsive-dimensions';
 
 export default class Splash extends Component {
     constructor(props) {
@@ -38,7 +39,7 @@ export default class Splash extends Component {
         return (
             <ImageBackground style={Styles.backgroundImage}>
                 <Text style={Styles.logoText}>Dying To Talk</Text>
-                <Spinner isVisible={true} size={80} type='FadingCircle'/>
+                <Spinner isVisible={true} size={responsiveWidth(10)} type='FadingCircle'/>
             </ImageBackground>
         );
     }

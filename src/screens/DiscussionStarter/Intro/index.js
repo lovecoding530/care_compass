@@ -41,22 +41,22 @@ export default class Intro extends Component {
                 <View style={Styles.introContainer}>
                     <Text mediumLarge bold style={Styles.title}>Discussion Starter</Text>
                     <Text medium bold style={Styles.subtitle}>
-                        Supporting you to talk about how you want {"\n"}
+                        Supporting you to talk about how you want 
                         to be cared for at the end of your life
                     </Text>
                     <Image style={Styles.icon}/>
                     <Text style={Styles.intro}>
-                        You never know what the future holds, it is never too early to plan {"\n"}
-                        ahead, Talking now can help your family and friends in the future {"\n"}
+                        You never know what the future holds, it is never too early to plan 
+                        ahead, Talking now can help your family and friends in the future 
                         and can make sure you goget the kind of care that you want.
                     </Text>
                     <Text style={Styles.intro}>
-                        The Dying to Talk Discussion Starter will guide you through that {"\n"}
-                        discussion, It will help you prepare, so that you know what you want {"\n"}
+                        The Dying to Talk Discussion Starter will guide you through that 
+                        discussion, It will help you prepare, so that you know what you want 
                         to say and it will provide you with tips about how to start talking.
                     </Text>
                     <Text style={Styles.intro}>
-                        Talking about dying might be hard, but it won't ill you, You might {"\n"}
+                        Talking about dying might be hard, but it won't ill you, You might 
                         even find that your family is dying to talk too.
                     </Text>
                     <View style={Styles.buttonBar}>

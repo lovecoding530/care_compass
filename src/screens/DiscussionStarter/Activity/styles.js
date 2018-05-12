@@ -5,27 +5,28 @@ import {
     Dimensions,
 } from 'react-native';
 
-import {Colors, FontSizes} from '@theme';
+import {Colors, FontSizes, MediaQueries} from '@theme';
 
 const { width } = Dimensions.get('window');
 
+import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
+import { MediaQueryStyleSheet } from "react-native-responsive";
 
-export default {
+export default MediaQueryStyleSheet.create({
 
     container: {
         flex: 1, 
         backgroundColor: Colors.backgroundPrimary,
-        paddingVertical: 60,
-        paddingHorizontal: 100,
+        padding: responsiveWidth(8),
     },
 
     pregressBar: {
-        marginHorizontal: 100,
-        marginVertical: 30,
+        marginHorizontal: responsiveWidth(13),
+        marginVertical: responsiveWidth(4),
     },
 
     title: {
-        margin: 8,
+        margin: responsiveWidth(1),
         flexDirection: 'row',
         justifyContent: 'center'
     },
@@ -35,18 +36,18 @@ export default {
     },
 
     questionItem: {
-        marginTop: 10,
-        marginBottom: 30,
+        marginTop: responsiveWidth(1.3),
+        marginBottom: responsiveWidth(4),
     },
 
     questionTitle: {
-        marginBottom: 15,
-        marginHorizontal: 20,
+        marginBottom: responsiveWidth(1.8),
+        marginHorizontal: responsiveWidth(2),
     },
 
     textArea: {
         backgroundColor: Colors.backgroundSecondary,
-        height: 120,
+        height: responsiveWidth(16),
         color: Colors.textPrimary,
         fontSize: FontSizes.smallMedium,
         padding: 8,
@@ -58,4 +59,15 @@ export default {
         justifyContent: 'space-between',
     },
 
-};
+}, {
+    [MediaQueries.iPad] : {
+        container: {
+            padding: responsiveWidth(8),
+        }
+    },
+    [MediaQueries.iPhone] : {
+        container: {
+            padding: responsiveWidth(4),
+        }
+    }
+});

@@ -5,29 +5,27 @@ import {
     Dimensions,
 } from 'react-native';
 
-import {Colors, FontSizes} from '@theme';
-import { Col } from 'native-base';
+import {Colors, FontSizes, MediaQueries} from '@theme';
+import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
+import { MediaQueryStyleSheet } from "react-native-responsive";
 
-const { width } = Dimensions.get('window');
-
-
-export default {
+export default MediaQueryStyleSheet.create({
 
     container: {
         flex: 1, 
         backgroundColor: Colors.backgroundPrimary,
-        paddingVertical: 60,
-        paddingHorizontal: 100,
+        padding: responsiveWidth(8),
     },
 
     title: {
-        marginVertical: 30,
+        marginVertical: responsiveWidth(2),
     },
 
     importantBar: {
         flexDirection: 'row',     
         alignItems: 'center',
-        marginTop: 40,
+        marginTop: responsiveWidth(5),
+        marginBottom: responsiveWidth(1),
     },
 
     cardItemWithStar: {
@@ -41,47 +39,58 @@ export default {
         flexDirection: 'row',
         flex: 1,
         alignItems: 'center',
-        padding: 8,
+        padding: responsiveWidth(1),
         paddingRight: 0,
-        marginRight: 8,
+        marginRight: responsiveWidth(1),
     },
 
     question: {
-        marginHorizontal: 8,
+        marginHorizontal: responsiveWidth(1),
         flex: 1,
     },
     
     levelContainer: {
-        marginBottom: 40,
+        marginBottom: responsiveWidth(5),
     },
 
     levelIcon: {
-        width: 24,
-        height: 24,
+        width: responsiveHeight(2.4),
+        height: responsiveHeight(2.4),
         marginRight: 4,
         tintColor: Colors.textPrimary
     },
 
     dragIcon: {
-        width: 8,
-        height: 24,
+        width: responsiveWidth(1),
+        height: responsiveWidth(3),
         marginRight: 4,
         tintColor: Colors.textPrimary
     },
 
     progress: {
-        marginVertical: 30,
+        marginVertical: responsiveWidth(4),
     },
 
     progressBar: {
-        marginHorizontal: 50,
-        marginVertical: 10,
+        marginHorizontal: responsiveWidth(6.6),
+        marginVertical: responsiveWidth(1.2),
     },
 
     buttonBar: {
         flexDirection: 'row',
         justifyContent: 'center',
-        marginVertical: 15,
+        marginVertical: responsiveWidth(2),
     },
 
-};
+}, {
+    [MediaQueries.iPad] : {
+        container: {
+            padding: responsiveWidth(8),
+        }
+    },
+    [MediaQueries.iPhone] : {
+        container: {
+            padding: responsiveWidth(4),
+        }
+    }
+});
