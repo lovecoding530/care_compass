@@ -145,15 +145,17 @@ export default class SummaryDraggable extends Component {
         this.setState({loaderVisible: false})
 
         const {navigate, goBack} = this.props.navigation
-        Alert.alert(
-            'Are you sure?',
-            'Are you sure to exit without share the results?',
-            [
-              {text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-              {text: 'YES', onPress: () => goBack("CardGame")},
-            ],
-            { cancelable: false }
-        )
+        setTimeout(() => {
+            Alert.alert(
+                'Are you sure?',
+                'Are you sure to exit without share the results?',
+                [
+                  {text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                  {text: 'YES', onPress: () => goBack("CardGame")},
+                ],
+                { cancelable: false }
+            )                
+        }, 500);
     }
 
     async onShare(){
