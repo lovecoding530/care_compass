@@ -76,6 +76,7 @@ const styles = MediaQueryStyleSheet.create({
     [MediaQueries.iPhone] : {
         container: {
             padding: responsiveWidth(1),
+            minHeight: responsiveWidth(8.6),
         }
     }
 });
