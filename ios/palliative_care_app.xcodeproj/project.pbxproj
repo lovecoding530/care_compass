@@ -464,7 +464,6 @@
 				919EBB2A94B34098AA0D683A /* libRCTOrientation.a in Frameworks */,
 				4A9DA9EBA59B4D2AAEF280D7 /* libRNDeviceInfo.a in Frameworks */,
 				F6EAC641F4A74900B82C2694 /* libRNHTMLtoPDF.a in Frameworks */,
-				822D1BFB32304BF29B646C7C /* RNHTMLtoPDFTests.xctest in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

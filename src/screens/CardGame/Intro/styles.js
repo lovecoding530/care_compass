@@ -5,16 +5,15 @@ import {
     Dimensions,
 } from 'react-native';
 
-import {Colors} from '@theme';
-
-const deviceHeight = Dimensions.get("window").height;
+import {Colors, MediaQueries} from '@theme';
+import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
+import { MediaQueryStyleSheet } from "react-native-responsive";
 
 export default {
-
     container: {
         flex: 1, 
         backgroundColor: Colors.backgroundPrimary,
-        padding: 80,
+        padding: responsiveWidth(10),
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -34,7 +33,7 @@ export default {
     },
 
     icon: {
-        height: 200,
+        height: responsiveWidth(25),
     },
 
     intro: {

@@ -9,10 +9,13 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
-import {Colors} from '@theme';
+import {Colors, MediaQueries} from '@theme';
 import Button from '@button'
 import Text from '@text'
 import { Icon } from "native-base";
+import { responsiveWidth } from 'react-native-responsive-dimensions';
+import { MediaQueryStyleSheet } from "react-native-responsive";
+
 export default class Choice extends Component {
     constructor(props) {
         super(props);
@@ -50,16 +53,16 @@ export default class Choice extends Component {
     }
 }
 
-const styles = StyleSheet.create({
+const styles = MediaQueryStyleSheet.create({
     container: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingLeft: 8,
-        minHeight: 50,
+        paddingLeft: responsiveWidth(1),
+        minHeight: responsiveWidth(6.6),
     },
 
     icon: {
-        marginRight: 8
+        marginRight: responsiveWidth(1),
     },
 
     text: {
@@ -68,5 +71,12 @@ const styles = StyleSheet.create({
 
     button: {
 
+    }
+}, {
+    [MediaQueries.iPhone] : {
+        container: {
+            padding: responsiveWidth(1),
+            minHeight: responsiveWidth(8.6),
+        }
     }
 });

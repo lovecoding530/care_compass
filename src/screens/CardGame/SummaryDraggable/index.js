@@ -7,15 +7,21 @@ import {
     ScrollView,
     TouchableHighlight,
     Alert,
+    Share,
 } from 'react-native';
 import {Colors, Images} from '@theme';
 import Styles from './styles';
 
-import { getCardGame} from "@api";
+import { postCardGameAnswers } from "@api";
 import { Loader, Button, ImageButton, Text } from '@components';
+import { ShareModal, EmailModal, EmailSentModal, DownloadedModal} from '../../modals';
 import { copy } from '@utils';
 import DeviceInfo from 'react-native-device-info'
 import SortableListView from 'react-native-sortable-listview';
+
+import {getSharingHTMLFromResult} from "./HtmlResult";
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 
 export default class SummaryDraggable extends Component {
     constructor(props) {
@@ -28,10 +34,39 @@ export default class SummaryDraggable extends Component {
             cardGame: cardGame,
             cardsWithSections: this.addSectionsToGroupedCards(groupedCardByLevel),
             loaderVisible: false,
+            modalVisible: {
+                share: false,
+                downloaded: false,
+                email: false,
+                emailSent: false,
+            },
         })
     }
 
-    componentDidMount() {
+    openModal(modal){
+        this.closeModal()
+        setTimeout(() => {
+            this.setState({
+                modalVisible: {
+                    share: false,
+                    downloaded: false,
+                    email: false,
+                    emailSent: false,
+                    ...modal,
+                }
+            })                
+        }, 500);
+    }
+
+    closeModal(){
+        this.setState({
+            modalVisible: {
+                share: false,
+                downloaded: false,
+                email: false,
+                emailSent: false,
+            }
+        })
     }
 
     groupedCardByLevel(cardGame){
@@ -104,17 +139,66 @@ export default class SummaryDraggable extends Component {
         })
     }
 
-    onExit(){
+    async onExit(){
+        this.setState({loaderVisible: true})
+        await postCardGameAnswers(this.state.cardGame)
+        this.setState({loaderVisible: false})
+
         const {navigate, goBack} = this.props.navigation
-        Alert.alert(
-            'Are you sure?',
-            'Are you sure to exit without share the results?',
-            [
-              {text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-              {text: 'YES', onPress: () => goBack("CardGame")},
-            ],
-            { cancelable: false }
-        )
+        setTimeout(() => {
+            Alert.alert(
+                'Are you sure?',
+                'Are you sure to exit without share the results?',
+                [
+                  {text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                  {text: 'YES', onPress: () => goBack("CardGame")},
+                ],
+                { cancelable: false }
+            )                
+        }, 500);
+    }
+
+    async onShare(){
+        this.setState({loaderVisible: true})
+        await postCardGameAnswers(this.state.cardGame)
+        this.setState({loaderVisible: false})
+        this.openModal({share: true})
+    }
+
+    onShareEmail() {
+        this.openModal({email: true})
+    }
+
+    async onShareDownload() {
+        this.closeModal()
+
+        var html = getSharingHTMLFromResult(this.state.cardGame)
+        console.log(html)
+
+        let options = {
+            html: html,
+            fileName: 'test',
+            directory: 'docs',
+        };
+    
+        let file = await RNHTMLtoPDF.convert(options)
+        console.log(file.filePath)
+        setTimeout(() => {
+            Share.share({
+                title: "Share this!",
+                message: "I just wanted to show you this:",
+                url: file.filePath,
+                subject: "I am only visible for emails :(",
+            })
+        }, 500);
+    }
+
+    onSendEmail(name, email){
+        this.openModal({emailSent: true})
+    }
+
+    onShareCancel() {
+        this.closeModal()
     }
 
     renderCardItem(item){
@@ -127,10 +211,10 @@ export default class SummaryDraggable extends Component {
             return sectionItem
         }else{
             var cardItemStyle = {
-                marginRight: 8,
+                marginRight: responsiveWidth(1),
             }
             if(item.selectedLevel < 2){
-                cardItemStyle.marginRight = 32            
+                cardItemStyle.marginRight = responsiveWidth(4)            
             }
     
             var cardItem = 
@@ -162,7 +246,7 @@ export default class SummaryDraggable extends Component {
             return cardItem
         }
     }
-
+    
     render() {
         const {navigate} = this.props.navigation
         return (
@@ -183,8 +267,28 @@ export default class SummaryDraggable extends Component {
                 />
                 <View style={Styles.buttonBar}>
                     <Button light onPress={this.onExit.bind(this)}>EXIT</Button>
-                    <Button dark>SHARE RESULTS</Button>
+                    <Button dark onPress={this.onShare.bind(this)}>SHARE RESULTS</Button>
                 </View>
+
+                <ShareModal 
+                    visible={this.state.modalVisible.share} 
+                    onDownload={this.onShareDownload.bind(this)}
+                    onEmail={this.onShareEmail.bind(this)}
+                    onCancel={this.onShareCancel.bind(this)}
+                    />
+                <EmailModal 
+                    visible={this.state.modalVisible.email} 
+                    onSend={this.onSendEmail.bind(this)}
+                    onCancel={this.onShareCancel.bind(this)}
+                    />
+                <EmailSentModal 
+                    visible={this.state.modalVisible.emailSent} 
+                    onCancel={this.onShareCancel.bind(this)}
+                    />
+                <DownloadedModal 
+                    visible={this.state.modalVisible.downloaded} 
+                    onCancel={this.onShareCancel.bind(this)}
+                    />
             </View>
         );
     }

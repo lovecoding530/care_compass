@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 
 const deviceHeight = Dimensions.get("window").height;
+import { responsiveWidth } from 'react-native-responsive-dimensions';
 
 export default {
     container: {
@@ -24,7 +25,7 @@ export default {
     indicator: {
     },
     logoText: {
-        fontSize: 40,
+        fontSize: responsiveWidth(6),
         fontWeight: 'bold',
         margin: 40,
     }
