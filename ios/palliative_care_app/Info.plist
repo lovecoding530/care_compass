@@ -45,6 +45,8 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Require locatoin service to use the app</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Require locatoin service to use the app</string>
 	<key>NSMainNibFile</key>
 	<string>LaunchScreen</string>
 	<key>NSMainNibFile~ipad</key>
