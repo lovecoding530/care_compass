@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>11</string>
+	<string>13</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -44,6 +44,8 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Require locatoin service to use the app</string>
+	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Require locatoin service to use the app</string>
 	<key>NSMainNibFile</key>
 	<string>LaunchScreen</string>
