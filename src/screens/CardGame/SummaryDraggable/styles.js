@@ -24,8 +24,14 @@ export default MediaQueryStyleSheet.create({
     importantBar: {
         flexDirection: 'row',     
         alignItems: 'center',
+        justifyContent: 'space-between',
         marginTop: responsiveWidth(5),
         marginBottom: responsiveWidth(1),
+    },
+
+    row: {
+        flexDirection: 'row',     
+        alignItems: 'center',
     },
 
     cardItemWithStar: {
