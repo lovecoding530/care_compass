@@ -53,19 +53,21 @@ export default class Activity extends Component {
                 pageIndex: this.state.pageIndex + 1,
             })
         }else{
-            const {navigate} = this.props.navigation
-
-            if(this.state.activityIndex + 1 >= this.state.activityCount){
-                navigate("Complete", {discussionStarter: this.state.discussionStarter})
-            }else{
-                navigate("UpNext", {activityIndex: this.state.activityIndex, discussionStarter: this.state.discussionStarter})
-            }
+            this.onFinish()
         }
     }
 
     onFinish(){
+        // const {navigate} = this.props.navigation
+        // navigate("Complete", {discussionStarter: this.state.discussionStarter})    
+
         const {navigate} = this.props.navigation
-        navigate("Complete", {discussionStarter: this.state.discussionStarter})    
+
+        if(this.state.activityIndex + 1 >= this.state.activityCount){
+            navigate("Complete", {discussionStarter: this.state.discussionStarter})
+        }else{
+            navigate("UpNext", {activityIndex: this.state.activityIndex, discussionStarter: this.state.discussionStarter})
+        }
     }
 
     renderQuestions(){
