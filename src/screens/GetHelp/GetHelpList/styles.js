@@ -19,10 +19,13 @@ export default {
     scroll:{
         justifyContent: 'center',
         alignItems: 'center',
+        marginLeft:width/20
     },
     scrollcontainer:{
         flex:1,
         marginBottom:height/15,
+        flexDirection:'row',
+        paddingHorizontal:width/25
     },
     title: {
         fontSize: width/15,
@@ -37,7 +40,7 @@ export default {
     },
     item: {
         paddingVertical : height/45,
-        width : width/1.2,
+        width : width/1.3,
         backgroundColor: Colors.backgroundSecondary,
         borderRadius: 2,
         shadowColor: '#000',
@@ -50,7 +53,7 @@ export default {
         alignItems: 'center',
     },
     listitem: {
-        width : width/1.2,
+        width : width/1.3,
         backgroundColor: Colors.backgroundSecondary,
         borderRadius: 2,
         shadowColor: '#000',
@@ -91,7 +94,7 @@ export default {
         flexDirection : 'row',
     },
     listButton: {       
-        width:width/3.6,
+        width:width/4.05,
         height:height/18,
         backgroundColor : Colors.buttonPrimary,
         alignItems:'center',
@@ -111,4 +114,11 @@ export default {
         justifyContent:'center',
         padding: 8,
     },
+    updownImage:{
+        width:width/15,
+        height:width/15,
+        marginTop:height/35,
+        marginBottom:height/40, 
+    }
+
 };

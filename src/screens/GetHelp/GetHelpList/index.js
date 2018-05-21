@@ -20,6 +20,9 @@ import { Loader } from '@components';
 import { getGetHelp,updateTimeInterval,API_HTML_ROOT } from "@api";
 import Communications from 'react-native-communications';
 import moment from 'moment';
+var { width,height } = Dimensions.get('window');
+
+
 
 export default class GetHelpList extends Component {
     constructor(props) {
@@ -28,7 +31,10 @@ export default class GetHelpList extends Component {
            gethelpIndexes: [],
            title : '',
            tagline : '',
-           loaderVisible: true
+           loaderVisible: false,
+           Y:0,
+           atBottomEnd:false,
+           atTopEnd: true
         })
     }
 
@@ -111,34 +117,34 @@ export default class GetHelpList extends Component {
         const {navigate} = this.props.navigation
       
         return (
-            <View style={Styles.listitem}>
+            <View style={[Styles.listitem,{ width : width/1.3,}]} onLayout={this.onLayout.bind(this)}>
                     <View style={Styles.listitemTopView}>
                         {item.logo == null ?
-                            <Image style={Styles.listLogo} source={require('../../../../assets/images/default_appLogo.png')} resizeMode="stretch"/>
+                            <Image style={{ width:width/2.5,height:height/5}} source={require('../../../../assets/images/default_appLogo.png')} resizeMode="stretch"/>
                             :
-                            <Image style={Styles.listLogo} source={{uri:  API_HTML_ROOT + item.logo.url}} resizeMode="stretch"/>
+                            <Image style={{ width:width/2.5,height:height/5}} source={{uri:  API_HTML_ROOT + item.logo.url}} resizeMode="stretch"/>
                         }
-                        <View style={Styles.listTitleView}>
-                            <Text bold style={Styles.listTitle}>{item.title}</Text>
-                            <Text  style={Styles.listDesc}>{item.short_description}</Text>
+                        <View style={[Styles.listTitleView,{ marginLeft:width/25,}]}>
+                            <Text bold style={[Styles.listTitle,{ fontSize: width/25,}]}>{item.title}</Text>
+                            <Text  style={[Styles.listDesc,{fontSize: width/30,}]}>{item.short_description}</Text>
                         </View>
                     </View>
                     <View style={Styles.listitemBottomView}>
-                        <TouchableOpacity style={Styles.listButton} onPress={() => Communications.phonecall(item.phone_number, true)}>
+                        <TouchableOpacity style={[Styles.listButton,{ width:width/4.05,height:height/18,}]} onPress={() => Communications.phonecall(item.phone_number, true)}>
                             <View style={Styles.listButtonView}>
                                 <View style={{justifyContent:'center'}}><Image source={require('../../../../assets/images/icon_call.png')}/></View>
-                                <Text style={Styles.listButtonText}>CALL</Text>
+                                <Text style={[Styles.listButtonText,{ fontSize: width/30,paddingHorizontal:width/50,}]}>CALL</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity style={Styles.listButtonMiddle} onPress={ ()=> Linking.openURL(item.website) }>
+                        <TouchableOpacity style={[Styles.listButtonMiddle,{ width:width/3.6,height:height/18,}]} onPress={ ()=> Linking.openURL(item.website) }>
                             <View style={Styles.listButtonView}>
                                 <View style={{justifyContent:'center'}}><Image  source={require('../../../../assets/images/icon_website.png')}/></View>
-                                <Text style={Styles.listButtonText}>WEBSITE</Text>
+                                <Text style={[Styles.listButtonText,{ fontSize: width/30,paddingHorizontal:width/50,}]}>WEBSITE</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity style={Styles.listButton} onPress={() => {navigate("GetHelpDetail", {gethelpIndexes: index})}}>
+                        <TouchableOpacity style={[Styles.listButton,{ width:width/4.05,height:height/18,}]} onPress={() => {navigate("GetHelpDetail", {gethelpIndexes: index})}}>
                             <View style={Styles.listButtonView}>
-                                <Text style={Styles.listButtonText}>VIEW</Text>
+                                <Text style={[Styles.listButtonText,{ fontSize: width/30,paddingHorizontal:width/50,}]}>VIEW</Text>
                                 <View style={{justifyContent:'center'}}><Image  source={require('../../../../assets/images/icon_view.png')}/></View>
                             </View>
                         </TouchableOpacity>
@@ -147,25 +153,97 @@ export default class GetHelpList extends Component {
         )
     }
 
+
+
+    onScroll(event) {
+        if(event.nativeEvent.contentOffset.y >= event.nativeEvent.contentSize.height - height/1.2)
+        {
+            this.setState({
+                atBottomEnd: true,
+                atTopEnd: false
+            })
+        }
+        else if(this.state.Y <= 0)
+        {
+            this.setState({
+                atBottomEnd: false,
+                atTopEnd: true
+            })
+        }
+        else
+        {
+            this.setState({
+                atBottomEnd: false,
+                atTopEnd: false
+            })
+        }
+    }
+
+    scrollDown(){
+        if(!this.state.atBottomEnd)
+        {
+            this.setState({Y:this.state.Y + height/1.3})
+
+            setTimeout(() => {
+                    this.refs.scrollView.scrollTo({y: this.state.Y})
+            }, 10)  
+        }
+    }
+
+    scrollUp(){
+
+        if(!this.state.atTopEnd)
+        {
+            this.setState({Y:this.state.Y - height/1.3})
+
+            setTimeout(() => {
+                this.refs.scrollView.scrollTo({y: this.state.Y})
+            }, 10)  
+        }
+    }
+
+    onLayout(e) {
+
+
+        height = Dimensions.get('window').height;
+        width = Dimensions.get('window').width;
+         this.forceUpdate();
+
+    
+    }
+
     render() {
         return (
-            <View style={Styles.container}>
-                <View style={Styles.scrollcontainer}> 
-                <ScrollView contentContainerStyle={Styles.scroll}>
-                    <Loader loading={this.state.loaderVisible}/>
-                    <TouchableOpacity style={Styles.item}>
-                        <Text bold style={Styles.title}>{this.state.title}</Text>
-                        <Text style={Styles.subtitle}>
-                            {this.state.tagline}
-                        </Text>
-                    </TouchableOpacity>
-                    <FlatList
-                    data = {this.state.gethelpIndexes}
-                    renderItem = {this.renderGetHelpItem.bind(this)}
-                    keyExtractor = {(index) => index.toString()}
-                    />
-                
-                </ScrollView>
+            <View style={Styles.container} onLayout={this.onLayout.bind(this)}>
+                <View style={[Styles.scrollcontainer,{paddingHorizontal:width/25, marginBottom:height/15,}]}> 
+                        <ScrollView contentContainerStyle={[Styles.scroll,{marginLeft:width/20}]} ref="scrollView" onScroll={this.onScroll.bind(this)} scrollEnabled={false}>
+                            <Loader loading={this.state.loaderVisible}/>
+                            
+                            <View style={[Styles.item,{ width : width/1.3, paddingVertical : height/45,marginTop : width/25,}]}>
+                                <Text bold style={[Styles.title,{ fontSize: width/15,}]}>{this.state.title}</Text>
+                                <Text style={[Styles.subtitle,{fontSize: width/25, marginBottom: height/50,}]}>
+                                    {this.state.tagline}
+                                </Text>
+                            </View>
+                           
+                            <FlatList
+                                scrollEnabled={false}
+                                data = {this.state.gethelpIndexes}
+                                renderItem = {this.renderGetHelpItem.bind(this)}
+                                keyExtractor = {(index) => index.toString()}
+                            />
+                          
+                        </ScrollView>
+
+                        <View style={{justifyContent:'space-between'}}>
+                            <TouchableOpacity  onPress={this.scrollUp.bind(this)}>
+                                 <Image style={[Styles.updownImage,{width:width/15,height:width/15,}]} source={require('../../../../assets/images/up_arrow.png')} resizeMode="stretch"/>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={this.scrollDown.bind(this)}>
+                                 <Image style={[Styles.updownImage,{width:width/15,height:width/15,}]} source={require('../../../../assets/images/down_arrow.png')}/>
+                            </TouchableOpacity>
+                        </View>
+                  
                 </View>
                 <Footer />
             </View>
