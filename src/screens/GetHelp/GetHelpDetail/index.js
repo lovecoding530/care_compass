@@ -24,19 +24,93 @@ import { getGetHelp, API_HTML_ROOT} from "@api";
 import HTMLView from 'react-native-htmlview';
 import Communications from 'react-native-communications';
 const { width,height } = Dimensions.get('window');
+import {Colors} from '@theme';
 
 function renderNode(node, index, siblings, parent, defaultRenderer) {
+
     if(Platform.OS === 'ios')
     {
-      if (node.name == 'iframe') {
-        var atribute = node.attribs;
-        var iframeHtml = `<iframe width=\"${width}\" height=\"${height/2}\" src=\"${atribute.src}" ></iframe>`;
-        return (
-          <View key={index} style={{width: width/4, height: height/8}}>
-            <WebView source={{html: iframeHtml}} />
-          </View>
-        );
-      }
+        if (node.name == 'iframe') {
+            var atribute = node.attribs;
+            var iframeHtml = `<iframe width=\"${atribute.width}\" height=\"${atribute.height}\" src=\"${atribute.src}" frameborder=\"0\" allow=\"autoplay; encrypted-media\" allowfullscreen></iframe>`;
+            return (
+              <View key={index} style={{width: width/3.5, height: height/10.5}}>
+                <WebView source={{html: iframeHtml}}/>
+              </View>
+            );
+          }
+
+        if (node.name == 'a') {
+            var atribute = node.attribs;
+            if(atribute.href.startsWith("https"))
+            {
+                var source = atribute.href;
+                var aHtml = `<a href=\"${source}\" >${node.children[0].data}</a>`;
+                return (
+                    <HTMLView
+                        value={aHtml}
+                    />
+                );
+            }
+            else
+            {
+                var source = API_HTML_ROOT + atribute.href;
+                var aHtml = `<a href=\"${source}\" >${node.children[0].data}</a>`;
+                return (
+                    <HTMLView
+                        value={aHtml}
+                    />
+                );
+            }
+            
+        }
+    }
+    else
+    {
+        console.log(node);
+        if (node.name == 'div') {
+            var atribute = node.children[0].next.attribs;
+            var iframeHtml = `<iframe src=\"${atribute.src}" width=\"${width/1.7}\" frameborder=\"0\" allow=\"autoplay; encrypted-media\" allowfullscreen></iframe>`;
+            return (
+              <View key={index} style={{height: height/4.3,}}>
+                <WebView 
+                    source={{html: iframeHtml}} 
+                    style={{backgroundColor: Colors.backgroundSecondary}}
+                    javaScriptEnabled={true}
+                    domStorageEnabled={true}/>
+              </View>
+            );
+        }
+        if (node.name == 'p') {
+             if(node.children[0] != null)
+             {
+                console.log(".......",node);
+                if(node.children[0].name == 'a')
+                {
+                    var atribute = node.children[0].attribs;
+                    if(atribute.href.startsWith("https"))
+                    {
+                        var source = atribute.href;
+                        var aHtml = `<p><a href=\"${source}\" >${node.children[0].children[0].data}</a></p>`;
+                        return (
+                            <HTMLView
+                                value={aHtml}
+                            />
+                        );
+                    }
+                    else
+                    {
+                        var source = API_HTML_ROOT + atribute.href;
+                        var aHtml = `<p><a href=\"${source}\" >${node.children[0].children[0].data}</a></p>`;
+                        return (
+                            <HTMLView
+                                value={aHtml}
+                            />
+                        );
+                    }
+                }
+             }
+        }
     }
     if (node.name == 'img') {
         var atribute = node.attribs;
@@ -47,20 +121,6 @@ function renderNode(node, index, siblings, parent, defaultRenderer) {
                 value={imgHtml}
             />
         );
-    }
-
-    if(Platform.OS === 'ios')
-    {
-      if (node.name == 'a') {
-        var atribute = node.attribs;
-        var source = API_HTML_ROOT + atribute.href;
-        var aHtml = `<a href=\"${source}\" >${node.children[0].data}</a>`;
-       return (
-            <HTMLView
-                value={aHtml}
-            />
-      );
-      }
     }
 }
 
@@ -78,7 +138,7 @@ export default class UserGuidesDetail extends Component {
             email : '',
             website : '',
             phonenumber : '',
-            loaderVisible: false,
+            loaderVisible: true,
             modalVisible: {
                 email: false,
                 emailSent: false,
