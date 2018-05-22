@@ -20,7 +20,6 @@ export default {
     },
     scrollcontainer:{
         flex : 1,
-        marginBottom:height/15,
     },
     title: {
         fontSize: width/15,
