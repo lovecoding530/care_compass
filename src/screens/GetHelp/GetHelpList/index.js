@@ -21,8 +21,7 @@ import { getGetHelp,updateTimeInterval,API_HTML_ROOT } from "@api";
 import Communications from 'react-native-communications';
 import moment from 'moment';
 var { width,height } = Dimensions.get('window');
-
-
+var orientation = width > height ? 'LANDSCAPE' : 'PORTRAIT';
 
 export default class GetHelpList extends Component {
     constructor(props) {
@@ -34,7 +33,7 @@ export default class GetHelpList extends Component {
            loaderVisible: false,
            Y:0,
            atBottomEnd:false,
-           atTopEnd: true
+           atTopEnd: true,
         })
     }
 
@@ -109,8 +108,11 @@ export default class GetHelpList extends Component {
             catch (error) {
               // Error retrieving data
             }
-        
-    
+
+            Dimensions.addEventListener('change', ({ window: { width, height } }) => {
+              orientation = width > height ? 'LANDSCAPE' : 'PORTRAIT';
+
+            });
     }
 
     renderGetHelpItem({item, index}){
@@ -125,26 +127,26 @@ export default class GetHelpList extends Component {
                             <Image style={{ width:width/2.5,height:height/5}} source={{uri:  API_HTML_ROOT + item.logo.url}} resizeMode="stretch"/>
                         }
                         <View style={[Styles.listTitleView,{ marginLeft:width/25,}]}>
-                            <Text bold style={[Styles.listTitle,{ fontSize: width/25,}]}>{item.title}</Text>
-                            <Text  style={[Styles.listDesc,{fontSize: width/30,}]}>{item.short_description}</Text>
+                            <Text bold style={[Styles.listTitle,{ fontSize: orientation === 'PORTRAIT' ? width/25 : height/25}]}>{item.title}</Text>
+                            <Text  style={[Styles.listDesc,{fontSize: orientation === 'PORTRAIT' ? width/30 : height/30}]}>{item.short_description}</Text>
                         </View>
                     </View>
                     <View style={Styles.listitemBottomView}>
-                        <TouchableOpacity style={[Styles.listButton,{ width:width/4.05,height:height/18,}]} onPress={() => Communications.phonecall(item.phone_number, true)}>
+                        <TouchableOpacity style={[Styles.listButton,{ width:width/4.05,height: orientation === 'PORTRAIT' ? height/18 : width/18}]} onPress={() => Communications.phonecall(item.phone_number, true)}>
                             <View style={Styles.listButtonView}>
                                 <View style={{justifyContent:'center'}}><Image source={require('../../../../assets/images/icon_call.png')}/></View>
-                                <Text style={[Styles.listButtonText,{ fontSize: width/30,paddingHorizontal:width/50,}]}>CALL</Text>
+                                <Text style={[Styles.listButtonText,{ fontSize: orientation === 'PORTRAIT' ? width/30 : height/30,paddingHorizontal:width/50,}]}>CALL</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity style={[Styles.listButtonMiddle,{ width:width/3.6,height:height/18,}]} onPress={ ()=> Linking.openURL(item.website) }>
+                        <TouchableOpacity style={[Styles.listButtonMiddle,{ width:width/3.6,height: orientation === 'PORTRAIT' ? height/18 : width/18}]} onPress={ ()=> Linking.openURL(item.website) }>
                             <View style={Styles.listButtonView}>
                                 <View style={{justifyContent:'center'}}><Image  source={require('../../../../assets/images/icon_website.png')}/></View>
-                                <Text style={[Styles.listButtonText,{ fontSize: width/30,paddingHorizontal:width/50,}]}>WEBSITE</Text>
+                                <Text style={[Styles.listButtonText,{ fontSize: orientation === 'PORTRAIT' ? width/30 : height/30,paddingHorizontal:width/50,}]}>WEBSITE</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity style={[Styles.listButton,{ width:width/4.05,height:height/18,}]} onPress={() => {navigate("GetHelpDetail", {gethelpIndexes: index})}}>
+                        <TouchableOpacity style={[Styles.listButton,{ width:width/4.05,height: orientation === 'PORTRAIT' ? height/18 : width/18}]} onPress={() => {navigate("GetHelpDetail", {gethelpIndexes: index})}}>
                             <View style={Styles.listButtonView}>
-                                <Text style={[Styles.listButtonText,{ fontSize: width/30,paddingHorizontal:width/50,}]}>VIEW</Text>
+                                <Text style={[Styles.listButtonText,{ fontSize: orientation === 'PORTRAIT' ? width/30 : height/30,paddingHorizontal:width/50,}]}>VIEW</Text>
                                 <View style={{justifyContent:'center'}}><Image  source={require('../../../../assets/images/icon_view.png')}/></View>
                             </View>
                         </TouchableOpacity>
@@ -204,31 +206,32 @@ export default class GetHelpList extends Component {
 
     onLayout(e) {
 
-
         height = Dimensions.get('window').height;
         width = Dimensions.get('window').width;
+        this.setState({
+                        gethelpIndexes: this.state.gethelpIndexes,
+                    })
          this.forceUpdate();
-
-    
     }
 
     render() {
         return (
             <View style={Styles.container} onLayout={this.onLayout.bind(this)}>
-                <View style={[Styles.scrollcontainer,{paddingHorizontal:width/25, marginBottom:height/15,}]}> 
+                <View style={[Styles.scrollcontainer,{paddingHorizontal:width/25,marginBottom:  orientation === 'PORTRAIT' ? height/15 : width/15}]}> 
                         <ScrollView contentContainerStyle={[Styles.scroll,{marginLeft:width/20}]} ref="scrollView" onScroll={this.onScroll.bind(this)} scrollEnabled={false}>
                             <Loader loading={this.state.loaderVisible}/>
-                            
+
                             <View style={[Styles.item,{ width : width/1.3, paddingVertical : height/45,marginTop : width/25,}]}>
-                                <Text bold style={[Styles.title,{ fontSize: width/15,}]}>{this.state.title}</Text>
-                                <Text style={[Styles.subtitle,{fontSize: width/25, marginBottom: height/50,}]}>
+                                <Text bold style={[Styles.title,{ fontSize: orientation === 'PORTRAIT' ? width/15 : height/15}]}>{this.state.title}</Text>
+                                <Text style={[Styles.subtitle,{fontSize: orientation === 'PORTRAIT' ? width/25 : height/25, marginBottom: height/50,}]}>
                                     {this.state.tagline}
                                 </Text>
                             </View>
-                           
+                                
                             <FlatList
                                 scrollEnabled={false}
                                 data = {this.state.gethelpIndexes}
+                                extraData={this.state}
                                 renderItem = {this.renderGetHelpItem.bind(this)}
                                 keyExtractor = {(index) => index.toString()}
                             />
@@ -237,10 +240,10 @@ export default class GetHelpList extends Component {
 
                         <View style={{justifyContent:'space-between'}}>
                             <TouchableOpacity  onPress={this.scrollUp.bind(this)}>
-                                 <Image style={[Styles.updownImage,{width:width/15,height:width/15,}]} source={require('../../../../assets/images/up_arrow.png')} resizeMode="stretch"/>
+                                 <Image style={{width:orientation === 'PORTRAIT' ? width/15 : height/15,height: orientation === 'PORTRAIT' ? width/15 : height/15,marginTop:height/35,marginBottom:height/40, }} source={require('../../../../assets/images/up_arrow.png')} resizeMode="stretch"/>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={this.scrollDown.bind(this)}>
-                                 <Image style={[Styles.updownImage,{width:width/15,height:width/15,}]} source={require('../../../../assets/images/down_arrow.png')}/>
+                                 <Image style={{width:orientation === 'PORTRAIT' ? width/15 : height/15,height: orientation === 'PORTRAIT' ? width/15 : height/15,marginTop:height/35,marginBottom:height/40, }} source={require('../../../../assets/images/down_arrow.png')}/>
                             </TouchableOpacity>
                         </View>
                   
