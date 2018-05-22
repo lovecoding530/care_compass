@@ -22,6 +22,8 @@ import {UserGuidesList,UserGuidesDetail} from "./screens/UserGuides";
 import {GetHelpList, GetHelpDetail} from "./screens/GetHelp";
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 
+var drawerNavigator = null
+
 const headerStyle = { 
     backgroundColor: Colors.Navy, 
     height: responsiveHeight(6), 
@@ -63,7 +65,7 @@ const MenuIcon = ({ navigate }) => {
             size={FontSizes.medium}
             style={{height: responsiveHeight(4.5), paddingHorizontal: 10,}}
             backgroundColor={'#0000'} 
-            onPress={() => navigate('DrawerOpen')}>
+            onPress={() => drawerNavigator.navigate('DrawerOpen')}>
             <Text light bold>MENU</Text>
         </Icon.Button>
     );
@@ -179,11 +181,10 @@ export const HomeStack = StackNavigator({
 });
 
 const HomeStackWithFooter = ({navigation, screenProps}) => {
-    console.log(navigation)
+    drawerNavigator = navigation
     return (
         <View style={{flex: 1}}>
-            <HomeStack  
-            />
+            <HomeStack />
             <Footer/>
         </View>
     );

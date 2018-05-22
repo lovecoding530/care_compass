@@ -28,9 +28,9 @@ export default {
 
     item: {
         backgroundColor: Colors.backgroundSecondary,
-        borderRadius: 2,
+        borderRadius: 5,
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
+        shadowOffset: { width: 1, height: 1 },
         shadowOpacity: 0.5,
         shadowRadius: 1,
         margin: 8,        
