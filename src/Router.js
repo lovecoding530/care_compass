@@ -3,12 +3,12 @@
  */
 
 import React, { Component } from 'react';
-import { Dimensions, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { StackNavigator, DrawerNavigator } from 'react-navigation';
+import { Dimensions, Image, StyleSheet, TouchableOpacity, View, } from 'react-native';
+import { StackNavigator, DrawerNavigator, addNavigationHelpers } from 'react-navigation';
 
 const { width } = Dimensions.get('window');
 
-import {Colors, FontSizes} from './theme';
+import {Colors, FontSizes, Images} from './theme';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button, Text } from './components';
 import Menu from "./Menu";
@@ -22,15 +22,49 @@ import {UserGuidesList,UserGuidesDetail} from "./screens/UserGuides";
 import {GetHelpList, GetHelpDetail} from "./screens/GetHelp";
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 
+const headerStyle = { 
+    backgroundColor: Colors.Navy, 
+    height: responsiveHeight(6), 
+    paddingHorizontal: responsiveHeight(1)
+}
+
+const HeaderTitle = () => {
+    return (
+        <Image 
+            source={Images.icon_dying_to_talk} 
+            style={{width: responsiveHeight(7), height: responsiveHeight(5), tintColor: '#fff'}}
+        />
+    );
+}
+
+const Footer = () => {
+    return (
+        <View style={{
+            height: responsiveHeight(7), 
+            flexDirection: 'row', 
+            alignItems: 'center', 
+            justifyContent: 'space-between',
+            padding: responsiveWidth(2),
+            backgroundColor: Colors.Navy}}>
+            <Image 
+                source={Images.logo_footer} 
+                resizeMode={"contain"}
+                style={{width: responsiveHeight(16), height: responsiveHeight(5), tintColor: '#fff'}}
+            />
+            <Text light right>logo footer logo footer {"\n"} logo footer</Text>
+        </View>
+    );
+}
+
 const MenuIcon = ({ navigate }) => {
     return (
         <Icon.Button 
             name="bars" 
             size={FontSizes.medium}
             style={{height: responsiveHeight(4.5), paddingHorizontal: 10,}}
-            backgroundColor={Colors.buttonPrimary} 
+            backgroundColor={'#0000'} 
             onPress={() => navigate('DrawerOpen')}>
-            <Text light>MENU</Text>
+            <Text light bold>MENU</Text>
         </Icon.Button>
     );
 }
@@ -41,7 +75,7 @@ const HomeIcon = ({ navigate, goBack }) => {
             name="home" 
             size={FontSizes.medium}
             style={{height: responsiveHeight(4.5), paddingHorizontal: 10,}}
-            backgroundColor={Colors.buttonPrimary} 
+            backgroundColor={'#0000'} 
             onPress={() => goBack()}>
             <Text light>HOME</Text>
         </Icon.Button>
@@ -92,18 +126,16 @@ export const HomeStack = StackNavigator({
     Home: {
         screen: Home,
         navigationOptions: ({ navigation }) => ({
-            headerTitle: <Text style={{fontSize: responsiveWidth(4), fontWeight: 'bold'}}>Dying To Talk</Text>  ,
-            headerStyle: { backgroundColor: Colors.nav, height: responsiveHeight(6), paddingHorizontal: responsiveHeight(1)},
-            headerTitleStyle: {color: '#a7c3f2'},
+            headerTitle: <HeaderTitle/>,
+            headerStyle: headerStyle,
             headerRight: <MenuIcon {...navigation} />,
         }),
     },
     DiscussionStarter: {
         screen: DiscussionStarterStack,
         navigationOptions: ({ navigation }) => ({
-            headerTitle: <Text style={{fontSize: responsiveWidth(4), fontWeight: 'bold'}}>Dying To Talk</Text>  ,
-            headerStyle: { backgroundColor: Colors.nav, height: responsiveHeight(6), paddingHorizontal: responsiveHeight(1)},
-            headerTitleStyle: {color: '#a7c3f2'},
+            headerTitle: <HeaderTitle/>,
+            headerStyle: headerStyle,
             headerRight: <MenuIcon {...navigation} />,
             headerLeft: <HomeIcon {...navigation} />,
         }),
@@ -111,9 +143,8 @@ export const HomeStack = StackNavigator({
     CardGame: {
         screen: CardGameStack,
         navigationOptions: ({ navigation }) => ({
-            headerTitle: <Text style={{fontSize: responsiveWidth(4), fontWeight: 'bold'}}>Dying To Talk</Text>  ,
-            headerStyle: { backgroundColor: Colors.nav, height: responsiveHeight(6), paddingHorizontal: responsiveHeight(1)},
-            headerTitleStyle: {color: '#a7c3f2'},
+            headerTitle: <HeaderTitle/>,
+            headerStyle: headerStyle,
             headerRight: <MenuIcon {...navigation} />,
             headerLeft: <HomeIcon {...navigation} />,
         }),
@@ -121,9 +152,8 @@ export const HomeStack = StackNavigator({
     Resources: {
         screen: ResourcesStack,
         navigationOptions: ({ navigation }) => ({
-            headerTitle: <Text style={{fontSize: responsiveWidth(4), fontWeight: 'bold'}}>Dying To Talk</Text>  ,
-            headerStyle: { backgroundColor: Colors.nav, height: responsiveHeight(6), paddingHorizontal: responsiveHeight(1)},
-            headerTitleStyle: {color: '#a7c3f2'},
+            headerTitle: <HeaderTitle/>,
+            headerStyle: headerStyle,
             headerRight: <MenuIcon {...navigation} />,
             headerLeft: <HomeIcon {...navigation} />,
         }),
@@ -131,9 +161,8 @@ export const HomeStack = StackNavigator({
     UserGuides: {
         screen: UserGuidesStack,
         navigationOptions: ({ navigation }) => ({
-            headerTitle: <Text style={{fontSize: responsiveWidth(4), fontWeight: 'bold'}}>Dying To Talk</Text>  ,
-            headerStyle: { backgroundColor: Colors.nav, height: responsiveHeight(6), paddingHorizontal: responsiveHeight(1)},
-            headerTitleStyle: {color: '#a7c3f2'},
+            headerTitle: <HeaderTitle/>,
+            headerStyle: headerStyle,
             headerRight: <MenuIcon {...navigation} />,
             headerLeft: <HomeIcon {...navigation} />,
         }),
@@ -141,19 +170,29 @@ export const HomeStack = StackNavigator({
     GetHelp: {
         screen: GetHelpStack,
         navigationOptions: ({ navigation }) => ({
-            headerTitle: <Text style={{fontSize: responsiveWidth(4), fontWeight: 'bold'}}>Dying To Talk</Text>  ,
-            headerStyle: { backgroundColor: Colors.nav, height: responsiveHeight(6), paddingHorizontal: responsiveHeight(1)},
-            headerTitleStyle: {color: '#a7c3f2'},
+            headerTitle: <HeaderTitle/>,
+            headerStyle: headerStyle,
             headerRight: <MenuIcon {...navigation} />,
             headerLeft: <HomeIcon {...navigation} />,
         }),
     },
 });
 
+const HomeStackWithFooter = ({navigation, screenProps}) => {
+    console.log(navigation)
+    return (
+        <View style={{flex: 1}}>
+            <HomeStack  
+            />
+            <Footer/>
+        </View>
+    );
+}
+
 export const DrawerStack = DrawerNavigator(
     {
         homeStack: {
-            screen: HomeStack,
+            screen: HomeStackWithFooter,
         }
     },
     {
@@ -162,6 +201,15 @@ export const DrawerStack = DrawerNavigator(
         contentComponent: props => <Menu {...props} />
     }
 );
+
+const DrawerStackWithFooter = () => {
+    return (
+        <View style={{flex: 1}}>
+            <DrawerStack/>
+            <Footer/>
+        </View>
+    );
+}
 
 export const PrimaryNav = StackNavigator({
     SplashScreen: { screen: Splash },
