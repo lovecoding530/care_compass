@@ -6,9 +6,11 @@ import {
 } from 'react-native';
 
 const deviceHeight = Dimensions.get("window").height;
+import { MediaQueries } from '@theme'
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
+import { MediaQueryStyleSheet } from "react-native-responsive";
 
-export default {
+export default MediaQueryStyleSheet.create({
     backgroundImage: {
         flex: 1,
         justifyContent: 'space-between',
@@ -67,4 +69,28 @@ export default {
         color: '#fff',
         textAlign: 'center',        
     }
-};
+}, {
+    [MediaQueries.iPad] : {
+        backgroundImage: {
+            paddingVertical:  responsiveHeight(8),
+        },
+        circle_above: {
+            width: responsiveWidth(64),
+            height: responsiveWidth(64),
+        },
+        circle_bellow: {
+            width: responsiveWidth(30),
+            height: responsiveWidth(30),          
+        },
+        pca_logo: {
+            marginTop: responsiveWidth(4), 
+            width: responsiveWidth(54),
+            height: responsiveWidth(40),
+        },
+        icon_dying_to_talk: {
+            width: responsiveWidth(20),
+            height: responsiveWidth(20),
+            resizeMode: 'contain',
+        },
+    },
+})
