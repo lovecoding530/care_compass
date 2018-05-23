@@ -8,6 +8,7 @@ import {
 import {Colors} from '@theme';
 
 const { width } = Dimensions.get('window');
+import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 
 
 export default {
@@ -15,7 +16,7 @@ export default {
     container: {
         flex: 1, 
         backgroundColor: Colors.backgroundPrimary,
-        padding: 80,
+        padding: responsiveWidth(8),
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -24,33 +25,11 @@ export default {
     },
 
     title: {
-        fontSize: 36,
-        fontWeight: 'bold',
-        color: Colors.textPrimary,
         margin: 8,
     },
 
     subtitle: {
-        fontSize: 24,
-        color: Colors.textPrimary,
-        textAlign: 'center',
         margin: 8,
-    },
-
-    icon: {
-        height: 200,
-    },
-
-    intro: {
-        fontSize: 20,
-        color: Colors.textPrimary,
-        textAlign: 'center',
-        margin: 10,
-    },
-
-    buttonBar: {
-        flexDirection: 'row',
-        margin: 16,
     },
 
     item: {

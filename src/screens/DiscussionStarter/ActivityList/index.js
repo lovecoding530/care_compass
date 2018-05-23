@@ -9,38 +9,26 @@ import {
 } from 'react-native';
 import {Colors} from '@theme';
 import Styles from './styles';
-import Button from '@button'
-import Text from '@text'
+import {Text, Button} from '@components'
 
 import { getDiscussionStarter } from "@api";
 
 export default class ActivityList extends Component {
     constructor(props) {
         super(props);
+        const {discussionStarter} = this.props.navigation.state.params
+        const activities = discussionStarter.discussion_starter
         this.state = ({
-            activityIndexes: [],
-        })
-    }
-
-    async componentDidMount() {
-        const ds = await getDiscussionStarter(true)
-        const activities = ds[0].discussion_starter
-
-        var activityIndexes = [];
-        for(var i = 0; i < activities.length; i ++){
-            activityIndexes.push(i + 1);
-        }
-
-        this.setState({
-            activityIndexes: activityIndexes
+            discussionStarter, discussionStarter,
+            activities: activities,
         })
     }
 
     renderActivityItem({item, index}){
         const {navigate} = this.props.navigation
         return (
-            <TouchableOpacity style={Styles.item} onPress={() => {navigate("Activity", {activityIndex: index})}}>
-                <Text medium bold>Activity {item}</Text>
+            <TouchableOpacity style={Styles.item} onPress={() => {navigate("Activity", {activityIndex: index, discussionStarter: this.state.discussionStarter})}}>
+                <Text medium bold>Activity {index + 1}</Text>
             </TouchableOpacity>
         )
     }
@@ -48,16 +36,15 @@ export default class ActivityList extends Component {
     render() {
         return (
             <View style={Styles.container}>
-                <Text style={Styles.title}>Discussion Starter</Text>
-                <Text style={Styles.subtitle}>
-                    Supporting you to talk about how you want {"\n"}
-                    to be cared for at the end of your life
+                <Text style={Styles.title} mediumLarge center bold>Discussion Starter</Text>
+                <Text style={Styles.subtitle} medium center>
+                    Pick up from where you left off...
                 </Text>
                 <FlatList
                     numColumns = {2}
-                    data = {this.state.activityIndexes}
+                    data = {this.state.activities}
                     renderItem = {this.renderActivityItem.bind(this)}
-                    keyExtractor = {(index) => index.toString()}
+                    keyExtractor = {(item, index) => index.toString()}
                     />
             </View>
         );

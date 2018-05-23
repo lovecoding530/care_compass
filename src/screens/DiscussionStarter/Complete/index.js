@@ -8,26 +8,28 @@ import {
     View,
     Modal,
     Alert,
+    Share,
 } from 'react-native';
 import {Colors, Images} from '@theme';
 import Styles from './styles';
-import Button from '@button'
-import Text from '@text'
-import ShareModal from './modals/Share'
-import EmailModal from './modals/Email'
-import DownloadedModal from './modals/Downloaded'
-import EmailSentModal from './modals/EmailSent'
+import {Button, Text, Loader } from '@components';
+import { ShareModal, EmailModal, EmailSentModal, DownloadedModal} from '../../modals';
 
-import { getDiscussionStarter } from "@api";
+import {postDiscussionAnswers} from "@api";
+import {getSharingHTMLFromResult} from "./HtmlResult";
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
 
 export default class Complete extends Component {
     constructor(props) {
         super(props);
-        const {activityIndex} = this.props.navigation.state.params
+        const {discussionStarter} = this.props.navigation.state.params
+        const activities = discussionStarter.discussion_starter
+        console.log(discussionStarter)
         this.state = ({
-            activityIndex: activityIndex,
-            activities: [],
-            activityCount: 0,
+            discussionStarter: discussionStarter,
+            activities: activities,
+            activityCount: activities.length,
+            loaderVisible: false,
             modalVisible: {
                 share: false,
                 downloaded: false,
@@ -37,94 +39,92 @@ export default class Complete extends Component {
         })
     }
 
-    async componentDidMount() {
-
-        const ds = await getDiscussionStarter(true)
-        const activities = ds[0].discussion_starter
-        this.setState({
-            activities: activities,
-            activityCount: activities.length,
-        })
-
+    openModal(modal){
+        this.closeModal()
+        setTimeout(() => {
+            this.setState({
+                modalVisible: {
+                    share: false,
+                    downloaded: false,
+                    email: false,
+                    emailSent: false,
+                    ...modal,
+                }
+            })                
+        }, 500);
     }
 
-    onExit(){
-        const {navigate, goBack} = this.props.navigation
-        Alert.alert(
-            'Are you sure?',
-            'Are you sure to exit without share the results?',
-            [
-              {text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-              {text: 'YES', onPress: () => goBack("DiscussionStarter")},
-            ],
-            { cancelable: false }
-        )
+    closeModal(){
+        this.setState({
+            modalVisible: {
+                share: false,
+                downloaded: false,
+                email: false,
+                emailSent: false,
+            }
+        })
+    }
+
+    async onExit(){
+        this.setState({loaderVisible: true})
+        await postDiscussionAnswers(this.state.discussionStarter)
+        this.setState({loaderVisible: false})
+
+        setTimeout(()=>{
+            const {navigate, goBack} = this.props.navigation
+            Alert.alert(
+                'Are you sure?',
+                'Are you sure to exit without share the results?',
+                [
+                  {text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                  {text: 'YES', onPress: () => goBack("DiscussionStarter")},
+                ],
+                { cancelable: false }
+            )
+        }, 500)
+    }
+
+    async onShare(){
+        this.setState({loaderVisible: true})
+        await postDiscussionAnswers(this.state.discussionStarter)
+        this.setState({loaderVisible: false})
+        this.openModal({share: true})
     }
 
     onShareEmail() {
-        this.setState({
-            modalVisible: {
-                share: false,
-                downloaded: false,
-                email: false,
-                emailSent: false,
-            }
-        })        
-        setTimeout(()=>{
-            this.setState({
-                modalVisible: {
-                    share: false,
-                    downloaded: false,
-                    email: true,
-                    emailSent: false,
-                }
-            })                        
-        }, 200)
+        this.openModal({email: true})
     }
 
-    onShareDownload() {
-        this.setState({
-            modalVisible: {
-                share: false,
-                downloaded: false,
-                email: false,
-                emailSent: false,
-            }
-        })        
-        setTimeout(()=>{
-            this.setState({
-                modalVisible: {
-                    share: false,
-                    downloaded: true,
-                    email: false,
-                    emailSent: false,
-                }
-            })                        
-        }, 1000)
+    async onShareDownload() {
+        this.closeModal()
+
+        var html = getSharingHTMLFromResult(this.state.discussionStarter)
+        console.log(html)
+
+        let options = {
+            html: html,
+            fileName: 'test',
+            directory: 'docs',
+        };
+    
+        let file = await RNHTMLtoPDF.convert(options)
+        console.log(file.filePath)
+        setTimeout(() => {
+            Share.share({
+                title: "Share this!",
+                message: "I just wanted to show you this:",
+                url: file.filePath,
+                subject: "I am only visible for emails :(",
+            })
+        }, 500);
     }
 
     onSendEmail(name, email){
-        setTimeout(()=>{
-            this.setState({
-                modalVisible: {
-                    share: false,
-                    downloaded: false,
-                    email: false,
-                    emailSent: true,
-                }
-            })                        
-        }, 1000)
+        this.openModal({emailSent: true})
     }
 
     onShareCancel() {
-        this.setState({
-            modalVisible: {
-                share: false,
-                downloaded: false,
-                email: false,
-                emailSent: false,
-            }
-        })
+        this.closeModal()
     }
 
     renderActivityItem({item, index}){
@@ -145,6 +145,7 @@ export default class Complete extends Component {
     render() { 
         return (
             <View style={Styles.container}>
+                <Loader loading={this.state.loaderVisible}/>
                 <Text mediumLarge bold center>Complete... </Text>
                 <FlatList
                     data = {this.state.activities}
@@ -154,7 +155,7 @@ export default class Complete extends Component {
                     />
                 <View style={Styles.buttonBar}>
                     <Button light onPress={this.onExit.bind(this)}>EXIT</Button>
-                    <Button dark onPress={() => {this.setState({modalVisible: true})}}>SHARE RESULTS</Button>
+                    <Button dark onPress={this.onShare.bind(this)}>SHARE RESULTS</Button>
                 </View>
                 <Text medium center>Need more information? Try our resources</Text>
                 <ShareModal 

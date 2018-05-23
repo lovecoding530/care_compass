@@ -217,7 +217,7 @@ export default class GetHelpList extends Component {
     render() {
         return (
             <View style={Styles.container} onLayout={this.onLayout.bind(this)}>
-                <View style={[Styles.scrollcontainer,{paddingHorizontal:width/25,marginBottom:  orientation === 'PORTRAIT' ? height/15 : width/15}]}> 
+                <View style={[Styles.scrollcontainer,{paddingHorizontal:width/25}]}> 
                         <ScrollView contentContainerStyle={[Styles.scroll,{marginLeft:width/20}]} ref="scrollView" onScroll={this.onScroll.bind(this)} scrollEnabled={false}>
                             <Loader loading={this.state.loaderVisible}/>
 
@@ -248,7 +248,6 @@ export default class GetHelpList extends Component {
                         </View>
                   
                 </View>
-                <Footer />
             </View>
         );
     }

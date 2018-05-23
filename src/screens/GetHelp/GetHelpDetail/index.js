@@ -244,7 +244,7 @@ export default class UserGuidesDetail extends Component {
     render() {   
         return (
             <View style={Styles.container} onLayout={this.onLayout.bind(this)}>
-            <View style={[Styles.scrollcontainer,{marginBottom:  orientation === 'PORTRAIT' ? height/15 : width/15}]}> 
+            <View style={[Styles.scrollcontainer]}> 
                <ScrollView contentContainerStyle={Styles.scroll}> 
 
                     <Loader loading={this.state.loaderVisible}/>
@@ -361,7 +361,6 @@ export default class UserGuidesDetail extends Component {
                         />
                 </ScrollView> 
                 </View>
-                <Footer />
             </View>
         );
     }

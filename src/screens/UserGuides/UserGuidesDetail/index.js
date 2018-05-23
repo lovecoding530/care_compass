@@ -7,60 +7,151 @@ import {
     Linking,
     ScrollView,
     Share,
-    FlatList
+    FlatList,
+    Dimensions,
+    WebView
 } from 'react-native';
 
 import Styles from './styles';
 import Text from '@text'
 import Footer from '@footer'
 import Button from '@button'
+import { Loader } from '@components';
 
-import { getUserGuidesDetail } from "@api";
+import { getUserGuides, API_HTML_ROOT } from "@api";
 import HTMLView from 'react-native-htmlview';
-var BASE_URL = 'https://pca.techequipt.com.au'
+const { width,height } = Dimensions.get('window');
+import {Colors} from '@theme';
+
+function renderNode(node, index, siblings, parent, defaultRenderer) {
+
+    if(Platform.OS === 'ios')
+    {
+        if (node.name == 'iframe') {
+            var atribute = node.attribs;
+            var iframeHtml = `<iframe width=\"${atribute.width}\" height=\"${atribute.height}\" src=\"${atribute.src}" frameborder=\"0\" allow=\"autoplay; encrypted-media\" allowfullscreen></iframe>`;
+            return (
+              <View key={index} style={{width: width/3.5, height: height/10.5}}>
+                <WebView source={{html: iframeHtml}} />
+              </View>
+            );
+          }
+
+        if (node.name == 'a') {
+            var atribute = node.attribs;
+            if(atribute.href.startsWith("https"))
+            {
+                var source = atribute.href;
+                var aHtml = `<a href=\"${source}\" >${node.children[0].data}</a>`;
+                return (
+                    <HTMLView
+                        value={aHtml}
+                    />
+                );
+            }
+            else
+            {
+                var source = API_HTML_ROOT + atribute.href;
+                var aHtml = `<a href=\"${source}\" >${node.children[0].data}</a>`;
+                return (
+                    <HTMLView
+                        value={aHtml}
+                    />
+                );
+            }
+            
+        }
+    }
+    else
+    {
+        console.log(node);
+        if (node.name == 'div') {
+            var atribute = node.children[0].next.attribs;
+            var iframeHtml = `<iframe src=\"${atribute.src}" width=\"${width/1.7}\" frameborder=\"0\" allow=\"autoplay; encrypted-media\" allowfullscreen></iframe>`;
+            return (
+              <View key={index} style={{height: height/4.3,}}>
+                <WebView 
+                    source={{html: iframeHtml}} 
+                    style={{backgroundColor: Colors.backgroundPrimary}}
+                    javaScriptEnabled={true}
+                    domStorageEnabled={true}/>
+              </View>
+            );
+        }
+        if (node.name == 'p') {
+             if(node.children[0] != 'undefine')
+             {
+                // if(node.children[0].type == 'tag')
+                // {
+                //     alert(node.children[0].name)
+                // }
+                console.log(".......",node.children[0]);
+             }
+        }
+    }
+    if (node.name == 'img') {
+        var atribute = node.attribs;
+        var source = API_HTML_ROOT + atribute.src;
+        var imgHtml = `<img src=\"${source}\" width=\"${width/1.5}\" height=\"${height/2.7}\" >`;
+        return (
+            <HTMLView
+                value={imgHtml}
+            />
+        );
+    }
+}
 
 export default class UserGuidesDetail extends Component {
     constructor(props) {
         super(props);
-        const { params } = this.props.navigation.state;
+        const {userguideIndex} = this.props.navigation.state.params
         this._share=this._share.bind(this);
         this._showResult=this._showResult.bind(this);
         this.state = ({
-            slug : params.slug,
-            itemSlug : params.itemSlug,
+            userguideIndex: userguideIndex,
             title : '',
             image : '',
             body : '',
             faqs : [],
-            result : ''
+            loaderVisible: true
         })
     }
 
     async componentDidMount() {
-        const ds = await getUserGuidesDetail(this.state.slug,this.state.itemSlug,false)
-        const userguidesDetail = ds[0].guides
+        const ds = await getUserGuides(true)
+        const userguides = ds[0].guides
+        const userguide = userguides[this.state.userguideIndex]
 
-        if(userguidesDetail[0].featured_image == null)
+        if(userguide.featured_image == null)
         {
             this.setState({
-                title : userguidesDetail[0].title,
-                body : userguidesDetail[0].body,
-                faqs : userguidesDetail[0].faqs,
+                title : userguide.title,
+                body : userguide.body,
+                faqs : userguide.faqs,
+                loaderVisible: false
             })
         }
         else
         {
            this.setState({
-               title : userguidesDetail[0].title,
-               body : userguidesDetail[0].body,
-               faqs : userguidesDetail[0].faqs,
-                image: BASE_URL + userguidesDetail[0].featured_image.url,
+               title : userguide.title,
+               body : userguide.body,
+               faqs : userguide.faqs,
+                image: API_HTML_ROOT + userguide.featured_image.url,
+                loaderVisible: false
             }) 
         }
         
     }
     _showResult(result){
-        this.setState({result : result});
+        if(result.action == "sharedAction")
+        {
+            alert("Your content has been share successfully.");
+        }
+        else
+        {
+            alert("You have cancelled sharing.");
+        }
     }
 
     _share(){
@@ -89,6 +180,7 @@ export default class UserGuidesDetail extends Component {
             <View style={Styles.container}>
             <View style={Styles.scrollcontainer}> 
                <ScrollView contentContainerStyle={Styles.scroll}> 
+                    <Loader loading={this.state.loaderVisible}/>
                     <Text bold style={Styles.title}>user guides</Text>
 
                     <Text style={Styles.subtitle}>
@@ -98,6 +190,7 @@ export default class UserGuidesDetail extends Component {
                     <View style={Styles.viewBody}>
                         <HTMLView
                             value={this.state.body}
+                            renderNode={renderNode}
                         />
                     </View>
 
@@ -123,15 +216,12 @@ export default class UserGuidesDetail extends Component {
                         </View>
                     }
 
-                    
-
                     <View style={Styles.buttonContainer}>
                         <Button light onPress={ ()=> this.props.navigation.goBack() }>GO BACK</Button>
                         <Button dark  onPress={this._share}>SHARE</Button>
                     </View>
                 </ScrollView> 
                 </View>
-                <Footer />
             </View>
         );
     }

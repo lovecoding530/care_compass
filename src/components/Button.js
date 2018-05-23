@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import { TouchableOpacity, StyleSheet } from "react-native";
 import {Colors, FontSizes} from '@theme'
 import Text from '@text'
+import { responsiveWidth } from 'react-native-responsive-dimensions';
 
 export default (props) => {
     const {buttonStyles, textStyles, children, onPress} = props;
@@ -19,8 +20,9 @@ export default (props) => {
     var textProps = {}
 
     var buttonStyle = {
-        padding: 8,
-        margin: 8,
+        paddingVertical: responsiveWidth(1),
+        paddingHorizontal: responsiveWidth(2),
+        margin: responsiveWidth(1),
         justifyContent: 'center',
         alignItems: 'center',
     }
@@ -50,33 +52,5 @@ export default (props) => {
 }
 
 const styles = StyleSheet.create({
-    lightButton: {
-        borderWidth: 2,
-        borderColor: Colors.buttonPrimary,
-        padding: 8,
-        margin: 8,
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: 44,
-    },
-
-    darkButton: {
-        backgroundColor: Colors.buttonPrimary,
-        padding: 8,
-        margin: 8,
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: 44,
-    },
-
-    lightButtonText: {
-        color: Colors.textPrimary,
-        fontSize: 18,
-    },
-
-    darkButtonText: {
-        color: '#fff',
-        fontSize: 18,
-    },
 
 });

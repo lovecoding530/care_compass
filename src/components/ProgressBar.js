@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import React, {Component} from 'react';
 import {View, StyleSheet } from "react-native";
 import {Colors, FontSizes} from '@theme'
+import { responsiveWidth } from 'react-native-responsive-dimensions';
 
 export default (props) => {
     const {total, progress, style} = props
@@ -38,7 +39,7 @@ const defaultStyles = StyleSheet.create({
     item: {
         borderWidth: 1,
         borderColor: Colors.buttonPrimary,
-        height: 8,
+        height: responsiveWidth(1),
         margin: 1,
         flex: 1,
     }

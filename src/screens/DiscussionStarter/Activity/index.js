@@ -11,101 +11,62 @@ import {
 } from 'react-native';
 import {Colors} from '@theme';
 import Styles from './styles';
-import Button from '@button'
-import Text from '@text'
-import ProgressBar from '@progressbar'
-import Choices from "@choices";
-import ManyChoices from "@manychoices";
 
-import { getDiscussionStarter, postDiscussionAnswers} from "@api";
-import { Loader } from '@components';
+import {Button, Text, ProgressBar, Choices, ManyChoices, Loader } from '@components';
 import DeviceInfo from 'react-native-device-info'
 
 export default class Activity extends Component {
     constructor(props) {
         super(props);
-        const {activityIndex} = this.props.navigation.state.params
-        this.answers = {}
+        const {activityIndex, discussionStarter} = this.props.navigation.state.params
+
+        const activities = discussionStarter.discussion_starter
+        const activity = activities[activityIndex]
+        const pageTotalCount = parseInt((activity.questions.length - 1) / 3) + 1
+
         this.state = ({
+            discussionStarter: discussionStarter,
+            activityCount: activities.length,
             activityIndex: activityIndex,
+            activity: activity,
             pageIndex: 0,
-            pageTotalCount: 1,
-            activity: {
-                stage: "Discussion Starter",
-                pre_commencement_text: "Pre commencement text",
-                icon: "",
-                questions: []
-            },
+            pageTotalCount: pageTotalCount,
             loaderVisible: false,
         })
     }
 
-    async componentDidMount() {
-
-        const ds = await getDiscussionStarter(true)
-        this.starterSlug = ds[0].slug
-        const activities = ds[0].discussion_starter
-        const activity = activities[this.state.activityIndex]
-        const pageTotalCount = parseInt((activity.questions.length - 1) / 3) + 1
-        this.setState({
-            pageTotalCount: pageTotalCount,
-            activity: activity,
-            activityCount: activities.length,
-        })
-    }
-
-    async sendAnswers(){
-        var ansswerResponse = {}
-        const uniqueId = DeviceInfo.getUniqueID();
-        ansswerResponse.uuid = uniqueId
-        ansswerResponse.starter = this.starterSlug
-        ansswerResponse.responses = Object.values(this.answers)
-        console.log(ansswerResponse)
-
-        this.setState({loaderVisible: true})
-        await postDiscussionAnswers(ansswerResponse)
-        this.setState({loaderVisible: false})
+    componentDidMount() {
     }
 
     onChangedAnswer(questionIndex, answerData){
-        let questionData = this.state.activity.questions[questionIndex]
-        const {question, question_type, question_choices} = questionData;            
-        const answerList = question_choices.split("\r\n")
+        var discussionStarter = this.state.discussionStarter
+        var activity = discussionStarter.discussion_starter[this.state.activityIndex]
+        var question = activity.questions[questionIndex]
+        question.answerData = answerData
 
-        var answer = {}
-        if(question_type == "freetext") {
-            answer.question = question
-            answer.question_id = ""
-            answer.response = answerData            
-        }else if(question_type == "choices"){
-            answer.question = question
-            answer.question_id = ""
-            answer.response = answerList[answerData]            
-        }else if(question_type == "manychoices"){
-            var selectedChoices = answerData.map(i => answerList[i])
-            answer.question = question
-            answer.question_id = ""
-            answer.response = selectedChoices           
-        }
-
-        this.answers[questionIndex] = answer
-        console.log(this.answers)
+        this.setState({discussionStarter: discussionStarter})
     }
 
     async onNext(){
         if(this.state.pageIndex < (this.state.pageTotalCount - 1)){
             this.setState({
                 pageIndex: this.state.pageIndex + 1,
-            })            
+            })
         }else{
-            await this.sendAnswers()
+            this.onFinish()
+        }
+    }
 
-            const {navigate} = this.props.navigation
-            if(this.state.activityIndex + 1 >= this.state.activityCount){
-                navigate({routeName: "Complete", key: "Complete", params: {activityIndex: this.state.activityIndex}})
-            }else{
-                navigate("UpNext", {activityIndex: this.state.activityIndex})
-            }
+    onFinish(){
+        // const {navigate} = this.props.navigation
+        // navigate("Complete", {discussionStarter: this.state.discussionStarter})    
+
+        const {navigate} = this.props.navigation
+
+        if(this.state.activityIndex + 1 >= this.state.activityCount){
+            navigate("Complete", {discussionStarter: this.state.discussionStarter})
+        }else{
+            navigate("UpNext", {activityIndex: this.state.activityIndex, discussionStarter: this.state.discussionStarter})
         }
     }
 
@@ -122,7 +83,7 @@ export default class Activity extends Component {
                         <Text center style={Styles.questionTitle}>{question}</Text>
                         <TextInput
                             style={Styles.textArea}
-                            value={"bbb"}
+                            value={""}
                             multiline={true}
                             numberOfLines={4}
                             onChangeText={(text) => this.onChangedAnswer(questionIndex, text)}/>
@@ -172,8 +133,8 @@ export default class Activity extends Component {
                     {this.renderQuestions()}
                 </ScrollView>
                 <View style={Styles.buttonBar}>
-                    <Button light>FINISH</Button>
-                    <Button dark onPress={this.onNext.bind(this)}>N E X T</Button>
+                    <Button light onPress={this.onFinish.bind(this)}>FINISH</Button>
+                    <Button dark onPress={this.onNext.bind(this)}>NEXT</Button>
                 </View>
             </View>
         );

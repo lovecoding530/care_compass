@@ -11,74 +11,78 @@ import {
 } from 'react-native';
 import {Colors, Images} from '@theme';
 import Styles from './styles';
-import Button from '@button'
-import Text from '@text'
-import ProgressBar from '@progressbar'
-import Choices from "@choices";
-import ManyChoices from "@manychoices";
 
 import { getCardGame} from "@api";
-import { Loader } from '@components';
+import { Loader, Button, Text, ProgressBar } from '@components';
 import DeviceInfo from 'react-native-device-info'
 
 export default class SingleView extends Component {
     constructor(props) {
         super(props);
-        const {cardIndex} = this.props.navigation.state.params
+        const {cardIndex, cardGame} = this.props.navigation.state.params
+        const cards = cardGame.cards
         this.state = ({
             cardIndex: cardIndex,
-            cardTotalCount: 1,
-            currentCard: {
-                question: "",
-                additional_info: "",
-                question_audio_url: "",
-            },
-            loaderVisible: false,
+            cardGame: cardGame,
+            cardTotalCount: cards.length,
+            currentCard: cards[cardIndex],
         })
+        // alert(JSON.stringify(cards[cardIndex]))
     }
 
-    async componentDidMount() {
-
-        const cd = await getCardGame(true)
-        const firstCardGame = cd[0]
-        const cards = firstCardGame.cards
-        this.setState({
-            cardTotalCount: cards.length,
-            currentCard: cards[this.state.cardIndex],
-        })
+    componentDidMount() {
     }
 
     onSkip(){
+        if(this.state.cardIndex+1 >= this.state.cardTotalCount){
+            this.onFinish()            
+        }else{
+            const {navigate} = this.props.navigation
+            navigate("CDSingleView", {cardIndex: this.state.cardIndex+1, cardGame: this.state.cardGame})    
+        }
+    }
 
+    onFinish(){
+        const {navigate} = this.props.navigation
+        navigate("CDSummary", {cardGame: this.state.cardGame})
     }
 
     onSelectedLevel(level){
-        const {navigate} = this.props.navigation
-        navigate("CDSingleView", {cardIndex: this.state.cardIndex+1})
+        let cardGame = this.state.cardGame
+        cardGame.cards[this.state.cardIndex].selectedLevel = level
+
+        if(this.state.cardIndex+1 >= this.state.cardTotalCount){
+            this.onFinish()            
+        }else{
+            const {navigate} = this.props.navigation
+            navigate("CDSingleView", {cardIndex: this.state.cardIndex+1, cardGame: cardGame})
+        }
     }
 
     render() {
         const {navigate} = this.props.navigation
         return (
             <View style={Styles.container}>
-                <Loader loading={this.state.loaderVisible}/>
                 <View style={Styles.title}>
                     <Text mediumLarge bold center>How important is...</Text>
                 </View>
                 <View style={Styles.questionView}>
                     <Text medium center>{this.state.currentCard.question}</Text>
                 </View>
+                {this.state.currentCard.additional_info != "" &&
+                    <Text center style={Styles.additionalInfo}>Addtional Info</Text>
+                }
                 <View style={Styles.levelBar}>
                     <TouchableOpacity style={Styles.levelItem} onPress={this.onSelectedLevel.bind(this, 0)}>
-                        <Image source={Images.check} style={Styles.levelIcon}/>
+                        <Image source={Images.levelNot} style={Styles.levelIcon}/>
                         <Text bold>NOT</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={Styles.levelItem} onPress={this.onSelectedLevel.bind(this, 1)}>
-                        <Image source={Images.check} style={Styles.levelIcon}/>
+                        <Image source={Images.levelSomewhat} style={Styles.levelIcon}/>
                         <Text bold>SOMEWHAT</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={Styles.levelItem} onPress={this.onSelectedLevel.bind(this, 2)}>
-                        <Image source={Images.check} style={Styles.levelIcon}/>
+                        <Image source={Images.levelVery} style={Styles.levelIcon}/>
                         <Text bold>VERY</Text>
                     </TouchableOpacity>
                 </View>
@@ -87,9 +91,9 @@ export default class SingleView extends Component {
                     <Text small center>Card {this.state.cardIndex+1} of {this.state.cardTotalCount}</Text>
                 </View>
                 <View style={Styles.buttonBar}>
-                    <Button light>LIST VIEW</Button>
-                    <Button dark onPress={()=>{navigate("CDSingleView", {cardIndex: this.state.cardIndex+1})}}>SKIP</Button>
-                    <Button dark>FINISH</Button>
+                    <Button light onPress={()=>navigate("CDListView", {cardGame: this.state.cardGame})}>LIST VIEW</Button>
+                    <Button dark onPress={this.onSkip.bind(this)}>SKIP</Button>
+                    <Button dark onPress={this.onFinish.bind(this)}>FINISH</Button>
                 </View>
             </View>
         );

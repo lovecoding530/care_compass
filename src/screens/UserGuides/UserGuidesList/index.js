@@ -6,37 +6,98 @@ import {
     TouchableOpacity,
     FlatList,
     View,
-    ScrollView
+    ScrollView,
+    AsyncStorage,
+    ImageBackground
 } from 'react-native';
 
 import Styles from './styles';
 import Text from '@text'
 import Footer from '@footer'
-
-import { getUserGuides } from "@api";
+import { Loader } from '@components';
+import { getUserGuides,updateTimeInterval } from "@api";
+import moment from 'moment';
+import {Colors} from '@theme';
 
 export default class UserGuidesList extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-            activityIndexes: [],
-            slug:''
+            userguideIndexes: [],
+            loaderVisible: true
         })
     }
 
     async componentDidMount() {
-        const ds = await getUserGuides(false)
-        const userguides = ds[0].guides
-        this.setState({slug : ds[0].slug});
+            try 
+            {
+                let value = await AsyncStorage.getItem('lastRefereshTimeUserGuide');
 
-        var userguideIndexes = [];
-        for(var i = 0; i < userguides.length; i ++){
-            userguideIndexes.push(userguides[i]);
-        }
+                if (value != null){
+                  // do something 
 
-        this.setState({
-            userguideIndexes: userguideIndexes
-        })
+                    var currrentTime = moment(new Date()).format("HH:mm:ss");
+                    var startTime=moment(value, "HH:mm:ss");
+                    var endTime=moment(currrentTime, "HH:mm:ss");
+                    var duration = moment.duration(endTime.diff(startTime));
+                    var difference = moment.utc(+duration).format('H');
+
+                    if(difference >= updateTimeInterval)
+                    {
+                        await AsyncStorage.setItem('lastRefereshTimeUserGuide', currrentTime);
+                        const ds = await getUserGuides()
+                        const userguides = ds[0].guides
+
+                        var userguideIndexes = [];
+                        for(var i = 0; i < userguides.length; i ++){
+                            userguideIndexes.push(userguides[i]);
+                        }
+
+                        this.setState({
+                            userguideIndexes: userguideIndexes,
+                            loaderVisible: false
+                        })
+                    }
+                    else
+                    {
+
+                        const ds = await getUserGuides(true)
+                        const userguides = ds[0].guides
+
+                        var userguideIndexes = [];
+                        for(var i = 0; i < userguides.length; i ++){
+                            userguideIndexes.push(userguides[i]);
+                        }
+
+                        this.setState({
+                            userguideIndexes: userguideIndexes,
+                            loaderVisible: false
+                        })
+                    }   
+                }
+                else {
+                  // do something else
+                    var currrentTime = moment(new Date()).format("HH:mm:ss");
+                    await AsyncStorage.setItem('lastRefereshTimeUserGuide', currrentTime); 
+                    const ds = await getUserGuides()
+                    const userguides = ds[0].guides
+
+                    var userguideIndexes = [];
+                    for(var i = 0; i < userguides.length; i ++){
+                        userguideIndexes.push(userguides[i]);
+                    }
+
+                    this.setState({
+                        userguideIndexes: userguideIndexes,
+                        loaderVisible: false
+                    })
+                } 
+            }
+            catch (error) {
+              // Error retrieving data
+            }
+
+      
     }
 
     renderUserGuideItem({item, index}){
@@ -44,30 +105,46 @@ export default class UserGuidesList extends Component {
         const first = index === 0;
         const second = index === 1;
         return (
-            <TouchableOpacity style={[first ? Styles.firstrowItem : second ? Styles.firstrowItem : Styles.item]} onPress={()=>{navigate("UserGuidesDetail", { slug : this.state.slug , itemSlug: item.slug })}}>
-                <Text style={Styles.cardtitle}>{item.title}</Text>
-            </TouchableOpacity>
+            <View>
+            {first ?
+                <TouchableOpacity style={Styles.firstrowItem} onPress={()=>{navigate("UserGuidesDetail", {userguideIndex: index})}}>
+                    <Text style={[Styles.cardtitle,{ color: Colors.Red,}]}>{item.title}</Text>
+                </TouchableOpacity>
+                : second ?
+                        <TouchableOpacity style={Styles.firstrowItem} onPress={()=>{navigate("UserGuidesDetail", {userguideIndex: index})}}>
+                            <Text style={[Styles.cardtitle,{ color: Colors.Red,}]}>{item.title}</Text>
+                        </TouchableOpacity>
+                        :
+                        <TouchableOpacity style={Styles.item} onPress={()=>{navigate("UserGuidesDetail", {userguideIndex: index})}}>
+                            <Text style={Styles.cardtitle}>{item.title}</Text>
+                        </TouchableOpacity>
+            }
+            </View>
         )
     }
 
     render() {
         return (
             <View style={Styles.container}>
-             <View style={Styles.scrollcontainer}> 
-             <ScrollView contentContainerStyle={Styles.scroll}>
-                <Text bold style={Styles.title}>user guides</Text>
-                <Text style={Styles.subtitle}>
-                    How to get the most out of this app
-                </Text>
-                <FlatList
-                    numColumns = {2}
-                    data = {this.state.userguideIndexes}
-                    renderItem = {this.renderUserGuideItem.bind(this)}
-                    keyExtractor = {(index) => index.toString()}
-                    />
-                    </ScrollView>
-                </View>
-                <Footer />
+                <ImageBackground source={require('../../../../assets/images/bg-how-to.jpg')} resizeMode='stretch' style={Styles.imageView} >
+                    <View style={Styles.scrollcontainer}> 
+                        <ScrollView contentContainerStyle={Styles.scroll}>
+                            <Loader loading={this.state.loaderVisible}/>
+                            <TouchableOpacity style={Styles.itemTop}>
+                                <Text style={Styles.title}>How to</Text>
+                                    <Text style={Styles.subtitle}>
+                                        Using and getting the most out of the dying to talk app
+                                    </Text>
+                            </TouchableOpacity>
+                            <FlatList
+                                numColumns = {2}
+                                data = {this.state.userguideIndexes}
+                                renderItem = {this.renderUserGuideItem.bind(this)}
+                                keyExtractor = {(index) => index.toString()}
+                            />
+                        </ScrollView>
+                    </View>
+                </ImageBackground>
             </View>
         );
     }

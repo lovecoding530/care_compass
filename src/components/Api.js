@@ -7,14 +7,17 @@ import {
     Platform,
     AsyncStorage
 } from 'react-native';
+import moment from 'moment';
+import DeviceInfo from 'react-native-device-info'
 
-export const updateTimeInterval = 2;
+export const updateTimeInterval = 2;  // Number of hours to cache response
 export const API_HTML_ROOT = "https://pca.techequipt.com.au";
 const API_ROOT = "https://pca.techequipt.com.au/api"
 const API_BUNDLE = API_ROOT + "/bundle/"
 const API_DISCUSSION_STARTER = API_ROOT + "/discussion-starter/"
 const API_DISCUSSION_STARTER_LOG_RESPONSE = API_ROOT + "/discussion-starter/log-response/"
 const API_CARD_GAME = API_ROOT + "/card-game/"
+const API_CARD_GAME_LOG_RESPONSE = API_ROOT + "/card-game/log-response/"
 const API_RESOURCES = API_ROOT + "/resources/"
 const API_USER_GUIDE = API_ROOT + "/user-guides/"
 const API_GET_HELP = API_ROOT + "/get-help/"
@@ -99,8 +102,73 @@ export async function postJSONwithCache(url, json) {
     await AsyncStorage.setItem(cachedPostsKey, JSON.stringify(newCachedPosts))            
 }
 
-export async function postDiscussionAnswers(json) {
-    await postJSONwithCache(API_DISCUSSION_STARTER_LOG_RESPONSE, json)
+async function sendAnswers(){
+}
+
+export async function postDiscussionAnswers(discussionStarter) {
+    var answers = []
+    var activities = discussionStarter.discussion_starter
+    for (const activity of activities) {
+        var questions = activity.questions
+        for (let qId = 0; qId < questions.length; qId++) {
+            const questionData = questions[qId];
+
+            const {question, question_type, question_choices, answerData} = questionData;
+            if(answerData == null) continue
+
+            const answerList = question_choices.split("\r\n")
+
+            var answer = {}
+            if(question_type == "freetext") {
+                answer.question = question
+                answer.question_id = ""
+                answer.response = answerData
+            }else if(question_type == "choices"){
+                answer.question = question
+                answer.question_id = ""
+                answer.response = answerList[answerData]
+            }else if(question_type == "manychoices"){
+                var selectedChoices = answerData.map(i => answerList[i])
+                answer.question = question
+                answer.question_id = ""
+                answer.response = selectedChoices
+            }    
+            answers.push(answer)
+        }
+    }
+    try {
+        var ansswerResponse = {}
+        const uniqueId = DeviceInfo.getUniqueID();
+        ansswerResponse.uuid = uniqueId
+        ansswerResponse.starter = discussionStarter.starterSlug
+        ansswerResponse.responses = answers
+        await postJSONwithCache(API_DISCUSSION_STARTER_LOG_RESPONSE, ansswerResponse)
+    } catch (error) {
+    }
+}
+
+export async function postCardGameAnswers(cardGame) {
+    var answers = []
+    var cards = cardGame.cards
+    for (const card of cards) {
+        const {question, selectedLevel, star} = card;
+
+        let starred = (star == true) ? true : false
+        var answer = {}
+        answer.question = question
+        answer.response = selectedLevel + 1 //{-1, 0, 1, 2} but response need {0, 1, 2, 3}
+        answer.starred = starred
+        answers.push(answer)
+    }
+    try {
+        var ansswerResponse = {}
+        const uniqueId = DeviceInfo.getUniqueID();
+        ansswerResponse.uuid = uniqueId
+        ansswerResponse.deck = cardGame.id
+        ansswerResponse.responses = answers
+        await postJSONwithCache(API_CARD_GAME_LOG_RESPONSE, ansswerResponse)
+    } catch (error) {
+    }
 }
 
 export async function getUserGuides(fromCached = false) {

@@ -1,7 +1,13 @@
 const colors = {
+    Navy: 'rgb(0, 48, 87)',
+    Blue: 'rgb(203, 234, 241)',
+    Red: 'rgb(160, 50, 32)',
+    Olive: 'rgb(155, 153, 100)',
+    Sand: 'rgb(230, 224, 212)',
+
     backgroundPrimary: '#fff',
     backgroundSecondary : '#f4f4f4',
-    backgroundThird : '#E4E4E4',
+    backgroundThird : '#EEEEEE',
     backgroundModal: '#ccca',
 
     buttonPrimary: '#A2A2A2',

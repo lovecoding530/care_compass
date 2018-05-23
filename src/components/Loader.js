@@ -8,6 +8,7 @@ import {
 import Spinner from "react-native-spinkit";
 import {Colors} from '@theme';
 import Text from "./Text";
+import { responsiveWidth } from 'react-native-responsive-dimensions';
 const Loader = props => {
     const {
         loading,
@@ -17,12 +18,12 @@ const Loader = props => {
     return (
         <Modal
             transparent={true}
-            animationType={'slide'}
+            animationType={'fade'}
             visible={loading}
             onRequestClose={() => {console.log('close modal')}}>
             <View style={styles.modalBackground}>
                 <View style={styles.activityIndicatorWrapper}>
-                    <Spinner isVisible={loading} size={60} type='FadingCircle'/>
+                    <Spinner isVisible={loading} size={responsiveWidth(8)} type='FadingCircle'/>
                     <Text>Please wait</Text>
                 </View>
             </View>
@@ -40,8 +41,8 @@ const styles = StyleSheet.create({
 
     activityIndicatorWrapper: {
         backgroundColor: '#FFFFFF',
-        height: 180,
-        width: 180,
+        height: responsiveWidth(24),
+        width: responsiveWidth(24),
         borderRadius: 5,
         display: 'flex',
         alignItems: 'center',
