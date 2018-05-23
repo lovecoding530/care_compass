@@ -23,6 +23,7 @@ import {GetHelpList, GetHelpDetail} from "./screens/GetHelp";
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 
 var drawerNavigator = null
+var primaryNavigator = null
 
 const headerStyle = { 
     backgroundColor: Colors.Navy, 
@@ -46,7 +47,7 @@ const Footer = () => {
             flexDirection: 'row', 
             alignItems: 'center', 
             justifyContent: 'space-between',
-            padding: responsiveWidth(2),
+            paddingHorizontal: responsiveWidth(2),
             backgroundColor: Colors.Navy}}>
             <Image 
                 source={Images.logo_footer} 
@@ -67,6 +68,19 @@ const MenuIcon = ({ navigate }) => {
             backgroundColor={'#0000'} 
             onPress={() => drawerNavigator.navigate('DrawerOpen')}>
             <Text light bold>MENU</Text>
+        </Icon.Button>
+    );
+}
+
+const WelcomeIcon = ({ navigate }) => {
+    return (
+        <Icon.Button 
+            name="arrow-left" 
+            size={FontSizes.medium}
+            style={{height: responsiveHeight(4.5), paddingHorizontal: 10,}}
+            backgroundColor={'#0000'} 
+            onPress={() => primaryNavigator.goBack(null)}>
+            <Text light bold>WELCOME</Text>
         </Icon.Button>
     );
 }
@@ -131,6 +145,7 @@ export const HomeStack = StackNavigator({
             headerTitle: <HeaderTitle/>,
             headerStyle: headerStyle,
             headerRight: <MenuIcon {...navigation} />,
+            headerLeft: <WelcomeIcon {...navigation} />,
         }),
     },
     DiscussionStarter: {
@@ -180,7 +195,7 @@ export const HomeStack = StackNavigator({
     },
 });
 
-const HomeStackWithFooter = ({navigation, screenProps}) => {
+const HomeStackWithFooter = ({navigation}) => {
     drawerNavigator = navigation
     return (
         <View style={{flex: 1}}>
@@ -203,10 +218,11 @@ export const DrawerStack = DrawerNavigator(
     }
 );
 
-const DrawerStackWithFooter = () => {
+const OnBoardingScreen = (props) => {
+    primaryNavigator = props.navigation
     return (
         <View style={{flex: 1}}>
-            <DrawerStack/>
+            <OnBoarding {...props}/>
             <Footer/>
         </View>
     );
@@ -214,9 +230,8 @@ const DrawerStackWithFooter = () => {
 
 export const PrimaryNav = StackNavigator({
     SplashScreen: { screen: Splash },
-    OnBoardingScreen: { screen: OnBoarding },
+    OnBoardingScreen: { screen: OnBoardingScreen },
     DrawerStack: { screen: DrawerStack },
-    
 }, {
     headerMode: 'none',
 })
