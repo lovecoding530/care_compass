@@ -222,7 +222,6 @@ export default class UserGuidesDetail extends Component {
                     </View>
                 </ScrollView> 
                 </View>
-                <Footer />
             </View>
         );
     }
