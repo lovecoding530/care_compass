@@ -5,6 +5,8 @@ const colors = {
     Olive: 'rgb(155, 153, 100)',
     Sand: 'rgb(230, 224, 212)',
 
+    darkNavy: 'rgb(0, 36, 72)',
+
     backgroundPrimary: '#fff',
     backgroundSecondary : '#f4f4f4',
     backgroundThird : '#EEEEEE',

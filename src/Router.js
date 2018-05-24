@@ -4,7 +4,7 @@
 
 import React, { Component } from 'react';
 import { Dimensions, Image, StyleSheet, TouchableOpacity, View, } from 'react-native';
-import { StackNavigator, DrawerNavigator, addNavigationHelpers } from 'react-navigation';
+import { StackNavigator, DrawerNavigator, withNavigation } from 'react-navigation';
 
 const { width } = Dimensions.get('window');
 
@@ -24,6 +24,7 @@ import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimen
 
 var drawerNavigator = null
 var primaryNavigator = null
+var homeNavigator = null
 
 const headerStyle = { 
     backgroundColor: Colors.Navy, 
@@ -59,7 +60,18 @@ const Footer = () => {
     );
 }
 
-const MenuIcon = ({ navigate }) => {
+const withFooter = (Screen) => (props) => {
+    drawerNavigator = props.navigation
+    return (
+        <View style={{flex: 1}}>
+            <Screen />
+            <Footer/>
+        </View>
+    )
+}
+
+const MenuIcon = ( navigation ) => {
+    homeNavigator = navigation
     return (
         <Icon.Button 
             name="bars" 
@@ -208,13 +220,13 @@ const HomeStackWithFooter = ({navigation}) => {
 export const DrawerStack = DrawerNavigator(
     {
         homeStack: {
-            screen: HomeStackWithFooter,
+            screen: withFooter(HomeStack),
         }
     },
     {
-        drawerWidth: width / 2.5,
+        drawerWidth: (width >= 768) ? width / 2.5 : width * 2 / 3,
         drawerPosition: 'right',
-        contentComponent: props => <Menu {...props} />
+        contentComponent: props => <Menu homeNavigation={homeNavigator} drawerNavigation={drawerNavigator}/>
     }
 );
 
