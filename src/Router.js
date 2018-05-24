@@ -3,8 +3,8 @@
  */
 
 import React, { Component } from 'react';
-import { Dimensions, Image, StyleSheet, TouchableOpacity, View, } from 'react-native';
-import { StackNavigator, DrawerNavigator, addNavigationHelpers } from 'react-navigation';
+import { Dimensions, Image, StyleSheet, TouchableOpacity, View, SafeAreaView} from 'react-native';
+import { StackNavigator, DrawerNavigator, addNavigationHelpers, withNavigation } from 'react-navigation';
 
 const { width } = Dimensions.get('window');
 
@@ -23,6 +23,8 @@ import {GetHelpList, GetHelpDetail} from "./screens/GetHelp";
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 
 var drawerNavigator = null
+var primaryNavigator = null
+var homeNavigator = null
 
 const headerStyle = { 
     backgroundColor: Colors.Navy, 
@@ -46,7 +48,7 @@ const Footer = () => {
             flexDirection: 'row', 
             alignItems: 'center', 
             justifyContent: 'space-between',
-            padding: responsiveWidth(2),
+            paddingHorizontal: responsiveWidth(2),
             backgroundColor: Colors.Navy}}>
             <Image 
                 source={Images.logo_footer} 
@@ -58,7 +60,24 @@ const Footer = () => {
     );
 }
 
-const MenuIcon = ({ navigate }) => {
+const withFooter = (Screen) => {
+    const screen = (props) => {
+        drawerNavigator = props.navigation
+        return (
+            <View style={{flex: 1}}>
+                <Screen {...props}/>
+                <SafeAreaView style={{backgroundColor: Colors.Navy}}>
+                    <Footer/>
+                </SafeAreaView>
+            </View>
+        )
+    }
+    screen.router = Screen.router
+    return screen
+}
+
+const MenuIcon = ( navigation ) => {
+    homeNavigator = navigation
     return (
         <Icon.Button 
             name="bars" 
@@ -71,6 +90,19 @@ const MenuIcon = ({ navigate }) => {
     );
 }
 
+const WelcomeIcon = ({ navigate }) => {
+    return (
+        <Icon.Button 
+            name="arrow-left" 
+            size={FontSizes.medium}
+            style={{height: responsiveHeight(4.5), paddingHorizontal: 10,}}
+            backgroundColor={'#0000'} 
+            onPress={() => primaryNavigator.goBack(null)}>
+            <Text light bold>WELCOME</Text>
+        </Icon.Button>
+    );
+}
+
 const HomeIcon = ({ navigate, goBack }) => {
     return (
         <Icon.Button 
@@ -78,7 +110,7 @@ const HomeIcon = ({ navigate, goBack }) => {
             size={FontSizes.medium}
             style={{height: responsiveHeight(4.5), paddingHorizontal: 10,}}
             backgroundColor={'#0000'} 
-            onPress={() => goBack()}>
+            onPress={() => navigate('Home')}>
             <Text light>HOME</Text>
         </Icon.Button>
     );
@@ -91,7 +123,12 @@ export const DiscussionStarterStack = StackNavigator({
     UpNext: {screen: UpNext},
     Complete: {screen: Complete},
 }, {
-    headerMode: 'none',
+    navigationOptions: ({ navigation }) => ({
+        headerTitle: <HeaderTitle/>,
+        headerStyle: headerStyle,
+        headerRight: <MenuIcon {...navigation} />,
+        headerLeft: <HomeIcon {...navigation} />,
+    }),
 });
 
 export const CardGameStack = StackNavigator({
@@ -100,29 +137,48 @@ export const CardGameStack = StackNavigator({
     CDListView: {screen: CDListView},
     CDSummary: {screen: CDSummary},
 }, {
-    headerMode: 'none',
+    navigationOptions: ({ navigation }) => ({
+        headerTitle: <HeaderTitle/>,
+        headerStyle: headerStyle,
+        headerRight: <MenuIcon {...navigation} />,
+        headerLeft: <HomeIcon {...navigation} />,
+    }),
 });
 
 export const ResourcesStack = StackNavigator({
     ResourceList: {screen: ResourceList},
     ResourceDetail: {screen: ResourceDetail},
 }, {
-    headerMode: 'none',
+    navigationOptions: ({ navigation }) => ({
+        headerTitle: <HeaderTitle/>,
+        headerStyle: headerStyle,
+        headerRight: <MenuIcon {...navigation} />,
+        headerLeft: <HomeIcon {...navigation} />,
+    }),
 });
 
 export const UserGuidesStack = StackNavigator({
     UserGuidesList: {screen: UserGuidesList},
-    DiscussionAndCardDetail: {screen: DiscussionAndCardDetail},
     UserGuidesDetail: {screen: UserGuidesDetail},
 }, {
-    headerMode: 'none',
+    navigationOptions: ({ navigation }) => ({
+        headerTitle: <HeaderTitle/>,
+        headerStyle: headerStyle,
+        headerRight: <MenuIcon {...navigation} />,
+        headerLeft: <HomeIcon {...navigation} />,
+    }),
 });
 
 export const GetHelpStack = StackNavigator({
     GetHelpList: {screen: GetHelpList},
     GetHelpDetail: {screen: GetHelpDetail},
 }, {
-    headerMode: 'none',
+    navigationOptions: ({ navigation }) => ({
+        headerTitle: <HeaderTitle/>,
+        headerStyle: headerStyle,
+        headerRight: <MenuIcon {...navigation} />,
+        headerLeft: <HomeIcon {...navigation} />,
+    }),
 });
 
 export const HomeStack = StackNavigator({
@@ -132,6 +188,7 @@ export const HomeStack = StackNavigator({
             headerTitle: <HeaderTitle/>,
             headerStyle: headerStyle,
             headerRight: <MenuIcon {...navigation} />,
+            headerLeft: <WelcomeIcon {...navigation} />,
         }),
     },
     DiscussionStarter: {
@@ -181,33 +238,51 @@ export const HomeStack = StackNavigator({
     },
 });
 
-const HomeStackWithFooter = ({navigation, screenProps}) => {
-    drawerNavigator = navigation
+const HomeWithHeader = ({navigation}) => {
     return (
         <View style={{flex: 1}}>
-            <HomeStack />
-            <Footer/>
+            <SafeAreaView style={{backgroundColor: Colors.Navy}}>
+                <View style={[headerStyle, {flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}]}>
+                    <WelcomeIcon/>
+                    <HeaderTitle/>
+                    <MenuIcon/>
+                </View>
+            </SafeAreaView>
+            <Home navigation={navigation}/>
         </View>
-    );
+    )
 }
 
-export const DrawerStack = DrawerNavigator(
-    {
-        homeStack: {
-            screen: HomeStackWithFooter,
-        }
+export const DrawerStack = DrawerNavigator({
+    Home: {
+        screen: withFooter(HomeWithHeader),
     },
-    {
-        drawerWidth: width / 2.5,
-        drawerPosition: 'right',
-        contentComponent: props => <Menu {...props} />
-    }
-);
+    DiscussionStarter: {
+        screen: withFooter(DiscussionStarterStack),
+    },
+    CardGame: {
+        screen: withFooter(CardGameStack),
+    },
+    Resources: {
+        screen: withFooter(ResourcesStack),
+    },
+    UserGuides: {
+        screen: withFooter(UserGuidesStack),
+    },
+    GetHelp: {
+        screen: withFooter(GetHelpStack),
+    },
+},{
+    drawerWidth: (width >= 768) ? width / 2.5 : width * 2 / 3,
+    drawerPosition: 'right',
+    contentComponent: props => <Menu {...props}/>
+});
 
-const DrawerStackWithFooter = () => {
+const OnBoardingScreen = (props) => {
+    primaryNavigator = props.navigation
     return (
         <View style={{flex: 1}}>
-            <DrawerStack/>
+            <OnBoarding {...props}/>
             <Footer/>
         </View>
     );
@@ -215,10 +290,8 @@ const DrawerStackWithFooter = () => {
 
 export const PrimaryNav = StackNavigator({
     SplashScreen: { screen: Splash },
-    OnBoardingScreen: { screen: OnBoarding },
+    OnBoardingScreen: { screen: OnBoardingScreen },
     DrawerStack: { screen: DrawerStack },
-   
-    
 }, {
     headerMode: 'none',
 })
