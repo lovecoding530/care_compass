@@ -7,15 +7,22 @@ import {
     FlatList,
     View,
     ScrollView,
-    AsyncStorage
+    AsyncStorage,
+    ImageBackground,
+    Dimensions
 } from 'react-native';
 
 import Styles from './styles';
 import Text from '@text'
+import Button from '@button'
 import Footer from '@footer'
 import { Loader } from '@components';
 import { getUserGuides,updateTimeInterval } from "@api";
 import moment from 'moment';
+import {Colors} from '@theme';
+var { width,height } = Dimensions.get('window');
+import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
+var orientation = width > height ? 'LANDSCAPE' : 'PORTRAIT';
 
 export default class UserGuidesList extends Component {
     constructor(props) {
@@ -95,6 +102,10 @@ export default class UserGuidesList extends Component {
               // Error retrieving data
             }
 
+            Dimensions.addEventListener('change', ({ window: { width, height } }) => {
+            orientation = width > height ? 'LANDSCAPE' : 'PORTRAIT';
+        });
+
       
     }
 
@@ -103,31 +114,81 @@ export default class UserGuidesList extends Component {
         const first = index === 0;
         const second = index === 1;
         return (
-            <TouchableOpacity style={[first ? Styles.firstrowItem : second ? Styles.firstrowItem : Styles.item]} onPress={()=>{navigate("UserGuidesDetail", {userguideIndex: index})}}>
-                <Text style={Styles.cardtitle}>{item.title}</Text>
-            </TouchableOpacity>
+            <View onLayout={this.onLayout.bind(this)}>
+            {first ?
+                <TouchableOpacity style={[Styles.firstrowItem,{width: width/2.47,height: width/3.5,}]} onPress={()=>{navigate("DiscussionAndCardDetail", {userguideIndex: index})}}>
+                    <View style={[Styles.firstrowView,{width: width/2.47,height: width/3.5,paddingVertical:height/50,}]}>
+                        <View style={[Styles.iconView,{height:height/9,marginBottom:height/60,}]}>
+                            <Image source={require('../../../../assets/images/icon-cardgame.png')} resizeMode='stretch' style={{ width : orientation === 'PORTRAIT' ? width/6 : height/6,height : orientation === 'PORTRAIT' ? height/9 : width/9,}}/>
+                        </View>
+                        <View style={{flexDirection:'row',alignItems:'center'}}>
+                            <Text style={[Styles.cardtitle,{ color: Colors.Red,fontSize:  orientation === 'PORTRAIT' ? width/35 : height/35}]}>{item.title} </Text>
+                              <Image source={require('../../../../assets/images/Red-left-arrow.png')} resizeMode='stretch'/>
+                        </View>
+                    </View>
+                </TouchableOpacity>
+                : second ?
+                        <TouchableOpacity style={[Styles.firstrowItem,{width: width/2.47,height: width/3.5,}]} onPress={()=>{navigate("DiscussionAndCardDetail", {userguideIndex: index})}}>
+                            <View style={[Styles.firstrowView,{width: width/2.47,height: width/3.5,paddingVertical:height/50,}]}>
+                                <View style={[Styles.iconView,{height:height/9,marginBottom:height/60,}]}>
+                                    <Image source={require('../../../../assets/images/icon-discussion-starter.png')} resizeMode='stretch' style={{ width : orientation === 'PORTRAIT' ? width/6 : height/6,height : orientation === 'PORTRAIT' ? height/11 : width/11,}}/>
+                                </View>
+                                <View style={{flexDirection:'row',alignItems:'center'}}>
+                                    <Text style={[Styles.cardtitle,{ color: Colors.Red,fontSize:  orientation === 'PORTRAIT' ? width/35 : height/35}]}>{item.title} </Text>
+                                    <Image source={require('../../../../assets/images/Red-left-arrow.png')} resizeMode='stretch'/>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                        :
+                        <TouchableOpacity style={[Styles.item,{width: width/2.47,height: width/12,}]} onPress={()=>{navigate("UserGuidesDetail", {userguideIndex: index})}}>
+                            <View style={{flexDirection:'row',alignItems:'center'}}>
+                                <Text style={[Styles.cardtitle,{fontSize:  orientation === 'PORTRAIT' ? width/35 : height/35}]}>{item.title}</Text>
+                                <Image source={require('../../../../assets/images/blue-left-arrow.png')} resizeMode='stretch' />
+                            </View>
+                        </TouchableOpacity>
+            }
+            </View>
         )
     }
 
+    onLayout(e) {
+
+        height = Dimensions.get('window').height;
+        width = Dimensions.get('window').width;
+         this.setState({
+                        userguideIndexes: this.state.userguideIndexes,
+                    })
+        this.forceUpdate();
+    }
+
     render() {
+       
         return (
-            <View style={Styles.container}>
-             <View style={Styles.scrollcontainer}> 
-             <ScrollView contentContainerStyle={Styles.scroll}>
-                <Loader loading={this.state.loaderVisible}/>
-                <Text bold style={Styles.title}>user guides</Text>
-                <Text style={Styles.subtitle}>
-                    How to get the most out of this app
-                </Text>
-                <FlatList
-                    numColumns = {2}
-                    data = {this.state.userguideIndexes}
-                    renderItem = {this.renderUserGuideItem.bind(this)}
-                    keyExtractor = {(index) => index.toString()}
-                    />
-                    </ScrollView>
-                </View>
-                <Footer />
+            <View style={Styles.container}  onLayout={this.onLayout.bind(this)}>
+                <ImageBackground source={require('../../../../assets/images/bg-how-to.jpg')} resizeMode='stretch' style={{ width: width,height: height-responsiveHeight(14), }} >
+                    <View style={Styles.scrollcontainer}> 
+                        <ScrollView contentContainerStyle={Styles.scroll}>
+                            <Loader loading={this.state.loaderVisible}/>
+                            <View style={[Styles.itemTop,{ marginTop : width/35, width : width/1.2,}]}>
+                                <View style={[Styles.itemTopView,{ paddingVertical:height/45,width : width/1.2,}]}>
+                                    <Text style={[Styles.title,{fontSize:  orientation === 'PORTRAIT' ? width/20 : height/20}]}>How to</Text>
+                                        <Text style={[Styles.subtitle,{fontSize:  orientation === 'PORTRAIT' ? width/30 : height/30}]}>
+                                            Using and getting the most out of the dying to talk app
+                                        </Text>
+                                </View>
+                            </View>
+                            <FlatList
+                                numColumns = {2}
+                                data = {this.state.userguideIndexes}
+                                extraData={this.state}
+                                renderItem = {this.renderUserGuideItem.bind(this)}
+                                keyExtractor = {(index) => index.toString()}
+                            />
+
+                        </ScrollView>
+
+                    </View>
+                </ImageBackground>
             </View>
         );
     }

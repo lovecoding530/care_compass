@@ -10,6 +10,7 @@ import {
   StyleSheet,
   Text,
   View,
+  StatusBar,
 } from 'react-native';
 
 import {PrimaryNav} from "./Router";
@@ -32,7 +33,13 @@ class App extends Component {
 
   render() {
     return (
-      <PrimaryNav />
+      <View style={{flex: 1}}>
+        <StatusBar
+          backgroundColor="blue"
+          barStyle="light-content"
+        />
+        <PrimaryNav />
+      </View>
     );
   }
 }

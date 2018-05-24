@@ -23,8 +23,9 @@ import EmailSentModal from '../../modals/EmailSent'
 import { getGetHelp, API_HTML_ROOT} from "@api";
 import HTMLView from 'react-native-htmlview';
 import Communications from 'react-native-communications';
-const { width,height } = Dimensions.get('window');
 import {Colors} from '@theme';
+var { width,height } = Dimensions.get('window');
+var orientation = width > height ? 'LANDSCAPE' : 'PORTRAIT';
 
 function renderNode(node, index, siblings, parent, defaultRenderer) {
 
@@ -161,6 +162,10 @@ export default class UserGuidesDetail extends Component {
             phonenumber : gethelp.phone_number,
             loaderVisible: false
         }) 
+
+        Dimensions.addEventListener('change', ({ window: { width, height } }) => {
+            orientation = width > height ? 'LANDSCAPE' : 'PORTRAIT';
+        });
     }
 
     _showResult(result){
@@ -226,26 +231,36 @@ export default class UserGuidesDetail extends Component {
         })
     }
 
+    onLayout(e) {
+
+        height = Dimensions.get('window').height;
+        width = Dimensions.get('window').width;
+        this.setState({
+                        gethelpIndexes: this.state.gethelpIndexes,
+                    })
+         this.forceUpdate();
+    }
+
     render() {   
         return (
-            <View style={Styles.container}>
-            <View style={Styles.scrollcontainer}> 
+            <View style={Styles.container} onLayout={this.onLayout.bind(this)}>
+            <View style={[Styles.scrollcontainer]}> 
                <ScrollView contentContainerStyle={Styles.scroll}> 
 
                     <Loader loading={this.state.loaderVisible}/>
-                    <View style={Styles.itemTop}>
-                        <Text bold style={Styles.title}>{this.state.title}</Text>
+                    <View style={[Styles.itemTop,{paddingVertical : height/45,width : width/1.2,marginTop : width/25,}]}>
+                        <Text bold style={[Styles.title,{fontSize:  orientation === 'PORTRAIT' ?  width/15 : height/15}]}>{this.state.title}</Text>
                     </View>
 
-                    <View style={Styles.itemBottom}>
+                    <View style={[Styles.itemBottom,{width : width/1.2,}]}>
                        
                             {this.state.logo == null ?
-                                <Image style={Styles.logo} source={require('../../../../assets/images/default_appLogo.png')} resizeMode="stretch"/>
+                                <Image style={{ width:width/1.2,height:height/2.5,marginBottom : 8}} source={require('../../../../assets/images/default_appLogo.png')} resizeMode="stretch"/>
                                 :
-                                <Image style={Styles.logo} source={{uri:  API_HTML_ROOT + this.state.logo.url}} resizeMode="stretch"/>
+                                <Image style={{ width:width/1.2,height:height/2.5,marginBottom : 8}} source={{uri:  API_HTML_ROOT + this.state.logo.url}} resizeMode="stretch"/>
                             }
                            
-                        <View style={Styles.viewBody}>
+                        <View style={[Styles.viewBody,{marginHorizontal : width/9,}]}>
                             <HTMLView
                                 value={this.state.description}
                                 renderNode={renderNode}
@@ -270,16 +285,16 @@ export default class UserGuidesDetail extends Component {
 
                                 </View>
                                 <View style={Styles.listitemBottomView}>
-                                    <TouchableOpacity style={Styles.buttonleft} onPress={() => Communications.phonecall(this.state.phonenumber, true)}>
+                                    <TouchableOpacity style={[Styles.buttonleft,{ width:width/2.6,height:  orientation === 'PORTRAIT' ? height/18 : width/18}]} onPress={() => Communications.phonecall(this.state.phonenumber, true)}>
                                         <View style={Styles.buttonView}>
                                             <View style={{justifyContent:'center'}}><Image source={require('../../../../assets/images/icon_call.png')}/></View>
-                                            <Text style={Styles.buttonText}>CALL</Text>
+                                            <Text style={[Styles.buttonText,{paddingHorizontal:width/50,fontSize:  orientation === 'PORTRAIT' ? width/30 : height/30}]}>CALL</Text>
                                         </View>
                                     </TouchableOpacity>
-                                    <TouchableOpacity style={Styles.buttonright} onPress={ ()=> Linking.openURL(this.state.website) }>
+                                    <TouchableOpacity style={[Styles.buttonright,{ width:width/2.2,height:  orientation === 'PORTRAIT' ? height/18 : width/18}]} onPress={ ()=> Linking.openURL(this.state.website) }>
                                         <View style={Styles.buttonView}>
                                             <View style={{justifyContent:'center'}}><Image  source={require('../../../../assets/images/icon_website.png')}/></View>
-                                            <Text style={Styles.buttonText}>WEBSITE</Text>
+                                            <Text style={[Styles.buttonText,{paddingHorizontal:width/50,fontSize:  orientation === 'PORTRAIT' ? width/30 : height/30}]}>WEBSITE</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </View>
@@ -291,35 +306,35 @@ export default class UserGuidesDetail extends Component {
                  
                                     <View style={Styles.contactView}>
                                         <View style={{justifyContent:'center'}}><Image source={require('../../../../assets/images/icon_call.png')}/></View>
-                                        <Text style={Styles.contactText}>{this.state.phonenumber}</Text>
+                                        <Text style={[Styles.contactText,{paddingHorizontal:width/50,fontSize: orientation === 'PORTRAIT' ?  width/50 : height/50}]}>{this.state.phonenumber}</Text>
                                     </View>
                                     <View style={Styles.contactView}>
                                         <View style={{justifyContent:'center'}}><Image  source={require('../../../../assets/images/icon_website.png')}/></View>
-                                        <Text style={Styles.contactText}>{this.state.website}</Text>
+                                        <Text style={[Styles.contactText,{paddingHorizontal:width/50,fontSize: orientation === 'PORTRAIT' ?  width/50 : height/50}]}>{this.state.website}</Text>
                                     </View>
                                     <View style={Styles.contactView}>
                                         <View style={{justifyContent:'center'}}><Image  source={require('../../../../assets/images/icon_email.png')}/></View>
-                                        <Text style={Styles.contactText}>{this.state.email}</Text>
+                                        <Text style={[Styles.contactText,{paddingHorizontal:width/50,fontSize: orientation === 'PORTRAIT' ?  width/50 : height/50}]}>{this.state.email}</Text>
                                     </View>
 
                                 </View>
                                 <View style={Styles.listitemBottomView}>
-                                    <TouchableOpacity style={Styles.button} onPress={() => Communications.phonecall(this.state.phonenumber,true)}>
+                                    <TouchableOpacity style={[Styles.button,{width:width/3.6,height:  orientation === 'PORTRAIT' ?  height/18 : width/18}]} onPress={() => Communications.phonecall(this.state.phonenumber,true)}>
                                         <View style={Styles.buttonView}>
                                             <View style={{justifyContent:'center'}}><Image source={require('../../../../assets/images/icon_call.png')}/></View>
-                                            <Text style={Styles.buttonText}>CALL</Text>
+                                            <Text style={[Styles.buttonText,{paddingHorizontal:width/50,fontSize:  orientation === 'PORTRAIT' ? width/30 : height/30}]}>CALL</Text>
                                         </View>
                                     </TouchableOpacity>
-                                    <TouchableOpacity style={Styles.buttonMiddle} onPress={ ()=> Linking.openURL(this.state.website) }>
+                                    <TouchableOpacity style={[Styles.buttonMiddle,{width:width/3.6,height:  orientation === 'PORTRAIT' ?  height/18 : width/18}]} onPress={ ()=> Linking.openURL(this.state.website) }>
                                         <View style={Styles.buttonView}>
                                             <View style={{justifyContent:'center'}}><Image  source={require('../../../../assets/images/icon_website.png')}/></View>
-                                            <Text style={Styles.buttonText}>WEBSITE</Text>
+                                            <Text style={[Styles.buttonText,{paddingHorizontal:width/50,fontSize:  orientation === 'PORTRAIT' ? width/30 : height/30}]}>WEBSITE</Text>
                                         </View>
                                     </TouchableOpacity>
-                                    <TouchableOpacity style={Styles.button} onPress={this.onShareEmail.bind(this)}>
+                                    <TouchableOpacity style={[Styles.button,{width:width/3.6,height:  orientation === 'PORTRAIT' ?  height/18 : width/18}]} onPress={this.onShareEmail.bind(this)}>
                                         <View style={Styles.buttonView}>
                                             <View style={{justifyContent:'center'}}><Image  source={require('../../../../assets/images/icon_email.png')}/></View>
-                                            <Text style={Styles.buttonText}>EMAIL</Text>
+                                            <Text style={[Styles.buttonText,{paddingHorizontal:width/50,fontSize:  orientation === 'PORTRAIT' ? width/30 : height/30}]}>EMAIL</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </View>
@@ -328,7 +343,7 @@ export default class UserGuidesDetail extends Component {
                         
                     </View>
                    
-                    <View style={Styles.itemBottom}>
+                    <View style={[Styles.itemBottom,{width : width/1.2,}]}>
                         <View style={Styles.buttonContainer}>
                             <Button light onPress={ ()=> this.props.navigation.goBack() }>GO BACK</Button>
                             <View style={{flex:1}}/>
@@ -346,7 +361,6 @@ export default class UserGuidesDetail extends Component {
                         />
                 </ScrollView> 
                 </View>
-                <Footer />
             </View>
         );
     }

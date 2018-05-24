@@ -8,6 +8,7 @@ import {
 import {Colors} from '@theme';
 
 const { width,height } = Dimensions.get('window');
+import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 
 
 export default {
@@ -17,40 +18,34 @@ export default {
         backgroundColor: Colors.backgroundPrimary,
     },
     scroll:{
+        alignItems: 'center',
     },
     scrollcontainer:{
         flex : 1,
-        marginBottom:height/15,
     },
     title: {
-        fontSize: width/15,
-        marginTop: height/10,
-        color: Colors.textPrimary, 
-        textAlign: 'center',      
+        fontSize: width/20,
+        color: Colors.Navy,
+        fontWeight:"200"
     },
     subtitle: {
-        fontSize: width/25,
-        color: Colors.textPrimary,
+        fontSize: width/30,
+        color: Colors.textSecondary,
         textAlign: 'center',
-        marginBottom: height/50,
         marginTop:2,
+        fontWeight:"200"
     },
     viewImage:{
         alignItems: 'center',
         marginVertical: height/30,
     },
     middleimage: {
-        height:Dimensions.get('window').height/3,
-        width:Dimensions.get('window').width/1.5
+        height:height/3,
+        width:width/1.5
     },
     viewBody:{
         marginHorizontal : width/9,
         alignItems: 'center'
-    },
-    buttonContainer: {
-        flexDirection:'row',
-        justifyContent:'center',
-        alignItems:'center'
     },
     item: {
         marginVertical: height/40,
@@ -74,6 +69,60 @@ export default {
     },
     flatList: {
         marginHorizontal : width/10,
+    },
+    imageView:{
+        width: width,
+        height: height-responsiveHeight(15), 
+    },
+    itemTop: {
+        width : width/1.2,
+        backgroundColor: Colors.Navy,
+        borderRadius: 8,
+        marginBottom: 8,
+        marginTop : width/35,      
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    itemTopView: {
+        paddingVertical:height/45,
+        width : width/1.2,
+        backgroundColor: Colors.backgroundSecondary,
+        borderTopLeftRadius:3,
+        borderTopRightRadius:3,
+        borderBottomLeftRadius:8,
+        borderBottomRightRadius:8,
+        shadowColor: '#000',
+        shadowOffset: { width: 6, height: 6 },
+        shadowOpacity: 0.5,
+        shadowRadius: 2,
+        marginTop : 5,      
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    buttonBackView:{
+         flexDirection:'row',
+        backgroundColor:Colors.Sand,
+        height:height/16,
+        justifyContent:'space-between',
+        paddingHorizontal:width/12
+    },
+    buttonBack:{
+        height:height/22,
+        width:width/6,
+        paddingHorizontal:width/90
+    },
+    itemView: {
+        width : width/1.2,
+        height: height/2,
+        backgroundColor: Colors.backgroundSecondary,
+        borderRadius: 8,
+        shadowColor: 'black',
+        shadowOffset: { width: 6, height: 6 },
+        shadowOpacity: 0.5,
+        shadowRadius: 2,
+        margin: 8,    
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 
 };

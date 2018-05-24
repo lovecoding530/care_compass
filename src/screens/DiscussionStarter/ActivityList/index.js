@@ -9,8 +9,7 @@ import {
 } from 'react-native';
 import {Colors} from '@theme';
 import Styles from './styles';
-import Button from '@button'
-import Text from '@text'
+import {Text, Button} from '@components'
 
 import { getDiscussionStarter } from "@api";
 
@@ -37,10 +36,9 @@ export default class ActivityList extends Component {
     render() {
         return (
             <View style={Styles.container}>
-                <Text style={Styles.title}>Discussion Starter</Text>
-                <Text style={Styles.subtitle}>
-                    Supporting you to talk about how you want {"\n"}
-                    to be cared for at the end of your life
+                <Text style={Styles.title} mediumLarge center bold>Discussion Starter</Text>
+                <Text style={Styles.subtitle} medium center>
+                    Pick up from where you left off...
                 </Text>
                 <FlatList
                     numColumns = {2}
