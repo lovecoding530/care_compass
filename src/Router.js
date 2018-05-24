@@ -3,7 +3,7 @@
  */
 
 import React, { Component } from 'react';
-import { Dimensions, Image, StyleSheet, TouchableOpacity, View, } from 'react-native';
+import { Dimensions, Image, StyleSheet, TouchableOpacity, View, SafeAreaView} from 'react-native';
 import { StackNavigator, DrawerNavigator, withNavigation } from 'react-navigation';
 
 const { width } = Dimensions.get('window');
@@ -66,7 +66,9 @@ const withFooter = (Screen) => {
         return (
             <View style={{flex: 1}}>
                 <Screen {...props}/>
-                <Footer/>
+                <SafeAreaView style={{backgroundColor: Colors.Navy}}>
+                    <Footer/>
+                </SafeAreaView>
             </View>
         )
     }
@@ -238,12 +240,14 @@ export const HomeStack = StackNavigator({
 
 const HomeWithHeader = ({navigation}) => {
     return (
-        <View style={{flex: 1, borderTopWidth: 20, borderTopColor: Colors.Navy}}>
-            <View style={[headerStyle, {flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}]}>
-                <WelcomeIcon/>
-                <HeaderTitle/>
-                <MenuIcon/>
-            </View>
+        <View style={{flex: 1}}>
+            <SafeAreaView style={{backgroundColor: Colors.Navy}}>
+                <View style={[headerStyle, {flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}]}>
+                    <WelcomeIcon/>
+                    <HeaderTitle/>
+                    <MenuIcon/>
+                </View>
+            </SafeAreaView>
             <Home navigation={navigation}/>
         </View>
     )
