@@ -5,6 +5,7 @@
 	};
 	objectVersion = 50;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -51,8 +52,8 @@
 		AA7EFD44A4BD4E96B728ACC3 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0873FE7F647B454685366312 /* Entypo.ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B81DEE2B5358415A8FFB722E /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1A40379F3F1C44DCADDE308D /* SimpleLineIcons.ttf */; };
+		EF19E46B20B577D60086AFFE /* libRNHTMLtoPDF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 849CF4E920A2B21200DE9F44 /* libRNHTMLtoPDF.a */; };
 		EF37974D208B0B3700A3AAC3 /* libRNSpinkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 843C9CFE208944FC006615C3 /* libRNSpinkit.a */; };
-		F6EAC641F4A74900B82C2694 /* libRNHTMLtoPDF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 169CA66025A74D1085360D32 /* libRNHTMLtoPDF.a */; };
 		FCA3EE1D6AE54653A224DC1A /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F31F227F2EFF4EDDA1F06288 /* FontAwesome.ttf */; };
 		FECB8170F8C647BFB6F823AE /* libRNDeviceInfo-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E23A556D70414FDFB56A8BF0 /* libRNDeviceInfo-tvOS.a */; };
 /* End PBXBuildFile section */
@@ -455,6 +456,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF19E46B20B577D60086AFFE /* libRNHTMLtoPDF.a in Frameworks */,
 				EF37974D208B0B3700A3AAC3 /* libRNSpinkit.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
@@ -472,7 +474,6 @@
 				919EBB2A94B34098AA0D683A /* libRCTOrientation.a in Frameworks */,
 				919EBB2A94B34098AA0D683A /* libRCTOrientation.a in Frameworks */,
 				4A9DA9EBA59B4D2AAEF280D7 /* libRNDeviceInfo.a in Frameworks */,
-				F6EAC641F4A74900B82C2694 /* libRNHTMLtoPDF.a in Frameworks */,
 				254AB0CF3DF44B109F6C66BD /* libReactNativeKeyboardManager.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

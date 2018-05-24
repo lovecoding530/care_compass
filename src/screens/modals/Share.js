@@ -9,7 +9,6 @@ import Button from '@button'
 import Text from '@text'
 
 import { getDiscussionStarter } from "@api";
-import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 
 export default Share =  (props) => {
     return (
@@ -43,8 +42,8 @@ const styles = StyleSheet.create({
 
     modal: {
         backgroundColor: Colors.backgroundPrimary,
-        width: responsiveWidth(40),
-        padding: responsiveWidth(2),
+        width: 300,
+        padding: 15,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.5,
@@ -53,7 +52,7 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        marginBottom: responsiveWidth(2),
+        marginBottom: 10,
     },
 
     buttons: {

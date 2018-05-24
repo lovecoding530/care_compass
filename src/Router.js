@@ -217,6 +217,7 @@ export const PrimaryNav = StackNavigator({
     SplashScreen: { screen: Splash },
     OnBoardingScreen: { screen: OnBoarding },
     DrawerStack: { screen: DrawerStack },
+   
     
 }, {
     headerMode: 'none',
