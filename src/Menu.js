@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     },
 
     logo: {
-        height: 300,
+        height: responsiveHeight(28),
     },
 
     opacityView: {
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     },
 
     menuItem: {
-        paddingVertical: 12,
+        paddingVertical: responsiveWidth(2),
     },
 
     footer: {
