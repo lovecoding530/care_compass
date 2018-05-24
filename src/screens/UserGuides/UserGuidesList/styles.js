@@ -23,6 +23,7 @@ export default {
     },
     scrollcontainer:{
         flex:1,
+
     },
     title: {
         fontSize: width/20,
@@ -30,7 +31,7 @@ export default {
         fontWeight:"200"
     },
     cardtitle: {
-        fontSize: width/30,
+        fontSize: width/35,
         fontWeight: '300',
         color: Colors.Navy,
         margin: 8,
@@ -40,7 +41,6 @@ export default {
         fontSize: width/30,
         color: Colors.textSecondary,
         textAlign: 'center',
-        marginBottom: height/50,
         marginTop:2,
         fontWeight:"200"
     },
@@ -49,7 +49,7 @@ export default {
     },
     item: {
         width: width/2.47,
-        height: width/9,
+        height: width/12,
         backgroundColor: Colors.backgroundSecondary,
         borderRadius: 8,
         shadowColor: 'black',
@@ -62,34 +62,64 @@ export default {
     },
     firstrowItem: {
         width: width/2.47,
-        height: width/3,
-        backgroundColor: Colors.backgroundSecondary,
+        height:height/4.7,
+        backgroundColor: Colors.Red,
         borderRadius: 8,
+        marginHorizontal: 8,    
+        marginVertical: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    firstrowView: {
+        width: width/2.47,
+        height:height/4.7,
+        backgroundColor: Colors.backgroundSecondary,
+        borderBottomLeftRadius:8,
+        borderBottomRightRadius:8,
         shadowColor: 'black',
         shadowOffset: { width: 6, height: 6 },
         shadowOpacity: 0.5,
         shadowRadius: 2,
-        margin: 8,    
+        paddingVertical:height/50,
+        marginTop: 14,    
         justifyContent: 'center',
         alignItems: 'center',
     },
-    imageView:{
-        width: width,
-        height: height-responsiveHeight(7), 
-    },
     itemTop: {
-        paddingVertical : height/45,
+        width : width/1.2,
+        backgroundColor: Colors.Navy,
+        borderRadius: 8,
+        marginBottom: 8,
+        marginTop : width/35,      
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    itemTopView: {
+        paddingVertical:height/45,
         width : width/1.2,
         backgroundColor: Colors.backgroundSecondary,
-        borderRadius: 8,
+        borderTopLeftRadius:3,
+        borderTopRightRadius:3,
+        borderBottomLeftRadius:8,
+        borderBottomRightRadius:8,
         shadowColor: '#000',
         shadowOffset: { width: 6, height: 6 },
         shadowOpacity: 0.5,
         shadowRadius: 2,
-        marginBottom: 8,
-        marginTop : width/25,      
+        marginTop : 5,      
         justifyContent: 'center',
         alignItems: 'center',
     },
+    icon:{
+        width:width/6,
+        height:height/9,
+    },
+    iconView:{
+        height:height/9,
+        marginBottom:height/60,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    
 
 };

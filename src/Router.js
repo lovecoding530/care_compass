@@ -18,7 +18,7 @@ import Home from "./screens/Home";
 import {DSIntro, ActivityList, Activity, UpNext, Complete} from "./screens/DiscussionStarter";
 import {CDIntro, CDSingleView, CDListView, CDSummary} from "./screens/CardGame";
 import {ResourceList, ResourceDetail} from "./screens/Resources";
-import {UserGuidesList,UserGuidesDetail} from "./screens/UserGuides";
+import {UserGuidesList,UserGuidesDetail,DiscussionAndCardDetail} from "./screens/UserGuides";
 import {GetHelpList, GetHelpDetail} from "./screens/GetHelp";
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 
@@ -112,6 +112,7 @@ export const ResourcesStack = StackNavigator({
 
 export const UserGuidesStack = StackNavigator({
     UserGuidesList: {screen: UserGuidesList},
+    DiscussionAndCardDetail: {screen: DiscussionAndCardDetail},
     UserGuidesDetail: {screen: UserGuidesDetail},
 }, {
     headerMode: 'none',
