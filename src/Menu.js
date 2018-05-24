@@ -5,12 +5,14 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Text from '@text'
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 
+var currentRoute = null
+
 // StatusBar.setHidden(true);
 export default class Menu extends Component {
     goto(route){
-        this.props.drawerNavigation.navigate("DrawerClose")
+        this.props.navigation.navigate("DrawerClose")
         setTimeout(() => {
-            this.props.homeNavigation.navigate(route)
+            this.props.navigation.navigate(route)
         }, 500);
     }
 

@@ -60,14 +60,18 @@ const Footer = () => {
     );
 }
 
-const withFooter = (Screen) => (props) => {
-    drawerNavigator = props.navigation
-    return (
-        <View style={{flex: 1}}>
-            <Screen />
-            <Footer/>
-        </View>
-    )
+const withFooter = (Screen) => {
+    const screen = (props) => {
+        drawerNavigator = props.navigation
+        return (
+            <View style={{flex: 1}}>
+                <Screen {...props}/>
+                <Footer/>
+            </View>
+        )
+    }
+    screen.router = Screen.router
+    return screen
 }
 
 const MenuIcon = ( navigation ) => {
@@ -104,7 +108,7 @@ const HomeIcon = ({ navigate, goBack }) => {
             size={FontSizes.medium}
             style={{height: responsiveHeight(4.5), paddingHorizontal: 10,}}
             backgroundColor={'#0000'} 
-            onPress={() => goBack()}>
+            onPress={() => navigate('Home')}>
             <Text light>HOME</Text>
         </Icon.Button>
     );
@@ -117,7 +121,12 @@ export const DiscussionStarterStack = StackNavigator({
     UpNext: {screen: UpNext},
     Complete: {screen: Complete},
 }, {
-    headerMode: 'none',
+    navigationOptions: ({ navigation }) => ({
+        headerTitle: <HeaderTitle/>,
+        headerStyle: headerStyle,
+        headerRight: <MenuIcon {...navigation} />,
+        headerLeft: <HomeIcon {...navigation} />,
+    }),
 });
 
 export const CardGameStack = StackNavigator({
@@ -126,28 +135,48 @@ export const CardGameStack = StackNavigator({
     CDListView: {screen: CDListView},
     CDSummary: {screen: CDSummary},
 }, {
-    headerMode: 'none',
+    navigationOptions: ({ navigation }) => ({
+        headerTitle: <HeaderTitle/>,
+        headerStyle: headerStyle,
+        headerRight: <MenuIcon {...navigation} />,
+        headerLeft: <HomeIcon {...navigation} />,
+    }),
 });
 
 export const ResourcesStack = StackNavigator({
     ResourceList: {screen: ResourceList},
     ResourceDetail: {screen: ResourceDetail},
 }, {
-    headerMode: 'none',
+    navigationOptions: ({ navigation }) => ({
+        headerTitle: <HeaderTitle/>,
+        headerStyle: headerStyle,
+        headerRight: <MenuIcon {...navigation} />,
+        headerLeft: <HomeIcon {...navigation} />,
+    }),
 });
 
 export const UserGuidesStack = StackNavigator({
     UserGuidesList: {screen: UserGuidesList},
     UserGuidesDetail: {screen: UserGuidesDetail},
 }, {
-    headerMode: 'none',
+    navigationOptions: ({ navigation }) => ({
+        headerTitle: <HeaderTitle/>,
+        headerStyle: headerStyle,
+        headerRight: <MenuIcon {...navigation} />,
+        headerLeft: <HomeIcon {...navigation} />,
+    }),
 });
 
 export const GetHelpStack = StackNavigator({
     GetHelpList: {screen: GetHelpList},
     GetHelpDetail: {screen: GetHelpDetail},
 }, {
-    headerMode: 'none',
+    navigationOptions: ({ navigation }) => ({
+        headerTitle: <HeaderTitle/>,
+        headerStyle: headerStyle,
+        headerRight: <MenuIcon {...navigation} />,
+        headerLeft: <HomeIcon {...navigation} />,
+    }),
 });
 
 export const HomeStack = StackNavigator({
@@ -207,28 +236,43 @@ export const HomeStack = StackNavigator({
     },
 });
 
-const HomeStackWithFooter = ({navigation}) => {
-    drawerNavigator = navigation
+const HomeWithHeader = ({navigation}) => {
     return (
-        <View style={{flex: 1}}>
-            <HomeStack />
-            <Footer/>
+        <View style={{flex: 1, borderTopWidth: 20, borderTopColor: Colors.Navy}}>
+            <View style={[headerStyle, {flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}]}>
+                <WelcomeIcon/>
+                <HeaderTitle/>
+                <MenuIcon/>
+            </View>
+            <Home navigation={navigation}/>
         </View>
-    );
+    )
 }
 
-export const DrawerStack = DrawerNavigator(
-    {
-        homeStack: {
-            screen: withFooter(HomeStack),
-        }
+export const DrawerStack = DrawerNavigator({
+    Home: {
+        screen: withFooter(HomeWithHeader),
     },
-    {
-        drawerWidth: (width >= 768) ? width / 2.5 : width * 2 / 3,
-        drawerPosition: 'right',
-        contentComponent: props => <Menu homeNavigation={homeNavigator} drawerNavigation={drawerNavigator}/>
-    }
-);
+    DiscussionStarter: {
+        screen: withFooter(DiscussionStarterStack),
+    },
+    CardGame: {
+        screen: withFooter(CardGameStack),
+    },
+    Resources: {
+        screen: withFooter(ResourcesStack),
+    },
+    UserGuides: {
+        screen: withFooter(UserGuidesStack),
+    },
+    GetHelp: {
+        screen: withFooter(GetHelpStack),
+    },
+},{
+    drawerWidth: (width >= 768) ? width / 2.5 : width * 2 / 3,
+    drawerPosition: 'right',
+    contentComponent: props => <Menu {...props}/>
+});
 
 const OnBoardingScreen = (props) => {
     primaryNavigator = props.navigation
