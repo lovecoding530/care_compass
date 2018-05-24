@@ -14,7 +14,7 @@ import { getDiscussionStarter } from "@api";
 export default EmailSent =  (props) => {
     return (
         <Modal
-            animationType="fade"
+            animationType="slide"
             transparent={true}
             visible={props.visible}
             >

@@ -128,7 +128,12 @@ export default class SummaryDraggable extends Component {
 
     onStarSelected(cardIndex){
         let cardGame = copy(this.state.cardGame)
-        let star = cardGame.cards[cardIndex].star 
+        let star = cardGame.cards[cardIndex].star == true
+        var starCount = 0
+        for (const card of cardGame.cards) {
+            if (card.star == true) starCount ++;
+        }
+        if (star == false && starCount >= 3) return
         cardGame.cards[cardIndex].star = !star
 
         var groupedCardByLevel = this.groupedCardByLevel(cardGame)
@@ -205,8 +210,16 @@ export default class SummaryDraggable extends Component {
         if(item.section != null){
             var sectionItem = 
                 <View style={Styles.importantBar}>
-                    <Image source={item.icon} style={Styles.levelIcon}/>
-                    <Text bold>{item.text}</Text>
+                    <View style={Styles.row}>
+                        <Image source={item.icon} style={Styles.levelIcon}/>
+                        <Text bold>{item.text}</Text>
+                    </View>
+                    {item.selectedLevel == 2 &&
+                        <View style={Styles.row}>
+                            <Text small>Choose your top 3 priorities with a </Text>
+                            <Image source={Images.star} style={Styles.levelIcon}/>
+                        </View>
+                    }
                 </View>
             return sectionItem
         }else{
