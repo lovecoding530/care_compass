@@ -32,10 +32,10 @@ export default (props) => {
             textProps[propKey] = true
         }else if (propKey == 'light'){
             buttonStyle.borderWidth = 2;
-            buttonStyle.borderColor = Colors.buttonPrimary;
+            buttonStyle.borderColor = Colors.darkNavy;
             textProps.dark = true
         }else if (propKey == 'dark'){
-            buttonStyle.backgroundColor = Colors.buttonPrimary;
+            buttonStyle.backgroundColor = Colors.darkNavy;
             textProps.light = true
         }else if (propKey == 'bold'){
             textProps.bold = true;
