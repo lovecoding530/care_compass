@@ -22,7 +22,7 @@ export default EmailSent =  (props) => {
                 <View style={styles.modal}>
                     <Image source={Images.check} style={styles.checkIcon}/>
                     <Text medium center>Email Sent</Text>
-                    <Button light buttonStyles={styles.closeButton} onPress={()=>props.onCancel()}>Close</Button>
+                    <Button light color={Colors.Red} buttonStyles={styles.closeButton} onPress={()=>props.onCancel()}>Close</Button>
                 </View>
             </View>
         </Modal>
@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
     checkIcon: {
         width: 64,
         height: 64,
+        tintColor: Colors.Olive,
         marginVertical: 5,
     }
 })

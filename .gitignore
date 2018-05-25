@@ -57,4 +57,4 @@ buck-out/
 codesigndoc_exports
 *.orig
 
-\.vscode/
+.vscode/

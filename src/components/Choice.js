@@ -38,9 +38,9 @@ export default class Choice extends Component {
                 :
                 this.props.selected?
                     <View style={styles.container}>
-                        <Icon name={'checkmark'} style={styles.icon}/>
+                        <Icon name={'checkmark'} color={Colors.Navy} style={styles.icon}/>
                         <Text smallMedium style={styles.text}>{this.props.text}</Text>            
-                        <Button small light onPress={()=>{this.props.onPress(this.props.index)}}>REMOVE</Button>
+                        <Button small light color={Colors.Red} onPress={()=>{this.props.onPress(this.props.index)}}>REMOVE</Button>
                     </View>
                     :
                     <View style={styles.container}>

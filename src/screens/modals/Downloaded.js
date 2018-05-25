@@ -22,7 +22,7 @@ export default Downloaded =  (props) => {
                 <View style={styles.modal}>
                     <Image source={Images.check} style={styles.checkIcon}/>
                     <Text medium center>Downloaded</Text>
-                    <Button light buttonStyles={styles.closeButton} onPress={()=>props.onCancel()}>Close</Button>
+                    <Button light color={Colors.Red} buttonStyles={styles.closeButton} onPress={()=>props.onCancel()}>Close</Button>
                 </View>
             </View>
         </Modal>

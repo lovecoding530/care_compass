@@ -12,11 +12,6 @@ import { responsiveWidth } from 'react-native-responsive-dimensions';
 export default (props) => {
     const {buttonStyles, textStyles, children, onPress} = props;
 
-    const colors = {
-        light: Colors.white,
-        dark: Colors.textPrimary,
-    }
-
     var textProps = {}
 
     var buttonStyle = {
@@ -27,16 +22,20 @@ export default (props) => {
         alignItems: 'center',
     }
 
+    var textStyle = {}
+
+    var color = (props.color) ? props.color : Colors.Navy
+
     Object.keys(props).forEach(propKey => {
         if (propKey in FontSizes){
             textProps[propKey] = true
         }else if (propKey == 'light'){
             buttonStyle.borderWidth = 2;
-            buttonStyle.borderColor = Colors.darkNavy;
-            textProps.dark = true
+            buttonStyle.borderColor = color;
+            textStyle.color=color
         }else if (propKey == 'dark'){
-            buttonStyle.backgroundColor = Colors.darkNavy;
-            textProps.light = true
+            buttonStyle.backgroundColor = color;
+            textStyle.color=Colors.white
         }else if (propKey == 'bold'){
             textProps.bold = true;
         }else{
@@ -46,7 +45,7 @@ export default (props) => {
 
     return(
         <TouchableOpacity style={[buttonStyle, buttonStyles]} onPress={onPress}>
-            <Text {...textProps} style={textStyles}>{children}</Text>
+            <Text {...textProps} style={[textStyle, textStyles]}>{children}</Text>
         </TouchableOpacity>
     )
 }
