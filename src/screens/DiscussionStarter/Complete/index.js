@@ -3,6 +3,7 @@ import {
     Platform,
     StyleSheet,
     Image,
+    ImageBackground,
     TouchableOpacity,
     FlatList,
     View,
@@ -10,7 +11,7 @@ import {
     Alert,
     Share,
 } from 'react-native';
-import {Colors, Images} from '@theme';
+import {Colors, Images, FontSizes} from '@theme';
 import Styles from './styles';
 import {Button, Text, Loader } from '@components';
 import { ShareModal, EmailModal, EmailSentModal, DownloadedModal} from '../../modals';
@@ -18,6 +19,7 @@ import { ShareModal, EmailModal, EmailSentModal, DownloadedModal} from '../../mo
 import {postDiscussionAnswers} from "@api";
 import {getSharingHTMLFromResult} from "./HtmlResult";
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class Complete extends Component {
     constructor(props) {
@@ -127,37 +129,61 @@ export default class Complete extends Component {
         this.closeModal()
     }
 
+    onEdit(activityIndex) {
+        const {navigate, goBack} = this.props.navigation
+        if(activityIndex < this.state.activityCount - 1){
+            goBack(`UpNext${activityIndex}`)
+        }else{
+            goBack()
+        }
+    }
+
     renderActivityItem({item, index}){
         return (
-            <View style={Styles.item}>
-                <View style={Styles.itemTitle}>
-                    <Image source={Images.check} style={Styles.checkIcon}/>
-                    <Text medium bold>Activity {index + 1}: </Text>
-                    <Text medium>
-                        {" "}{item.stage}
-                    </Text>
+            <View style={Styles.currentWrapper}>
+                <View style={Styles.current}>
+                    <View style={Styles.currentHeader}>
+                        <View style={{flexDirection: 'row'}}>
+                            <Image source={Images.check} style={Styles.checkIcon}/>
+                            <Text medium bold color={'#fff'} style={Styles.complete_text}>
+                                Complete
+                            </Text>
+                        </View>
+                        <Button light color={'#fff'} onPress={()=>this.onEdit(index)}>EDIT</Button>
+                    </View>
+                    <View style={Styles.currentDescView}>
+                        <Text medium color={Colors.Navy} style={Styles.currentTitle}>Activity {index + 1}: {item.stage}</Text>
+                        <Text style={Styles.currentPrecomment}>
+                            {item.pre_commencement_text} 
+                        </Text>
+                    </View>
                 </View>
-                <Text style={Styles.itemPrecomment}>{item.pre_commencement_text} </Text>
             </View>
         )
     }
 
     render() { 
         return (
-            <View style={Styles.container}>
+            <ImageBackground source={Images.bg_discussion_starter}  style={Styles.container}>
                 <Loader loading={this.state.loaderVisible}/>
-                <Text mediumLarge bold center>Complete... </Text>
-                <FlatList
-                    data = {this.state.activities}
-                    renderItem = {this.renderActivityItem.bind(this)}
-                    keyExtractor = {(item, index) => index.toString()}
-                    style={Styles.flatList}
-                    />
+                <View style={Styles.contentView}>
+                    <View style={Styles.titleView}>
+                        <Text mediumLarge center color={Colors.Red}>Your Results</Text>
+                    </View>
+                    <FlatList
+                        data = {this.state.activities}
+                        renderItem = {this.renderActivityItem.bind(this)}
+                        keyExtractor = {(item, index) => index.toString()}
+                        style={Styles.flatList}
+                        />
+                    <TouchableOpacity style={Styles.moreInfo}>
+                        <Text medium bold center color={Colors.Navy}>More infomation <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                    </TouchableOpacity>
+                </View>
                 <View style={Styles.buttonBar}>
                     <Button light onPress={this.onExit.bind(this)}>EXIT</Button>
                     <Button dark onPress={this.onShare.bind(this)}>SHARE RESULTS</Button>
                 </View>
-                <Text medium center>Need more information? Try our resources</Text>
                 <ShareModal 
                     visible={this.state.modalVisible.share} 
                     onDownload={this.onShareDownload.bind(this)}
@@ -177,7 +203,7 @@ export default class Complete extends Component {
                     visible={this.state.modalVisible.downloaded} 
                     onCancel={this.onShareCancel.bind(this)}
                     />
-            </View>
+            </ImageBackground>
         );
     }
 }

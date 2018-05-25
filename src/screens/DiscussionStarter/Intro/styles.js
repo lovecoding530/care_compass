@@ -13,14 +13,11 @@ export default MediaQueryStyleSheet.create({
     container: {
         flex: 1, 
         backgroundColor: Colors.backgroundPrimary,
-        padding: responsiveWidth(10),
-        justifyContent: 'center',
-        alignItems: 'center',
     },
 
     introContainer: {
-        justifyContent: 'center',
-        alignItems: 'center',
+        paddingHorizontal: responsiveWidth(10),
+        flex: 1, 
     },
 
     title: {
@@ -34,6 +31,7 @@ export default MediaQueryStyleSheet.create({
 
     icon: {
         height: responsiveWidth(25),
+        resizeMode: 'contain',
     },
 
     intro: {
@@ -43,17 +41,50 @@ export default MediaQueryStyleSheet.create({
 
     buttonBar: {
         flexDirection: 'row',
-        margin: 16,
+        justifyContent: 'space-between',
+        backgroundColor: '#fff',
+        paddingVertical: responsiveWidth(1),
+        paddingHorizontal: responsiveWidth(10),
     },
+
+    titleView: {
+        borderTopColor: Colors.Red,
+        backgroundColor: '#fff',
+        borderRadius: responsiveWidth(1.2),
+        borderTopWidth: responsiveWidth(1.2),
+        shadowColor: '#000',
+        shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
+        shadowOpacity: 0.5,
+        shadowRadius: 0,
+        padding: 8,
+        marginVertical: responsiveWidth(4),
+    },
+
+    descView: {
+        backgroundColor: '#fff',
+        borderRadius: responsiveWidth(1.2),
+        shadowColor: '#000',
+        shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
+        shadowOpacity: 0.5,
+        shadowRadius: 0,
+        alignItems: 'center',
+        padding: 16,
+    }
 }, {
     [MediaQueries.iPad] : {
-        container: {
-            padding: responsiveWidth(10),
+        introContainer: {
+            paddingHorizontal: responsiveWidth(10),
+        },
+        buttonBar: {
+            paddingHorizontal: responsiveWidth(10),            
         }
     },
     [MediaQueries.iPhone] : {
-        container: {
-            padding: responsiveWidth(5),
+        introContainer: {
+            paddingHorizontal: responsiveWidth(5),
+        },
+        buttonBar: {
+            paddingHorizontal: responsiveWidth(5),            
         }
     }
 });

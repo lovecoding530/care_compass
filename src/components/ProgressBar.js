@@ -15,7 +15,7 @@ export default (props) => {
     for(let i = 0; i < total; i++){
         if(i < progress){
             items.push(
-                <View key={i} style={[defaultStyles.item, {backgroundColor: Colors.buttonPrimary}]}/>
+                <View key={i} style={[defaultStyles.item, {backgroundColor: Colors.Olive}]}/>
             )                
         }else{
             items.push(
@@ -38,7 +38,7 @@ const defaultStyles = StyleSheet.create({
     },
     item: {
         borderWidth: 1,
-        borderColor: Colors.buttonPrimary,
+        borderColor: Colors.Olive,
         height: responsiveWidth(1),
         margin: 1,
         flex: 1,
