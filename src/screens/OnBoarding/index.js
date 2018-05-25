@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 
 import Styles from '@OnBoardingstyles';
-var { width, height } = Dimensions.get('window');// use for device height and width
+let { width, height } = Dimensions.get('window');// use for device height and width
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions'; // use for responsive screen UI
 import Button from '@button'
 import Footer from '@footer'
@@ -316,15 +316,11 @@ class Swiper extends Component {
   }
 
   onLayout(e) {
-
     width = Dimensions.get('window').width
     height = Dimensions.get('window').height
-    if (orientation === 'LANDSCAPE') {
+ if (orientation === 'LANDSCAPE') {
 
-      var new_width = Dimensions.get('window').width
-      var new_height = Dimensions.get('window').height
-
-      orientationWidth = new_width;
+      orientationWidth = width;
       offset = orientationWidth * this.state.index;
 
       this.internals = {
@@ -333,21 +329,17 @@ class Swiper extends Component {
       };
 
 
-      x = this.state.index * new_width,
+      x = this.state.index * width,
       y = 0;
 
       this.scrollView && this.scrollView.scrollTo({ x, y, animated: true });
-
-      
 
       this.forceUpdate();
 
     } 
     else 
     {
-      var new_width = Dimensions.get('window').width
-      var new_height = Dimensions.get('window').height
-      orientationWidth = new_width;
+      orientationWidth = width;
 
       offset = orientationWidth * this.state.index;
 
@@ -358,7 +350,7 @@ class Swiper extends Component {
 
       if(this.state.index==1)
       {
-        x = this.state.index * new_width,
+        x = this.state.index * width,
         y = 0;
     
         this.scrollView && this.scrollView.scrollTo({ x, y, animated: true });
@@ -375,22 +367,22 @@ class Swiper extends Component {
   
   return(
      <View style={Styles.container} onLayout={this.onLayout.bind(this)}>
-      <ImageBackground source={require('../../../assets/images/bg-splash-onboarding.jpg')} resizeMode='stretch' style={{ width: width,height:Platform.OS === 'android' ?  height-responsiveHeight(10) :  height-responsiveHeight(7)}} >
-      <ScrollView contentContainerStyle={Styles.scrollcontainer}>
-        {/* Render screens */}
-        <Image style={Styles.logo} resizeMode='stretch'  source={require('../../../assets/images/dtt-logo-blue.png')}/>
-        {this.renderScrollView(children)}
-        {/* Render Continue or Done button */}
-        <View style={{width:width/1.38,backgroundColor:Colors.white,}}>
-        {this.renderButton()}
-        {/* Render pagination */}
-        {this.renderPagination()}
-        </View>
-        </ScrollView>
+      <ImageBackground source={require('../../../assets/images/bg-splash-onboarding.jpg')} resizeMode='stretch' style={Styles.background} >
+
+        <ScrollView contentContainerStyle={Styles.scrollcontainer}>
+          {/* Render screens */}
+          <Image style={Styles.logo} resizeMode='contain'  source={require('../../../assets/images/dtt-logo-blue.png')}/>
+          {this.renderScrollView(children)}
+          {/* Render Continue or Done button */}
+           <View style={{width:width/1.38,backgroundColor:Colors.white,}}>
+          {this.renderButton()}
+          {/* Render pagination */}
+          {this.renderPagination()}
+          </View>
+
+          </ScrollView>
         </ImageBackground>
       </View>
-
-
     );
   }
 }
@@ -422,7 +414,7 @@ export default class OnBoarding extends Component {
     */
     render() {
         return (
-          <Swiper onLayout={this.onLayout.bind(this)}>
+           <Swiper onLayout={this.onLayout.bind(this)}>
             <View style={[Styles.slide,{width:width}]} >
               <Image style={[Styles.middleimage,{ width:width/1.38,}]}  resizeMode='stretch' source={require('../../../assets/images/Dark-navy-back.png')}/>
               <View style={[Styles.textView,{width:width/1.38,}]}>
