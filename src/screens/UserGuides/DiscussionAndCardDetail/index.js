@@ -48,14 +48,21 @@ export default class DiscussionAndCardDetail extends Component {
 
 
     render() {
+        const Piphone =  height-responsiveHeight(15.5);
+        const Pipad =  height-responsiveHeight(14.5);
+        const Pandroid =  height-responsiveHeight(16);
+        const Lipad = height-responsiveHeight(14.9);
+        const Lipone = height-responsiveHeight(13);
+        const Landroid =  height-responsiveHeight(16);
+
         return (
              <View style={Styles.container}  onLayout={this.onLayout.bind(this)}>
-                <ImageBackground source={require('../../../../assets/images/bg-how-to.jpg')} resizeMode='stretch' style={{ width: width,height: height-responsiveHeight(15),}} >
+                <ImageBackground source={require('../../../../assets/images/bg-how-to.jpg')} resizeMode='stretch' style={{ width: width,height: orientation === 'PORTRAIT' ? Platform.isPad ? Pipad : Platform.OS === 'android' ? Pandroid : Piphone  : Platform.isPad ? Lipad : Platform.OS === 'android' ? Landroid : Lipone }} >
                     <View style={Styles.scrollcontainer}> 
                         <ScrollView contentContainerStyle={Styles.scroll}>
                             <Loader loading={this.state.loaderVisible}/>
                             <View style={[Styles.itemTop,{width : width/1.2,marginTop : width/35,}]}>
-                                <View style={[Styles.itemTopView,{paddingVertical:height/45,width : width/1.2,}]}>
+                                <View style={[Styles.itemTopView,{width : width/1.2,}]}>
                                     <Text style={[Styles.title,{fontSize:  orientation === 'PORTRAIT' ? width/20 : height/20}]}>How to</Text>
                                         <Text style={[Styles.subtitle,{fontSize:  orientation === 'PORTRAIT' ? width/30 : height/30}]}>
                                             Using and getting the most out of the dying to talk app
@@ -63,25 +70,25 @@ export default class DiscussionAndCardDetail extends Component {
                                 </View>
                             </View>
                             <View style={{flexDirection:'row'}}>
-                            <TouchableOpacity style={[Styles.firstrowItem,{width: width/2.47, height: width/2.5,}]} onPress={()=>{navigate("UserGuidesDetail", {userguideIndex: index})}}>
-                                <View style={[Styles.firstrowView,{ width: width/2.47,height: width/2.5,paddingVertical:height/50,}]}>
-                                    <View style={[Styles.iconView,{height:height/9,marginVertical:height/20,}]}>
-                                        <Image source={require('../../../../assets/images/icon-professional.png')} resizeMode='stretch' style={{ width : orientation === 'PORTRAIT' ? width/11 :height/11,height : orientation === 'PORTRAIT' ? height/7 : width/7}}/>
+                            <TouchableOpacity style={[Styles.firstrowItem,{width: width/2.47}]} onPress={()=>{navigate("UserGuidesDetail", {userguideIndex: index})}}>
+                                <View style={[Styles.firstrowView,{ width: width/2.47}]}>
+                                    <View style={Styles.iconView}>
+                                        <Image source={require('../../../../assets/images/icon-professional.png')} resizeMode='stretch' style={Styles.iconProfessional}/>
                                     </View>
                                     <View style={{flexDirection:'row',alignItems:'center'}}>
-                                        <Text style={[Styles.cardtitle,{ color: Colors.Red,fontSize:  orientation === 'PORTRAIT' ? width/30 : height/30}]}>Professional</Text>
+                                        <Text style={[Styles.cardtitle,{ color: Colors.Navy,fontSize:  orientation === 'PORTRAIT' ? width/30 : height/30}]}>Professional</Text>
                                           <Image source={require('../../../../assets/images/blue-left-arrow.png')} resizeMode='stretch'/>
                                     </View>
                                 </View>
                             </TouchableOpacity>
 
-                            <TouchableOpacity style={[Styles.firstrowItem,{width: width/2.47, height: width/2.5,}]} onPress={()=>{navigate("UserGuidesDetail", {userguideIndex: index})}}>
-                                <View style={[Styles.firstrowView,{ width: width/2.47,height: width/2.5,paddingVertical:height/50,}]}>
+                            <TouchableOpacity style={[Styles.firstrowItem,{width: width/2.47}]} onPress={()=>{navigate("UserGuidesDetail", {userguideIndex: index})}}>
+                                <View style={[Styles.firstrowView,{ width: width/2.47}]}>
                                     <View style={Styles.iconView}>
-                                        <Image source={require('../../../../assets/images/icon-community.png')} resizeMode='stretch' style={{width :  orientation === 'PORTRAIT' ? width/7 : height/7 ,height :  orientation === 'PORTRAIT' ? height/7 : width/7}}/>
+                                        <Image source={require('../../../../assets/images/icon-community.png')} resizeMode='stretch' style={Styles.iconCommunity}/>
                                     </View>
                                     <View style={{flexDirection:'row',alignItems:'center'}}>
-                                        <Text style={[Styles.cardtitle,{ color: Colors.Red,fontSize:  orientation === 'PORTRAIT' ? width/30 : height/30}]}>Community</Text>
+                                        <Text style={[Styles.cardtitle,{ color: Colors.Navy,fontSize:  orientation === 'PORTRAIT' ? width/30 : height/30}]}>Community</Text>
                                           <Image source={require('../../../../assets/images/blue-left-arrow.png')} resizeMode='stretch'/>
                                     </View>
                                 </View>

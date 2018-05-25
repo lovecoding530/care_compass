@@ -23,7 +23,6 @@ export default {
     },
     scrollcontainer:{
         flex:1,
-
     },
     title: {
         fontSize: width/20,
@@ -49,7 +48,7 @@ export default {
     },
     item: {
         width: width/2.47,
-        height: width/12,
+        height: height/15,
         backgroundColor: Colors.backgroundSecondary,
         borderRadius: 8,
         shadowColor: 'black',
@@ -60,28 +59,30 @@ export default {
         justifyContent: 'center',
         alignItems: 'center',
     },
+    imageView:{
+        width: width,
+        height: height-responsiveHeight(15), 
+    },
     firstrowItem: {
         width: width/2.47,
-        height:height/4.7,
         backgroundColor: Colors.Red,
         borderRadius: 8,
         marginHorizontal: 8,    
         marginVertical: 15,
+        paddingTop:7,
         justifyContent: 'center',
         alignItems: 'center',
     },
     firstrowView: {
         width: width/2.47,
-        height:height/4.7,
         backgroundColor: Colors.backgroundSecondary,
         borderBottomLeftRadius:8,
         borderBottomRightRadius:8,
-        shadowColor: 'black',
+        shadowColor: '#000',
         shadowOffset: { width: 6, height: 6 },
         shadowOpacity: 0.5,
         shadowRadius: 2,
         paddingVertical:height/50,
-        marginTop: 14,    
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -90,7 +91,8 @@ export default {
         backgroundColor: Colors.Navy,
         borderRadius: 8,
         marginBottom: 8,
-        marginTop : width/35,      
+        marginTop : width/35, 
+        paddingTop:5,     
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -105,14 +107,17 @@ export default {
         shadowColor: '#000',
         shadowOffset: { width: 6, height: 6 },
         shadowOpacity: 0.5,
-        shadowRadius: 2,
-        marginTop : 5,      
+        shadowRadius: 2,   
         justifyContent: 'center',
         alignItems: 'center',
     },
-    icon:{
+    iconCard:{
         width:width/6,
         height:height/9,
+    },
+    iconDuscussion:{
+        width:width/5,
+        height:height/10,
     },
     iconView:{
         height:height/9,
