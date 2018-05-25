@@ -19,10 +19,11 @@ import Footer from '@footer'
 import { Loader } from '@components';
 import { getUserGuides,updateTimeInterval } from "@api";
 import moment from 'moment';
-import {Colors} from '@theme';
-var { width,height } = Dimensions.get('window');
+import {Colors, Images, FontSizes} from '@theme';
+import { MediaQuery } from "react-native-responsive";
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
-var orientation = width > height ? 'LANDSCAPE' : 'PORTRAIT';
+
+const { width,height } = Dimensions.get('window');
 
 export default class UserGuidesList extends Component {
     constructor(props) {
@@ -101,12 +102,6 @@ export default class UserGuidesList extends Component {
             catch (error) {
               // Error retrieving data
             }
-
-            Dimensions.addEventListener('change', ({ window: { width, height } }) => {
-            orientation = width > height ? 'LANDSCAPE' : 'PORTRAIT';
-        });
-
-      
     }
 
     renderUserGuideItem({item, index}){
@@ -114,88 +109,76 @@ export default class UserGuidesList extends Component {
         const first = index === 0;
         const second = index === 1;
         return (
-            <View onLayout={this.onLayout.bind(this)}>
+            <TouchableOpacity style={[ index >1 ? Styles.item :Styles.firstrowItem ]} onPress={()=>{ index >1 ? navigate("UserGuidesDetail", {userguideIndex: index}) : navigate("DiscussionAndCardDetail", {userguideIndex: index})}}>
             {first ?
-                <TouchableOpacity style={[Styles.firstrowItem,{width: width/2.47}]} onPress={()=>{navigate("DiscussionAndCardDetail", {userguideIndex: index})}}>
-                    <View style={[Styles.firstrowView,{width: width/2.47}]}>
-                        <View style={Styles.iconView}>
-                            <Image source={require('../../../../assets/images/icon-cardgame.png')} resizeMode='stretch' style={Styles.iconCard}/>
+                <View style={Styles.itemView}>
+                        <MediaQuery minDeviceWidth={768}>
+                            <Image source={Images.icon_cardgame}  style={Styles.icon}/>
+                        </MediaQuery>
+                        <View style={Styles.cardView}>
+                            <Text medium style={[Styles.cardtitle,{ color: Colors.Red}]}>{item.title} </Text>
+                            <Image source={require('../../../../assets/images/Red-left-arrow.png')} resizeMode='stretch'/>
                         </View>
-                        <View style={{flexDirection:'row',alignItems:'center'}}>
-                            <Text style={[Styles.cardtitle,{ color: Colors.Red,fontSize:  orientation === 'PORTRAIT' ? width/35 : height/35}]}>{item.title} </Text>
-                              <Image source={require('../../../../assets/images/Red-left-arrow.png')} resizeMode='stretch'/>
-                        </View>
-                    </View>
-                </TouchableOpacity>
+                </View>
                 : second ?
-                        <TouchableOpacity style={[Styles.firstrowItem,{width: width/2.47}]} onPress={()=>{navigate("DiscussionAndCardDetail", {userguideIndex: index})}}>
-                            <View style={[Styles.firstrowView,{width: width/2.47}]}>
-                                <View style={Styles.iconView}>
-                                    <Image source={require('../../../../assets/images/icon-discussion-starter.png')} resizeMode='stretch' style={Styles.iconDuscussion}/>
-                                </View>
-                                <View style={{flexDirection:'row',alignItems:'center'}}>
-                                    <Text style={[Styles.cardtitle,{ color: Colors.Red,fontSize:  orientation === 'PORTRAIT' ? width/35 : height/35}]}>{item.title} </Text>
-                                    <Image source={require('../../../../assets/images/Red-left-arrow.png')} resizeMode='stretch'/>
-                                </View>
+                        <View style={Styles.itemView}>
+                            <MediaQuery minDeviceWidth={768}>
+                                <Image source={Images.icon_discussion_starter}  style={[Styles.icon,{width:width/5}]}/>
+                            </MediaQuery>
+                            <View style={Styles.cardView}>
+                                <Text medium style={[Styles.cardtitle,{ color: Colors.Red}]}>{item.title} </Text>
+                                <Image source={require('../../../../assets/images/Red-left-arrow.png')} resizeMode='stretch'/>
                             </View>
-                        </TouchableOpacity>
+                        </View>
                         :
-                        <TouchableOpacity style={[Styles.item,{width: width/2.47}]} onPress={()=>{navigate("UserGuidesDetail", {userguideIndex: index})}}>
-                            <View style={{flexDirection:'row',alignItems:'center'}}>
-                                <Text style={[Styles.cardtitle,{fontSize:  orientation === 'PORTRAIT' ? width/35 : height/35}]}>{item.title}</Text>
+                        <View style={Styles.itemView}>
+                            <View style={Styles.cardView}>
+                                <Text medium style={Styles.cardtitle}>{item.title}</Text>
                                 <Image source={require('../../../../assets/images/blue-left-arrow.png')} resizeMode='stretch' />
                             </View>
-                        </TouchableOpacity>
+                        </View>
             }
-            </View>
+            </TouchableOpacity>
         )
     }
 
-    onLayout(e) {
-
-        height = Dimensions.get('window').height;
-        width = Dimensions.get('window').width;
-         this.setState({
-                        userguideIndexes: this.state.userguideIndexes,
-                    })
-        this.forceUpdate();
-    }
-
     render() {
-        const Piphone =  height-responsiveHeight(15.5);
-        const Pipad =  height-responsiveHeight(14.5);
-        const Pandroid =  height-responsiveHeight(16);
-        const Lipad = height-responsiveHeight(14.9);
-        const Lipone = height-responsiveHeight(13);
-        const Landroid =  height-responsiveHeight(16);
-
        
         return (
-            <View style={Styles.container}  onLayout={this.onLayout.bind(this)}>
-                <ImageBackground source={require('../../../../assets/images/bg-how-to.jpg')} resizeMode='stretch' style={{ width: width,height: orientation === 'PORTRAIT' ? Platform.isPad ? Pipad : Platform.OS === 'android' ? Pandroid : Piphone  : Platform.isPad ? Lipad : Platform.OS === 'android' ? Landroid : Lipone }} >
-                    <View style={Styles.scrollcontainer}> 
-                        <ScrollView contentContainerStyle={Styles.scroll}>
-                            <Loader loading={this.state.loaderVisible}/>
-                            <View style={[Styles.itemTop,{ marginTop : width/35, width : width/1.2,}]}>
-                                <View style={[Styles.itemTopView,{width : width/1.2,}]}>
-                                    <Text style={[Styles.title,{fontSize:  orientation === 'PORTRAIT' ? width/20 : height/20}]}>How to</Text>
-                                        <Text style={[Styles.subtitle,{fontSize:  orientation === 'PORTRAIT' ? width/30 : height/30}]}>
-                                            Using and getting the most out of the dying to talk app
-                                        </Text>
-                                </View>
-                            </View>
-                            <FlatList
-                                numColumns = {2}
-                                data = {this.state.userguideIndexes}
-                                extraData={this.state}
-                                renderItem = {this.renderUserGuideItem.bind(this)}
-                                keyExtractor = {(index) => index.toString()}
-                            />
+            <ImageBackground source={require('../../../../assets/images/bg-how-to.jpg')} resizeMode="stretch" style={Styles.container} >
 
-                        </ScrollView>
+                <ScrollView contentContainerStyle={Styles.scroll}>
+
+                    <View style={Styles.titleView}>
+                        <Text large style={Styles.title}>How to</Text>
+                        <Text medium style={Styles.subtitle}>
+                            Using and getting the most out of the dying to talk app
+                        </Text>
                     </View>
-                </ImageBackground>
-            </View>
+
+                    <MediaQuery minDeviceWidth={768}>
+                        <FlatList
+                            numColumns = {2}
+                            data = {this.state.userguideIndexes}
+                            extraData={this.state}
+                            renderItem = {this.renderUserGuideItem.bind(this)}
+                            keyExtractor = {(index) => index.toString()}
+                        />
+                    </MediaQuery>
+
+                    <MediaQuery maxDeviceWidth={767}>
+                        <FlatList
+                            numColumns = {1}
+                            data = {this.state.userguideIndexes}
+                            extraData={this.state}
+                            renderItem = {this.renderUserGuideItem.bind(this)}
+                            keyExtractor = {(index) => index.toString()}
+                        />
+                    </MediaQuery>
+
+                </ScrollView>
+            </ImageBackground>
+          
         );
     }
 }
