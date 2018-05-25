@@ -15,53 +15,54 @@ const { width, height } = Dimensions.get('window'); // Detect screen width and h
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';// use for responsive screen UI
 
 export default {
-  slide: {
-    flex: 1,              
-    alignItems: 'center',  
+  slide: {           
+    alignItems: 'center',
+    paddingHorizontal:width/10, 
   },
   scrollcontainer:{
-    marginBottom:height/15,
+    alignItems:'center'
   },
   logo:{
-    marginBottom:height/30,
+    marginBottom:height/15,
     marginTop:height/10,
-    height:height/6,
+    height:height/8,
     width:width/3,
   },
   middleimage:{
     height:height/3,
-    width:width/1.5,
+    width:width/1.38,
   },
   descText: {
-    marginHorizontal: width/10,
-    marginVertical:height/25,
-    textAlign:'center'
+    textAlign:'center',
+    color:Colors.textSecondary
   },
   container: {
     flex: 1, 
-    backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center',
   },
   pagination: {
     flexDirection: 'row',
     justifyContent: 'center',
+    marginVertical:height/50
   },
   dot: {
-    backgroundColor: 'rgba(0,0,0,.25)',
+    backgroundColor: Colors.white,
     width: width/8,
     height: 5,
+    borderWidth:1,
+    borderColor:Colors.gray,
     marginLeft: 2,
     marginRight: 2,
-    width: width/8,
   },
   activeDot: {
-    backgroundColor: 'gray',
+    backgroundColor: Colors.gray,
   },
   buttonContainer: {
     flexDirection:'row',
     justifyContent:'center',
-    alignItems:'center'
+    alignItems:'center',
+
   },
   buttonPrev: {         
     width:width/4,
@@ -75,4 +76,11 @@ export default {
     alignItems:'center',
     justifyContent:'center',
   },
+  textView:{
+    backgroundColor:Colors.white,
+    width:width/1.38,
+    height:height/8,
+    paddingHorizontal: width/10,
+    paddingVertical:height/40,
+  }
 };

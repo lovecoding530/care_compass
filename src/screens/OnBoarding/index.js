@@ -8,16 +8,17 @@ import {
     TouchableOpacity,
     Dimensions,
     ScrollView,
+    Orientation
 } from 'react-native';
 
 import Styles from '@OnBoardingstyles';
-const { width, height } = Dimensions.get('window');// use for device height and width
+var { width, height } = Dimensions.get('window');// use for device height and width
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions'; // use for responsive screen UI
 import Button from '@button'
 import Footer from '@footer'
 import Text from '@text'
 import {Colors} from '@theme'
-import Orientation from 'react-native-orientation';
+var orientation = 'PORTRAIT'
 let orientationWidth=width;
 
 let swiperprops; // use to get props for navigating to home screen
@@ -53,66 +54,11 @@ class Swiper extends Component {
   };
 
   componentDidMount() {
-    Orientation.addOrientationListener(this._orientationDidChange);
-  }
 
-  _orientationDidChange = (orientation) => {
-   
-    if (orientation === 'LANDSCAPE') {
+    Dimensions.addEventListener('change', ({ window: { width, height } }) => {
+      orientation = width > height ? 'LANDSCAPE' : 'PORTRAIT';
 
-      var new_width = Dimensions.get('window').width
-      var new_height = Dimensions.get('window').height
-
-      orientationWidth = new_width;
-
-      offset = orientationWidth * this.state.index;
-
-      this.internals = {
-        isScrolling: false,
-        offset
-      };
-
-
-      x = this.state.index * new_width,
-      y = 0;
-
-      this.scrollView && this.scrollView.scrollTo({ x, y, animated: true });
-
-      this.forceUpdate();
-
-    } 
-    else 
-    {
-      var new_width = Dimensions.get('window').width
-      var new_height = Dimensions.get('window').height
-      orientationWidth = new_width;
-
-      offset = orientationWidth * this.state.index;
-
-      this.internals = {
-        isScrolling: false,
-        offset
-      };
-
-      if(this.state.index==1)
-      {
-        x = this.state.index * new_width,
-        y = 0;
-    
-        this.scrollView && this.scrollView.scrollTo({ x, y, animated: true });
-      }
-        
-      this.forceUpdate()
-    }
-  }
-
-  componentWillUnmount() {
-    Orientation.getOrientation((err, orientation) => {
-      console.log(`Current Device Orientation: ${orientation}`);
     });
-
-    // Remember to remove listener
-    Orientation.removeOrientationListener(this._orientationDidChange);
   }
 
   state = this.initState(this.props);
@@ -127,7 +73,7 @@ class Swiper extends Component {
       // Current index
       index = total > 1 ? Math.min(props.index, total - 1) : 0,
       // Current offset
-      offset = orientationWidth * index;
+      offset = width * index;
 
     const state = {
       total,
@@ -203,7 +149,8 @@ class Swiper extends Component {
     }
 
     // Make sure index is always an integer
-    index = parseInt(index + Math.round(diff / step));
+    index = parseInt(index + Math.round(diff / step), 10);
+
     // Update internal offset
     this.internals.offset = offset;
     // Update index in the state
@@ -221,11 +168,10 @@ class Swiper extends Component {
       return;
     }
 
-    const state = this.state
-
-      var diff = this.state.index + 1;
-      var x = diff * orientationWidth;
-      var y = 0;
+    const state = this.state,
+      diff = this.state.index + 1,
+      x = diff * orientationWidth,
+      y = 0;
 
     // Call scrollTo on scrollView component to perform the swipe
     this.scrollView && this.scrollView.scrollTo({ x, y, animated: true });
@@ -254,9 +200,10 @@ class Swiper extends Component {
       return;
     }
 
-      var diff = this.state.index - 1;
-      var x = diff * orientationWidth;
-      var y = 0;
+    const state = this.state,
+      diff = this.state.index - 1,
+      x = diff * orientationWidth,
+      y = 0;
 
     // Call scrollTo on scrollView component to perform the swipe
     this.scrollView && this.scrollView.scrollTo({ x, y, animated: true });
@@ -289,7 +236,7 @@ class Swiper extends Component {
       >
         {pages.map((page, i) =>
           // Render each slide inside a View
-          <View key={i} style={{width:orientationWidth}} >
+          <View key={i}>
             {page}
           </View>
         )}
@@ -305,8 +252,8 @@ class Swiper extends Component {
       return null;
     }
 
-    const ActiveDot = <View style={[Styles.dot, Styles.activeDot,{ marginBottom: height/7,width: width/8,}]} />,
-      Dot = <View style={[Styles.dot,{width: width/8}]} />;
+    const ActiveDot = <View style={[Styles.dot, Styles.activeDot]} />,
+      Dot = <View style={[Styles.dot]} />;
 
     let dots = [];
 
@@ -340,54 +287,111 @@ class Swiper extends Component {
   /**
    * Render Next or Done button
    */
-  renderButton = () => {  
-    const lastScreen = this.state.index === this.state.total - 1;
+  renderButton = () => {   
+   const lastScreen = this.state.index === this.state.total - 1;
     const firstScreen = this.state.index === 0;
-    const secondScreen = this.state.index === 1;
-    
-      return (
+        const secondScreen = this.state.index === 1;
+    return (
 
-        <View pointerEvents="box-none">
+       <View pointerEvents="box-none">
           {lastScreen
             ? <View style={Styles.buttonContainer}>
-                <Button light buttonStyles={Styles.buttonPrev} onPress={() => this.swipePrev()}>Previous</Button>
-                <Button dark buttonStyles={Styles.buttonNext} onPress={() => this.onDone()}>Done</Button>
+                <Button light bold textStyles={{color:Colors.darkNavy}} buttonStyles={Styles.buttonPrev} onPress={() => this.swipePrev()}>Previous</Button>
+                <Button dark bold textStyles={{color:Colors.white}} buttonStyles={Styles.buttonNext} onPress={() => this.onDone()}>Done</Button>
               </View>
             : firstScreen
             ? <View style={Styles.buttonContainer}>
-                <Button dark  buttonStyles={Styles.buttonNext} onPress={() => this.swipe()}>Next</Button>
+                <Button dark bold textStyles={{color:Colors.white}} buttonStyles={Styles.buttonNext} onPress={() => this.swipe()}>Next</Button>
               </View>
                :   secondScreen 
                ?  <View style={[Styles.buttonContainer]}>
-                    <Button light buttonStyles={Styles.buttonPrev} onPress={() => this.swipePrev()}>Previous</Button>
-                    <Button dark buttonStyles={Styles.buttonNext} onPress={() => this.swipe()}>Next</Button>
+                    <Button light bold textStyles={{color:Colors.darkNavy}} buttonStyles={Styles.buttonPrev} onPress={() => this.swipePrev()}>Previous</Button>
+                    <Button dark bold textStyles={{color:Colors.white}} buttonStyles={Styles.buttonNext} onPress={() => this.swipe()}>Next</Button>
                   </View>
                   : null
           }
         </View>
-        );
+
+    )
   }
-   /**
+
+  onLayout(e) {
+
+    width = Dimensions.get('window').width
+    height = Dimensions.get('window').height
+    if (orientation === 'LANDSCAPE') {
+
+      var new_width = Dimensions.get('window').width
+      var new_height = Dimensions.get('window').height
+
+      orientationWidth = new_width;
+      offset = orientationWidth * this.state.index;
+
+      this.internals = {
+        isScrolling: false,
+        offset
+      };
+
+
+      x = this.state.index * new_width,
+      y = 0;
+
+      this.scrollView && this.scrollView.scrollTo({ x, y, animated: true });
+
+      
+
+      this.forceUpdate();
+
+    } 
+    else 
+    {
+      var new_width = Dimensions.get('window').width
+      var new_height = Dimensions.get('window').height
+      orientationWidth = new_width;
+
+      offset = orientationWidth * this.state.index;
+
+      this.internals = {
+        isScrolling: false,
+        offset
+      };
+
+      if(this.state.index==1)
+      {
+        x = this.state.index * new_width,
+        y = 0;
+    
+        this.scrollView && this.scrollView.scrollTo({ x, y, animated: true });
+      }
+        
+      this.forceUpdate()
+    }
+  }
+
+  /**
   * Render the component
   */
   render = ({ children } = this.props) => {
-   
-    return (
-     
-      <View style={{backgroundColor:Colors.backgroundPrimary}}>
-      <View style={Styles.scrollcontainer}> 
-       <ScrollView contentContaineStyle={Styles.container}>
+  
+  return(
+     <View style={Styles.container} onLayout={this.onLayout.bind(this)}>
+      <ImageBackground source={require('../../../assets/images/bg-splash-onboarding.jpg')} resizeMode='stretch' style={{ width: width,height:Platform.OS === 'android' ?  height-responsiveHeight(10) :  height-responsiveHeight(7)}} >
+      <ScrollView contentContainerStyle={Styles.scrollcontainer}>
         {/* Render screens */}
+        <Image style={Styles.logo} resizeMode='stretch'  source={require('../../../assets/images/dtt-logo-blue.png')}/>
         {this.renderScrollView(children)}
         {/* Render Continue or Done button */}
+        <View style={{width:width/1.38,backgroundColor:Colors.white,}}>
         {this.renderButton()}
         {/* Render pagination */}
         {this.renderPagination()}
-         </ScrollView>
-         </View>
-        <Footer/>
+        </View>
+        </ScrollView>
+        </ImageBackground>
       </View>
-    )
+
+
+    );
   }
 }
 
@@ -406,26 +410,36 @@ export default class OnBoarding extends Component {
     componentDidMount() {
     }
 
+     onLayout(e) {
+       width = Dimensions.get('window').width
+       height = Dimensions.get('window').height
+
+       this.forceUpdate();
+    }
+
     /**
     * Render View with Swip
     */
     render() {
         return (
-          <Swiper >
-            <View style={[Styles.slide]} >
-              <Image style={Styles.logo} source={require('../../../assets/OnBoarding/OnBoarding_logo.png')}/>
-              <Image style={Styles.middleimage}  source={require('../../../assets/OnBoarding/OnBoarding_middleimage.png')}/>
-              <Text smallMedium style={Styles.descText}>Start discussion with us by choose activity and give answers of our questions.</Text>
+          <Swiper onLayout={this.onLayout.bind(this)}>
+            <View style={[Styles.slide,{width:width}]} >
+              <Image style={[Styles.middleimage,{ width:width/1.38,}]}  resizeMode='stretch' source={require('../../../assets/images/Dark-navy-back.png')}/>
+              <View style={[Styles.textView,{width:width/1.38,}]}>
+                <Text bold smallMedium style={Styles.descText}>Start discussion with us by choose activity and give answers of our questions.</Text>
+              </View>
             </View>
-            <View style={[Styles.slide]} >
-              <Image style={Styles.logo}  source={require('../../../assets/OnBoarding/OnBoarding_logo.png')}/>
-              <Image style={Styles.middleimage} source={require('../../../assets/OnBoarding/OnBoarding_middleimage.png')}/>
-              <Text smallMedium style={Styles.descText}>Play card game by set card priority and submit to us.</Text>
+            <View style={[Styles.slide,{width:width}]} >
+              <Image style={[Styles.middleimage,{ width:width/1.38,}]} resizeMode='stretch' source={require('../../../assets/images/Dark-navy-back.png')}/>
+              <View style={[Styles.textView,{width:width/1.38,}]}>
+                <Text bold smallMedium style={Styles.descText}>Play card game by set card priority and submit to us.</Text>
+              </View>
             </View>
-            <View style={[Styles.slide]} >
-              <Image style={Styles.logo}  source={require('../../../assets/OnBoarding/OnBoarding_logo.png')}/>
-              <Image style={Styles.middleimage} source={require('../../../assets/OnBoarding/OnBoarding_middleimage.png')}/>
-              <Text smallMedium style={Styles.descText}>Use our resources link and user guidance to learn more.</Text>
+            <View style={[Styles.slide,{width:width}]} >
+              <Image style={[Styles.middleimage,{ width:width/1.38,}]} resizeMode='stretch' source={require('../../../assets/images/Dark-navy-back.png')}/>
+              <View style={[Styles.textView,{width:width/1.38,}]}>
+                <Text bold smallMedium style={Styles.descText}>Use our resources link and user guidance to learn more.</Text>
+              </View>
             </View>
           </Swiper>
         )
