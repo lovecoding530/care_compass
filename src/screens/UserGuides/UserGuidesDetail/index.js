@@ -171,7 +171,7 @@ export default class UserGuidesDetail extends Component {
 
     renderFAQItem({item, index}){
         return (
-            <View style={[Styles.item,{marginVertical: height/40,}]}>
+            <View style={Styles.item}>
                 <View style={Styles.itemTitle}>
                     <Text bold style={[Styles.txtQuestion,{fontSize:orientation === 'PORTRAIT' ? width/30 : height/30}]}>{index + 1}: </Text>
                     <Text style={Styles.txtQuestion}>
@@ -192,22 +192,29 @@ export default class UserGuidesDetail extends Component {
 
 
     render() {   
+        const Piphone =  height-responsiveHeight(15.5);
+        const Pipad =  height-responsiveHeight(14.5);
+        const Pandroid =  height-responsiveHeight(16);
+        const Lipad = height-responsiveHeight(14.9);
+        const Lipone = height-responsiveHeight(13);
+        const Landroid =  height-responsiveHeight(16);
+
         return (
              <View style={Styles.container}  onLayout={this.onLayout.bind(this)}>
-                <ImageBackground source={require('../../../../assets/images/bg-how-to.jpg')} resizeMode='stretch' style={{ width: width,height: height-responsiveHeight(15), }} >
+                <ImageBackground source={require('../../../../assets/images/bg-how-to.jpg')} resizeMode='stretch' style={{ width: width,height: orientation === 'PORTRAIT' ? Platform.isPad ? Pipad : Platform.OS === 'android' ? Pandroid : Piphone  : Platform.isPad ? Lipad : Platform.OS === 'android' ? Landroid : Lipone }} >
                     <View style={Styles.scrollcontainer}> 
                        <ScrollView contentContainerStyle={Styles.scroll}> 
                             <Loader loading={this.state.loaderVisible}/>
                           
 
                             <View style={[Styles.itemTop,{width : width/1.2,marginTop : width/35,}]}>
-                                <View style={[Styles.itemTopView,{paddingVertical:height/45,width : width/1.2,}]}>
+                                <View style={[Styles.itemTopView,{width : width/1.2,}]}>
                                     <Text style={[Styles.title,{fontSize:  orientation === 'PORTRAIT' ? width/20 : height/20}]}>How to</Text>
                                     <Text style={[Styles.subtitle,{fontSize:  orientation === 'PORTRAIT' ? width/30 : height/30}]}>{this.state.title}</Text>
                                 </View>
                             </View>
 
-                            <View style={[Styles.itemView,{width : width/1.2,height: height/2,}]}>
+                            <View style={[Styles.itemView,{width : width/1.2}]}>
                                 <View style={[Styles.viewBody,{marginHorizontal : width/9,}]}>
                                     <HTMLView
                                         value={this.state.body}
@@ -217,8 +224,8 @@ export default class UserGuidesDetail extends Component {
 
                                  {this.state.image == '' ? null 
                                     
-                                    : <View style={[Styles.viewImage,{marginVertical: height/30,}]}>
-                                        <Image style={[Styles.middleimage,{height:height/3,width:width/1.5}]} source={{uri: this.state.image}}/>
+                                    : <View style={Styles.viewImage}>
+                                        <Image style={[Styles.middleimage,{width:width/1.5}]} source={{uri: this.state.image}}/>
                                       </View>  
                                  }
 
@@ -242,7 +249,7 @@ export default class UserGuidesDetail extends Component {
                     </View>
                     <View style={[Styles.buttonBackView,{paddingHorizontal:width/12}]}>
                         <Button light onPress={ ()=> this.props.navigation.goBack() } buttonStyles={Styles.buttonBack}>Go back</Button>
-                         <Button dark  onPress={this._share} buttonStyles={Styles.buttonBack}>Share</Button>
+                        <Button dark  onPress={this._share} buttonStyles={Styles.buttonBack}>Share</Button>
                     </View>
                 </ImageBackground>
             </View>

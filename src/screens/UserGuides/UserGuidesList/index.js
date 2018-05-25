@@ -116,10 +116,10 @@ export default class UserGuidesList extends Component {
         return (
             <View onLayout={this.onLayout.bind(this)}>
             {first ?
-                <TouchableOpacity style={[Styles.firstrowItem,{width: width/2.47,height: width/3.5,}]} onPress={()=>{navigate("DiscussionAndCardDetail", {userguideIndex: index})}}>
-                    <View style={[Styles.firstrowView,{width: width/2.47,height: width/3.5,paddingVertical:height/50,}]}>
-                        <View style={[Styles.iconView,{height:height/9,marginBottom:height/60,}]}>
-                            <Image source={require('../../../../assets/images/icon-cardgame.png')} resizeMode='stretch' style={{ width : orientation === 'PORTRAIT' ? width/6 : height/6,height : orientation === 'PORTRAIT' ? height/9 : width/9,}}/>
+                <TouchableOpacity style={[Styles.firstrowItem,{width: width/2.47}]} onPress={()=>{navigate("DiscussionAndCardDetail", {userguideIndex: index})}}>
+                    <View style={[Styles.firstrowView,{width: width/2.47}]}>
+                        <View style={Styles.iconView}>
+                            <Image source={require('../../../../assets/images/icon-cardgame.png')} resizeMode='stretch' style={Styles.iconCard}/>
                         </View>
                         <View style={{flexDirection:'row',alignItems:'center'}}>
                             <Text style={[Styles.cardtitle,{ color: Colors.Red,fontSize:  orientation === 'PORTRAIT' ? width/35 : height/35}]}>{item.title} </Text>
@@ -128,10 +128,10 @@ export default class UserGuidesList extends Component {
                     </View>
                 </TouchableOpacity>
                 : second ?
-                        <TouchableOpacity style={[Styles.firstrowItem,{width: width/2.47,height: width/3.5,}]} onPress={()=>{navigate("DiscussionAndCardDetail", {userguideIndex: index})}}>
-                            <View style={[Styles.firstrowView,{width: width/2.47,height: width/3.5,paddingVertical:height/50,}]}>
-                                <View style={[Styles.iconView,{height:height/9,marginBottom:height/60,}]}>
-                                    <Image source={require('../../../../assets/images/icon-discussion-starter.png')} resizeMode='stretch' style={{ width : orientation === 'PORTRAIT' ? width/6 : height/6,height : orientation === 'PORTRAIT' ? height/11 : width/11,}}/>
+                        <TouchableOpacity style={[Styles.firstrowItem,{width: width/2.47}]} onPress={()=>{navigate("DiscussionAndCardDetail", {userguideIndex: index})}}>
+                            <View style={[Styles.firstrowView,{width: width/2.47}]}>
+                                <View style={Styles.iconView}>
+                                    <Image source={require('../../../../assets/images/icon-discussion-starter.png')} resizeMode='stretch' style={Styles.iconDuscussion}/>
                                 </View>
                                 <View style={{flexDirection:'row',alignItems:'center'}}>
                                     <Text style={[Styles.cardtitle,{ color: Colors.Red,fontSize:  orientation === 'PORTRAIT' ? width/35 : height/35}]}>{item.title} </Text>
@@ -140,7 +140,7 @@ export default class UserGuidesList extends Component {
                             </View>
                         </TouchableOpacity>
                         :
-                        <TouchableOpacity style={[Styles.item,{width: width/2.47,height: width/12,}]} onPress={()=>{navigate("UserGuidesDetail", {userguideIndex: index})}}>
+                        <TouchableOpacity style={[Styles.item,{width: width/2.47}]} onPress={()=>{navigate("UserGuidesDetail", {userguideIndex: index})}}>
                             <View style={{flexDirection:'row',alignItems:'center'}}>
                                 <Text style={[Styles.cardtitle,{fontSize:  orientation === 'PORTRAIT' ? width/35 : height/35}]}>{item.title}</Text>
                                 <Image source={require('../../../../assets/images/blue-left-arrow.png')} resizeMode='stretch' />
@@ -162,15 +162,22 @@ export default class UserGuidesList extends Component {
     }
 
     render() {
+        const Piphone =  height-responsiveHeight(15.5);
+        const Pipad =  height-responsiveHeight(14.5);
+        const Pandroid =  height-responsiveHeight(16);
+        const Lipad = height-responsiveHeight(14.9);
+        const Lipone = height-responsiveHeight(13);
+        const Landroid =  height-responsiveHeight(16);
+
        
         return (
             <View style={Styles.container}  onLayout={this.onLayout.bind(this)}>
-                <ImageBackground source={require('../../../../assets/images/bg-how-to.jpg')} resizeMode='stretch' style={{ width: width,height: height-responsiveHeight(14), }} >
+                <ImageBackground source={require('../../../../assets/images/bg-how-to.jpg')} resizeMode='stretch' style={{ width: width,height: orientation === 'PORTRAIT' ? Platform.isPad ? Pipad : Platform.OS === 'android' ? Pandroid : Piphone  : Platform.isPad ? Lipad : Platform.OS === 'android' ? Landroid : Lipone }} >
                     <View style={Styles.scrollcontainer}> 
                         <ScrollView contentContainerStyle={Styles.scroll}>
                             <Loader loading={this.state.loaderVisible}/>
                             <View style={[Styles.itemTop,{ marginTop : width/35, width : width/1.2,}]}>
-                                <View style={[Styles.itemTopView,{ paddingVertical:height/45,width : width/1.2,}]}>
+                                <View style={[Styles.itemTopView,{width : width/1.2,}]}>
                                     <Text style={[Styles.title,{fontSize:  orientation === 'PORTRAIT' ? width/20 : height/20}]}>How to</Text>
                                         <Text style={[Styles.subtitle,{fontSize:  orientation === 'PORTRAIT' ? width/30 : height/30}]}>
                                             Using and getting the most out of the dying to talk app
@@ -186,7 +193,6 @@ export default class UserGuidesList extends Component {
                             />
 
                         </ScrollView>
-
                     </View>
                 </ImageBackground>
             </View>
