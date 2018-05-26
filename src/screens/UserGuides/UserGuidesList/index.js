@@ -117,7 +117,7 @@ export default class UserGuidesList extends Component {
                         </MediaQuery>
                         <View style={Styles.cardView}>
                             <Text medium style={[Styles.cardtitle,{ color: Colors.Red}]}>{item.title} </Text>
-                            <Image source={require('../../../../assets/images/Red-left-arrow.png')} resizeMode='stretch'/>
+                            <Image source={Images.icon_left_arrow} resizeMode='contain' style={{tintColor: Colors.Red}}/>
                         </View>
                 </View>
                 : second ?
@@ -127,14 +127,14 @@ export default class UserGuidesList extends Component {
                             </MediaQuery>
                             <View style={Styles.cardView}>
                                 <Text medium style={[Styles.cardtitle,{ color: Colors.Red}]}>{item.title} </Text>
-                                <Image source={require('../../../../assets/images/Red-left-arrow.png')} resizeMode='stretch'/>
+                                <Image source={Images.icon_left_arrow} resizeMode='contain' style={{tintColor: Colors.Red}}/>
                             </View>
                         </View>
                         :
                         <View style={Styles.itemView}>
                             <View style={Styles.cardView}>
                                 <Text medium style={Styles.cardtitle}>{item.title}</Text>
-                                <Image source={require('../../../../assets/images/blue-left-arrow.png')} resizeMode='stretch' />
+                                <Image source={Images.icon_left_arrow} resizeMode='contain' />
                             </View>
                         </View>
             }
@@ -145,7 +145,7 @@ export default class UserGuidesList extends Component {
     render() {
        
         return (
-            <ImageBackground source={require('../../../../assets/images/bg-how-to.jpg')} resizeMode="stretch" style={Styles.container} >
+            <ImageBackground source={Images.bg_how_to} resizeMode="stretch" style={Styles.container} >
 
                 <ScrollView contentContainerStyle={Styles.scroll}>
 

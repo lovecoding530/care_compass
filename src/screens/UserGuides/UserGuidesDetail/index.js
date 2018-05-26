@@ -17,7 +17,7 @@ import Styles from './styles';
 import Text from '@text'
 import Footer from '@footer'
 import Button from '@button'
-import {Colors} from '@theme';
+import {Colors, Images, FontSizes} from '@theme';
 import { Loader } from '@components';
 
 import { getUserGuides, API_HTML_ROOT } from "@api";
@@ -183,7 +183,7 @@ export default class UserGuidesDetail extends Component {
     render() {   
 
         return (
-            <ImageBackground source={require('../../../../assets/images/bg-how-to.jpg')} resizeMode="stretch" style={Styles.container} >
+            <ImageBackground source={Images.bg_how_to} resizeMode="stretch" style={Styles.container} >
 
                 <ScrollView contentContainerStyle={Styles.scroll}>
                     <Loader loading={this.state.loaderVisible}/>

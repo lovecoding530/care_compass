@@ -5,13 +5,14 @@ import {
     Dimensions,
 } from 'react-native';
 
-import {Colors} from '@theme';
+import {Colors, MediaQueries} from '@theme';
 
 const { width,height } = Dimensions.get('window');
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
+import { MediaQueryStyleSheet } from "react-native-responsive";
 
 
-export default {
+export default MediaQueryStyleSheet.create({
 
     container: {
         flex: 1, 
@@ -30,7 +31,7 @@ export default {
         margin: 8,
         textAlign:'center'
     },
-     cardView:{
+    cardView:{
         flexDirection:'row',
         alignItems:'center'
     },
@@ -52,8 +53,6 @@ export default {
         shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
         shadowOpacity: 0.5,
         shadowRadius: 0,
-        justifyContent: 'center',
-        alignItems: 'center',
     },
     titleView: {
         backgroundColor: Colors.backgroundSecondary,
@@ -90,5 +89,35 @@ export default {
         width:width/6,
         paddingHorizontal:width/90
     },
-
-};
+}, {
+    [MediaQueries.iPad] : {
+        item: {
+            flex: 1,
+            backgroundColor: Colors.backgroundSecondary,
+            borderRadius: 8,
+            shadowColor: '#000',
+            shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
+            shadowOpacity: 0.5,
+            shadowRadius: 0,
+            margin: width/60,   
+            paddingVertical:height/80,  
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        firstrowItem: {
+            flex: 1,
+            backgroundColor: Colors.backgroundSecondary,
+            borderRadius: responsiveWidth(1.2),
+            borderTopWidth: responsiveWidth(1.2),
+            borderTopColor: Colors.Navy,
+            margin: width/60,   
+            paddingVertical:height/30,
+            shadowColor: '#000',
+            shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
+            shadowOpacity: 0.5,
+            shadowRadius: 0,
+            justifyContent: 'center',
+            alignItems: 'center',
+        }
+    }
+});

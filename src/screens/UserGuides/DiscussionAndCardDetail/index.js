@@ -18,7 +18,7 @@ import Button from '@button'
 import Footer from '@footer'
 import { Loader } from '@components';
 import moment from 'moment';
-import {Colors} from '@theme';
+import {Colors, Images, FontSizes} from '@theme';
 const { width,height } = Dimensions.get('window');
 import { MediaQuery } from "react-native-responsive";
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
@@ -38,7 +38,7 @@ export default class DiscussionAndCardDetail extends Component {
     render() {
 
         return (
-            <ImageBackground source={require('../../../../assets/images/bg-how-to.jpg')} resizeMode="stretch" style={Styles.container} >
+            <ImageBackground source={Images.bg_how_to} resizeMode="stretch" style={Styles.container} >
 
                 <ScrollView contentContainerStyle={Styles.scroll}>
 
@@ -51,40 +51,40 @@ export default class DiscussionAndCardDetail extends Component {
                             </View>
                             <MediaQuery minDeviceWidth={768}>
                                 <View style={{flexDirection:'row'}}>
-                                <TouchableOpacity style={Styles.firstrowItem}>
-                                    <Image source={require('../../../../assets/images/icon-professional.png')} resizeMode='stretch' style={Styles.icon}/>
-                                    <View style={Styles.cardView}>
-                                        <Text medium style={Styles.cardtitle}>Professional</Text>
-                                        <Image source={require('../../../../assets/images/blue-left-arrow.png')} resizeMode='stretch'/>
-                                    </View>
-                                </TouchableOpacity>
+                                    <TouchableOpacity style={Styles.firstrowItem}>
+                                        <Image source={Images.icon_professional} resizeMode='stretch' style={Styles.icon}/>
+                                        <View style={Styles.cardView}>
+                                            <Text medium style={Styles.cardtitle}>Professional</Text>
+                                            <Image source={Images.icon_left_arrow} resizeMode='stretch'/>
+                                        </View>
+                                    </TouchableOpacity>
 
-                                <TouchableOpacity style={Styles.firstrowItem} >             
-                                    <Image source={require('../../../../assets/images/icon-community.png')} resizeMode='stretch' style={[Styles.icon,{width:width/5,}]}/>
-                                    <View style={Styles.cardView}>
-                                        <Text medium style={Styles.cardtitle}>Community</Text>
-                                        <Image source={require('../../../../assets/images/blue-left-arrow.png')} resizeMode='stretch'/>
-                                    </View>
-                                </TouchableOpacity>
+                                    <TouchableOpacity style={Styles.firstrowItem} >             
+                                        <Image source={Images.icon_community} resizeMode='stretch' style={[Styles.icon,{width:width/5,}]}/>
+                                        <View style={Styles.cardView}>
+                                            <Text medium style={Styles.cardtitle}>Community</Text>
+                                            <Image source={Images.icon_left_arrow} resizeMode='stretch'/>
+                                        </View>
+                                    </TouchableOpacity>
                                 </View>
                             </MediaQuery>
                             <MediaQuery maxDeviceWidth={767}>
                                 <View >
-                                <TouchableOpacity style={Styles.firstrowItem}>
-                                       
-                                    <View style={Styles.cardView}>
-                                        <Text medium style={Styles.cardtitle}>Professional</Text>
-                                        <Image source={require('../../../../assets/images/blue-left-arrow.png')} resizeMode='stretch'/>
-                                    </View>
-                                </TouchableOpacity>
+                                    <TouchableOpacity style={Styles.firstrowItem}>
+                                           
+                                        <View style={Styles.cardView}>
+                                            <Text medium style={Styles.cardtitle}>Professional</Text>
+                                            <Image source={Images.icon_left_arrow} resizeMode='stretch'/>
+                                        </View>
+                                    </TouchableOpacity>
 
-                                <TouchableOpacity style={Styles.firstrowItem}>            
-                                       
-                                    <View style={Styles.cardView}>
-                                        <Text medium style={Styles.cardtitle}>Community</Text>
-                                        <Image source={require('../../../../assets/images/blue-left-arrow.png')} resizeMode='stretch'/>
-                                    </View>
-                                </TouchableOpacity>
+                                    <TouchableOpacity style={Styles.firstrowItem}>            
+                                           
+                                        <View style={Styles.cardView}>
+                                            <Text medium style={Styles.cardtitle}>Community</Text>
+                                            <Image source={Images.icon_left_arrow} resizeMode='stretch'/>
+                                        </View>
+                                    </TouchableOpacity>
                                 </View>
                             </MediaQuery>
 
