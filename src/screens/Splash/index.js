@@ -7,13 +7,14 @@ import {
     ActivityIndicator,
     Text,
     View,
+    ScrollView,
 } from 'react-native';
 import Spinner from "react-native-spinkit";
 
 import {Colors, Images} from '@theme';
 import Styles from './styles';
 import {getBundle} from '@api';
-import { responsiveWidth } from 'react-native-responsive-dimensions';
+import { deviceWidth, deviceHeight } from "@ResponsiveDimensions";
 
 export default class Splash extends Component {
     constructor(props) {
@@ -39,15 +40,17 @@ export default class Splash extends Component {
     render() {
         return (
             <ImageBackground style={Styles.backgroundImage} source={Images.bg_splash_onboarding}>
-                <View style={Styles.circle_above}>
-                    <Image source={Images.pca_logo} style={Styles.pca_logo}/>                    
-                    <Spinner isVisible={true} size={responsiveWidth(10)} type='FadingCircle' color={Colors.Navy} style={Styles.spinner}/>
-                </View>
-                <View style={Styles.circle_bellow}>
-                    <Image source={Images.icon_dying_to_talk} style={Styles.icon_dying_to_talk}/>                    
-                </View>
-                <Text style={Styles.text_desc}>WORKING OUT WHAT'S RIGHT FOR YOU</Text>
-                <Text style={Styles.text_website}>dyingtotalk.org.au</Text>
+                <ScrollView contentContainerStyle={Styles.scrollView}>
+                    <View style={Styles.circle_above}>
+                        <Image source={Images.pca_logo} style={Styles.pca_logo}/>                    
+                        <Spinner isVisible={true} size={deviceWidth(10)} type='FadingCircle' color={Colors.Navy} style={Styles.spinner}/>
+                    </View>
+                    <View style={Styles.circle_bellow}>
+                        <Image source={Images.icon_dying_to_talk} style={Styles.icon_dying_to_talk}/>                    
+                    </View>
+                    <Text style={Styles.text_desc}>WORKING OUT WHAT'S RIGHT FOR YOU</Text>
+                    <Text style={Styles.text_website}>dyingtotalk.org.au</Text>
+                </ScrollView>
             </ImageBackground>
         );
     }

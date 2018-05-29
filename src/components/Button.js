@@ -8,6 +8,7 @@ import { TouchableOpacity, StyleSheet } from "react-native";
 import {Colors, FontSizes} from '@theme'
 import Text from '@text'
 import { responsiveWidth } from 'react-native-responsive-dimensions';
+import { deviceWidth, deviceHeight, windowHeight } from "@ResponsiveDimensions";
 
 export default (props) => {
     const {buttonStyles, textStyles, children, onPress} = props;
@@ -15,9 +16,9 @@ export default (props) => {
     var textProps = {}
 
     var buttonStyle = {
-        paddingVertical: responsiveWidth(1),
-        paddingHorizontal: responsiveWidth(2),
-        margin: responsiveWidth(1),
+        paddingVertical: deviceWidth(1),
+        paddingHorizontal: deviceWidth(2),
+        margin: deviceWidth(1),
         justifyContent: 'center',
         alignItems: 'center',
     }

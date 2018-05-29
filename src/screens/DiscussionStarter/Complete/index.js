@@ -10,6 +10,7 @@ import {
     Modal,
     Alert,
     Share,
+    ScrollView,
 } from 'react-native';
 import {Colors, Images, FontSizes} from '@theme';
 import Styles from './styles';
@@ -166,7 +167,7 @@ export default class Complete extends Component {
         return (
             <ImageBackground source={Images.bg_discussion_starter}  style={Styles.container}>
                 <Loader loading={this.state.loaderVisible}/>
-                <View style={Styles.contentView}>
+                <ScrollView contentContainerStyle={Styles.contentView}>
                     <View style={Styles.titleView}>
                         <Text mediumLarge center color={Colors.Red}>Your Results</Text>
                     </View>
@@ -179,7 +180,7 @@ export default class Complete extends Component {
                     <TouchableOpacity style={Styles.moreInfo}>
                         <Text medium bold center color={Colors.Navy}>More infomation <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
-                </View>
+                </ScrollView>
                 <View style={Styles.buttonBar}>
                     <Button light onPress={this.onExit.bind(this)}>EXIT</Button>
                     <Button dark onPress={this.onShare.bind(this)}>SHARE RESULTS</Button>

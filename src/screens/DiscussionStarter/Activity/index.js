@@ -136,7 +136,10 @@ export default class Activity extends Component {
         return (
             <ImageBackground source={Images.bg_discussion_starter} style={Styles.container}>
                 <Loader loading={this.state.loaderVisible}/>
-                <View style={Styles.contentView}>
+                <ScrollView 
+                    ref={ref => this.scrollView = ref} 
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={Styles.scrollView}>
                     <View style={Styles.titleView}>
                         <View style={Styles.title}>
                             <Text mediumLarge bold center color={Colors.Red}>Activity {this.state.activityIndex + 1}: </Text>
@@ -144,13 +147,8 @@ export default class Activity extends Component {
                         </View>
                         <ProgressBar total={this.state.pageTotalCount} progress={this.state.pageIndex+1} style={Styles.pregressBar}/>
                     </View>
-                    <ScrollView 
-                        ref={ref => this.scrollView = ref} 
-                        showsVerticalScrollIndicator={false}
-                        style={Styles.scrollView}>
-                        {this.renderQuestions()}
-                    </ScrollView>
-                </View>
+                    {this.renderQuestions()}
+                </ScrollView>
                 <View style={Styles.buttonBar}>
                     <View style={{flexDirection: 'row'}}>
                         <Button light onPress={this.goBack.bind(this)}>GO BACK</Button>

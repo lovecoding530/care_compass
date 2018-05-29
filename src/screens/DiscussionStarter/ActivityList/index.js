@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
     FlatList,
     View,
+    ScrollView,
 } from 'react-native';
 import {Colors, Images, FontSizes} from '@theme';
 import Styles from './styles';
@@ -49,30 +50,32 @@ export default class ActivityList extends Component {
     render() {
         return (
             <ImageBackground source={Images.bg_discussion_starter} style={Styles.container}>
-                <View style={Styles.titleView}>
-                    <Text style={Styles.title} mediumLarge center bold>Discussion Starter</Text>
-                    <Text style={Styles.subtitle} medium center>
-                        Pick up from where you left off...
-                    </Text>
-                </View>
-                <MediaQuery minDeviceWidth={768}>
-                    <FlatList
-                        numColumns = {2}
-                        data = {this.state.activities}
-                        renderItem = {this.renderActivityItem.bind(this)}
-                        keyExtractor = {(item, index) => index.toString()}
-                        contentContainerStyle={Styles.flatList}
-                        />
-                </MediaQuery>
-                <MediaQuery maxDeviceWidth={767}>
-                    <FlatList
-                        numColumns = {1}
-                        data = {this.state.activities}
-                        renderItem = {this.renderActivityItem.bind(this)}
-                        keyExtractor = {(item, index) => index.toString()}
-                        contentContainerStyle={Styles.flatList}
-                        />
-                </MediaQuery>
+                <ScrollView contentContainerStyle={Styles.scrollView}>
+                    <View style={Styles.titleView}>
+                        <Text style={Styles.title} mediumLarge center bold>Discussion Starter</Text>
+                        <Text style={Styles.subtitle} medium center>
+                            Pick up from where you left off...
+                        </Text>
+                    </View>
+                    <MediaQuery minDeviceWidth={768}>
+                        <FlatList
+                            numColumns = {2}
+                            data = {this.state.activities}
+                            renderItem = {this.renderActivityItem.bind(this)}
+                            keyExtractor = {(item, index) => index.toString()}
+                            contentContainerStyle={Styles.flatList}
+                            />
+                    </MediaQuery>
+                    <MediaQuery maxDeviceWidth={767}>
+                        <FlatList
+                            numColumns = {1}
+                            data = {this.state.activities}
+                            renderItem = {this.renderActivityItem.bind(this)}
+                            keyExtractor = {(item, index) => index.toString()}
+                            contentContainerStyle={Styles.flatList}
+                            />
+                    </MediaQuery>
+                </ScrollView>
             </ImageBackground>
         );
     }

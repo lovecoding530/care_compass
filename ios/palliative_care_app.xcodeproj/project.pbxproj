@@ -346,13 +346,6 @@
 			remoteGlobalIDString = 117405EF1B9954BF004425E1;
 			remoteInfo = RNHTMLtoPDF;
 		};
-		849CF4EA20A2B21200DE9F44 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 908DE7BC72F349B8A8DE6673 /* RNHTMLtoPDF.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 117405FA1B9954BF004425E1;
-			remoteInfo = RNHTMLtoPDFTests;
-		};
 		9605ABD82096A3A8004DB7E7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3281E1E3F3294AA6BA1A3C88 /* RNDeviceInfo.xcodeproj */;
@@ -720,7 +713,6 @@
 			isa = PBXGroup;
 			children = (
 				849CF4E920A2B21200DE9F44 /* libRNHTMLtoPDF.a */,
-				849CF4EB20A2B21200DE9F44 /* RNHTMLtoPDFTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1259,13 +1251,6 @@
 			remoteRef = 849CF4E820A2B21200DE9F44 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		849CF4EB20A2B21200DE9F44 /* RNHTMLtoPDFTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = RNHTMLtoPDFTests.xctest;
-			remoteRef = 849CF4EA20A2B21200DE9F44 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		9605ABD92096A3A8004DB7E7 /* libRNDeviceInfo.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1528,8 +1513,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = R6XH8645JQ;
@@ -1554,8 +1539,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.techequipt.dying-to-talk";
 				PRODUCT_NAME = palliative_care_app;
-				PROVISIONING_PROFILE = "e2920fde-d90c-4260-8f1b-512afa3545ca";
-				PROVISIONING_PROFILE_SPECIFIER = "Dying To Talk (Live)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1565,8 +1550,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = R6XH8645JQ;
 				HEADER_SEARCH_PATHS = (
@@ -1590,8 +1575,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.techequipt.dying-to-talk";
 				PRODUCT_NAME = palliative_care_app;
-				PROVISIONING_PROFILE = "e2920fde-d90c-4260-8f1b-512afa3545ca";
-				PROVISIONING_PROFILE_SPECIFIER = "Dying To Talk (Live)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};

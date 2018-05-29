@@ -9,8 +9,8 @@ import {Colors, FontSizes, MediaQueries} from '@theme';
 
 const { width } = Dimensions.get('window');
 
-import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 import { MediaQueryStyleSheet } from "react-native-responsive";
+import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
 
 export default MediaQueryStyleSheet.create({
 
@@ -20,37 +20,37 @@ export default MediaQueryStyleSheet.create({
     },
 
     contentView: {
-        paddingHorizontal: responsiveWidth(8),
-        paddingVertical: responsiveWidth(2),
-        flex: 1,
+        paddingHorizontal: deviceWidth(8),
+        paddingVertical: deviceWidth(2),
+        flexGrow: 1,
     },
 
     currentWrapper: {
-        marginVertical: responsiveHeight(2), 
+        marginVertical: deviceHeight(2), 
         shadowColor: '#000',
-        shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
+        shadowOffset: { width: deviceWidth(1.2), height: deviceWidth(1.2) },
         shadowOpacity: 0.4,
         shadowRadius: 0,
     },
 
     current: {
-        borderRadius: responsiveWidth(1.2),
+        borderRadius: deviceWidth(1.2),
         overflow: 'hidden'
     },
 
     next: {
         backgroundColor: '#fff',
-        marginVertical: responsiveHeight(2), 
-        paddingVertical: responsiveHeight(2), 
-        borderRadius: responsiveWidth(1.2),
+        marginVertical: deviceHeight(2), 
+        paddingVertical: deviceHeight(2), 
+        borderRadius: deviceWidth(1.2),
         shadowColor: '#000',
-        shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
+        shadowOffset: { width: deviceWidth(1.2), height: deviceWidth(1.2) },
         shadowOpacity: 0.4,
         shadowRadius: 0,
     },
 
     currentHeader: {
-        padding: responsiveWidth(1),
+        padding: deviceWidth(1),
         flexDirection: 'row',
         backgroundColor: Colors.Navy,
         alignItems: 'center',
@@ -58,12 +58,12 @@ export default MediaQueryStyleSheet.create({
     },
 
     complete_text: {
-        fontSize: responsiveHeight(3)
+        fontSize: deviceHeight(3)
     },
 
     currentDescView: {
         backgroundColor: '#fff',
-        padding: responsiveWidth(2),
+        padding: deviceWidth(2),
         alignItems: 'center',
     },
 
@@ -75,7 +75,7 @@ export default MediaQueryStyleSheet.create({
     },
 
     nextTitle: {
-        padding: responsiveWidth(2),
+        padding: deviceWidth(2),
         flexDirection: 'row',
         justifyContent: 'center',
     },
@@ -86,24 +86,24 @@ export default MediaQueryStyleSheet.create({
     },
 
     later: {
-        marginVertical: responsiveWidth(4),
+        marginVertical: deviceWidth(4),
     },
 
     later_text: {
-        marginBottom: responsiveWidth(2),
+        marginBottom: deviceWidth(2),
     },
 
     buttonBar: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         backgroundColor: '#fff',
-        paddingVertical: responsiveWidth(1),
-        paddingHorizontal: responsiveWidth(9),
+        paddingVertical: deviceWidth(1),
+        paddingHorizontal: deviceWidth(9),
     },
     
     checkIcon: {
-        width: responsiveHeight(4),
-        height: responsiveHeight(4),
+        width: deviceHeight(4),
+        height: deviceHeight(4),
         marginRight: 8,
         tintColor: '#fff',
     }
@@ -111,11 +111,11 @@ export default MediaQueryStyleSheet.create({
 }, {
     [MediaQueries.iPhone] : {
         contentView: {
-            paddingHorizontal: responsiveWidth(2.8),
-            paddingVertical: responsiveWidth(2.8),
+            paddingHorizontal: deviceWidth(2.8),
+            paddingVertical: deviceWidth(2.8),
         },
         buttonBar: {
-            paddingHorizontal: responsiveWidth(2.8),
+            paddingHorizontal: deviceWidth(2.8),
         },
         currentWrapper: {
             marginVertical: 0,

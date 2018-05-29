@@ -13,8 +13,8 @@ import {Colors, MediaQueries} from '@theme';
 import Button from '@button'
 import Text from '@text'
 import { Icon } from "native-base";
-import { responsiveWidth } from 'react-native-responsive-dimensions';
 import { MediaQueryStyleSheet } from "react-native-responsive";
+import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
 
 export default class Choice extends Component {
     constructor(props) {
@@ -57,12 +57,12 @@ const styles = MediaQueryStyleSheet.create({
     container: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingLeft: responsiveWidth(1),
-        minHeight: responsiveWidth(6.6),
+        paddingLeft: deviceWidth(1),
+        minHeight: deviceWidth(6.6),
     },
 
     icon: {
-        marginRight: responsiveWidth(1),
+        marginRight: deviceWidth(1),
     },
 
     text: {
@@ -75,8 +75,8 @@ const styles = MediaQueryStyleSheet.create({
 }, {
     [MediaQueries.iPhone] : {
         container: {
-            padding: responsiveWidth(1),
-            minHeight: responsiveWidth(8.6),
+            padding: deviceWidth(1),
+            minHeight: deviceWidth(8.6),
         }
     }
 });

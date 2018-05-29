@@ -47,7 +47,7 @@ export default class ActivityList extends Component {
         const {navigate, goBack} = this.props.navigation
         return (
             <ImageBackground source={Images.bg_discussion_starter} style={Styles.container}>
-                <View style={Styles.contentView}>
+                <ScrollView contentContainerStyle={Styles.contentView}>
                     <View style={Styles.currentWrapper}>
                         <View style={Styles.current}>
                             <View style={Styles.currentHeader}>
@@ -89,7 +89,7 @@ export default class ActivityList extends Component {
                         }
                     </View>
                     }
-                </View>
+                </ScrollView>
                 <View style={Styles.buttonBar}>
                     <Button light onPress={() => {navigate("Complete", {activityIndex: this.state.nextActivityIndex, discussionStarter: this.state.discussionStarter})}}>FINISH HERE</Button>
                     <Button dark onPress={() => {navigate("Activity", {activityIndex: this.state.nextActivityIndex, discussionStarter: this.state.discussionStarter})}}>START ACTIVITY {this.state.activityIndex + 2}</Button>
