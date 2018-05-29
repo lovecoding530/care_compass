@@ -21,6 +21,7 @@ import {postDiscussionAnswers} from "@api";
 import {getSharingHTMLFromResult} from "./HtmlResult";
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { StackActions, NavigationActions } from 'react-navigation';
 
 export default class Complete extends Component {
     constructor(props) {
@@ -79,8 +80,19 @@ export default class Complete extends Component {
                 'Are you sure?',
                 'Are you sure to exit without share the results?',
                 [
-                  {text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                  {text: 'YES', onPress: () => goBack("DiscussionStarter")},
+                    {text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    {text: 'YES', onPress: () => {
+                        const resetAction = NavigationActions.reset({
+                            index: 1,
+                            key: null,
+                            actions: [
+                                NavigationActions.navigate({ routeName: 'OnBoardingScreen' }),
+                                NavigationActions.navigate({ routeName: 'DrawerStack' })
+                            ],
+                        });
+                        this.props.navigation.dispatch(resetAction);
+                        // goBack("DiscussionStarter")
+                    }},
                 ],
                 { cancelable: false }
             )
