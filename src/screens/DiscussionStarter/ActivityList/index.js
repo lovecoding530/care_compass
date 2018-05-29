@@ -3,13 +3,16 @@ import {
     Platform,
     StyleSheet,
     Image,
+    ImageBackground,
     TouchableOpacity,
     FlatList,
     View,
 } from 'react-native';
-import {Colors} from '@theme';
+import {Colors, Images, FontSizes} from '@theme';
 import Styles from './styles';
 import {Text, Button} from '@components'
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { MediaQuery } from "react-native-responsive";
 
 import { getDiscussionStarter } from "@api";
 
@@ -28,25 +31,49 @@ export default class ActivityList extends Component {
         const {navigate} = this.props.navigation
         return (
             <TouchableOpacity style={Styles.item} onPress={() => {navigate("Activity", {activityIndex: index, discussionStarter: this.state.discussionStarter})}}>
-                <Text medium bold>Activity {index + 1}</Text>
+                <View style={Styles.item_number_view}>
+                    <Text light medium bold center style={Styles.item_number}>{index + 1}</Text> 
+                </View>
+                <MediaQuery minDeviceWidth={768}>
+                    <Text medium bold center style={Styles.item_text}>Activity {index + 1}: {"\n"} {item.stage}</Text>
+                    <Text medium bold center style={Styles.item_start_text}>Start <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                </MediaQuery>
+                <MediaQuery maxDeviceWidth={767}>
+                    <Text medium bold center style={Styles.item_text}>Activity {index + 1}: {item.stage}</Text>
+                    <Text medium bold center style={Styles.item_start_text}><Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                </MediaQuery>
             </TouchableOpacity>
         )
     }
 
     render() {
         return (
-            <View style={Styles.container}>
-                <Text style={Styles.title} mediumLarge center bold>Discussion Starter</Text>
-                <Text style={Styles.subtitle} medium center>
-                    Pick up from where you left off...
-                </Text>
-                <FlatList
-                    numColumns = {2}
-                    data = {this.state.activities}
-                    renderItem = {this.renderActivityItem.bind(this)}
-                    keyExtractor = {(item, index) => index.toString()}
-                    />
-            </View>
+            <ImageBackground source={Images.bg_discussion_starter} style={Styles.container}>
+                <View style={Styles.titleView}>
+                    <Text style={Styles.title} mediumLarge center bold>Discussion Starter</Text>
+                    <Text style={Styles.subtitle} medium center>
+                        Pick up from where you left off...
+                    </Text>
+                </View>
+                <MediaQuery minDeviceWidth={768}>
+                    <FlatList
+                        numColumns = {2}
+                        data = {this.state.activities}
+                        renderItem = {this.renderActivityItem.bind(this)}
+                        keyExtractor = {(item, index) => index.toString()}
+                        contentContainerStyle={Styles.flatList}
+                        />
+                </MediaQuery>
+                <MediaQuery maxDeviceWidth={767}>
+                    <FlatList
+                        numColumns = {1}
+                        data = {this.state.activities}
+                        renderItem = {this.renderActivityItem.bind(this)}
+                        keyExtractor = {(item, index) => index.toString()}
+                        contentContainerStyle={Styles.flatList}
+                        />
+                </MediaQuery>
+            </ImageBackground>
         );
     }
 }

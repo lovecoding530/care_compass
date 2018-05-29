@@ -23,7 +23,7 @@ export default Share =  (props) => {
                     <View>
                         <Button dark onPress={()=>props.onDownload()}>DOWNLOAD</Button>
                         <Button dark onPress={()=>props.onEmail()}>EMAIL</Button>
-                        <Button light onPress={()=>props.onCancel()}>CANCEL</Button>
+                        <Button light color={Colors.Red} onPress={()=>props.onCancel()}>CANCEL</Button>
                     </View>
                 </View>
             </View>

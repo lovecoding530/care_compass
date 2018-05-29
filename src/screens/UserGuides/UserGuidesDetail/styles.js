@@ -14,22 +14,17 @@ import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimen
 export default {
 
     container: {
-        flex: 1, 
+       flex: 1, 
         backgroundColor: Colors.backgroundPrimary,
     },
     scroll:{
-        alignItems: 'center',
-    },
-    scrollcontainer:{
-        flex : 1,
+        paddingHorizontal: responsiveWidth(8.8),
     },
     title: {
-        fontSize: width/20,
         color: Colors.Navy,
         fontWeight:"200"
     },
     subtitle: {
-        fontSize: width/30,
         color: Colors.textSecondary,
         textAlign: 'center',
         marginTop:2,
@@ -74,37 +69,30 @@ export default {
         width: width,
         height: height-responsiveHeight(15), 
     },
-    itemTop: {
-        width : width/1.2,
-        backgroundColor: Colors.Navy,
-        borderRadius: 8,
-        marginBottom: 8,
-        marginTop : width/35,      
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    itemTopView: {
-        paddingVertical:height/45,
-        width : width/1.2,
+    titleView: {
         backgroundColor: Colors.backgroundSecondary,
-        borderTopLeftRadius:3,
-        borderTopRightRadius:3,
-        borderBottomLeftRadius:8,
-        borderBottomRightRadius:8,
+        borderTopColor: Colors.Navy,
+        borderRadius: responsiveWidth(1.2),
+        borderTopWidth: responsiveWidth(1.2),
         shadowColor: '#000',
-        shadowOffset: { width: 6, height: 6 },
+        shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
         shadowOpacity: 0.5,
-        shadowRadius: 2,
-        marginTop : 5,      
+        shadowRadius: 0,
+        marginBottom: width/50,
+        marginTop : width/35, 
+        marginHorizontal:width/60,   
+        paddingVertical:height/45,
+        paddingHorizontal:width/20,
         justifyContent: 'center',
         alignItems: 'center',
     },
     buttonBackView:{
-         flexDirection:'row',
+        flexDirection:'row',
         backgroundColor:Colors.Sand,
         height:height/16,
         justifyContent:'space-between',
-        paddingHorizontal:width/12
+        alignItems:'center',
+        paddingHorizontal:width/10
     },
     buttonBack:{
         height:height/22,
@@ -112,15 +100,15 @@ export default {
         paddingHorizontal:width/90
     },
     itemView: {
-        width : width/1.2,
-        height: height/2,
+        flex:1,
         backgroundColor: Colors.backgroundSecondary,
         borderRadius: 8,
-        shadowColor: 'black',
-        shadowOffset: { width: 6, height: 6 },
+        shadowColor: '#000',
+        shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
         shadowOpacity: 0.5,
-        shadowRadius: 2,
+        shadowRadius: 0,
         margin: 8,    
+        padding:width/20,
         justifyContent: 'center',
         alignItems: 'center',
     },

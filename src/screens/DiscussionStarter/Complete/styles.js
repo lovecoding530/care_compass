@@ -5,51 +5,121 @@ import {
     Dimensions,
 } from 'react-native';
 
-import {Colors, FontSizes} from '@theme';
+import {Colors, FontSizes, MediaQueries} from '@theme';
 
 const { width } = Dimensions.get('window');
 
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
+import { MediaQueryStyleSheet } from "react-native-responsive";
 
-export default {
+export default MediaQueryStyleSheet.create({
 
     container: {
         flex: 1, 
         backgroundColor: Colors.backgroundPrimary,
+    },
+
+    contentView: {
+        flex: 1, 
         paddingHorizontal: responsiveWidth(8),
-        paddingVertical: responsiveWidth(13),
+    },
+    
+    titleView: {
+        borderTopColor: Colors.Red,
+        backgroundColor: '#fff',
+        borderRadius: responsiveWidth(1.2),
+        borderTopWidth: responsiveWidth(1.2),
+        shadowColor: '#000',
+        shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
+        shadowOpacity: 0.5,
+        shadowRadius: 0,
+        paddingVertical: responsiveWidth(4),
+        marginVertical: responsiveWidth(4),
+        marginHorizontal: responsiveWidth(1)
     },
 
     flatList: {
-        marginVertical: responsiveWidth(4),
+        paddingHorizontal: responsiveWidth(1.2),
     },
 
-    item: {
-        marginVertical: responsiveWidth(1.2), 
+    currentWrapper: {
+        marginBottom: responsiveHeight(3), 
+        shadowColor: '#000',
+        shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
+        shadowOpacity: 0.4,
+        shadowRadius: 0,
     },
 
-    itemTitle: {
-        padding: responsiveWidth(2),
+    current: {
+        borderRadius: responsiveWidth(1.2),
+        overflow: 'hidden'
+    },
+
+    currentHeader: {
+        padding: responsiveWidth(1),
         flexDirection: 'row',
-        backgroundColor: Colors.backgroundSecondary,
+        backgroundColor: Colors.Navy,
+        alignItems: 'center',
+        justifyContent: 'space-between',        
     },
 
-    itemPrecomment: {
-        padding : responsiveWidth(2), 
-        borderWidth: 1.5,
-        borderColor: Colors.backgroundSecondary,
+    complete_text: {
+        fontSize: responsiveHeight(3)
+    },
+
+    currentDescView: {
+        backgroundColor: '#fff',
+        padding: responsiveWidth(2),
+        alignItems: 'center',
+    },
+
+    currentTitle: {
+        marginVertical: 8,
+    },
+
+    currentPrecomment: {
+    },
+
+    moreInfo: {
+        width: 240,
+        borderTopColor: Colors.Navy,
+        backgroundColor: '#fff',
+        borderRadius: responsiveWidth(1.2),
+        borderTopWidth: responsiveWidth(1.2),
+        shadowColor: '#000',
+        shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
+        shadowOpacity: 0.5,
+        shadowRadius: 0,
+        paddingVertical: responsiveWidth(1.5),
+        marginVertical: responsiveWidth(4),
+        marginHorizontal: responsiveWidth(1),
+        alignSelf: 'center',
     },
 
     buttonBar: {
         flexDirection: 'row',
-        marginVertical: responsiveWidth(2),
-        marginHorizontal : responsiveWidth(6.6), 
-        justifyContent: 'center',
+        justifyContent: 'space-between',
+        backgroundColor: '#fff',
+        paddingVertical: responsiveWidth(1),
+        paddingHorizontal: responsiveWidth(9),
     },
 
     checkIcon: {
-        width: responsiveHeight(3.2),
-        height: responsiveHeight(3.2),
-        marginRight: responsiveHeight(1),
+        width: responsiveHeight(4),
+        height: responsiveHeight(4),
+        marginRight: 8,
+        tintColor: '#fff',
     }
-};
+}, {
+    [MediaQueries.iPhone] : {
+        contentView: {
+            paddingHorizontal: responsiveWidth(2.8),
+        },
+        buttonBar: {
+            paddingHorizontal: responsiveWidth(2.8),
+        },
+        currentWrapper: {
+            marginVertical: 0,
+        }
+    }
+});

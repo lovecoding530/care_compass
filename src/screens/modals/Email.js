@@ -37,7 +37,7 @@ export default Email =  (props) => {
                             />
                     </View>
                     <View style={styles.buttons}>
-                        <Button light onPress={()=>props.onCancel()}>CANCEL</Button>
+                        <Button light color={Colors.Red} onPress={()=>props.onCancel()}>CANCEL</Button>
                         <Button dark onPress={()=>props.onSend(name, email)}>SEND</Button>
                     </View>
                 </View>

@@ -8,8 +8,9 @@ import {
     View,
     ScrollView,
     TextInput,
+    ImageBackground,
 } from 'react-native';
-import {Colors} from '@theme';
+import {Colors, Images} from '@theme';
 import Styles from './styles';
 
 import {Button, Text, ProgressBar, Choices, ManyChoices, Loader } from '@components';
@@ -47,7 +48,18 @@ export default class Activity extends Component {
         this.setState({discussionStarter: discussionStarter})
     }
 
-    async onNext(){
+    goBack(){
+        if(this.state.pageIndex > 0){
+            this.setState({
+                pageIndex: this.state.pageIndex - 1,
+            })
+        }else{
+            const {goBack} = this.props.navigation
+            goBack()
+        }
+    }
+
+    onNext(){
         if(this.state.pageIndex < (this.state.pageTotalCount - 1)){
             this.setState({
                 pageIndex: this.state.pageIndex + 1,
@@ -66,7 +78,7 @@ export default class Activity extends Component {
         if(this.state.activityIndex + 1 >= this.state.activityCount){
             navigate("Complete", {discussionStarter: this.state.discussionStarter})
         }else{
-            navigate("UpNext", {activityIndex: this.state.activityIndex, discussionStarter: this.state.discussionStarter})
+            navigate({routeName: "UpNext", key: `UpNext${this.state.activityIndex}`, params: {activityIndex: this.state.activityIndex, discussionStarter: this.state.discussionStarter}})
         }
     }
 
@@ -80,7 +92,7 @@ export default class Activity extends Component {
             if(question_type == "freetext") {
                 return (
                     <View style={Styles.questionItem} key={index}>
-                        <Text center style={Styles.questionTitle}>{question}</Text>
+                        <Text center style={Styles.questionTitle}>{questionIndex + 1}. {question}</Text>
                         <TextInput
                             style={Styles.textArea}
                             value={""}
@@ -93,7 +105,7 @@ export default class Activity extends Component {
                 const answerList = question_choices.split("\r\n")
                 return (
                     <View style={Styles.questionItem} key={index}>
-                        <Text center style={Styles.questionTitle}>{question}</Text>
+                        <Text center style={Styles.questionTitle}>{questionIndex + 1}. {question}</Text>
                         <Choices 
                             scrollViewRef = {this.scrollView}
                             questionIndex={questionIndex}
@@ -106,7 +118,7 @@ export default class Activity extends Component {
                 const answerList = question_choices.split("\r\n")
                 return (
                     <View style={Styles.questionItem} key={index}>
-                        <Text center style={Styles.questionTitle}>{question}</Text>
+                        <Text center style={Styles.questionTitle}>{questionIndex + 1}. {question}</Text>
                         <ManyChoices 
                             scrollViewRef = {this.scrollView}
                             questionIndex={questionIndex}
@@ -122,21 +134,31 @@ export default class Activity extends Component {
 
     render() {
         return (
-            <View style={Styles.container}>
+            <ImageBackground source={Images.bg_discussion_starter} style={Styles.container}>
                 <Loader loading={this.state.loaderVisible}/>
-                <View style={Styles.title}>
-                    <Text mediumLarge bold center>Activity {this.state.activityIndex + 1}: </Text>
-                    <Text mediumLarge center>{" "}{this.state.activity.stage}</Text>
+                <View style={Styles.contentView}>
+                    <View style={Styles.titleView}>
+                        <View style={Styles.title}>
+                            <Text mediumLarge bold center color={Colors.Red}>Activity {this.state.activityIndex + 1}: </Text>
+                            <Text mediumLarge center color={Colors.Red}>{" "}{this.state.activity.stage}</Text>
+                        </View>
+                        <ProgressBar total={this.state.pageTotalCount} progress={this.state.pageIndex+1} style={Styles.pregressBar}/>
+                    </View>
+                    <ScrollView 
+                        ref={ref => this.scrollView = ref} 
+                        showsVerticalScrollIndicator={false}
+                        style={Styles.scrollView}>
+                        {this.renderQuestions()}
+                    </ScrollView>
                 </View>
-                <ProgressBar total={this.state.pageTotalCount} progress={this.state.pageIndex+1} style={Styles.pregressBar}/>
-                <ScrollView ref={ref => this.scrollView = ref}>
-                    {this.renderQuestions()}
-                </ScrollView>
                 <View style={Styles.buttonBar}>
-                    <Button light onPress={this.onFinish.bind(this)}>FINISH</Button>
-                    <Button dark onPress={this.onNext.bind(this)}>NEXT</Button>
+                    <View style={{flexDirection: 'row'}}>
+                        <Button light onPress={this.goBack.bind(this)}>GO BACK</Button>
+                        <Button light onPress={this.onFinish.bind(this)}>FINISH</Button>
+                    </View>
+                    <Button dark onPress={this.onNext.bind(this)}>NEXT PAGE</Button>
                 </View>
-            </View>
+            </ImageBackground>
         );
     }
 }

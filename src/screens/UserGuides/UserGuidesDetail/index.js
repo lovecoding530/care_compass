@@ -17,14 +17,14 @@ import Styles from './styles';
 import Text from '@text'
 import Footer from '@footer'
 import Button from '@button'
-import {Colors} from '@theme';
+import {Colors, Images, FontSizes} from '@theme';
 import { Loader } from '@components';
 
 import { getUserGuides, API_HTML_ROOT } from "@api";
 import HTMLView from 'react-native-htmlview';
-var { width,height } = Dimensions.get('window');
+const { width,height } = Dimensions.get('window');
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
-var orientation = width > height ? 'LANDSCAPE' : 'PORTRAIT';
+
 
 
 function renderNode(node, index, siblings, parent, defaultRenderer) {
@@ -146,10 +146,6 @@ export default class UserGuidesDetail extends Component {
             }) 
         }
 
-        Dimensions.addEventListener('change', ({ window: { width, height } }) => {
-            orientation = width > height ? 'LANDSCAPE' : 'PORTRAIT';
-        });
-        
     }
     _showResult(result){
         if(result.action == "sharedAction")
@@ -171,7 +167,7 @@ export default class UserGuidesDetail extends Component {
 
     renderFAQItem({item, index}){
         return (
-            <View style={[Styles.item,{marginVertical: height/40,}]}>
+            <View style={Styles.item}>
                 <View style={Styles.itemTitle}>
                     <Text bold style={[Styles.txtQuestion,{fontSize:orientation === 'PORTRAIT' ? width/30 : height/30}]}>{index + 1}: </Text>
                     <Text style={Styles.txtQuestion}>
@@ -183,69 +179,57 @@ export default class UserGuidesDetail extends Component {
         )
     }
 
-    onLayout(e) {
-
-        height = Dimensions.get('window').height;
-        width = Dimensions.get('window').width;
-         this.forceUpdate();
-    }
-
 
     render() {   
+
         return (
-             <View style={Styles.container}  onLayout={this.onLayout.bind(this)}>
-                <ImageBackground source={require('../../../../assets/images/bg-how-to.jpg')} resizeMode='stretch' style={{ width: width,height: height-responsiveHeight(15), }} >
-                    <View style={Styles.scrollcontainer}> 
-                       <ScrollView contentContainerStyle={Styles.scroll}> 
-                            <Loader loading={this.state.loaderVisible}/>
-                          
+            <ImageBackground source={Images.bg_how_to} resizeMode="stretch" style={Styles.container} >
 
-                            <View style={[Styles.itemTop,{width : width/1.2,marginTop : width/35,}]}>
-                                <View style={[Styles.itemTopView,{paddingVertical:height/45,width : width/1.2,}]}>
-                                    <Text style={[Styles.title,{fontSize:  orientation === 'PORTRAIT' ? width/20 : height/20}]}>How to</Text>
-                                    <Text style={[Styles.subtitle,{fontSize:  orientation === 'PORTRAIT' ? width/30 : height/30}]}>{this.state.title}</Text>
-                                </View>
-                            </View>
+                <ScrollView contentContainerStyle={Styles.scroll}>
+                    <Loader loading={this.state.loaderVisible}/>
 
-                            <View style={[Styles.itemView,{width : width/1.2,height: height/2,}]}>
-                                <View style={[Styles.viewBody,{marginHorizontal : width/9,}]}>
-                                    <HTMLView
-                                        value={this.state.body}
-                                        renderNode={renderNode}
-                                    />
-                                </View>
-
-                                 {this.state.image == '' ? null 
-                                    
-                                    : <View style={[Styles.viewImage,{marginVertical: height/30,}]}>
-                                        <Image style={[Styles.middleimage,{height:height/3,width:width/1.5}]} source={{uri: this.state.image}}/>
-                                      </View>  
-                                 }
-
-                                
-                                {this.state.faqs.length == 0 ? null 
-                                    : <View>
-                                        <View style={[Styles.faqTitle,{marginHorizontal : width/10,}]}>
-                                            <Text bold >FAQ</Text>
-                                        </View>
-
-                                        <FlatList
-                                        data = {this.state.faqs}
-                                        renderItem = {this.renderFAQItem.bind(this)}
-                                        keyExtractor = {(item, index) => index.toString()}
-                                        style={[Styles.flatList,{marginHorizontal : width/10,}]}
-                                        />
-                                    </View>
-                                }
-                            </View>
-                        </ScrollView> 
+                    <View style={Styles.titleView}>
+                             <Text large style={Styles.title}>How to</Text>
+                            <Text medium style={Styles.subtitle}>{this.state.title}</Text>
                     </View>
-                    <View style={[Styles.buttonBackView,{paddingHorizontal:width/12}]}>
-                        <Button light onPress={ ()=> this.props.navigation.goBack() } buttonStyles={Styles.buttonBack}>Go back</Button>
-                         <Button dark  onPress={this._share} buttonStyles={Styles.buttonBack}>Share</Button>
+
+                    <View style={[Styles.itemView]}>
+                        <View style={Styles.viewBody}>
+                            <HTMLView
+                                value={this.state.body}
+                                renderNode={renderNode}
+                            />
+                        </View>
+
+                         {this.state.image == '' ? null 
+                            
+                            : <View style={Styles.viewImage}>
+                                <Image style={[Styles.middleimage]} source={{uri: this.state.image}}/>
+                              </View>  
+                         }
+
+                        
+                        {this.state.faqs.length == 0 ? null 
+                            : <View>
+                                <View style={Styles.faqTitle}>
+                                    <Text bold >FAQ</Text>
+                                </View>
+
+                                <FlatList
+                                data = {this.state.faqs}
+                                renderItem = {this.renderFAQItem.bind(this)}
+                                keyExtractor = {(item, index) => index.toString()}
+                                style={Styles.flatList}
+                                />
+                            </View>
+                        }
                     </View>
-                </ImageBackground>
-            </View>
+                </ScrollView> 
+                <View style={Styles.buttonBackView}>
+                    <Button light onPress={ ()=> this.props.navigation.goBack() } buttonStyles={Styles.buttonBack}>Go back</Button>
+                    <Button dark  onPress={this._share} buttonStyles={Styles.buttonBack}>Share</Button>
+                </View>
+            </ImageBackground>
         );
     }
 }
