@@ -13,15 +13,16 @@ const images = {
     skip : require('../../assets/images/skip.png'),
 
     icon_back: require('../../assets/images/icon-back.png'),
-
     icon_cardgame: require('../../assets/images/icon-cardgame.png'),
     icon_discussion_starter: require('../../assets/images/icon-discussion-starter.png'),
     icon_get_help: require('../../assets/images/icon-get-help.png'),
     icon_more_info: require('../../assets/images/icon-more-info.png'),
     icon_how_to: require('../../assets/images/icon-how-to.png'),
-
     icon_dying_to_talk: require('../../assets/images/icon-dtt-logo.png'),
-
+    icon_left_arrow: require('../../assets/images/icon-left-arrow.png'),
+    icon_professional: require('../../assets/images/icon-professional.png'),
+    icon_community: require('../../assets/images/icon-community.png'),
+    
     logo_footer: require('../../assets/images/pca-logo-footer.png'),
     pca_logo: require('../../assets/images/pca-logo.png'),
 

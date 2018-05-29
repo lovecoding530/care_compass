@@ -20,7 +20,7 @@ export default {
     paddingHorizontal:width/10, 
   },
   scrollcontainer:{
-    alignItems:'center'
+    alignItems:'center',
   },
   logo:{
     marginBottom:height/15,
@@ -51,12 +51,12 @@ export default {
     width: width/8,
     height: 5,
     borderWidth:1,
-    borderColor:Colors.gray,
+    borderColor:Colors.Olive,
     marginLeft: 2,
     marginRight: 2,
   },
   activeDot: {
-    backgroundColor: Colors.gray,
+    backgroundColor: Colors.Olive,
   },
   buttonContainer: {
     flexDirection:'row',
@@ -82,5 +82,12 @@ export default {
     height:height/8,
     paddingHorizontal: width/10,
     paddingVertical:height/40,
-  }
+  },
+  background: {
+    flex: 1,
+    width: undefined,
+    height: undefined,
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+  },
 };
