@@ -46,7 +46,7 @@ export default class Menu extends Component {
                     <TouchableOpacity style={styles.menuItem}>
                         <Text light>About this app <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuItem}>
+                    <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('OnBoarding')}>
                         <Text light>Welcome slides <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem}>
