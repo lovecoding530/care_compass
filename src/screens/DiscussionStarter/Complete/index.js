@@ -10,6 +10,7 @@ import {
     Modal,
     Alert,
     Share,
+    ScrollView,
 } from 'react-native';
 import {Colors, Images, FontSizes} from '@theme';
 import Styles from './styles';
@@ -20,6 +21,7 @@ import {postDiscussionAnswers} from "@api";
 import {getSharingHTMLFromResult} from "./HtmlResult";
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { StackActions, NavigationActions } from 'react-navigation';
 
 export default class Complete extends Component {
     constructor(props) {
@@ -78,8 +80,19 @@ export default class Complete extends Component {
                 'Are you sure?',
                 'Are you sure to exit without share the results?',
                 [
-                  {text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                  {text: 'YES', onPress: () => goBack("DiscussionStarter")},
+                    {text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    {text: 'YES', onPress: () => {
+                        const resetAction = NavigationActions.reset({
+                            index: 1,
+                            key: null,
+                            actions: [
+                                NavigationActions.navigate({ routeName: 'OnBoardingScreen' }),
+                                NavigationActions.navigate({ routeName: 'DrawerStack' })
+                            ],
+                        });
+                        this.props.navigation.dispatch(resetAction);
+                        // goBack("DiscussionStarter")
+                    }},
                 ],
                 { cancelable: false }
             )
@@ -166,7 +179,7 @@ export default class Complete extends Component {
         return (
             <ImageBackground source={Images.bg_discussion_starter}  style={Styles.container}>
                 <Loader loading={this.state.loaderVisible}/>
-                <View style={Styles.contentView}>
+                <ScrollView contentContainerStyle={Styles.contentView}>
                     <View style={Styles.titleView}>
                         <Text mediumLarge center color={Colors.Red}>Your Results</Text>
                     </View>
@@ -179,7 +192,7 @@ export default class Complete extends Component {
                     <TouchableOpacity style={Styles.moreInfo}>
                         <Text medium bold center color={Colors.Navy}>More infomation <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
-                </View>
+                </ScrollView>
                 <View style={Styles.buttonBar}>
                     <Button light onPress={this.onExit.bind(this)}>EXIT</Button>
                     <Button dark onPress={this.onShare.bind(this)}>SHARE RESULTS</Button>

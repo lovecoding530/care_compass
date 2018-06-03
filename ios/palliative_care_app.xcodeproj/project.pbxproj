@@ -346,13 +346,6 @@
 			remoteGlobalIDString = 117405EF1B9954BF004425E1;
 			remoteInfo = RNHTMLtoPDF;
 		};
-		849CF4EA20A2B21200DE9F44 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 908DE7BC72F349B8A8DE6673 /* RNHTMLtoPDF.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 117405FA1B9954BF004425E1;
-			remoteInfo = RNHTMLtoPDFTests;
-		};
 		9605ABD82096A3A8004DB7E7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3281E1E3F3294AA6BA1A3C88 /* RNDeviceInfo.xcodeproj */;
@@ -720,7 +713,6 @@
 			isa = PBXGroup;
 			children = (
 				849CF4E920A2B21200DE9F44 /* libRNHTMLtoPDF.a */,
-				849CF4EB20A2B21200DE9F44 /* RNHTMLtoPDFTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1257,13 +1249,6 @@
 			fileType = archive.ar;
 			path = libRNHTMLtoPDF.a;
 			remoteRef = 849CF4E820A2B21200DE9F44 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		849CF4EB20A2B21200DE9F44 /* RNHTMLtoPDFTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = RNHTMLtoPDFTests.xctest;
-			remoteRef = 849CF4EA20A2B21200DE9F44 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		9605ABD92096A3A8004DB7E7 /* libRNDeviceInfo.a */ = {

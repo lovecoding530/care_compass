@@ -14,6 +14,7 @@ import { getDiscussionStarter } from "@api";
 export default EmailSent =  (props) => {
     return (
         <Modal
+            supportedOrientations={['portrait', 'landscape']}
             animationType="slide"
             transparent={true}
             visible={props.visible}
