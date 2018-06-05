@@ -61,10 +61,10 @@ export default class Menu extends Component {
                         <Text light>Support / FAQ <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                 </View>
-                <Image 
+                <Image  
                     source={Images.logo_footer} 
                     resizeMode={"contain"}
-                    style={{width: responsiveHeight(20), height: responsiveHeight(6), tintColor: '#fff', alignSelf: 'center'}}
+                    style={{width: deviceHeight(20), height: deviceHeight(6), tintColor: '#fff', alignSelf: 'center'}}
                 />
                 <SafeAreaView style={{backgroundColor: Colors.darkNavy}}>
                     <View style={styles.footer}>
