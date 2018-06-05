@@ -40,13 +40,13 @@ export default class Menu extends Component {
                         <Text light>Play Card Game <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('UserGuides')}>
-                        <Text light>How to use this app <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <Text light>App instructions <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('Resources')}>
-                        <Text light>More Information <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <Text light>Resource library <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('GetHelp')}>
-                        <Text light>Get Help <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <Text light>Loking after yourself <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem}>
                         <Text light>Take a quick survey <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>

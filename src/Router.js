@@ -19,7 +19,7 @@ import {DSIntro, ActivityList, Activity, UpNext, Complete} from "./screens/Discu
 import {CDIntro, CDSingleView, CDListView, CDSummary} from "./screens/CardGame";
 import {ResourceList, ResourceDetail} from "./screens/Resources";
 import {UserGuidesList,UserGuidesDetail,DiscussionAndCardDetail} from "./screens/UserGuides";
-import {GetHelpList, GetHelpDetail} from "./screens/GetHelp";
+import {GetHelpList, GetHelpDetail, LookAfterYourself} from "./screens/GetHelp";
 import { deviceWidth, deviceHeight } from "./components/ResponsiveDimensions";
 
 var drawerNavigator = null
@@ -174,8 +174,7 @@ export const UserGuidesStack = StackNavigator({
 });
 
 export const GetHelpStack = StackNavigator({
-    GetHelpList: {screen: GetHelpList},
-    GetHelpDetail: {screen: GetHelpDetail},
+    LookAfterYourself:{screen:LookAfterYourself},
 }, {
     navigationOptions: ({ navigation }) => ({
         headerTitle: <HeaderTitle/>,
