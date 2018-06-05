@@ -163,7 +163,6 @@ export const ResourcesStack = StackNavigator({
 
 export const UserGuidesStack = StackNavigator({
     UserGuidesList: {screen: UserGuidesList},
-    DiscussionAndCardDetail: {screen: DiscussionAndCardDetail},
     UserGuidesDetail: {screen: UserGuidesDetail},
 }, {
     navigationOptions: ({ navigation }) => ({
@@ -258,16 +257,6 @@ const HomeWithHeader = ({navigation}) => {
     )
 }
 
-const OnBoardingScreen = (props) => {
-    primaryNavigator = props.navigation
-    return (
-        <View style={{flex: 1}}>
-            <OnBoarding {...props}/>
-            <Footer/>
-        </View>
-    );
-}
-
 export const DrawerStack = DrawerNavigator({
     Home: {
         screen: withFooter(HomeWithHeader),
@@ -287,16 +276,21 @@ export const DrawerStack = DrawerNavigator({
     GetHelp: {
         screen: withFooter(GetHelpStack),
     },
-    OnBoarding: { 
-        screen: OnBoardingScreen,
-    },
 },{
     drawerWidth: (width >= 768) ? width / 2.5 : width * 2 / 3,
     drawerPosition: 'right',
     contentComponent: props => <Menu {...props}/>
 });
 
-
+const OnBoardingScreen = (props) => {
+    primaryNavigator = props.navigation
+    return (
+        <View style={{flex: 1}}>
+            <OnBoarding {...props}/>
+            <Footer/>
+        </View>
+    );
+}
 
 export const PrimaryNav = StackNavigator({
     SplashScreen: { screen: Splash },
