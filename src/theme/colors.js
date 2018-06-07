@@ -16,7 +16,7 @@ const colors = {
   
     nav: '#d3d3d3',
 
-    textPrimary: 'gray',
+    textPrimary: '#333333',
     textSecondary: '#000000',
     textPlaceholder: '#DDDDDD',
     fieldPlaceholder: '#999999',

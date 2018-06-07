@@ -5,7 +5,7 @@ import {
     Dimensions,
 } from 'react-native';
 
-import {Colors, MediaQueries} from '@theme';
+import {Colors, MediaQueries, Metrics} from '@theme';
 
 const { width } = Dimensions.get('window');
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
@@ -47,7 +47,7 @@ export default MediaQueryStyleSheet.create({
         backgroundColor: Colors.backgroundSecondary,
         borderRadius: deviceWidth(1),
         shadowColor: '#000',
-        shadowOffset: { width: deviceWidth(1), height: deviceWidth(1) },
+        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
         shadowOpacity: 0.5,
         shadowRadius: 0,
         margin: deviceWidth(1.2), 
@@ -62,12 +62,12 @@ export default MediaQueryStyleSheet.create({
         borderRadius: deviceWidth(1.2),
         borderTopWidth: deviceWidth(1.2),
         shadowColor: '#000',
-        shadowOffset: { width: deviceWidth(1.2), height: deviceWidth(1.2) },
+        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
         shadowOpacity: 0.5,
         shadowRadius: 0,
         padding: 8,
         margin: deviceWidth(1.2), 
-        marginBottom: deviceWidth(4),
+        marginBottom: deviceWidth(2),
     },
 
     item_number_view: {
@@ -78,14 +78,24 @@ export default MediaQueryStyleSheet.create({
         borderRadius: deviceWidth(3),
     },
     item_number: {
-
+        color: Colors.Navy,
+        fontWeight: '900'
     }, 
     item_text: {
         color: Colors.Navy,
     },
     item_start_text: {
         color: Colors.Red,
-    }
+    },
+
+    buttonBar: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        backgroundColor: '#fff',
+        paddingHorizontal: deviceWidth(10),
+    },
+
+
 }, {
     [MediaQueries.iPhone] : {
         scrollView: {
@@ -104,6 +114,9 @@ export default MediaQueryStyleSheet.create({
             flex: 1,
             marginLeft: deviceWidth(2),
             textAlign: 'left',
+        },
+        buttonBar: {
+            paddingHorizontal: deviceWidth(5),            
         }
     }
 });

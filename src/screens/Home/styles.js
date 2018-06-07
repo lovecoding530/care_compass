@@ -5,7 +5,7 @@ import {
     Dimensions,
 } from 'react-native';
 
-import {Colors, MediaQueries, FontSizes} from '@theme';
+import {Colors, MediaQueries, FontSizes, Metrics} from '@theme';
 
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 import { MediaQueryStyleSheet } from "react-native-responsive";
@@ -36,7 +36,7 @@ export default MediaQueryStyleSheet.create({
         borderRadius: deviceWidth(1.2),
         borderTopWidth: deviceWidth(1.2),
         shadowColor: '#000',
-        shadowOffset: { width: deviceWidth(1.2), height: deviceWidth(1.2) },
+        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
         shadowOpacity: 0.5,
         shadowRadius: 0,
         margin: 8,        

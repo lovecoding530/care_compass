@@ -10,5 +10,6 @@ import ManyChoices from "./ManyChoices";
 import Choices from "./Choices";
 import ProgressBar from "./ProgressBar";
 import Loader from "./Loader";
+import MySpinner from "./Spinner";
 
-export {Button, ImageButton, Text, Choice, ManyChoices, Choices, ProgressBar, Loader}
+export {Button, ImageButton, Text, Choice, ManyChoices, Choices, ProgressBar, Loader, MySpinner}

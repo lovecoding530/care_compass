@@ -5,7 +5,7 @@ import {
     Dimensions,
 } from 'react-native';
 
-import {Colors, MediaQueries} from '@theme';
+import {Colors, MediaQueries, Metrics} from '@theme';
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 import { MediaQueryStyleSheet } from "react-native-responsive";
 import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
@@ -44,7 +44,6 @@ export default MediaQueryStyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         backgroundColor: '#fff',
-        paddingVertical: deviceWidth(1),
         paddingHorizontal: deviceWidth(10),
     },
 
@@ -54,7 +53,7 @@ export default MediaQueryStyleSheet.create({
         borderRadius: deviceWidth(1.2),
         borderTopWidth: deviceWidth(1.2),
         shadowColor: '#000',
-        shadowOffset: { width: deviceWidth(1.2), height: deviceWidth(1.2) },
+        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
         shadowOpacity: 0.5,
         shadowRadius: 0,
         padding: 8,
@@ -65,7 +64,7 @@ export default MediaQueryStyleSheet.create({
         backgroundColor: '#fff',
         borderRadius: deviceWidth(1.2),
         shadowColor: '#000',
-        shadowOffset: { width: deviceWidth(1.2), height: deviceWidth(1.2) },
+        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
         shadowOpacity: 0.5,
         shadowRadius: 0,
         alignItems: 'center',

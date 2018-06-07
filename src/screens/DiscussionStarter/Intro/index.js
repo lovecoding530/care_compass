@@ -69,8 +69,8 @@ export default class Intro extends Component {
                     </View>
                 </ScrollView>
                 <View style={Styles.buttonBar}>
-                    <Button light onPress={()=>{navigate('ActivityList', {discussionStarter: this.state.discussionStarter})}}>SKIP AHEAD</Button>
                     <Button dark onPress={()=>{navigate("Activity", {activityIndex: 0, discussionStarter: this.state.discussionStarter})}}>START THE CONVERSATION</Button>
+                    <Button light onPress={()=>{navigate('ActivityList', {discussionStarter: this.state.discussionStarter})}}>SKIP AHEAD</Button>
                 </View>
             </ImageBackground>
         );

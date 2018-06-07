@@ -9,6 +9,7 @@ import { MediaQueries } from '@theme'
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 import { MediaQueryStyleSheet } from "react-native-responsive";
 import { deviceWidth, deviceHeight, windowHeight } from "@ResponsiveDimensions";
+import { FontSizes } from '../../theme';
 
 export default MediaQueryStyleSheet.create({
     backgroundImage: {
@@ -18,13 +19,14 @@ export default MediaQueryStyleSheet.create({
     scrollView: {
         flexGrow: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
 
     circle_above: {
-        width: deviceWidth(75),
-        height: deviceWidth(75),
-        borderRadius: deviceWidth(37.5),
+        position: 'absolute',
+        width: deviceWidth(30),
+        height: deviceWidth(30),
+        borderRadius: deviceWidth(15),
         backgroundColor: '#fffd',
         justifyContent: 'center',
         alignItems: 'center',
@@ -32,35 +34,47 @@ export default MediaQueryStyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 10,
         margin: deviceWidth(5),
+        top: 0,
+        right: 0,
     },
 
     pca_logo: {
-        width: deviceWidth(60),
-        height: deviceWidth(44),
+        width: deviceWidth(25),
+        height: deviceWidth(25),
         resizeMode: 'contain',
     },
 
-    spinner: {
-        marginVertical: deviceWidth(4),
+    center_view: {
+        alignItems: 'center',
+
     },
 
-    circle_bellow: {
-        width: deviceWidth(33),
-        height: deviceWidth(33),
-        borderRadius: deviceWidth(16.5),
+    app_name: {
+        color: '#fff',
+        fontSize: FontSizes.mediumLarge,
+        fontWeight: 'bold',
+    },
+
+    spinner: {
+        marginVertical: deviceWidth(2),
+    },
+
+    circle_center: {
+        width: deviceWidth(18),
+        height: deviceWidth(18),
+        borderRadius: deviceWidth(9),
         backgroundColor: '#fffd',
         justifyContent: 'center',
         alignItems: 'center',
         shadowColor: '#000',
         shadowOpacity: 0.3,
         shadowRadius: 10,
-        margin: deviceWidth(5),
+        margin: deviceWidth(2),
     },
 
-    icon_dying_to_talk: {
-        width: deviceWidth(24),
-        height: deviceWidth(24),
-        resizeMode: 'contain',
+    bottom_view: {
+        position: 'absolute',
+        bottom: 20,
     },
 
     text_desc: {
@@ -73,28 +87,17 @@ export default MediaQueryStyleSheet.create({
 
     text_website: {
         color: '#fff',
-        textAlign: 'center',        
+        fontWeight: 'bold',
+        textAlign: 'center',
         margin: deviceWidth(2),
     }
 }, {
     [MediaQueries.iPad] : {
         circle_above: {
-            width: deviceWidth(64),
-            height: deviceWidth(64),
         },
         circle_bellow: {
-            width: deviceWidth(30),
-            height: deviceWidth(30),          
         },
         pca_logo: {
-            marginTop: deviceWidth(4), 
-            width: deviceWidth(54),
-            height: deviceWidth(40),
-        },
-        icon_dying_to_talk: {
-            width: deviceWidth(20),
-            height: deviceWidth(20),
-            resizeMode: 'contain',
         },
     },
 })
