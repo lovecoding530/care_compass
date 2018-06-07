@@ -18,7 +18,6 @@ import Text from '@text'
 import Footer from '@footer'
 import Button from '@button'
 import {Colors, Images, FontSizes} from '@theme';
-import { Loader } from '@components';
 
 import { getUserGuides, API_HTML_ROOT } from "@api";
 import HTMLView from 'react-native-htmlview';
@@ -117,7 +116,6 @@ export default class UserGuidesDetail extends Component {
             image : '',
             body : '',
             faqs : [],
-            loaderVisible: true
         })
     }
 
@@ -132,7 +130,6 @@ export default class UserGuidesDetail extends Component {
                 title : userguide.title,
                 body : userguide.body,
                 faqs : userguide.faqs,
-                loaderVisible: false
             })
         }
         else
@@ -142,7 +139,6 @@ export default class UserGuidesDetail extends Component {
                body : userguide.body,
                faqs : userguide.faqs,
                 image: API_HTML_ROOT + userguide.featured_image.url,
-                loaderVisible: false
             }) 
         }
 
@@ -186,7 +182,6 @@ export default class UserGuidesDetail extends Component {
             <ImageBackground source={Images.bg_how_to} resizeMode="stretch" style={Styles.container} >
 
                 <ScrollView contentContainerStyle={Styles.scroll}>
-                    <Loader loading={this.state.loaderVisible}/>
 
                     <View style={Styles.titleView}>
                              <Text large style={Styles.title}>How to</Text>
