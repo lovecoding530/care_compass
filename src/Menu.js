@@ -37,16 +37,16 @@ export default class Menu extends Component {
                         <Text light>Use Discussion Starter <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('CardGame')}>
-                        <Text light>Play Card Game <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <Text light>Start Discussion Cards <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('GetHelp')}>
+                        <Text light>Looking after yourself <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('UserGuides')}>
                         <Text light>App instructions <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('Resources')}>
                         <Text light>Resource library <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('GetHelp')}>
-                        <Text light>Loking after yourself <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem}>
                         <Text light>Take a quick survey <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
@@ -64,7 +64,7 @@ export default class Menu extends Component {
                 <Image  
                     source={Images.logo_footer} 
                     resizeMode={"contain"}
-                    style={{width: deviceHeight(20), height: deviceHeight(6), tintColor: '#fff', alignSelf: 'center'}}
+                    style={{width: deviceHeight(20), height: deviceHeight(5), tintColor: '#fff', alignSelf: 'center'}}
                 />
                 <SafeAreaView style={{backgroundColor: Colors.darkNavy}}>
                     <View style={styles.footer}>
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     },
 
     logo: {
-        height: deviceHeight(28),
+        height: deviceHeight(20),
     },
 
     opacityView: {

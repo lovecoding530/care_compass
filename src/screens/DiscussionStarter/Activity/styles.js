@@ -5,7 +5,7 @@ import {
     Dimensions,
 } from 'react-native';
 
-import {Colors, FontSizes, MediaQueries} from '@theme';
+import {Colors, FontSizes, MediaQueries, Metrics} from '@theme';
 
 const { width } = Dimensions.get('window');
 
@@ -37,12 +37,11 @@ export default MediaQueryStyleSheet.create({
     },
 
     questionItem: {
-        marginTop: deviceWidth(2),
-        marginBottom: deviceWidth(2),
+        marginVertical: deviceWidth(1.5),
         backgroundColor: '#fff',
         borderRadius: deviceWidth(1.2),
         shadowColor: '#000',
-        shadowOffset: { width: deviceWidth(1.2), height: deviceWidth(1.2) },
+        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
         shadowOpacity: 0.4,
         shadowRadius: 0,
         padding: deviceWidth(1.2),
@@ -65,7 +64,6 @@ export default MediaQueryStyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         backgroundColor: '#fff',
-        paddingVertical: deviceWidth(1),
         paddingHorizontal: deviceWidth(8),
     },
 
@@ -75,7 +73,7 @@ export default MediaQueryStyleSheet.create({
         borderRadius: deviceWidth(1.2),
         borderTopWidth: deviceWidth(1.2),
         shadowColor: '#000',
-        shadowOffset: { width: deviceWidth(1.2), height: deviceWidth(1.2) },
+        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
         shadowOpacity: 0.4,
         shadowRadius: 0,
         padding: 8,
@@ -87,6 +85,19 @@ export default MediaQueryStyleSheet.create({
         paddingTop: deviceWidth(4),
         paddingHorizontal: deviceWidth(8),
         paddingBottom: 0,
+    }, 
+
+    answerButtonWrapper: {
+        flexDirection: 'row', 
+        justifyContent: 'center'
+    },
+
+    answerButton: {
+        backgroundColor: Colors.lightGray, 
+        paddingVertical: deviceWidth(1), 
+        paddingHorizontal: deviceWidth(2), 
+        marginTop: deviceWidth(1),
+        marginHorizontal: deviceWidth(1),
     }
 }, {
     [MediaQueries.iPhone] : {

@@ -18,9 +18,13 @@ const FontSizes = {
     large: deviceHeight(4.8),//48
 };
 
+const Metrics = {
+    shadowOffset: deviceWidth(0.8)
+};
+
 const MediaQueries = {
     iPad: "@media (min-device-width: 768)",
     iPhone: "@media (max-device-width: 767)"
 }
 
-export { Colors, Images, FontSizes, MediaQueries };
+export { Colors, Images, FontSizes, MediaQueries, Metrics };

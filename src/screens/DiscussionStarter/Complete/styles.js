@@ -5,7 +5,7 @@ import {
     Dimensions,
 } from 'react-native';
 
-import {Colors, FontSizes, MediaQueries} from '@theme';
+import {Colors, FontSizes, MediaQueries, Metrics} from '@theme';
 
 import { MediaQueryStyleSheet } from "react-native-responsive";
 import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
@@ -20,6 +20,7 @@ export default MediaQueryStyleSheet.create({
     contentView: {
         flexGrow: 1, 
         paddingHorizontal: deviceWidth(8),
+        paddingVertical: deviceWidth(2)
     },
     
     titleView: {
@@ -28,22 +29,23 @@ export default MediaQueryStyleSheet.create({
         borderRadius: deviceWidth(1.2),
         borderTopWidth: deviceWidth(1.2),
         shadowColor: '#000',
-        shadowOffset: { width: deviceWidth(1.2), height: deviceWidth(1.2) },
-        shadowOpacity: 0.5,
+        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
+        shadowOpacity: 0.4,
         shadowRadius: 0,
         paddingVertical: deviceWidth(4),
-        marginVertical: deviceWidth(4),
+        marginVertical: deviceWidth(2),
         marginHorizontal: deviceWidth(1)
     },
 
     flatList: {
+        justifyContent: 'center',
         paddingHorizontal: deviceWidth(1.2),
     },
 
     currentWrapper: {
-        marginBottom: deviceHeight(3), 
+        marginVertical: deviceHeight(1), 
         shadowColor: '#000',
-        shadowOffset: { width: deviceWidth(1.2), height: deviceWidth(1.2) },
+        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
         shadowOpacity: 0.4,
         shadowRadius: 0,
     },
@@ -78,27 +80,22 @@ export default MediaQueryStyleSheet.create({
     currentPrecomment: {
     },
 
-    moreInfo: {
-        width: 240,
-        borderTopColor: Colors.Navy,
+    saveView: {
         backgroundColor: '#fff',
         borderRadius: deviceWidth(1.2),
-        borderTopWidth: deviceWidth(1.2),
         shadowColor: '#000',
-        shadowOffset: { width: deviceWidth(1.2), height: deviceWidth(1.2) },
-        shadowOpacity: 0.5,
+        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
+        shadowOpacity: 0.4,
         shadowRadius: 0,
-        paddingVertical: deviceWidth(1.5),
-        marginVertical: deviceWidth(4),
+        padding: deviceWidth(1),
+        marginVertical: deviceWidth(2),
         marginHorizontal: deviceWidth(1),
-        alignSelf: 'center',
     },
 
     buttonBar: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         backgroundColor: '#fff',
-        paddingVertical: deviceWidth(1),
         paddingHorizontal: deviceWidth(9),
     },
 
@@ -116,8 +113,5 @@ export default MediaQueryStyleSheet.create({
         buttonBar: {
             paddingHorizontal: deviceWidth(2.8),
         },
-        currentWrapper: {
-            marginVertical: 0,
-        }
     }
 });

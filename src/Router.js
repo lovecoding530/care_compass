@@ -34,10 +34,7 @@ const headerStyle = {
 
 const HeaderTitle = () => {
     return (
-        <Image 
-            source={Images.icon_dying_to_talk} 
-            style={{width: deviceHeight(7), height: deviceHeight(5), tintColor: '#fff'}}
-        />
+        <Text light medium bold>APP NAME</Text>
     );
 }
 
@@ -276,7 +273,7 @@ export const DrawerStack = DrawerNavigator({
         screen: withFooter(GetHelpStack),
     },
 },{
-    drawerWidth: (width >= 768) ? width / 2.5 : width * 2 / 3,
+    drawerWidth: (width >= 768) ? deviceWidth(40) : deviceWidth(66),
     drawerPosition: 'right',
     contentComponent: props => <Menu {...props}/>
 });

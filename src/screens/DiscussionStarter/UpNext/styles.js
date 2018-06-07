@@ -5,7 +5,7 @@ import {
     Dimensions,
 } from 'react-native';
 
-import {Colors, FontSizes, MediaQueries} from '@theme';
+import {Colors, FontSizes, MediaQueries, Metrics} from '@theme';
 
 const { width } = Dimensions.get('window');
 
@@ -28,7 +28,7 @@ export default MediaQueryStyleSheet.create({
     currentWrapper: {
         marginVertical: deviceHeight(2), 
         shadowColor: '#000',
-        shadowOffset: { width: deviceWidth(1.2), height: deviceWidth(1.2) },
+        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
         shadowOpacity: 0.4,
         shadowRadius: 0,
     },
@@ -44,7 +44,7 @@ export default MediaQueryStyleSheet.create({
         paddingVertical: deviceHeight(2), 
         borderRadius: deviceWidth(1.2),
         shadowColor: '#000',
-        shadowOffset: { width: deviceWidth(1.2), height: deviceWidth(1.2) },
+        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
         shadowOpacity: 0.4,
         shadowRadius: 0,
     },
@@ -97,7 +97,6 @@ export default MediaQueryStyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         backgroundColor: '#fff',
-        paddingVertical: deviceWidth(1),
         paddingHorizontal: deviceWidth(9),
     },
     

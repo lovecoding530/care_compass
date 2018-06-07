@@ -23,6 +23,7 @@ const images = {
     icon_professional: require('../../assets/images/icon-professional.png'),
     icon_community: require('../../assets/images/icon-community.png'),
     iocn_lookig_after_yourself: require('../../assets/images/iocn-lookig-after-yourself.png'),
+    icon_loader: require('../../assets/images/icon-loader.png'),
     
     logo_footer: require('../../assets/images/pca-logo-footer.png'),
     pca_logo: require('../../assets/images/pca-logo.png'),

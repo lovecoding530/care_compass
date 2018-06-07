@@ -22,6 +22,7 @@ import {getSharingHTMLFromResult} from "./HtmlResult";
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { StackActions, NavigationActions } from 'react-navigation';
+import Mailer from 'react-native-mail';
 
 export default class Complete extends Component {
     constructor(props) {
@@ -78,7 +79,7 @@ export default class Complete extends Component {
             const {navigate, goBack} = this.props.navigation
             Alert.alert(
                 'Are you sure?',
-                'Are you sure to exit without share the results?',
+                'Any information you have entered will be deleted.',
                 [
                     {text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
                     {text: 'YES', onPress: () => {
@@ -106,8 +107,30 @@ export default class Complete extends Component {
         this.openModal({share: true})
     }
 
-    onShareEmail() {
-        this.openModal({email: true})
+    async onShareEmail() {
+
+        var html = getSharingHTMLFromResult(this.state.discussionStarter)
+
+        let options = {
+            html: html,
+            fileName: 'results',
+            directory: 'docs',
+        };
+    
+        let file = await RNHTMLtoPDF.convert(options)
+        Mailer.mail({
+            subject: 'Discussion Starter Results',
+            recipients: [],
+            body: '<b>Resuls as pdf attach</b>',
+            isHTML: true,
+            attachment: {
+              path: file.filePath,  // The absolute path of the file from which to read data.
+              type: 'pdf',   // Mime Type: jpg, png, doc, ppt, html, pdf, csv
+              name: 'results.pdf',   // Optional: Custom filename for attachment
+            }
+        }, (error, event) => {
+
+        });
     }
 
     async onShareDownload() {
@@ -187,22 +210,21 @@ export default class Complete extends Component {
                         data = {this.state.activities}
                         renderItem = {this.renderActivityItem.bind(this)}
                         keyExtractor = {(item, index) => index.toString()}
-                        style={Styles.flatList}
+                        contentContainerStyle={Styles.flatList}
                         />
-                    <TouchableOpacity style={Styles.moreInfo}>
-                        <Text medium bold center color={Colors.Navy}>More infomation <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
-                    </TouchableOpacity>
+                    <View style={Styles.saveView}>
+                        <Text medium bold center style={{marginVertical: 8}}>Save your results</Text>
+                        <Text bold center style={{marginVertical: 8}}>Personal information will not be stored or used by Palliative Care Australia in any way. Read more here</Text>
+                        <View style={{flexDirection: 'row', paddingHorizontal: 8,}}>
+                            <Button dark buttonStyles={{flex: 1}} onPress={this.onShareDownload.bind(this)}>DOWNLOAD</Button>
+                            <Button dark buttonStyles={{flex: 1}} onPress={this.onShareEmail.bind(this)}>EMAIL</Button>
+                            <Button dark buttonStyles={{flex: 1}} onPress={this.onShare.bind(this)}>PRINT</Button>
+                        </View>
+                    </View>
                 </ScrollView>
                 <View style={Styles.buttonBar}>
                     <Button light onPress={this.onExit.bind(this)}>EXIT</Button>
-                    <Button dark onPress={this.onShare.bind(this)}>SHARE RESULTS</Button>
                 </View>
-                <ShareModal 
-                    visible={this.state.modalVisible.share} 
-                    onDownload={this.onShareDownload.bind(this)}
-                    onEmail={this.onShareEmail.bind(this)}
-                    onCancel={this.onShareCancel.bind(this)}
-                    />
                 <EmailModal 
                     visible={this.state.modalVisible.email} 
                     onSend={this.onSendEmail.bind(this)}

@@ -10,6 +10,7 @@ import {
     ScrollView,
 } from 'react-native';
 import Spinner from "react-native-spinkit";
+import {MySpinner} from "@components"
 
 import {Colors, Images} from '@theme';
 import Styles from './styles';
@@ -40,16 +41,20 @@ export default class Splash extends Component {
     render() {
         return (
             <ImageBackground style={Styles.backgroundImage} source={Images.bg_splash_onboarding}>
-                <ScrollView contentContainerStyle={Styles.scrollView}>
+                <ScrollView contentContainerStyle={Styles.scrollView} style={{backgroundColor: '#0009'}}>
                     <View style={Styles.circle_above}>
-                        <Image source={Images.pca_logo} style={Styles.pca_logo}/>                    
-                        <Spinner isVisible={true} size={deviceWidth(10)} type='FadingCircle' color={Colors.Navy} style={Styles.spinner}/>
+                        <Image source={Images.pca_logo} style={Styles.pca_logo}/>
                     </View>
-                    <View style={Styles.circle_bellow}>
-                        <Image source={Images.icon_dying_to_talk} style={Styles.icon_dying_to_talk}/>                    
+                    <View style={Styles.center_view}>
+                        <Text style={Styles.app_name}>APP NAME GOES HERE</Text>
+                        <View style={Styles.circle_center}>
+                            <MySpinner loading={true} size={deviceWidth(10)} style={Styles.spinner}/>
+                        </View>
                     </View>
-                    <Text style={Styles.text_desc}>WORKING OUT WHAT'S RIGHT FOR YOU</Text>
-                    <Text style={Styles.text_website}>dyingtotalk.org.au</Text>
+                    <View style={Styles.bottom_view}>
+                        <Text style={Styles.text_desc}>WORKING OUT WHAT'S RIGHT FOR YOU</Text>
+                        <Text style={Styles.text_website}>dyingtotalk.org.au</Text>
+                    </View>
                 </ScrollView>
             </ImageBackground>
         );
