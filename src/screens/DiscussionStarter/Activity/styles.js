@@ -5,12 +5,13 @@ import {
     Dimensions,
 } from 'react-native';
 
-import {Colors, FontSizes, MediaQueries} from '@theme';
+import {Colors, FontSizes, MediaQueries, Metrics} from '@theme';
 
 const { width } = Dimensions.get('window');
 
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 import { MediaQueryStyleSheet } from "react-native-responsive";
+import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
 
 export default MediaQueryStyleSheet.create({
 
@@ -20,14 +21,15 @@ export default MediaQueryStyleSheet.create({
     },
 
     pregressBar: {
-        marginHorizontal: responsiveWidth(13),
-        marginVertical: responsiveWidth(2),
+        marginHorizontal: deviceWidth(13),
+        marginVertical: deviceWidth(2),
     },
 
     title: {
-        margin: responsiveWidth(1),
+        margin: deviceWidth(1),
         flexDirection: 'row',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flexWrap: 'wrap',
     },
 
     icon: {
@@ -35,69 +37,75 @@ export default MediaQueryStyleSheet.create({
     },
 
     questionItem: {
-        marginTop: responsiveWidth(2),
-        marginBottom: responsiveWidth(2),
+        marginVertical: deviceWidth(1.5),
         backgroundColor: '#fff',
-        borderRadius: responsiveWidth(1.2),
+        borderRadius: deviceWidth(1.2),
         shadowColor: '#000',
-        shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
+        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
         shadowOpacity: 0.4,
         shadowRadius: 0,
-        padding: responsiveWidth(1.2),
+        padding: deviceWidth(1.2),
     },
 
     questionTitle: {
-        marginBottom: responsiveWidth(1.8),
-        marginHorizontal: responsiveWidth(2),
+        marginBottom: deviceWidth(1.8),
+        marginHorizontal: deviceWidth(2),
     },
 
     textArea: {
         backgroundColor: Colors.backgroundSecondary,
-        height: responsiveWidth(16),
+        height: deviceWidth(16),
         color: Colors.textPrimary,
         fontSize: FontSizes.smallMedium,
         padding: 8,
     },
     
-    contentView: {
-        flex: 1,
-        paddingTop: responsiveWidth(4),
-        paddingHorizontal: responsiveWidth(8),
-        paddingBottom: 0,
-    },
-
     buttonBar: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         backgroundColor: '#fff',
-        paddingVertical: responsiveWidth(1),
-        paddingHorizontal: responsiveWidth(8),
+        paddingHorizontal: deviceWidth(8),
     },
 
     titleView: {
         borderTopColor: Colors.Red,
         backgroundColor: '#fff',
-        borderRadius: responsiveWidth(1.2),
-        borderTopWidth: responsiveWidth(1.2),
+        borderRadius: deviceWidth(1.2),
+        borderTopWidth: deviceWidth(1.2),
         shadowColor: '#000',
-        shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
+        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
         shadowOpacity: 0.4,
         shadowRadius: 0,
         padding: 8,
-        marginBottom: responsiveWidth(4),
-        marginHorizontal: responsiveWidth(1.2)
+        marginBottom: deviceWidth(2),
     },
 
     scrollView: {
-        paddingHorizontal: responsiveWidth(1.2),
+        flexGrow: 1,
+        paddingTop: deviceWidth(4),
+        paddingHorizontal: deviceWidth(8),
+        paddingBottom: 0,
+    }, 
+
+    answerButtonWrapper: {
+        flexDirection: 'row', 
+        justifyContent: 'center'
+    },
+
+    answerButton: {
+        backgroundColor: Colors.lightGray, 
+        paddingVertical: deviceWidth(1), 
+        paddingHorizontal: deviceWidth(2), 
+        marginTop: deviceWidth(1),
+        marginHorizontal: deviceWidth(1),
     }
 }, {
     [MediaQueries.iPhone] : {
-        contentView: {
-            paddingHorizontal: responsiveWidth(2.8),
+        scrollView: {
+            paddingHorizontal: deviceWidth(2.8),
         },
         buttonBar: {
-            paddingHorizontal: responsiveWidth(2.8),
+            paddingHorizontal: deviceWidth(2.8),
         },
     }
 });

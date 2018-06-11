@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import { Dimensions, Image, StyleSheet, TouchableOpacity, View, SafeAreaView} from 'react-native';
 import { StackNavigator, DrawerNavigator, addNavigationHelpers, withNavigation } from 'react-navigation';
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 import {Colors, FontSizes, Images} from './theme';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -19,8 +19,8 @@ import {DSIntro, ActivityList, Activity, UpNext, Complete} from "./screens/Discu
 import {CDIntro, CDSingleView, CDListView, CDSummary} from "./screens/CardGame";
 import {ResourceList, ResourceDetail} from "./screens/Resources";
 import {UserGuidesList,UserGuidesDetail,DiscussionAndCardDetail} from "./screens/UserGuides";
-import {GetHelpList, GetHelpDetail} from "./screens/GetHelp";
-import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
+import {GetHelpList, GetHelpDetail, LookAfterYourself} from "./screens/GetHelp";
+import { deviceWidth, deviceHeight } from "./components/ResponsiveDimensions";
 
 var drawerNavigator = null
 var primaryNavigator = null
@@ -28,32 +28,29 @@ var homeNavigator = null
 
 const headerStyle = { 
     backgroundColor: Colors.Navy, 
-    height: responsiveHeight(6), 
-    paddingHorizontal: responsiveHeight(1)
+    height: deviceHeight(6), 
+    paddingHorizontal: deviceHeight(1)
 }
 
 const HeaderTitle = () => {
     return (
-        <Image 
-            source={Images.icon_dying_to_talk} 
-            style={{width: responsiveHeight(7), height: responsiveHeight(5), tintColor: '#fff'}}
-        />
+        <Text light medium bold>APP NAME</Text>
     );
 }
 
 const Footer = () => {
     return (
         <View style={{
-            height: responsiveHeight(7), 
+            height: deviceHeight(7), 
             flexDirection: 'row', 
             alignItems: 'center', 
             justifyContent: 'space-between',
-            paddingHorizontal: responsiveWidth(2),
+            paddingHorizontal: deviceWidth(2),
             backgroundColor: Colors.Navy}}>
             <Image 
                 source={Images.logo_footer} 
                 resizeMode={"contain"}
-                style={{width: responsiveHeight(16), height: responsiveHeight(5), tintColor: '#fff'}}
+                style={{width: deviceHeight(16), height: deviceHeight(5), tintColor: '#fff'}}
             />
             <Text light right>logo footer logo footer {"\n"} logo footer</Text>
         </View>
@@ -67,7 +64,11 @@ const withFooter = (Screen) => {
             <View style={{flex: 1}}>
                 <Screen {...props}/>
                 <SafeAreaView style={{backgroundColor: Colors.Navy}}>
-                    <Footer/>
+                    {height > 414 ? 
+                        <Footer/>
+                    :
+                        <View/>
+                    }
                 </SafeAreaView>
             </View>
         )
@@ -77,12 +78,11 @@ const withFooter = (Screen) => {
 }
 
 const MenuIcon = ( navigation ) => {
-    homeNavigator = navigation
     return (
         <Icon.Button 
             name="bars" 
             size={FontSizes.medium}
-            style={{height: responsiveHeight(4.5), paddingHorizontal: 10,}}
+            style={{height: deviceHeight(4.5), paddingHorizontal: 10,}}
             backgroundColor={'#0000'} 
             onPress={() => drawerNavigator.navigate('DrawerOpen')}>
             <Text light bold>MENU</Text>
@@ -90,14 +90,15 @@ const MenuIcon = ( navigation ) => {
     );
 }
 
-const WelcomeIcon = ({ navigate }) => {
+const WelcomeIcon = ({navigation}) => {
+    const { navigate, goBack } = navigation
     return (
         <Icon.Button 
             name="arrow-left" 
             size={FontSizes.medium}
-            style={{height: responsiveHeight(4.5), paddingHorizontal: 10,}}
+            style={{height: deviceHeight(4.5), paddingHorizontal: 10,}}
             backgroundColor={'#0000'} 
-            onPress={() => primaryNavigator.goBack(null)}>
+            onPress={() => goBack(null)}>
             <Text light bold>WELCOME</Text>
         </Icon.Button>
     );
@@ -108,7 +109,7 @@ const HomeIcon = ({ navigate, goBack }) => {
         <Icon.Button 
             name="home" 
             size={FontSizes.medium}
-            style={{height: responsiveHeight(4.5), paddingHorizontal: 10,}}
+            style={{height: deviceHeight(4.5), paddingHorizontal: 10,}}
             backgroundColor={'#0000'} 
             onPress={() => navigate('Home')}>
             <Text light>HOME</Text>
@@ -170,8 +171,7 @@ export const UserGuidesStack = StackNavigator({
 });
 
 export const GetHelpStack = StackNavigator({
-    GetHelpList: {screen: GetHelpList},
-    GetHelpDetail: {screen: GetHelpDetail},
+    LookAfterYourself:{screen:LookAfterYourself},
 }, {
     navigationOptions: ({ navigation }) => ({
         headerTitle: <HeaderTitle/>,
@@ -243,7 +243,7 @@ const HomeWithHeader = ({navigation}) => {
         <View style={{flex: 1}}>
             <SafeAreaView style={{backgroundColor: Colors.Navy}}>
                 <View style={[headerStyle, {flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}]}>
-                    <WelcomeIcon/>
+                    <WelcomeIcon navigation={navigation}/>
                     <HeaderTitle/>
                     <MenuIcon/>
                 </View>
@@ -273,7 +273,7 @@ export const DrawerStack = DrawerNavigator({
         screen: withFooter(GetHelpStack),
     },
 },{
-    drawerWidth: (width >= 768) ? width / 2.5 : width * 2 / 3,
+    drawerWidth: (width >= 768) ? deviceWidth(40) : deviceWidth(66),
     drawerPosition: 'right',
     contentComponent: props => <Menu {...props}/>
 });

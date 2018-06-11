@@ -5,9 +5,10 @@ import {
     Dimensions,
 } from 'react-native';
 
-import {Colors, MediaQueries} from '@theme';
+import {Colors, MediaQueries, Metrics} from '@theme';
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 import { MediaQueryStyleSheet } from "react-native-responsive";
+import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
 
 export default MediaQueryStyleSheet.create({
     container: {
@@ -16,8 +17,8 @@ export default MediaQueryStyleSheet.create({
     },
 
     introContainer: {
-        paddingHorizontal: responsiveWidth(10),
-        flex: 1, 
+        flexGrow: 1, 
+        alignSelf: 'center'
     },
 
     title: {
@@ -30,7 +31,7 @@ export default MediaQueryStyleSheet.create({
     },
 
     icon: {
-        height: responsiveWidth(25),
+        height: deviceWidth(25),
         resizeMode: 'contain',
     },
 
@@ -43,28 +44,27 @@ export default MediaQueryStyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         backgroundColor: '#fff',
-        paddingVertical: responsiveWidth(1),
-        paddingHorizontal: responsiveWidth(10),
+        paddingHorizontal: deviceWidth(10),
     },
 
     titleView: {
         borderTopColor: Colors.Red,
         backgroundColor: '#fff',
-        borderRadius: responsiveWidth(1.2),
-        borderTopWidth: responsiveWidth(1.2),
+        borderRadius: deviceWidth(1.2),
+        borderTopWidth: deviceWidth(1.2),
         shadowColor: '#000',
-        shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
+        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
         shadowOpacity: 0.5,
         shadowRadius: 0,
         padding: 8,
-        marginVertical: responsiveWidth(4),
+        marginVertical: deviceWidth(4),
     },
 
     descView: {
         backgroundColor: '#fff',
-        borderRadius: responsiveWidth(1.2),
+        borderRadius: deviceWidth(1.2),
         shadowColor: '#000',
-        shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
+        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
         shadowOpacity: 0.5,
         shadowRadius: 0,
         alignItems: 'center',
@@ -73,18 +73,18 @@ export default MediaQueryStyleSheet.create({
 }, {
     [MediaQueries.iPad] : {
         introContainer: {
-            paddingHorizontal: responsiveWidth(10),
+            paddingHorizontal: deviceWidth(10),
         },
         buttonBar: {
-            paddingHorizontal: responsiveWidth(10),            
+            paddingHorizontal: deviceWidth(10),            
         }
     },
     [MediaQueries.iPhone] : {
         introContainer: {
-            paddingHorizontal: responsiveWidth(5),
+            paddingHorizontal: deviceWidth(5),
         },
         buttonBar: {
-            paddingHorizontal: responsiveWidth(5),            
+            paddingHorizontal: deviceWidth(5),            
         }
     }
 });

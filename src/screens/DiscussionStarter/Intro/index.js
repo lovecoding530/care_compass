@@ -4,7 +4,8 @@ import {
     StyleSheet,
     Image,
     View,
-    ImageBackground
+    ImageBackground,
+    ScrollView,
 } from 'react-native';
 
 import {Colors, Images} from '@theme';
@@ -41,7 +42,7 @@ export default class Intro extends Component {
         return (
             <ImageBackground source={Images.bg_discussion_starter} style={Styles.container}>
                 <Loader loading={this.state.loaderVisible}/>
-                <View style={Styles.introContainer}>
+                <ScrollView contentContainerStyle={Styles.introContainer}>
                     <View style={Styles.titleView}>
                         <Text mediumLarge bold center color={Colors.Red} style={Styles.title}>Discussion Starter</Text>
                         <Text medium bold style={Styles.subtitle}>
@@ -66,10 +67,10 @@ export default class Intro extends Component {
                             even find that your family is dying to talk too.
                         </Text>
                     </View>
-                </View>
+                </ScrollView>
                 <View style={Styles.buttonBar}>
-                    <Button light onPress={()=>{navigate('ActivityList', {discussionStarter: this.state.discussionStarter})}}>SKIP AHEAD</Button>
                     <Button dark onPress={()=>{navigate("Activity", {activityIndex: 0, discussionStarter: this.state.discussionStarter})}}>START THE CONVERSATION</Button>
+                    <Button light onPress={()=>{navigate('ActivityList', {discussionStarter: this.state.discussionStarter})}}>SKIP AHEAD</Button>
                 </View>
             </ImageBackground>
         );

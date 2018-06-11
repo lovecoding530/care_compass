@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, StatusBar, StyleSheet, Image, ImageBackground, TouchableOpacity} from 'react-native';
+import { View, StatusBar, StyleSheet, Image, ImageBackground, TouchableOpacity, ScrollView, SafeAreaView} from 'react-native';
 import { Colors, Images, FontSizes } from './theme';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Text from '@text'
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
+import { deviceWidth, deviceHeight, windowHeight } from "@ResponsiveDimensions";
 
 var currentRoute = null
 
@@ -16,9 +17,16 @@ export default class Menu extends Component {
         }, 500);
     }
 
+    goBack(){
+        this.props.navigation.navigate("DrawerClose")
+        setTimeout(() => {
+            this.props.navigation.goBack(null)
+        }, 500);
+    }
+
     render() {
         return (
-            <View style={styles.container}>
+            <ScrollView contentContainerStyle={styles.container} style={{backgroundColor: Colors.darkNavy}}>
                 <ImageBackground source={Images.bg_splash_onboarding} style={styles.logo}>
                     <View style={styles.opacityView}>
                         <Image source={Images.icon_dying_to_talk} style={styles.icon_dtt}/>
@@ -29,16 +37,16 @@ export default class Menu extends Component {
                         <Text light>Use Discussion Starter <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('CardGame')}>
-                        <Text light>Play Card Game <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('UserGuides')}>
-                        <Text light>How to use this app <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('Resources')}>
-                        <Text light>More Information <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <Text light>Start Discussion Cards <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('GetHelp')}>
-                        <Text light>UsGet Help <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <Text light>Looking after yourself <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('UserGuides')}>
+                        <Text light>App instructions <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('Resources')}>
+                        <Text light>Resource library <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem}>
                         <Text light>Take a quick survey <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
@@ -46,34 +54,36 @@ export default class Menu extends Component {
                     <TouchableOpacity style={styles.menuItem}>
                         <Text light>About this app <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuItem}>
+                    <TouchableOpacity style={styles.menuItem} onPress={()=>this.goBack()}>
                         <Text light>Welcome slides <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem}>
                         <Text light>Support / FAQ <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                 </View>
-                <Image 
+                <Image  
                     source={Images.logo_footer} 
                     resizeMode={"contain"}
-                    style={{width: responsiveHeight(20), height: responsiveHeight(6), tintColor: '#fff', alignSelf: 'center'}}
+                    style={{width: deviceHeight(20), height: deviceHeight(5), tintColor: '#fff', alignSelf: 'center'}}
                 />
-                <View style={styles.footer}>
-                    <Text style={styles.text_footer}>Funded by the Australian Goverment</Text>
-                </View>
-            </View>
+                <SafeAreaView style={{backgroundColor: Colors.darkNavy}}>
+                    <View style={styles.footer}>
+                        <Text style={styles.text_footer}>Funded by the Australian Goverment</Text>
+                    </View>
+                </SafeAreaView>
+            </ScrollView>
         );
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1, 
+        flexGrow: 1, 
         backgroundColor: Colors.Navy,
     },
 
     logo: {
-        height: responsiveHeight(28),
+        height: deviceHeight(20),
     },
 
     opacityView: {
@@ -93,7 +103,7 @@ const styles = StyleSheet.create({
     },
 
     menuItem: {
-        paddingVertical: responsiveWidth(2),
+        paddingVertical: deviceWidth(2),
     },
 
     footer: {
@@ -102,7 +112,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.darkNavy,
         justifyContent: 'center',
         alignItems: 'center',
-        height: responsiveHeight(7),
+        height: deviceHeight(7),
     },
 
     text_footer: {

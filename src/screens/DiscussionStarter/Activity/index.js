@@ -48,6 +48,25 @@ export default class Activity extends Component {
         this.setState({discussionStarter: discussionStarter})
     }
 
+    onAnswerLater(questionIndex){
+        var discussionStarter = this.state.discussionStarter
+        var activity = discussionStarter.discussion_starter[this.state.activityIndex]
+        var question = activity.questions[questionIndex]
+        question.answerLater = !question.answerLater
+
+        this.setState({discussionStarter: discussionStarter})
+
+    }
+
+    onNeverAnswer(questionIndex){
+        var discussionStarter = this.state.discussionStarter
+        var activity = discussionStarter.discussion_starter[this.state.activityIndex]
+        var question = activity.questions[questionIndex]
+        question.neverAnswer = !question.neverAnswer
+
+        this.setState({discussionStarter: discussionStarter})
+    }
+
     goBack(){
         if(this.state.pageIndex > 0){
             this.setState({
@@ -88,46 +107,59 @@ export default class Activity extends Component {
         var pageQuestions = this.state.activity.questions.slice(startIndex, endIndex)
         var questionList = pageQuestions.map((questionData, index) => {
             var questionIndex = startIndex + index
-            const {question, question_type, question_choices, category, question_audio_url} = questionData;            
-            if(question_type == "freetext") {
-                return (
-                    <View style={Styles.questionItem} key={index}>
-                        <Text center style={Styles.questionTitle}>{questionIndex + 1}. {question}</Text>
+            const {question, question_type, question_choices, category, question_audio_url, answerLater, neverAnswer} = questionData;
+            const answerList = question_choices.split("\r\n")
+
+            let answerLaterButtonStyle = {}
+            let neverAnswerButtonStyle = {}
+            if(answerLater){
+                answerLaterButtonStyle.backgroundColor = Colors.Blue
+            }else{
+                answerLaterButtonStyle.backgroundColor = Colors.lightGray                
+            }
+
+            if(neverAnswer){
+                neverAnswerButtonStyle.backgroundColor = Colors.Blue
+            }else{
+                neverAnswerButtonStyle.backgroundColor = Colors.lightGray                
+            }
+
+            return (
+                <View style={Styles.questionItem} key={index}>
+                    <Text center style={Styles.questionTitle}>{questionIndex + 1}. {question}</Text>
+                    {question_type == "freetext" ?
                         <TextInput
                             style={Styles.textArea}
                             value={""}
                             multiline={true}
                             numberOfLines={4}
                             onChangeText={(text) => this.onChangedAnswer(questionIndex, text)}/>
-                    </View>
-                )
-            }else if(question_type == "choices"){
-                const answerList = question_choices.split("\r\n")
-                return (
-                    <View style={Styles.questionItem} key={index}>
-                        <Text center style={Styles.questionTitle}>{questionIndex + 1}. {question}</Text>
+                    :question_type == "choices" ?
                         <Choices 
                             scrollViewRef = {this.scrollView}
                             questionIndex={questionIndex}
                             data={answerList} 
                             selectedIndex={-1}
                             onChangedAnswer={this.onChangedAnswer.bind(this)}/>
-                    </View>
-                )                
-            }else if(question_type == "manychoices"){
-                const answerList = question_choices.split("\r\n")
-                return (
-                    <View style={Styles.questionItem} key={index}>
-                        <Text center style={Styles.questionTitle}>{questionIndex + 1}. {question}</Text>
+                    :question_type == "manychoices" ?
                         <ManyChoices 
                             scrollViewRef = {this.scrollView}
                             questionIndex={questionIndex}
                             data={answerList} 
                             selectedIndexes={[]}
                             onChangedAnswer={this.onChangedAnswer.bind(this)}/>
+                    :<View/>
+                    }
+                    <View style={Styles.answerButtonWrapper}>
+                        <TouchableOpacity style={[Styles.answerButton, answerLaterButtonStyle]} onPress={() => this.onAnswerLater(questionIndex)}>
+                            <Text bold color={Colors.Navy}>ANSWER LATER</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[Styles.answerButton, neverAnswerButtonStyle]} onPress={() => this.onNeverAnswer(questionIndex)}>
+                            <Text bold color={Colors.Navy}>NEVER ANSWER</Text>
+                        </TouchableOpacity>
                     </View>
-                )                
-            }
+                </View>
+            )
         });
         return questionList
     }
@@ -136,7 +168,10 @@ export default class Activity extends Component {
         return (
             <ImageBackground source={Images.bg_discussion_starter} style={Styles.container}>
                 <Loader loading={this.state.loaderVisible}/>
-                <View style={Styles.contentView}>
+                <ScrollView 
+                    ref={ref => this.scrollView = ref} 
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={Styles.scrollView}>
                     <View style={Styles.titleView}>
                         <View style={Styles.title}>
                             <Text mediumLarge bold center color={Colors.Red}>Activity {this.state.activityIndex + 1}: </Text>
@@ -144,13 +179,8 @@ export default class Activity extends Component {
                         </View>
                         <ProgressBar total={this.state.pageTotalCount} progress={this.state.pageIndex+1} style={Styles.pregressBar}/>
                     </View>
-                    <ScrollView 
-                        ref={ref => this.scrollView = ref} 
-                        showsVerticalScrollIndicator={false}
-                        style={Styles.scrollView}>
-                        {this.renderQuestions()}
-                    </ScrollView>
-                </View>
+                    {this.renderQuestions()}
+                </ScrollView>
                 <View style={Styles.buttonBar}>
                     <View style={{flexDirection: 'row'}}>
                         <Button light onPress={this.goBack.bind(this)}>GO BACK</Button>
