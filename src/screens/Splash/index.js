@@ -18,11 +18,8 @@ import {getBundle} from '@api';
 import { deviceWidth, deviceHeight } from "@ResponsiveDimensions";
 
 export default class Splash extends Component {
-    constructor(props) {
-        super(props);
-        this.state = ({
-            animating: true,
-        })
+    state = {
+        loading: true,
     }
 
     async componentDidMount() {
@@ -30,10 +27,7 @@ export default class Splash extends Component {
         let json = await getBundle()
 
         // alert(JSON.stringify(json))
-
-        this.setState({
-            animating: false,
-        })
+        this.setState({ loading: false })
 
         navigate("OnBoardingScreen");
     }
@@ -48,7 +42,7 @@ export default class Splash extends Component {
                     <View style={Styles.center_view}>
                         <Text style={Styles.app_name}>APP NAME GOES HERE</Text>
                         <View style={Styles.circle_center}>
-                            <MySpinner loading={true} size={deviceWidth(10)} style={Styles.spinner}/>
+                            <MySpinner loading={this.state.loading} size={deviceWidth(10)} style={Styles.spinner}/>
                         </View>
                     </View>
                     <View style={Styles.bottom_view}>

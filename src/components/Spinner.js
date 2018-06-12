@@ -27,7 +27,9 @@ class Spinner extends Component {
                 duration: 1000,
                 easing: Easing.linear
             }
-        ).start(() => this.spin())
+        ).start(() => {
+            if (!this.props.loading) this.spin()
+        })
     }
 
     render(){

@@ -21,7 +21,7 @@ import { getCardGame} from "@api";
 import { Loader } from '@components';
 import { copy } from '@utils';
 import DeviceInfo from 'react-native-device-info'
-import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
+import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
 
 export default class ListView extends Component {
     constructor(props) {
@@ -47,13 +47,13 @@ export default class ListView extends Component {
     renderCardItem({item, index}){
         let selectedLevel = item.selectedLevel
         var levelItemStyles = [
-            {marginLeft: responsiveHeight(1.5)},
-            {marginLeft: responsiveHeight(1.5)},
-            {marginLeft: responsiveHeight(1.5)},
+            {marginLeft: deviceHeight(1.5)},
+            {marginLeft: deviceHeight(1.5)},
+            {marginLeft: deviceHeight(1.5)},
         ]
         if(selectedLevel >= 0) {
             levelItemStyles[selectedLevel].marginLeft = 0
-            levelItemStyles[selectedLevel].width = responsiveHeight(17)
+            levelItemStyles[selectedLevel].width = deviceHeight(17)
         }
         var cardItem = 
             <View style={Styles.cardItem}>

@@ -4,7 +4,7 @@
 
 import React, { Component } from 'react';
 import { Dimensions, Image, StyleSheet, TouchableOpacity, View, SafeAreaView} from 'react-native';
-import { StackNavigator, DrawerNavigator, addNavigationHelpers, withNavigation } from 'react-navigation';
+import { StackNavigator, DrawerNavigator, NavigationActions } from 'react-navigation';
 
 const { width, height } = Dimensions.get('window');
 
@@ -98,7 +98,16 @@ const WelcomeIcon = ({navigation}) => {
             size={FontSizes.medium}
             style={{height: deviceHeight(4.5), paddingHorizontal: 10,}}
             backgroundColor={'#0000'} 
-            onPress={() => goBack(null)}>
+            onPress={() => {
+                const resetAction = NavigationActions.reset({
+                    index: 0,
+                    key: null,
+                    actions: [
+                        NavigationActions.navigate({ routeName: 'OnBoardingScreen' }),
+                    ],
+                });
+                navigation.dispatch(resetAction);
+            }}>
             <Text light bold>WELCOME</Text>
         </Icon.Button>
     );
