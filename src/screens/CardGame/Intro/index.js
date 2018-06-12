@@ -4,6 +4,7 @@ import {
     StyleSheet,
     Image,
     View,
+    ScrollView,
 } from 'react-native';
 
 import {Colors} from '@theme';
@@ -48,7 +49,7 @@ export default class intro extends Component {
         return (
             <View style={Styles.container}>
                 <Loader loading={this.state.loaderVisible}/>
-                <View style={Styles.introContainer}>
+                <ScrollView contentContainerStyle={Styles.introContainer}>
                     <Text mediumLarge bold style={Styles.title}>Card Game</Text>
                     <Text medium bold style={Styles.subtitle}>
                         {this.state.cardGame.title}
@@ -61,7 +62,7 @@ export default class intro extends Component {
                         <Button dark 
                             onPress={()=>{navigate("CDSingleView", {cardIndex: 0, cardGame: this.state.cardGame})}}>{"  PLAY  "}</Button>
                     </View>
-                </View>
+                </ScrollView>
             </View>
         );
     }

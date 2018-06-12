@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Text from '@text'
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 import { deviceWidth, deviceHeight, windowHeight } from "@ResponsiveDimensions";
+import { NavigationActions } from 'react-navigation';
 
 var currentRoute = null
 
@@ -17,11 +18,15 @@ export default class Menu extends Component {
         }, 500);
     }
 
-    goBack(){
-        this.props.navigation.navigate("DrawerClose")
-        setTimeout(() => {
-            this.props.navigation.goBack(null)
-        }, 500);
+    goBackToOnboarding(){
+        const resetAction = NavigationActions.reset({
+            index: 0,
+            key: null,
+            actions: [
+                NavigationActions.navigate({ routeName: 'OnBoardingScreen' }),
+            ],
+        });
+        this.props.navigation.dispatch(resetAction);
     }
 
     render() {
@@ -54,7 +59,7 @@ export default class Menu extends Component {
                     <TouchableOpacity style={styles.menuItem}>
                         <Text light>About this app <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuItem} onPress={()=>this.goBack()}>
+                    <TouchableOpacity style={styles.menuItem} onPress={()=>this.goBackToOnboarding()}>
                         <Text light>Welcome slides <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem}>
