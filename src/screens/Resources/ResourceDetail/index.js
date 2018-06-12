@@ -5,14 +5,15 @@ import {
     Image,
     View,
     Linking,
-    ScrollView
+    ScrollView,
+    ImageBackground
 } from 'react-native';
 
 import Styles from './styles';
 import Text from '@text'
 import Footer from '@footer'
 import Button from '@button'
-import { Loader } from '@components';
+import {Colors, Images, FontSizes} from '@theme';
 import { getResources } from "@api";
 var BASE_URL = 'https://pca.techequipt.com.au'
 
@@ -26,7 +27,6 @@ export default class ResourceDetail extends Component {
             subtitle: '',
             link: '',
             image: '',
-            loaderVisible: true
         })
     }
 
@@ -40,31 +40,33 @@ export default class ResourceDetail extends Component {
             subtitle: resource.information_text,
             link: resource.link,
             image: BASE_URL + resource.image.url,
-            loaderVisible: false
         }) 
     }
 
     render() {   
         return (
-            <View style={Styles.container}>
-            <View style={Styles.scrollcontainer}> 
-                <Loader loading={this.state.loaderVisible}/>
-                <ScrollView contentContainerStyle={Styles.scroll}> 
-                    <Text bold style={Styles.title}>{this.state.title}</Text>
-                    <View style={Styles.viewImage}>
-                        <Image style={Styles.middleimage} source={{uri: this.state.image}}/>
-                    </View>                
-                    <Text style={Styles.subtitle}>
-                        {this.state.subtitle}
-                    </Text>
-                    <View style={Styles.buttonContainer}>
-                        <Button light onPress={ ()=> this.props.navigation.goBack() }>GO BACK</Button>
-                      <Button dark onPress={ ()=> Linking.openURL(this.state.link) } >VIEW</Button>
+           
+
+            <ImageBackground source={Images.bg_navigation} resizeMode="stretch" style={Styles.container} >
+
+                <ScrollView contentContainerStyle={Styles.scroll}>
+
+                    <View style={Styles.titleView}>
+                             <Text large style={Styles.title}>{this.state.title}</Text>
+                    </View>
+
+                    <View style={[Styles.itemView]}>
+                        <Image style={[Styles.middleimage]} resizeMode="contain" source={{uri: this.state.image}}/>
+                        <Text smallMedium  style={Styles.subtitle}>{this.state.subtitle}</Text>
+                    
+                       
                     </View>
                 </ScrollView> 
+                <View style={Styles.buttonBackView}>
+                    <Button light onPress={ ()=> this.props.navigation.goBack() } buttonStyles={Styles.buttonBack}>Go back</Button>
+                    <Button dark  buttonStyles={Styles.buttonBack}>Find out more</Button>
                 </View>
-                <Footer />
-            </View>
+            </ImageBackground>
         );
     }
 }
