@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import {
-    Platform,
-    StyleSheet,
-    Image,
     TouchableOpacity,
-    FlatList,
     View,
     ScrollView,
     TextInput,
@@ -14,7 +10,6 @@ import {Colors, Images} from '@theme';
 import Styles from './styles';
 
 import {Button, Text, ProgressBar, Choices, ManyChoices, Loader } from '@components';
-import DeviceInfo from 'react-native-device-info'
 
 export default class Activity extends Component {
     constructor(props) {
@@ -53,6 +48,7 @@ export default class Activity extends Component {
         var activity = discussionStarter.discussion_starter[this.state.activityIndex]
         var question = activity.questions[questionIndex]
         question.answerLater = !question.answerLater
+        if (question.neverAnswer) question.neverAnswer = false
 
         this.setState({discussionStarter: discussionStarter})
 
@@ -63,6 +59,7 @@ export default class Activity extends Component {
         var activity = discussionStarter.discussion_starter[this.state.activityIndex]
         var question = activity.questions[questionIndex]
         question.neverAnswer = !question.neverAnswer
+        if (question.answerLater) question.answerLater = false
 
         this.setState({discussionStarter: discussionStarter})
     }
@@ -80,10 +77,15 @@ export default class Activity extends Component {
 
     onNext(){
         if(this.state.pageIndex < (this.state.pageTotalCount - 1)){
-            this.setState({
-                pageIndex: this.state.pageIndex + 1,
-            })
+            this.setState({ pageIndex: this.state.pageIndex + 1 })
+            setTimeout(() => {
+                this.scrollView.scrollTo(0)             
+            });
         }else{
+            setTimeout(() => {
+                this.setState({ pageIndex: 0 })
+                this.scrollView.scrollWithoutAnimationTo(0)        
+            }, 500);
             this.onFinish()
         }
     }
@@ -107,7 +109,7 @@ export default class Activity extends Component {
         var pageQuestions = this.state.activity.questions.slice(startIndex, endIndex)
         var questionList = pageQuestions.map((questionData, index) => {
             var questionIndex = startIndex + index
-            const {question, question_type, question_choices, category, question_audio_url, answerLater, neverAnswer} = questionData;
+            const {question, question_type, question_choices, category, question_audio_url, answerLater, neverAnswer, answerData} = questionData;
             const answerList = question_choices.split("\r\n")
 
             let answerLaterButtonStyle = {}
@@ -130,7 +132,7 @@ export default class Activity extends Component {
                     {question_type == "freetext" ?
                         <TextInput
                             style={Styles.textArea}
-                            value={""}
+                            value={answerData?answerData:""}
                             multiline={true}
                             numberOfLines={4}
                             onChangeText={(text) => this.onChangedAnswer(questionIndex, text)}/>
@@ -139,14 +141,14 @@ export default class Activity extends Component {
                             scrollViewRef = {this.scrollView}
                             questionIndex={questionIndex}
                             data={answerList} 
-                            selectedIndex={-1}
+                            selectedIndex={answerData?answerData:-1}
                             onChangedAnswer={this.onChangedAnswer.bind(this)}/>
                     :question_type == "manychoices" ?
                         <ManyChoices 
                             scrollViewRef = {this.scrollView}
                             questionIndex={questionIndex}
                             data={answerList} 
-                            selectedIndexes={[]}
+                            selectedIndexes={answerData?answerData:[]}
                             onChangedAnswer={this.onChangedAnswer.bind(this)}/>
                     :<View/>
                     }

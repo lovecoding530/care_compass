@@ -1,21 +1,14 @@
 import React, { Component } from 'react';
 import {
-    Platform,
-    StyleSheet,
     Image,
-    TouchableOpacity,
-    FlatList,
     View,
     ScrollView,
-    TextInput,
     ImageBackground,
 } from 'react-native';
 import {Colors, Images} from '@theme';
 import Styles from './styles';
 import Button from '@button'
 import Text from '@text'
-
-import { getDiscussionStarter } from "@api";
 
 export default class ActivityList extends Component {
     constructor(props) {
@@ -29,6 +22,11 @@ export default class ActivityList extends Component {
             activities: activities,
             activityCount: activities.length,
         })
+    }
+
+    onEdit = () => {
+        const {goBack} = this.props.navigation
+        goBack()
     }
 
     renderLaterView() {
@@ -57,7 +55,7 @@ export default class ActivityList extends Component {
                                         Complete
                                     </Text>
                                 </View>
-                                <Button light color={'#fff'} onPress={()=>goBack()}>EDIT</Button>
+                                <Button light color={'#fff'} onPress={this.onEdit}>EDIT</Button>
                             </View>
                             <View style={Styles.currentDescView}>
                                 <Text medium color={Colors.Navy} style={Styles.currentTitle}>Activity {this.state.activityIndex + 1}: {this.state.activities[this.state.activityIndex].stage}</Text>

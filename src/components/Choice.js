@@ -9,7 +9,7 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
-import {Colors, MediaQueries} from '@theme';
+import {Colors, MediaQueries, FontSizes} from '@theme';
 import Button from '@button'
 import Text from '@text'
 import { Icon } from "native-base";
@@ -58,7 +58,7 @@ const styles = MediaQueryStyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingLeft: deviceWidth(1),
-        minHeight: deviceWidth(6.6),
+        minHeight: FontSizes.smallMedium + deviceWidth(5),
     },
 
     icon: {

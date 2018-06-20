@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import {
-    Platform,
-    StyleSheet,
     Image,
     ImageBackground,
-    TouchableOpacity,
     FlatList,
     View,
-    Modal,
     Alert,
     Share,
     ScrollView,
@@ -15,13 +11,12 @@ import {
 import {Colors, Images, FontSizes} from '@theme';
 import Styles from './styles';
 import {Button, Text, Loader } from '@components';
-import { ShareModal, EmailModal, EmailSentModal, DownloadedModal} from '../../modals';
+import { EmailModal, EmailSentModal, DownloadedModal} from '../../modals';
 
 import {postDiscussionAnswers} from "@api";
 import {getSharingHTMLFromResult} from "./HtmlResult";
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { StackActions, NavigationActions } from 'react-navigation';
+import { NavigationActions } from 'react-navigation';
 import Mailer from 'react-native-mail';
 
 export default class Complete extends Component {
