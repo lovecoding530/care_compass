@@ -15,6 +15,7 @@ import Styles from './styles';
 import Text from '@text'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { MediaQuery } from "react-native-responsive";
+const {height, width} = Dimensions.get('window');
 
 export default class Home extends Component {
     constructor(props) {
@@ -30,7 +31,7 @@ export default class Home extends Component {
     render() {
         return ( 
             <ImageBackground source={Images.bg_navigation} style={Styles.container}>
-                <ScrollView contentContainerStyle={Styles.scrollView}>
+                <ScrollView contentContainerStyle={Styles.scrollView} scrollEnabled={height < 768}>
                     <View style={Styles.containerLeft}>
                         <TouchableOpacity style={[Styles.item, Styles.right_item]} onPress={()=>{this.props.navigation.navigate({routeName: "DiscussionStarter", key: "DiscussionStarter"})}}>
                             <MediaQuery minDeviceWidth={768}>

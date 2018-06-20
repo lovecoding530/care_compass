@@ -29,12 +29,14 @@ var homeNavigator = null
 const headerStyle = { 
     backgroundColor: Colors.Navy, 
     height: deviceHeight(6), 
-    paddingHorizontal: deviceHeight(1)
 }
 
 const HeaderTitle = () => {
     return (
-        <Text light medium bold>APP NAME</Text>
+        <Text light medium bold center style={{
+            position: 'absolute',
+            width: '100%',
+        }}>APP NAME</Text>
     );
 }
 
@@ -82,7 +84,7 @@ const MenuIcon = ( navigation ) => {
         <Icon.Button 
             name="bars" 
             size={FontSizes.medium}
-            style={{height: deviceHeight(4.5), paddingHorizontal: 10,}}
+            style={{height: deviceHeight(4.5), paddingHorizontal: 10, marginHorizontal: deviceHeight(1)}}
             backgroundColor={'#0000'} 
             onPress={() => drawerNavigator.navigate('DrawerOpen')}>
             <Text light bold>MENU</Text>
@@ -96,7 +98,7 @@ const WelcomeIcon = ({navigation}) => {
         <Icon.Button 
             name="arrow-left" 
             size={FontSizes.medium}
-            style={{height: deviceHeight(4.5), paddingHorizontal: 10,}}
+            style={{height: deviceHeight(4.5), paddingHorizontal: 10, marginHorizontal: deviceHeight(1)}}
             backgroundColor={'#0000'} 
             onPress={() => goBack(null)}>
             <Text light bold>WELCOME</Text>
