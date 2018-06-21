@@ -25,11 +25,13 @@ export default class intro extends Component {
     }
         
     async componentDidMount() {
-        this.setState({
-            loaderVisible: true,
-        })
+        var json = await getCardGame(true)
+        if(json  == null){
+            this.setState({ loaderVisible: true })
+            json = await getCardGame(false)
+            this.setState({ loaderVisible: false })
+        }
 
-        let json = await getCardGame()
         const firstCardGame = json[0]
 
         var cardIndex = 0
@@ -39,7 +41,6 @@ export default class intro extends Component {
         }
 
         this.setState({
-            loaderVisible: false,
             cardGame: firstCardGame,
         })
     }
