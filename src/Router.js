@@ -36,6 +36,7 @@ const HeaderTitle = () => {
         <Text light medium bold center style={{
             position: 'absolute',
             width: '100%',
+            zIndex: -1,
         }}>APP NAME</Text>
     );
 }
@@ -284,7 +285,7 @@ export const DrawerStack = DrawerNavigator({
         screen: withFooter(GetHelpStack),
     },
 },{
-    drawerWidth: (width >= 768) ? deviceWidth(40) : deviceWidth(66),
+    drawerWidth: (deviceWidth(100) >= 768) ? deviceWidth(40) : deviceWidth(66),
     drawerPosition: 'right',
     contentComponent: props => <Menu {...props}/>
 });
