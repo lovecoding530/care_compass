@@ -26,12 +26,15 @@ export default class Intro extends Component {
     }
 
     async componentDidMount() {
-        this.setState({loaderVisible: true})
-        let json = await getDiscussionStarter()
+        var json = await getDiscussionStarter(true)
+        if(json == null){
+            this.setState({loaderVisible: true})
+            json = await getDiscussionStarter(false)
+            this.setState({loaderVisible: false})    
+        }
         let firstDiscussionStarter = json[0]
         this.setState({
             discussionStarter: firstDiscussionStarter,
-            loaderVisible: false,
         })
 
         console.log(firstDiscussionStarter)
