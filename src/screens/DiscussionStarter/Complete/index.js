@@ -78,16 +78,7 @@ export default class Complete extends Component {
                 [
                     {text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
                     {text: 'YES', onPress: () => {
-                        const resetAction = NavigationActions.reset({
-                            index: 1,
-                            key: null,
-                            actions: [
-                                NavigationActions.navigate({ routeName: 'OnBoardingScreen' }),
-                                NavigationActions.navigate({ routeName: 'DrawerStack' })
-                            ],
-                        });
-                        this.props.navigation.dispatch(resetAction);
-                        // goBack("DiscussionStarter")
+                        goBack("DiscussionStarter")
                     }},
                 ],
                 { cancelable: false }

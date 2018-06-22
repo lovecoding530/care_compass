@@ -3,18 +3,21 @@ import { View, StatusBar, StyleSheet, Image, ImageBackground, TouchableOpacity, 
 import { Colors, Images, FontSizes } from './theme';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Text from '@text'
-import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 import { deviceWidth, deviceHeight, windowHeight } from "@ResponsiveDimensions";
 import { NavigationActions } from 'react-navigation';
-
-var currentRoute = null
+import store from './Store';
 
 // StatusBar.setHidden(true);
 export default class Menu extends Component {
-    goto(route){
+    goto(routeName){
         this.props.navigation.navigate("DrawerClose")
+
+        if (store.activeRoute == routeName) return
         setTimeout(() => {
-            this.props.navigation.navigate(route)
+            var key = `${routeName} ${store.routesInStack.length}`
+            store.activeRoute = routeName
+            store.routesInStack.push(key)
+            this.props.navigation.navigate({routeName, key})
         }, 500);
     }
 
