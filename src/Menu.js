@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StatusBar, StyleSheet, Image, ImageBackground, TouchableOpacity, ScrollView, SafeAreaView} from 'react-native';
+import { View, Alert, StyleSheet, Image, ImageBackground, TouchableOpacity, ScrollView, SafeAreaView} from 'react-native';
 import { Colors, Images, FontSizes } from './theme';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Text from '@text'
@@ -7,18 +7,39 @@ import { deviceWidth, deviceHeight, windowHeight } from "@ResponsiveDimensions";
 import { NavigationActions } from 'react-navigation';
 import store from './Store';
 
-// StatusBar.setHidden(true);
+const CHECK_ROUTES = ['DiscussionStarter', 'CardGame']
 export default class Menu extends Component {
     goto(routeName){
         this.props.navigation.navigate("DrawerClose")
-
         if (store.activeRoute == routeName) return
-        setTimeout(() => {
-            var key = `${routeName} ${store.routesInStack.length}`
-            store.activeRoute = routeName
-            store.routesInStack.push(key)
-            this.props.navigation.navigate({routeName, key})
-        }, 500);
+
+        let goToRoute = (routeName) => {
+            setTimeout(() => {
+                var key = `${routeName} ${store.routesInStack.length}`
+                store.activeRoute = routeName
+                store.routesInStack.push(key)
+                this.props.navigation.navigate({routeName, key})
+            }, 500);
+        }
+
+        if(CHECK_ROUTES.includes(store.activeRoute)){
+            setTimeout(()=>{
+                const {navigate, goBack} = this.props.navigation
+                Alert.alert(
+                    'Are you sure?',
+                    'Any information you have entered will be deleted.',
+                    [
+                        {text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                        {text: 'YES', onPress: () => {
+                            goToRoute(routeName)
+                        }},
+                    ],
+                    { cancelable: false }
+                )
+            }, 500)
+        }else{
+            goToRoute(routeName)
+        }
     }
 
     goBackToOnboarding(){
