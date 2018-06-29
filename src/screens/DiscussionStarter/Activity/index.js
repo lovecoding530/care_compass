@@ -8,8 +8,11 @@ import {
 } from 'react-native';
 import {Colors, Images} from '@theme';
 import Styles from './styles';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import {Button, Text, ProgressBar, Choices, ManyChoices, Loader } from '@components';
+
+import {playSound} from '@utils'
 
 export default class Activity extends Component {
     constructor(props) {
@@ -82,17 +85,15 @@ export default class Activity extends Component {
                 this.scrollView.scrollTo(0)             
             });
         }else{
-            setTimeout(() => {
-                this.setState({ pageIndex: 0 })
-                this.scrollView.scrollWithoutAnimationTo(0)        
-            }, 500);
             this.onFinish()
         }
     }
 
     onFinish(){
-        // const {navigate} = this.props.navigation
-        // navigate("Complete", {discussionStarter: this.state.discussionStarter})    
+        setTimeout(() => {
+            this.setState({ pageIndex: 0 })
+            this.scrollView.scrollWithoutAnimationTo(0)        
+        }, 500);
 
         const {navigate} = this.props.navigation
 
@@ -112,23 +113,17 @@ export default class Activity extends Component {
             const {question, question_type, question_choices, category, question_audio_url, answerLater, neverAnswer, answerData} = questionData;
             const answerList = question_choices.split("\r\n")
 
-            let answerLaterButtonStyle = {}
-            let neverAnswerButtonStyle = {}
-            if(answerLater){
-                answerLaterButtonStyle.backgroundColor = Colors.Blue
-            }else{
-                answerLaterButtonStyle.backgroundColor = Colors.lightGray                
-            }
-
-            if(neverAnswer){
-                neverAnswerButtonStyle.backgroundColor = Colors.Blue
-            }else{
-                neverAnswerButtonStyle.backgroundColor = Colors.lightGray                
-            }
-
             return (
                 <View style={Styles.questionItem} key={index}>
-                    <Text center style={Styles.questionTitle}>{questionIndex + 1}. {question}</Text>
+                    <View style={{flexDirection: 'row'}}>
+                        <Text bold style={Styles.questionTitle}>{questionIndex + 1}. {question}</Text>
+                        <TouchableOpacity 
+                            style={{width: 24, height: 24, borderRadius: 15, backgroundColor: Colors.Red, alignItems: 'center', justifyContent: 'center'}}
+                            onPress={()=>playSound(question_audio_url)}
+                        >
+                            <Icon name='md-volume-down' size={26} color={Colors.white} style={{marginTop: -1}}/>
+                        </TouchableOpacity>
+                    </View>
                     {question_type == "freetext" ?
                         <TextInput
                             style={Styles.textArea}
@@ -153,11 +148,14 @@ export default class Activity extends Component {
                     :<View/>
                     }
                     <View style={Styles.answerButtonWrapper}>
-                        <TouchableOpacity style={[Styles.answerButton, answerLaterButtonStyle]} onPress={() => this.onAnswerLater(questionIndex)}>
-                            <Text bold color={Colors.Navy}>ANSWER LATER</Text>
+                        <View style={{flex: 1}}/>
+                        <TouchableOpacity style={Styles.answerButton} onPress={() => this.onAnswerLater(questionIndex)}>
+                            <Icon name={answerLater ? 'md-checkbox-outline' : 'md-square-outline'} size={24} color={Colors.Navy} style={{marginRight: 8, marginTop: 4}}/>
+                            <Text bold color={Colors.Navy}>Answer Later</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={[Styles.answerButton, neverAnswerButtonStyle]} onPress={() => this.onNeverAnswer(questionIndex)}>
-                            <Text bold color={Colors.Navy}>NEVER ANSWER</Text>
+                        <TouchableOpacity style={Styles.answerButton} onPress={() => this.onNeverAnswer(questionIndex)}>
+                            <Icon name={neverAnswer ? 'md-checkbox-outline' : 'md-square-outline'} size={24} color={Colors.Navy} style={{marginRight: 8, marginTop: 4}}/>
+                            <Text bold color={Colors.Navy}>Never Answer</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -176,8 +174,7 @@ export default class Activity extends Component {
                     contentContainerStyle={Styles.scrollView}>
                     <View style={Styles.titleView}>
                         <View style={Styles.title}>
-                            <Text mediumLarge bold center color={Colors.Red}>Activity {this.state.activityIndex + 1}: </Text>
-                            <Text mediumLarge center color={Colors.Red}>{" "}{this.state.activity.stage}</Text>
+                            <Text mediumLarge center color={Colors.Red} style={{fontWeight: '300'}}>Activity {this.state.activityIndex + 1}: {this.state.activity.stage}</Text>
                         </View>
                         <ProgressBar total={this.state.pageTotalCount} progress={this.state.pageIndex+1} style={Styles.pregressBar}/>
                     </View>

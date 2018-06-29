@@ -28,11 +28,15 @@ export default MediaQueryStyleSheet.create({
     },
 
     title: {
+        color: Colors.Red,
         margin: 4,
+        fontWeight: '300'
     },
 
     subtitle: {
+        color: Colors.Navy,
         margin: 4,
+        fontWeight: '300'
     },
 
     flatList: {
@@ -83,6 +87,8 @@ export default MediaQueryStyleSheet.create({
     }, 
     item_text: {
         color: Colors.Navy,
+        fontSize: 30,
+        fontWeight: '300'
     },
     item_start_text: {
         color: Colors.Red,

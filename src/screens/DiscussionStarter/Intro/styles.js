@@ -23,11 +23,13 @@ export default MediaQueryStyleSheet.create({
 
     title: {
         margin: 8,
+        fontWeight: '300',
     },
 
     subtitle: {
         textAlign: 'center',
         margin: 8,
+        fontWeight: '300',
     },
 
     icon: {

@@ -69,6 +69,8 @@ export default MediaQueryStyleSheet.create({
 
     currentTitle: {
         marginVertical: 8,
+        fontWeight: '300',
+        fontSize: 28,
     },
 
     currentPrecomment: {

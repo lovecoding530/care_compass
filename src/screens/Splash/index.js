@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 import {
-    Platform,
-    StyleSheet,
     Image,
     ImageBackground,
-    ActivityIndicator,
     Text,
     View,
     ScrollView,
 } from 'react-native';
-import Spinner from "react-native-spinkit";
 import {MySpinner} from "@components"
 
-import {Colors, Images} from '@theme';
+import {Images} from '@theme';
 import Styles from './styles';
 import {getBundle} from '@api';
 import { deviceWidth, deviceHeight } from "@ResponsiveDimensions";
@@ -37,17 +33,17 @@ export default class Splash extends Component {
             <ImageBackground style={Styles.backgroundImage} source={Images.bg_splash_onboarding}>
                 <ScrollView contentContainerStyle={Styles.scrollView} style={{backgroundColor: '#0009'}}>
                     <View style={Styles.circle_above}>
-                        <Image source={Images.pca_logo} style={Styles.pca_logo}/>
+                        <Image source={Images.icon_dying_to_talk} style={Styles.pca_logo}/>
                     </View>
                     <View style={Styles.center_view}>
-                        <Text style={Styles.app_name}>APP NAME GOES HERE</Text>
+                        <Text style={Styles.app_name}>Dying to Talk in the Bush</Text>
+                        <Text style={Styles.text_desc}>Working out what's right for you</Text>
+                        <Text style={Styles.text_website}>dyingtotalk.org.au</Text>
+                    </View>
+                    <View style={Styles.bottom_view}>
                         <View style={Styles.circle_center}>
                             <MySpinner loading={this.state.loading} size={deviceWidth(10)} style={Styles.spinner}/>
                         </View>
-                    </View>
-                    <View style={Styles.bottom_view}>
-                        <Text style={Styles.text_desc}>WORKING OUT WHAT'S RIGHT FOR YOU</Text>
-                        <Text style={Styles.text_website}>dyingtotalk.org.au</Text>
                     </View>
                 </ScrollView>
             </ImageBackground>

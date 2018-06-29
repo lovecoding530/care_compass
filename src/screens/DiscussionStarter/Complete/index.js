@@ -199,12 +199,11 @@ export default class Complete extends Component {
                         contentContainerStyle={Styles.flatList}
                         />
                     <View style={Styles.saveView}>
-                        <Text medium bold center style={{marginVertical: 8}}>Save your results</Text>
+                        <Text medium bold center color={Colors.Navy} style={Styles.currentTitle}>Save your results</Text>
                         <Text bold center style={{marginVertical: 8}}>Personal information will not be stored or used by Palliative Care Australia in any way. Read more here</Text>
-                        <View style={{flexDirection: 'row', paddingHorizontal: 8,}}>
-                            <Button dark buttonStyles={{flex: 1}} onPress={this.onShareDownload.bind(this)}>DOWNLOAD</Button>
-                            <Button dark buttonStyles={{flex: 1}} onPress={this.onShareEmail.bind(this)}>EMAIL</Button>
-                            <Button dark buttonStyles={{flex: 1}} onPress={this.onShare.bind(this)}>PRINT</Button>
+                        <View style={{flexDirection: 'row', paddingHorizontal: 8, justifyContent: 'center'}}>
+                            <Button dark bold buttonStyles={{paddingHorizontal: 32}} onPress={this.onShareDownload.bind(this)}>Export</Button>
+                            <Button dark bold buttonStyles={{paddingHorizontal: 32}} onPress={this.onShareEmail.bind(this)}>Email</Button>
                         </View>
                     </View>
                 </ScrollView>

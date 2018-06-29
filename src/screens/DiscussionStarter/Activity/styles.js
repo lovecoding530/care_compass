@@ -49,7 +49,9 @@ export default MediaQueryStyleSheet.create({
 
     questionTitle: {
         marginBottom: deviceWidth(1.8),
-        marginHorizontal: deviceWidth(2),
+        marginLeft: deviceWidth(1),
+        marginRight: deviceWidth(3),
+        flex: 1,
     },
 
     textArea: {
@@ -93,11 +95,13 @@ export default MediaQueryStyleSheet.create({
     },
 
     answerButton: {
-        backgroundColor: Colors.lightGray, 
-        paddingVertical: deviceWidth(1), 
-        paddingHorizontal: deviceWidth(2), 
+        backgroundColor: Colors.Blue, 
+        paddingVertical: 4, 
+        paddingHorizontal: 8, 
         marginTop: deviceWidth(1),
         marginHorizontal: deviceWidth(1),
+        flexDirection: 'row',
+        alignItems: 'center',
     }
 }, {
     [MediaQueries.iPhone] : {

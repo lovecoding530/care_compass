@@ -32,28 +32,38 @@ const headerStyle = {
 
 const HeaderTitle = () => {
     return (
-        <Text light medium bold center style={{
+        <Text light smallMedium bold center style={{
             position: 'absolute',
             width: '100%',
             zIndex: -1,
-        }}>APP NAME</Text>
+        }}>Dying to Talk{"\n"}in the Bush</Text>
     );
 }
 
 const Footer = () => {
     return (
         <View style={{
-            height: deviceHeight(7), 
+            height: deviceHeight(5), 
             flexDirection: 'row', 
             alignItems: 'center', 
             justifyContent: 'space-between',
             paddingHorizontal: deviceWidth(2),
-            backgroundColor: Colors.Navy}}>
-            <Image 
-                source={Images.logo_footer} 
-                resizeMode={"contain"}
-                style={{width: deviceHeight(16), height: deviceHeight(5), tintColor: '#fff'}}
-            />
+            backgroundColor: Colors.Navy,
+            overflow: 'hidden'
+        }}>
+            <View style={{
+                width: deviceHeight(7),
+                height: deviceHeight(7),
+                borderRadius: deviceHeight(3.5),
+                backgroundColor: '#fff',
+                alignItems: 'center',
+                justifyContent: 'center'
+            }}>
+                <Image 
+                    source={Images.icon_dying_to_talk} 
+                    style={{width: deviceHeight(6), height: deviceHeight(5), resizeMode: 'center'}}
+                />
+            </View>
             <Text light right>logo footer logo footer {"\n"} logo footer</Text>
         </View>
     );
