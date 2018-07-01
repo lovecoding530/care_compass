@@ -56,38 +56,36 @@ export default class Menu extends Component {
     render() {
         return (
             <ScrollView contentContainerStyle={styles.container} style={{backgroundColor: Colors.darkNavy}}>
-                <ImageBackground source={Images.bg_splash_onboarding} style={styles.logo}>
-                    <View style={styles.opacityView}>
-                        <Image source={Images.icon_dying_to_talk} style={styles.icon_dtt}/>
-                    </View>
-                </ImageBackground>
+                <View style={styles.circle_above}>
+                    <Image source={Images.icon_dying_to_talk} style={styles.logo}/>
+                </View>
                 <View style={styles.menu}>
                     <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('DiscussionStarter')}>
-                        <Text light>Use Discussion Starter <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <Text light bold>Use Discussion Starter <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('CardGame')}>
-                        <Text light>Start Discussion Cards <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <Text light bold>Start Discussion Cards <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('GetHelp')}>
-                        <Text light>Looking after yourself <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <Text light bold>Looking after yourself <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('UserGuides')}>
-                        <Text light>App instructions <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <Text light bold>App instructions <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('Resources')}>
-                        <Text light>Resource library <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <Text light bold>Resource library <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem}>
-                        <Text light>Take a quick survey <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <Text light bold>Take a quick survey <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem}>
-                        <Text light>About this app <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <Text light bold>About this app <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem} onPress={()=>this.goBackToOnboarding()}>
-                        <Text light>Welcome slides <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <Text light bold>Welcome slides <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem}>
-                        <Text light>Support / FAQ <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <Text light bold>Support / FAQ <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                 </View>
                 <Image  
@@ -111,15 +109,21 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.Navy,
     },
 
-    logo: {
-        height: deviceHeight(20),
-    },
-
-    opacityView: {
+    circle_above: {
+        width: deviceWidth(30),
+        height: deviceWidth(30),
+        borderRadius: deviceWidth(15),
+        backgroundColor: '#fffd',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#0009',
-        flex: 1,
+        alignSelf: 'center',
+        marginTop: deviceWidth(5),
+    },
+
+    logo: {
+        width: deviceWidth(23),
+        height: deviceWidth(23),
+        resizeMode: 'contain',
     },
 
     icon_dtt: {
@@ -136,12 +140,11 @@ const styles = StyleSheet.create({
     },
 
     footer: {
-        marginTop: 8,
-        padding: 8,
+        paddingHorizontal: 8,
         backgroundColor: Colors.darkNavy,
         justifyContent: 'center',
         alignItems: 'center',
-        height: deviceHeight(7),
+        height: deviceHeight(5),
     },
 
     text_footer: {

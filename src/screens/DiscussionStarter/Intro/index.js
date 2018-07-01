@@ -47,8 +47,8 @@ export default class Intro extends Component {
                 <Loader loading={this.state.loaderVisible}/>
                 <ScrollView contentContainerStyle={Styles.introContainer}>
                     <View style={Styles.titleView}>
-                        <Text mediumLarge bold center color={Colors.Red} style={Styles.title}>Discussion Starter</Text>
-                        <Text medium bold style={Styles.subtitle}>
+                        <Text mediumLarge center color={Colors.Red} style={Styles.title}>Discussion Starter</Text>
+                        <Text medium bold style={Styles.subtitle} color={Colors.Navy}>
                             Supporting you to talk about how you want 
                             to be cared for at the end of your life
                         </Text>

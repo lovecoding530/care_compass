@@ -70,9 +70,8 @@ export default class ActivityList extends Component {
                         <View>
                             <Text center medium bold color={Colors.Red}> UP NEXT </Text>
                             <View style={Styles.nextTitle}>
-                                <Text mediumLarge bold>Activity {this.state.nextActivityIndex + 1}: </Text>
-                                <Text mediumLarge>
-                                    {" "}{this.state.activities[this.state.nextActivityIndex].stage}
+                                <Text medium color={Colors.Navy} style={Styles.currentTitle}>
+                                    Activity {this.state.nextActivityIndex + 1}: {this.state.activities[this.state.nextActivityIndex].stage}
                                 </Text>
                             </View>
                             <Text center style={Styles.nextPrecomment}> 

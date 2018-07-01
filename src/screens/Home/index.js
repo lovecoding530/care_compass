@@ -45,13 +45,13 @@ export default class Home extends Component {
                             <MediaQuery minDeviceWidth={768}>
                                 <Image source={Images.icon_discussion_starter} style={Styles.right_icon}/>
                             </MediaQuery>
-                            <Text medium bold style={Styles.right_item_text}>Use Discussion Starter <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                            <Text medium bold style={Styles.right_item_text}>Use discussion starter <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={[Styles.item, Styles.right_item]} onPress={()=>{this.gotoRoute('CardGame')}}>
                             <MediaQuery minDeviceWidth={768}>
                                 <Image source={Images.icon_cardgame} style={Styles.right_icon}/>
                             </MediaQuery>
-                            <Text medium bold style={Styles.right_item_text}>Start Discussion Cards <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                            <Text medium bold style={Styles.right_item_text}>Start discussion cards <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                         </TouchableOpacity>
                     </View>
                     <View style={Styles.containerRight}>

@@ -38,7 +38,7 @@ export default class ActivityList extends Component {
             <TouchableOpacity style={Styles.item} onPress={() => {navigate("Activity", {activityIndex: index, discussionStarter: this.state.discussionStarter})}}>
                 <Text mediumLarge bold center style={Styles.item_number}>{index + 1}</Text> 
                 <MediaQuery minDeviceWidth={768}>
-                    <Text medium bold center style={Styles.item_text}>Activity {index + 1}: {"\n"} {item.stage}</Text>
+                    <Text bold center style={Styles.item_text}>{item.stage}</Text>
                     <Text medium bold center style={Styles.item_start_text}>Start <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                 </MediaQuery>
                 <MediaQuery maxDeviceWidth={767}>

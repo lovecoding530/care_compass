@@ -4,9 +4,6 @@
 
 import React, { Component } from 'react';
 import {
-    StyleSheet,
-    Image,
-    TouchableOpacity,
     View,
 } from 'react-native';
 import {Colors, MediaQueries, FontSizes} from '@theme';
@@ -14,7 +11,7 @@ import Button from '@button'
 import Text from '@text'
 import { Icon } from "native-base";
 import { MediaQueryStyleSheet } from "react-native-responsive";
-import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
+import { deviceWidth } from "@ResponsiveDimensions";
 
 export default class Choice extends Component {
     constructor(props) {
