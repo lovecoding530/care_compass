@@ -153,11 +153,12 @@ export default class Complete extends Component {
 
     onEdit(activityIndex) {
         const {navigate, goBack} = this.props.navigation
-        if(activityIndex < this.state.activityCount - 1){
-            goBack(`UpNext${activityIndex}`)
-        }else{
-            goBack()
-        }
+        // if(activityIndex < this.state.activityCount - 1){
+        //     goBack(`UpNext${activityIndex}`)
+        // }else{
+        //     goBack()
+        // }
+        navigate("Activity", {editFromResults: true, activityIndex, discussionStarter: this.state.discussionStarter})
     }
 
     renderActivityItem({item, index}){

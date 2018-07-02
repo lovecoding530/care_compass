@@ -17,13 +17,14 @@ import {playSound} from '@utils'
 export default class Activity extends Component {
     constructor(props) {
         super(props);
-        const {activityIndex, discussionStarter} = this.props.navigation.state.params
-
+        const {activityIndex, discussionStarter, editFromResults} = this.props.navigation.state.params
+        console.log(this.props.navigation.state.params)
         const activities = discussionStarter.discussion_starter
         const activity = activities[activityIndex]
         const pageTotalCount = parseInt((activity.questions.length - 1) / 3) + 1
 
         this.state = ({
+            editFromResults,
             discussionStarter: discussionStarter,
             activityCount: activities.length,
             activityIndex: activityIndex,
@@ -92,15 +93,19 @@ export default class Activity extends Component {
     onFinish(){
         setTimeout(() => {
             this.setState({ pageIndex: 0 })
-            this.scrollView.scrollWithoutAnimationTo(0)        
+            this.scrollView.scrollTo({y: 0})        
         }, 500);
 
-        const {navigate} = this.props.navigation
+        const {navigate, goBack} = this.props.navigation
 
-        if(this.state.activityIndex + 1 >= this.state.activityCount){
-            navigate("Complete", {discussionStarter: this.state.discussionStarter})
+        if(this.state.editFromResults){
+            goBack()
         }else{
-            navigate({routeName: "UpNext", key: `UpNext${this.state.activityIndex}`, params: {activityIndex: this.state.activityIndex, discussionStarter: this.state.discussionStarter}})
+            if(this.state.activityIndex + 1 >= this.state.activityCount){
+                navigate("Complete", {discussionStarter: this.state.discussionStarter})
+            }else{
+                navigate({routeName: "UpNext", key: `UpNext${this.state.activityIndex}`, params: {activityIndex: this.state.activityIndex, discussionStarter: this.state.discussionStarter}})
+            }    
         }
     }
 
@@ -185,7 +190,13 @@ export default class Activity extends Component {
                         <Button light onPress={this.goBack.bind(this)}>GO BACK</Button>
                         <Button light onPress={this.onFinish.bind(this)}>FINISH</Button>
                     </View>
-                    <Button dark onPress={this.onNext.bind(this)}>NEXT PAGE</Button>
+                    <Button dark onPress={this.onNext.bind(this)}>
+                        {this.state.editFromResults && this.state.pageIndex == this.state.pageTotalCount - 1 ?
+                            "DONE EDITING"
+                            :
+                            "NEXT PAGE"
+                        }
+                    </Button>
                 </View>
             </ImageBackground>
         );
