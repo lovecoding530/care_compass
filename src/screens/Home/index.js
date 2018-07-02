@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import {
-    Platform,
-    StyleSheet,
     Image,
     ImageBackground,
     View,
@@ -15,8 +13,10 @@ import Styles from './styles';
 import Text from '@text'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { MediaQuery } from "react-native-responsive";
-const {height, width} = Dimensions.get('window');
 import store from '../../Store'
+import { Card } from "@components";
+
+const {height, width} = Dimensions.get('window');
 
 export default class Home extends Component {
     constructor(props) {
@@ -41,41 +41,41 @@ export default class Home extends Component {
             <ImageBackground source={Images.bg_navigation} style={Styles.container}>
                 <ScrollView contentContainerStyle={Styles.scrollView} scrollEnabled={height < 768}>
                     <View style={Styles.containerLeft}>
-                        <TouchableOpacity style={[Styles.item, Styles.right_item]} onPress={()=>{this.gotoRoute('DiscussionStarter')}}>
+                        <Card topbar={{color: Colors.Red}} style={Styles.item} onPress={()=>{this.gotoRoute('DiscussionStarter')}}>
                             <MediaQuery minDeviceWidth={768}>
                                 <Image source={Images.icon_discussion_starter} style={Styles.right_icon}/>
                             </MediaQuery>
                             <Text medium bold style={Styles.right_item_text}>Use discussion starter <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[Styles.item, Styles.right_item]} onPress={()=>{this.gotoRoute('CardGame')}}>
+                        </Card>
+                        <Card topbar={{color: Colors.Red}} style={Styles.item} onPress={()=>{this.gotoRoute('CardGame')}}>
                             <MediaQuery minDeviceWidth={768}>
                                 <Image source={Images.icon_cardgame} style={Styles.right_icon}/>
                             </MediaQuery>
                             <Text medium bold style={Styles.right_item_text}>Start discussion cards <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
-                        </TouchableOpacity>
+                        </Card>
                     </View>
                     <View style={Styles.containerRight}>
-                        <TouchableOpacity style={[Styles.item, Styles.left_item]}onPress={()=>{this.gotoRoute("GetHelp")}}>
+                        <Card topbar={{color: Colors.Navy}} style={Styles.item} onPress={()=>{this.gotoRoute("GetHelp")}}>
                             <MediaQuery minDeviceWidth={768}>
                                 <Image source={Images.icon_get_help} style={Styles.left_icon}/>
                             </MediaQuery>
                             <Text bold style={Styles.left_item_text}>Looking after your self <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[Styles.item, Styles.left_item]} onPress={()=>{this.gotoRoute("UserGuides")}}>
+                        </Card>
+                        <Card topbar={{color: Colors.Navy}} style={Styles.item} onPress={()=>{this.gotoRoute("UserGuides")}}>
                             <MediaQuery minDeviceWidth={768}>
                                 <Image source={Images.icon_how_to} style={Styles.left_icon}/>
                             </MediaQuery>
                             <Text bold style={Styles.left_item_text}>App instructions <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[Styles.item, Styles.left_item]} onPress={()=>{this.gotoRoute("Resources")}}>
+                        </Card>
+                        <Card topbar={{color: Colors.Navy}} style={Styles.item} onPress={()=>{this.gotoRoute("Resources")}}>
                             <MediaQuery minDeviceWidth={768}>
                                 <Image source={Images.icon_more_info} style={Styles.left_icon}/>
                             </MediaQuery>
                             <Text bold style={Styles.left_item_text}>Resource library <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[Styles.item, Styles.survey_item]}onPress={()=>{this.gotoRoute("GetHelp")}}>
+                        </Card>
+                        <Card topbar={{color: Colors.Navy}} style={[Styles.item, Styles.survey_item]} onPress={()=>{this.gotoRoute("GetHelp")}}>
                             <Text bold style={Styles.left_item_text}>Take a quick survey <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
-                        </TouchableOpacity>
+                        </Card>
                     </View>
                 </ScrollView>
             </ImageBackground>

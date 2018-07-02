@@ -32,30 +32,11 @@ export default MediaQueryStyleSheet.create({
     },
 
     item: {
-        backgroundColor: Colors.backgroundSecondary,
-        borderRadius: deviceWidth(1.2),
-        borderTopWidth: deviceWidth(1.2),
-        shadowColor: '#000',
-        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
-        shadowOpacity: 0.5,
-        shadowRadius: 0,
-        margin: 8,        
+        margin: 8,
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 16,
-    },
-
-    right_item: {
-        borderTopColor: Colors.Red,
-    },
-    
-    left_item: {
-        borderTopColor: Colors.Navy,
     },
 
     survey_item: {
-        borderTopColor: Colors.Navy,
         flex: 0.4,
     },
 

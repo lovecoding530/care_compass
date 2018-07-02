@@ -10,7 +10,7 @@ import {
 
 import {Colors, Images} from '@theme';
 import Styles from './styles';
-import {Button, Loader} from '@components'
+import {Button, Loader, Card} from '@components'
 import Text from '@text'
 
 import { getDiscussionStarter } from "@api";
@@ -46,14 +46,14 @@ export default class Intro extends Component {
             <ImageBackground source={Images.bg_discussion_starter} style={Styles.container}>
                 <Loader loading={this.state.loaderVisible}/>
                 <ScrollView contentContainerStyle={Styles.introContainer}>
-                    <View style={Styles.titleView}>
+                    <Card topbar style={Styles.titleView}>
                         <Text mediumLarge center color={Colors.Red} style={Styles.title}>Discussion Starter</Text>
                         <Text medium bold style={Styles.subtitle} color={Colors.Navy}>
                             Supporting you to talk about how you want 
                             to be cared for at the end of your life
                         </Text>
-                    </View>
-                    <View style={Styles.descView}>
+                    </Card>
+                    <Card style={Styles.descView}>
                         <Image source={Images.icon_discussion_starter} style={Styles.icon}/>
                         <Text style={Styles.intro}>
                             You never know what the future holds, it is never too early to plan 
@@ -69,7 +69,7 @@ export default class Intro extends Component {
                             Talking about dying might be hard, but it won't ill you, You might 
                             even find that your family is dying to talk too.
                         </Text>
-                    </View>
+                    </Card>
                 </ScrollView>
                 <View style={Styles.buttonBar}>
                     <Button dark onPress={()=>{navigate("Activity", {activityIndex: 0, discussionStarter: this.state.discussionStarter})}}>START THE CONVERSATION</Button>

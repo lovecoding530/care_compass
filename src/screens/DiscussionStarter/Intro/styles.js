@@ -18,7 +18,7 @@ export default MediaQueryStyleSheet.create({
 
     introContainer: {
         flexGrow: 1, 
-        alignSelf: 'center'
+        // alignSelf: 'center'
     },
 
     title: {
@@ -50,27 +50,10 @@ export default MediaQueryStyleSheet.create({
     },
 
     titleView: {
-        borderTopColor: Colors.Red,
-        backgroundColor: '#fff',
-        borderRadius: deviceWidth(1.2),
-        borderTopWidth: deviceWidth(1.2),
-        shadowColor: '#000',
-        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
-        shadowOpacity: 0.5,
-        shadowRadius: 0,
-        padding: 8,
         marginVertical: deviceWidth(4),
     },
 
     descView: {
-        backgroundColor: '#fff',
-        borderRadius: deviceWidth(1.2),
-        shadowColor: '#000',
-        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
-        shadowOpacity: 0.5,
-        shadowRadius: 0,
-        alignItems: 'center',
-        padding: 16,
     }
 }, {
     [MediaQueries.iPad] : {
