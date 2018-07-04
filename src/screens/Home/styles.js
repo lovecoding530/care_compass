@@ -37,7 +37,7 @@ export default MediaQueryStyleSheet.create({
     },
 
     survey_item: {
-        flex: 0.4,
+        flex: 0.25,
     },
 
     right_item_text: {
@@ -52,7 +52,6 @@ export default MediaQueryStyleSheet.create({
         width: '60%',
         height: '60%',
         resizeMode: 'contain', 
-        tintColor: Colors.Red,
         marginVertical: 20,
     },
 
@@ -60,7 +59,6 @@ export default MediaQueryStyleSheet.create({
         width: '60%',
         height: '60%',
         resizeMode: 'contain', 
-        tintColor: Colors.Navy,
         marginVertical: 20,
     }
 }, {

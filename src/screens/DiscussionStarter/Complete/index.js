@@ -16,8 +16,9 @@ import { EmailModal, EmailSentModal, DownloadedModal} from '../../modals';
 import {postDiscussionAnswers} from "@api";
 import {getSharingHTMLFromResult} from "./HtmlResult";
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
-import { NavigationActions } from 'react-navigation';
 import Mailer from 'react-native-mail';
+import { Card } from '@components';
+import { deviceWidth } from "@ResponsiveDimensions";
 
 export default class Complete extends Component {
     constructor(props) {
@@ -190,26 +191,28 @@ export default class Complete extends Component {
             <ImageBackground source={Images.bg_discussion_starter}  style={Styles.container}>
                 <Loader loading={this.state.loaderVisible}/>
                 <ScrollView contentContainerStyle={Styles.contentView}>
-                    <View style={Styles.titleView}>
-                        <Text mediumLarge center color={Colors.Red}>Your Results</Text>
-                    </View>
+                    <Card topbar style={Styles.titleView} contentStyle={{paddingVertical: deviceWidth(4),}}>
+                        <Text mediumLarge center color={Colors.Red} style={{fontWeight: '300'}}>Your Results</Text>
+                    </Card>
                     <FlatList
                         data = {this.state.activities}
                         renderItem = {this.renderActivityItem.bind(this)}
                         keyExtractor = {(item, index) => index.toString()}
                         contentContainerStyle={Styles.flatList}
+                        ListFooterComponent = {()=>
+                            <View style={Styles.saveView}>
+                                <Text medium bold center color={Colors.Navy} style={Styles.currentTitle}>Save your results</Text>
+                                <Text bold center style={{marginVertical: 8}}>Personal information will not be stored or used by Palliative Care Australia in any way. Read more here</Text>
+                                <View style={{flexDirection: 'row', paddingHorizontal: 8, justifyContent: 'center'}}>
+                                    <Button dark bold buttonStyles={{paddingHorizontal: 32}} onPress={this.onShareDownload.bind(this)}>Export</Button>
+                                    <Button dark bold buttonStyles={{paddingHorizontal: 32}} onPress={this.onShareEmail.bind(this)}>Email</Button>
+                                </View>
+                            </View>}
                         />
-                    <View style={Styles.saveView}>
-                        <Text medium bold center color={Colors.Navy} style={Styles.currentTitle}>Save your results</Text>
-                        <Text bold center style={{marginVertical: 8}}>Personal information will not be stored or used by Palliative Care Australia in any way. Read more here</Text>
-                        <View style={{flexDirection: 'row', paddingHorizontal: 8, justifyContent: 'center'}}>
-                            <Button dark bold buttonStyles={{paddingHorizontal: 32}} onPress={this.onShareDownload.bind(this)}>Export</Button>
-                            <Button dark bold buttonStyles={{paddingHorizontal: 32}} onPress={this.onShareEmail.bind(this)}>Email</Button>
-                        </View>
-                    </View>
+                    
                 </ScrollView>
                 <View style={Styles.buttonBar}>
-                    <Button light onPress={this.onExit.bind(this)}>EXIT</Button>
+                    <Button light bold onPress={this.onExit.bind(this)}>Exit</Button>
                 </View>
                 <EmailModal 
                     visible={this.state.modalVisible.email} 

@@ -68,7 +68,7 @@ export default MediaQueryStyleSheet.create({
     },
 
     currentTitle: {
-        marginVertical: 8,
+        marginVertical: deviceWidth(1),
         fontWeight: '300',
         fontSize: 28,
     },
@@ -77,14 +77,12 @@ export default MediaQueryStyleSheet.create({
     },
 
     nextTitle: {
-        padding: deviceWidth(2),
+        margin: deviceWidth(1),
         flexDirection: 'row',
         justifyContent: 'center',
     },
 
     nextPrecomment: {
-        borderWidth: 1,
-        borderColor: Colors.backgroundSecondary,
     },
 
     later: {
@@ -98,14 +96,14 @@ export default MediaQueryStyleSheet.create({
     buttonBar: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        backgroundColor: '#fff',
+        backgroundColor: '#E6E0D4',
         paddingHorizontal: deviceWidth(9),
     },
     
     checkIcon: {
-        width: deviceHeight(4),
-        height: deviceHeight(4),
-        marginRight: 8,
+        width: deviceHeight(3.6),
+        height: deviceHeight(3.6),
+        marginHorizontal: deviceWidth(1),
         tintColor: '#fff',
     }
 

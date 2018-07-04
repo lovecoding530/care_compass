@@ -59,26 +59,19 @@ export default MediaQueryStyleSheet.create({
         height: deviceWidth(16),
         color: Colors.textPrimary,
         fontSize: FontSizes.smallMedium,
-        padding: 8,
+        padding: deviceWidth(1.2),
+        borderWidth: 1,
+        borderColor: '#222222'
     },
     
     buttonBar: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        backgroundColor: '#fff',
+        backgroundColor: '#E6E0D4',
         paddingHorizontal: deviceWidth(8),
     },
 
     titleView: {
-        borderTopColor: Colors.Red,
-        backgroundColor: '#fff',
-        borderRadius: deviceWidth(1.2),
-        borderTopWidth: deviceWidth(1.2),
-        shadowColor: '#000',
-        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
-        shadowOpacity: 0.4,
-        shadowRadius: 0,
-        padding: 8,
         marginBottom: deviceWidth(2),
     },
 
@@ -102,6 +95,11 @@ export default MediaQueryStyleSheet.create({
         marginHorizontal: deviceWidth(1),
         flexDirection: 'row',
         alignItems: 'center',
+    },
+
+    sound: {
+        width: deviceWidth(3),
+        height: deviceWidth(3)
     }
 }, {
     [MediaQueries.iPhone] : {

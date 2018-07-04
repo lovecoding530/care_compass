@@ -64,7 +64,7 @@ const Footer = () => {
                     style={{width: deviceHeight(6), height: deviceHeight(5), resizeMode: 'center'}}
                 />
             </View>
-            <Text light right>logo footer logo footer {"\n"} logo footer</Text>
+            <Text light right small>logo footer logo footer {"\n"} logo footer</Text>
         </View>
     );
 }
@@ -96,18 +96,15 @@ const MenuIcon = () => {
             style={{height: deviceHeight(4.5), paddingHorizontal: 10, marginHorizontal: deviceHeight(1)}}
             backgroundColor={'#0000'} 
             onPress={() => drawerNavigator.navigate('DrawerOpen')}>
-            <Text light bold>MENU</Text>
+            <Text light bold>Menu</Text>
         </Icon.Button>
     );
 }
 
 const WelcomeIcon = ({dispatch}) => {
     return (
-        <Icon.Button 
-            name="arrow-left" 
-            size={FontSizes.medium}
-            style={{height: deviceHeight(4.5), paddingHorizontal: 10, marginHorizontal: deviceHeight(1)}}
-            backgroundColor={'#0000'} 
+        <TouchableOpacity 
+            style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal: deviceWidth(1)}}
             onPress={() => {
                 const resetAction = NavigationActions.reset({
                     index: 0,
@@ -117,9 +114,11 @@ const WelcomeIcon = ({dispatch}) => {
                     ],
                 });
                 dispatch(resetAction);
-            }}>
-            <Text light bold>WELCOME</Text>
-        </Icon.Button>
+            }}
+        >
+            <Image source={Images.welcome_arrow} style={{width: deviceWidth(5), height: deviceWidth(3.5), resizeMode: 'contain'}}/>
+            <Text light bold>Welcome</Text>
+        </TouchableOpacity>
     );
 }
 
@@ -135,7 +134,7 @@ const HomeIcon = ({goBack}) => {
                 store.activeRoute = null
                 store.routesInStack = []
             }}>
-            <Text light bold>HOME</Text>
+            <Text light bold>Home</Text>
         </Icon.Button>
     );
 }

@@ -33,7 +33,7 @@ export default class Splash extends Component {
             <ImageBackground style={Styles.backgroundImage} source={Images.bg_splash_onboarding}>
                 <ScrollView contentContainerStyle={Styles.scrollView} style={{backgroundColor: '#0009'}}>
                     <View style={Styles.circle_above}>
-                        <Image source={Images.icon_dying_to_talk} style={Styles.pca_logo}/>
+                        <Image source={Images.dtt_blue} style={Styles.pca_logo}/>
                     </View>
                     <View style={Styles.center_view}>
                         <Text style={Styles.app_name}>Dying to Talk in the Bush</Text>

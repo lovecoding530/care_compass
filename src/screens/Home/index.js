@@ -43,13 +43,13 @@ export default class Home extends Component {
                     <View style={Styles.containerLeft}>
                         <Card topbar={{color: Colors.Red}} style={Styles.item} onPress={()=>{this.gotoRoute('DiscussionStarter')}}>
                             <MediaQuery minDeviceWidth={768}>
-                                <Image source={Images.icon_discussion_starter} style={Styles.right_icon}/>
+                                <Image source={Images.discussion_starter} style={Styles.right_icon}/>
                             </MediaQuery>
                             <Text medium bold style={Styles.right_item_text}>Use discussion starter <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                         </Card>
                         <Card topbar={{color: Colors.Red}} style={Styles.item} onPress={()=>{this.gotoRoute('CardGame')}}>
                             <MediaQuery minDeviceWidth={768}>
-                                <Image source={Images.icon_cardgame} style={Styles.right_icon}/>
+                                <Image source={Images.cardgame} style={Styles.right_icon}/>
                             </MediaQuery>
                             <Text medium bold style={Styles.right_item_text}>Start discussion cards <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                         </Card>
@@ -57,7 +57,7 @@ export default class Home extends Component {
                     <View style={Styles.containerRight}>
                         <Card topbar={{color: Colors.Navy}} style={Styles.item} onPress={()=>{this.gotoRoute("GetHelp")}}>
                             <MediaQuery minDeviceWidth={768}>
-                                <Image source={Images.icon_get_help} style={Styles.left_icon}/>
+                                <Image source={Images.looking_after} style={Styles.left_icon}/>
                             </MediaQuery>
                             <Text bold style={Styles.left_item_text}>Looking after your self <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                         </Card>
@@ -69,7 +69,7 @@ export default class Home extends Component {
                         </Card>
                         <Card topbar={{color: Colors.Navy}} style={Styles.item} onPress={()=>{this.gotoRoute("Resources")}}>
                             <MediaQuery minDeviceWidth={768}>
-                                <Image source={Images.icon_more_info} style={Styles.left_icon}/>
+                                <Image source={Images.more_info} style={Styles.left_icon}/>
                             </MediaQuery>
                             <Text bold style={Styles.left_item_text}>Resource library <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                         </Card>

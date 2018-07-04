@@ -5,6 +5,7 @@ import {
     ScrollView,
     TextInput,
     ImageBackground,
+    Image,
 } from 'react-native';
 import {Colors, Images} from '@theme';
 import Styles from './styles';
@@ -13,6 +14,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {Button, Text, ProgressBar, Choices, ManyChoices, Loader } from '@components';
 
 import {playSound} from '@utils'
+import { Card } from '@components';
 
 export default class Activity extends Component {
     constructor(props) {
@@ -122,11 +124,8 @@ export default class Activity extends Component {
                 <View style={Styles.questionItem} key={index}>
                     <View style={{flexDirection: 'row'}}>
                         <Text bold style={Styles.questionTitle}>{questionIndex + 1}. {question}</Text>
-                        <TouchableOpacity 
-                            style={{width: 24, height: 24, borderRadius: 15, backgroundColor: Colors.Red, alignItems: 'center', justifyContent: 'center'}}
-                            onPress={()=>playSound(question_audio_url)}
-                        >
-                            <Icon name='md-volume-down' size={26} color={Colors.white} style={{marginTop: -1}}/>
+                        <TouchableOpacity onPress={()=>playSound(question_audio_url)} >
+                            <Image source={Images.sound} style={Styles.sound}/>
                         </TouchableOpacity>
                     </View>
                     {question_type == "freetext" ?
@@ -177,24 +176,24 @@ export default class Activity extends Component {
                     ref={ref => this.scrollView = ref} 
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={Styles.scrollView}>
-                    <View style={Styles.titleView}>
+                    <Card topbar style={Styles.titleView}>
                         <View style={Styles.title}>
                             <Text mediumLarge center color={Colors.Red} style={{fontWeight: '300'}}>Activity {this.state.activityIndex + 1}: {this.state.activity.stage}</Text>
                         </View>
                         <ProgressBar total={this.state.pageTotalCount} progress={this.state.pageIndex+1} style={Styles.pregressBar}/>
-                    </View>
+                    </Card>
                     {this.renderQuestions()}
                 </ScrollView>
                 <View style={Styles.buttonBar}>
                     <View style={{flexDirection: 'row'}}>
-                        <Button light onPress={this.goBack.bind(this)}>GO BACK</Button>
-                        <Button light onPress={this.onFinish.bind(this)}>FINISH</Button>
+                        <Button light bold onPress={this.goBack.bind(this)}>Go back</Button>
+                        <Button light bold onPress={this.onFinish.bind(this)}>Finish</Button>
                     </View>
-                    <Button dark onPress={this.onNext.bind(this)}>
+                    <Button dark bold onPress={this.onNext.bind(this)}>
                         {this.state.editFromResults && this.state.pageIndex == this.state.pageTotalCount - 1 ?
-                            "DONE EDITING"
+                            "Done editing"
                             :
-                            "NEXT PAGE"
+                            "Next page"
                         }
                     </Button>
                 </View>

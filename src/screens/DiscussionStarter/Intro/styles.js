@@ -22,17 +22,18 @@ export default MediaQueryStyleSheet.create({
     },
 
     title: {
-        margin: 8,
+        marginTop: deviceWidth(1),
         fontWeight: '300',
     },
 
     subtitle: {
         textAlign: 'center',
-        margin: 8,
+        margin: deviceWidth(1),
         fontWeight: '300',
     },
 
     icon: {
+        width: deviceWidth(27),
         height: deviceWidth(25),
         resizeMode: 'contain',
     },
@@ -45,7 +46,7 @@ export default MediaQueryStyleSheet.create({
     buttonBar: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        backgroundColor: '#fff',
+        backgroundColor: '#E6E0D4',
         paddingHorizontal: deviceWidth(10),
     },
 

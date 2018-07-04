@@ -8,7 +8,7 @@ import { deviceWidth } from "@ResponsiveDimensions";
 import { Colors, Metrics } from '@theme';
 
 export default (props) => {
-    const {topbar, style, onPress, children, ...others} = props;
+    const {topbar, style, onPress, children, contentStyle, ...others} = props;
 
     var topbarStyle = topbar ? {
         height: topbar.height ? topbar.height : deviceWidth(1.2),
@@ -23,7 +23,7 @@ export default (props) => {
         <Wrapper style={[styles.shadow, style]} onPress={onPress}>
             <View style={styles.radius} >
                 <View style={topbarStyle}/>
-                <View style={styles.children}>
+                <View style={[styles.children, contentStyle]}>
                     {children}
                 </View>
             </View>

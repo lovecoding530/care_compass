@@ -57,17 +57,20 @@ export default class Menu extends Component {
         return (
             <ScrollView contentContainerStyle={styles.container} style={{backgroundColor: Colors.darkNavy}}>
                 <View style={styles.circle_above}>
-                    <Image source={Images.icon_dying_to_talk} style={styles.logo}/>
+                    <Image source={Images.dtt_blue} style={styles.logo}/>
                 </View>
                 <View style={styles.menu}>
+                    <TouchableOpacity style={styles.menuItem}>
+                        <Text light bold>About this app <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.menuItem} onPress={()=>this.goBackToOnboarding()}>
+                        <Text light bold>Welcome slides <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                    </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('DiscussionStarter')}>
-                        <Text light bold>Use Discussion Starter <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <Text light bold>Use discussion starter <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('CardGame')}>
-                        <Text light bold>Start Discussion Cards <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('GetHelp')}>
-                        <Text light bold>Looking after yourself <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <Text light bold>Start discussion cards <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('UserGuides')}>
                         <Text light bold>App instructions <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
@@ -75,14 +78,11 @@ export default class Menu extends Component {
                     <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('Resources')}>
                         <Text light bold>Resource library <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
+                    <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('GetHelp')}>
+                        <Text light bold>Looking after yourself <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                    </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem}>
                         <Text light bold>Take a quick survey <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuItem}>
-                        <Text light bold>About this app <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuItem} onPress={()=>this.goBackToOnboarding()}>
-                        <Text light bold>Welcome slides <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem}>
                         <Text light bold>Support / FAQ <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
@@ -91,7 +91,12 @@ export default class Menu extends Component {
                 <Image  
                     source={Images.logo_footer} 
                     resizeMode={"contain"}
-                    style={{width: deviceHeight(20), height: deviceHeight(5), tintColor: '#fff', alignSelf: 'center'}}
+                    style={{width: deviceHeight(20), height: deviceHeight(5), marginBottom: deviceWidth(1), alignSelf: 'center'}}
+                />
+                <Image  
+                    source={Images.flying_doctor_logo} 
+                    resizeMode={"contain"}
+                    style={{width: deviceHeight(20), height: deviceHeight(5.5), marginBottom: deviceWidth(1), alignSelf: 'center'}}
                 />
                 <SafeAreaView style={{backgroundColor: Colors.darkNavy}}>
                     <View style={styles.footer}>
@@ -113,7 +118,7 @@ const styles = StyleSheet.create({
         width: deviceWidth(30),
         height: deviceWidth(30),
         borderRadius: deviceWidth(15),
-        backgroundColor: '#fffd',
+        backgroundColor: '#fff',
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
@@ -136,7 +141,7 @@ const styles = StyleSheet.create({
     },
 
     menuItem: {
-        paddingVertical: deviceWidth(2),
+        paddingVertical: deviceWidth(1.2),
     },
 
     footer: {

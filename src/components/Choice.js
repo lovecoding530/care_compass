@@ -9,25 +9,21 @@ import {
 import {Colors, MediaQueries, FontSizes} from '@theme';
 import Button from '@button'
 import Text from '@text'
-import { Icon } from "native-base";
 import { MediaQueryStyleSheet } from "react-native-responsive";
 import { deviceWidth } from "@ResponsiveDimensions";
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class Choice extends Component {
-    constructor(props) {
-        super(props);
-
-        const {odd} = props
-
-        this.style = {}
-        if(odd){
-            this.style.backgroundColor = Colors.backgroundSecondary
-        }
-    }
-
     render() {
+        const {selected} = this.props
+
+        var style = {}
+        if(selected){
+            style.backgroundColor = Colors.backgroundSecondary
+        }
+        
         return (
-            <View style={this.style}>
+            <View style={style}>
             {this.props.disabled?
                 <View style={styles.container}>
                     <Text smallMedium style={styles.text}>{this.props.text}</Text>            
@@ -35,14 +31,14 @@ export default class Choice extends Component {
                 :
                 this.props.selected?
                     <View style={styles.container}>
-                        <Icon name={'checkmark'} color={Colors.Navy} style={styles.icon}/>
+                        <Icon name={'check'} color={Colors.Navy} style={styles.icon} size={20}/>
                         <Text smallMedium style={styles.text}>{this.props.text}</Text>            
-                        <Button small light color={Colors.Red} onPress={()=>{this.props.onPress(this.props.index)}}>REMOVE</Button>
+                        <Button small light color={Colors.Red} onPress={()=>{this.props.onPress(this.props.index)}}>Remove</Button>
                     </View>
                     :
                     <View style={styles.container}>
                         <Text smallMedium style={styles.text}>{this.props.text}</Text>            
-                        <Button small light onPress={()=>{this.props.onPress(this.props.index)}}>SELECT</Button>
+                        <Button small light onPress={()=>{this.props.onPress(this.props.index)}}>Select</Button>
                     </View>
             }
             </View>    

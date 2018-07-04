@@ -28,7 +28,7 @@ const Loader = props => {
                 <View style={styles.activityIndicatorWrapper}>
                     {/* <Spinner isVisible={loading} size={deviceWidth(8)} type='FadingCircle'/> */}
                     <MySpinner loading={loading} size={deviceWidth(8)}/>
-                    <Text style={{marginTop: deviceWidth(2)}}>Please wait</Text>
+                    <Text style={{marginTop: deviceWidth(2)}}>Loading...</Text>
                 </View>
             </View>
         </Modal>

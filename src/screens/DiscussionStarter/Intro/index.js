@@ -54,7 +54,7 @@ export default class Intro extends Component {
                         </Text>
                     </Card>
                     <Card style={Styles.descView}>
-                        <Image source={Images.icon_discussion_starter} style={Styles.icon}/>
+                        <Image source={Images.discussion_starter} style={Styles.icon}/>
                         <Text style={Styles.intro}>
                             You never know what the future holds, it is never too early to plan 
                             ahead, Talking now can help your family and friends in the future 
@@ -72,8 +72,8 @@ export default class Intro extends Component {
                     </Card>
                 </ScrollView>
                 <View style={Styles.buttonBar}>
-                    <Button dark onPress={()=>{navigate("Activity", {activityIndex: 0, discussionStarter: this.state.discussionStarter})}}>START THE CONVERSATION</Button>
-                    <Button light onPress={()=>{navigate('ActivityList', {discussionStarter: this.state.discussionStarter})}}>SKIP AHEAD</Button>
+                    <Button dark bold onPress={()=>{navigate("Activity", {activityIndex: 0, discussionStarter: this.state.discussionStarter})}}>Start the conversation</Button>
+                    <Button light bold onPress={()=>{navigate('ActivityList', {discussionStarter: this.state.discussionStarter})}}>Skip ahead</Button>
                 </View>
             </ImageBackground>
         );

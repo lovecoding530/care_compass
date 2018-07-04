@@ -24,15 +24,6 @@ export default MediaQueryStyleSheet.create({
     },
     
     titleView: {
-        borderTopColor: Colors.Red,
-        backgroundColor: '#fff',
-        borderRadius: deviceWidth(1.2),
-        borderTopWidth: deviceWidth(1.2),
-        shadowColor: '#000',
-        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
-        shadowOpacity: 0.4,
-        shadowRadius: 0,
-        paddingVertical: deviceWidth(4),
         marginVertical: deviceWidth(2),
         marginHorizontal: deviceWidth(1)
     },
@@ -89,21 +80,20 @@ export default MediaQueryStyleSheet.create({
         shadowOpacity: 0.4,
         shadowRadius: 0,
         padding: deviceWidth(1),
-        marginVertical: deviceWidth(2),
-        marginHorizontal: deviceWidth(1),
+        marginVertical: deviceWidth(1.2),
     },
 
     buttonBar: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        backgroundColor: '#fff',
+        backgroundColor: '#E6E0D4',
         paddingHorizontal: deviceWidth(9),
     },
 
     checkIcon: {
-        width: deviceHeight(4),
-        height: deviceHeight(4),
-        marginRight: 8,
+        width: deviceHeight(3.6),
+        height: deviceHeight(3.6),
+        marginHorizontal: deviceWidth(1),
         tintColor: '#fff',
     }
 }, {

@@ -68,7 +68,7 @@ export default class ActivityList extends Component {
                     {this.state.nextActivityIndex < this.state.activities.length &&
                     <View style={Styles.next}>
                         <View>
-                            <Text center medium bold color={Colors.Red}> UP NEXT </Text>
+                            <Text center medium bold color={Colors.Red} style={{marginVertical: 8,}}> UP NEXT </Text>
                             <View style={Styles.nextTitle}>
                                 <Text medium color={Colors.Navy} style={Styles.currentTitle}>
                                     Activity {this.state.nextActivityIndex + 1}: {this.state.activities[this.state.nextActivityIndex].stage}
@@ -88,8 +88,8 @@ export default class ActivityList extends Component {
                     }
                 </ScrollView>
                 <View style={Styles.buttonBar}>
-                    <Button light onPress={() => {navigate("Complete", {activityIndex: this.state.nextActivityIndex, discussionStarter: this.state.discussionStarter})}}>FINISH HERE</Button>
-                    <Button dark onPress={() => {navigate("Activity", {activityIndex: this.state.nextActivityIndex, discussionStarter: this.state.discussionStarter})}}>START ACTIVITY {this.state.activityIndex + 2}</Button>
+                    <Button light bold onPress={() => {navigate("Complete", {activityIndex: this.state.nextActivityIndex, discussionStarter: this.state.discussionStarter})}}>Finish here</Button>
+                    <Button dark bold onPress={() => {navigate("Activity", {activityIndex: this.state.nextActivityIndex, discussionStarter: this.state.discussionStarter})}}>Start Activity {this.state.activityIndex + 2}</Button>
                 </View>
             </ImageBackground>
         );
