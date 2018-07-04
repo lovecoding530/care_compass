@@ -173,7 +173,7 @@ export default class Complete extends Component {
                                 Complete
                             </Text>
                         </View>
-                        <Button light color={'#fff'} onPress={()=>this.onEdit(index)}>EDIT</Button>
+                        <Button light bold color={'#fff'} onPress={()=>this.onEdit(index)}>Edit</Button>
                     </View>
                     <View style={Styles.currentDescView}>
                         <Text medium color={Colors.Navy} style={Styles.currentTitle}>Activity {index + 1}: {item.stage}</Text>

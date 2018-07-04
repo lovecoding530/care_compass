@@ -55,7 +55,7 @@ export default class ActivityList extends Component {
                                         Complete
                                     </Text>
                                 </View>
-                                <Button light color={'#fff'} onPress={this.onEdit}>EDIT</Button>
+                                <Button light bold color={'#fff'} onPress={this.onEdit}>Edit</Button>
                             </View>
                             <View style={Styles.currentDescView}>
                                 <Text medium color={Colors.Navy} style={Styles.currentTitle}>Activity {this.state.activityIndex + 1}: {this.state.activities[this.state.activityIndex].stage}</Text>
