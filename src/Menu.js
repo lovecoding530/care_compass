@@ -6,6 +6,7 @@ import Text from '@text'
 import { deviceWidth, deviceHeight, windowHeight } from "@ResponsiveDimensions";
 import { NavigationActions } from 'react-navigation';
 import store from './Store';
+import { ArrowText } from "@components";
 
 const CHECK_ROUTES = ['DiscussionStarter', 'CardGame']
 export default class Menu extends Component {
@@ -61,31 +62,31 @@ export default class Menu extends Component {
                 </View>
                 <View style={styles.menu}>
                     <TouchableOpacity style={styles.menuItem}>
-                        <Text light bold>About this app <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <ArrowText light bold color={Colors.white}>About this app</ArrowText>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem} onPress={()=>this.goBackToOnboarding()}>
-                        <Text light bold>Welcome slides <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <ArrowText light bold color={Colors.white}>Welcome slides</ArrowText>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('DiscussionStarter')}>
-                        <Text light bold>Use discussion starter <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <ArrowText light bold color={Colors.white}>Use discussion starter</ArrowText>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('CardGame')}>
-                        <Text light bold>Start discussion cards <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <ArrowText light bold color={Colors.white}>Start discussion cards</ArrowText>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('UserGuides')}>
-                        <Text light bold>App instructions <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <ArrowText light bold color={Colors.white}>App instructions</ArrowText>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('Resources')}>
-                        <Text light bold>Resource library <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <ArrowText light bold color={Colors.white}>Resource library</ArrowText>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('GetHelp')}>
-                        <Text light bold>Looking after yourself <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <ArrowText light bold color={Colors.white}>Looking after yourself</ArrowText>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem}>
-                        <Text light bold>Take a quick survey <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <ArrowText light bold color={Colors.white}>Take a quick survey</ArrowText>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem}>
-                        <Text light bold>Support / FAQ <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <ArrowText light bold color={Colors.white}>Support / FAQ</ArrowText>
                     </TouchableOpacity>
                 </View>
                 <Image  

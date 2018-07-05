@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import {
-    Platform,
-    StyleSheet,
-    Image,
     ImageBackground,
-    TouchableOpacity,
     FlatList,
     View,
     ScrollView,
+    Image,
 } from 'react-native';
 import {Colors, Images, FontSizes} from '@theme';
 import Styles from './styles';
@@ -15,8 +12,7 @@ import {Text, Button} from '@components'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { MediaQuery } from "react-native-responsive";
 
-import { Card } from '@components';
-import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
+import { Card, ArrowText } from '@components';
 
 export default class ActivityList extends Component {
     constructor(props) {
@@ -36,15 +32,15 @@ export default class ActivityList extends Component {
     renderActivityItem({item, index}){
         const {navigate} = this.props.navigation
         return (
-            <Card topbar={{color: Colors.Navy}} style={Styles.item} contentStyle={{justifyContent: 'space-between', paddingVertical: deviceWidth(4)}} onPress={() => {navigate("Activity", {activityIndex: index, discussionStarter: this.state.discussionStarter})}}>
+            <Card topbar={{color: Colors.Navy}} style={Styles.item} contentStyle={Styles.item_content} onPress={() => {navigate("Activity", {activityIndex: index, discussionStarter: this.state.discussionStarter})}}>
                 <Text mediumLarge bold center style={Styles.item_number}>{index + 1}</Text> 
                 <MediaQuery minDeviceWidth={768}>
                     <Text bold center style={Styles.item_text}>{item.stage}</Text>
-                    <Text medium bold center style={Styles.item_start_text}>Start <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                    <ArrowText medium bold center color={Colors.Red} style={Styles.item_start_text}>Start   </ArrowText>
                 </MediaQuery>
                 <MediaQuery maxDeviceWidth={767}>
-                    <Text medium bold center style={Styles.item_text}>Activity {index + 1}: {item.stage}</Text>
-                    <Text medium bold center style={Styles.item_start_text}><Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                    <Text bold center style={Styles.item_text}>{item.stage}</Text>
+                    <Image source={Images.arrow_blue} style={{height: 16, resizeMode: 'contain', tintColor: Colors.Red}}/>
                 </MediaQuery>
             </Card>
         )

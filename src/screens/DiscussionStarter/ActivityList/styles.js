@@ -49,6 +49,11 @@ export default MediaQueryStyleSheet.create({
         margin: deviceWidth(1.2), 
     },
 
+    item_content: {
+        justifyContent: 'space-between', 
+        paddingVertical: deviceWidth(4)
+    },
+
     titleView: {
         margin: deviceWidth(1.2), 
         marginBottom: deviceWidth(2),
@@ -91,13 +96,17 @@ export default MediaQueryStyleSheet.create({
             paddingHorizontal: deviceWidth(4),            
         },
         item: {
-            flexDirection: 'row',
             height: null,
-            padding: deviceWidth(2),
             marginVertical: deviceWidth(2),
         },
+        item_content: {
+            flexDirection: 'row',
+            justifyContent: 'space-between', 
+            paddingVertical: deviceWidth(4)
+        },    
         item_text: {
             flex: 1,
+            fontSize: 22,
             marginLeft: deviceWidth(2),
             textAlign: 'left',
         },

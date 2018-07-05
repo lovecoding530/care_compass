@@ -10,11 +10,9 @@ import {
 
 import {Colors, Images, FontSizes} from '@theme';
 import Styles from './styles';
-import Text from '@text'
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { MediaQuery } from "react-native-responsive";
 import store from '../../Store'
-import { Card } from "@components";
+import { Card, ArrowText } from "@components";
 
 const {height, width} = Dimensions.get('window');
 
@@ -45,13 +43,13 @@ export default class Home extends Component {
                             <MediaQuery minDeviceWidth={768}>
                                 <Image source={Images.discussion_starter} style={Styles.right_icon}/>
                             </MediaQuery>
-                            <Text medium bold style={Styles.right_item_text}>Use discussion starter <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                            <ArrowText medium bold color={Colors.Red}>Use discussion starter</ArrowText>
                         </Card>
                         <Card topbar={{color: Colors.Red}} style={Styles.item} onPress={()=>{this.gotoRoute('CardGame')}}>
                             <MediaQuery minDeviceWidth={768}>
                                 <Image source={Images.cardgame} style={Styles.right_icon}/>
                             </MediaQuery>
-                            <Text medium bold style={Styles.right_item_text}>Start discussion cards <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                            <ArrowText medium bold color={Colors.Red}>Start discussion cards</ArrowText>
                         </Card>
                     </View>
                     <View style={Styles.containerRight}>
@@ -59,22 +57,22 @@ export default class Home extends Component {
                             <MediaQuery minDeviceWidth={768}>
                                 <Image source={Images.looking_after} style={Styles.left_icon}/>
                             </MediaQuery>
-                            <Text bold style={Styles.left_item_text}>Looking after your self <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                            <ArrowText bold color={Colors.Navy} style={Styles.left_item_text}>Looking after your self</ArrowText>
                         </Card>
                         <Card topbar={{color: Colors.Navy}} style={Styles.item} onPress={()=>{this.gotoRoute("UserGuides")}}>
                             <MediaQuery minDeviceWidth={768}>
                                 <Image source={Images.icon_how_to} style={Styles.left_icon}/>
                             </MediaQuery>
-                            <Text bold style={Styles.left_item_text}>App instructions <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                            <ArrowText bold color={Colors.Navy} style={Styles.left_item_text}>App instructions</ArrowText>
                         </Card>
                         <Card topbar={{color: Colors.Navy}} style={Styles.item} onPress={()=>{this.gotoRoute("Resources")}}>
                             <MediaQuery minDeviceWidth={768}>
                                 <Image source={Images.more_info} style={Styles.left_icon}/>
                             </MediaQuery>
-                            <Text bold style={Styles.left_item_text}>Resource library <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                            <ArrowText bold color={Colors.Navy} style={Styles.left_item_text}>Resource library</ArrowText>
                         </Card>
                         <Card topbar={{color: Colors.Navy}} style={[Styles.item, Styles.survey_item]} onPress={()=>{this.gotoRoute("GetHelp")}}>
-                            <Text bold style={Styles.left_item_text}>Take a quick survey <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                            <ArrowText bold color={Colors.Navy} style={Styles.left_item_text}>Take a quick survey</ArrowText>
                         </Card>
                     </View>
                 </ScrollView>

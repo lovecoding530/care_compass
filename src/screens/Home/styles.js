@@ -41,11 +41,9 @@ export default MediaQueryStyleSheet.create({
     },
 
     right_item_text: {
-        color: Colors.Red,
     },
     
     left_item_text: {
-        color: Colors.Navy,
     },
     
     right_icon: {
