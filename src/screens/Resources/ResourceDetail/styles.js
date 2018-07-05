@@ -10,6 +10,7 @@ import {Colors, MediaQueries} from '@theme';
 const { width,height } = Dimensions.get('window');
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 import { MediaQueryStyleSheet } from "react-native-responsive";
+import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
 
 
 export default MediaQueryStyleSheet.create({
@@ -19,8 +20,7 @@ export default MediaQueryStyleSheet.create({
         backgroundColor: Colors.backgroundPrimary,
     },
     scroll:{
-        paddingHorizontal: width/50,
-        paddingVertical:height/60
+        alignSelf: 'center',
     },
     title: {
         color: Colors.Navy,
@@ -32,8 +32,8 @@ export default MediaQueryStyleSheet.create({
         marginVertical:width/50,
     },
     middleimage: {
-        height:Dimensions.get('window').height/3,
-        width:Dimensions.get('window').width/1.5
+        height:deviceHeight(35),
+        width:deviceWidth(60)
     },
     titleView: {
         backgroundColor: Colors.backgroundSecondary,
@@ -43,25 +43,20 @@ export default MediaQueryStyleSheet.create({
         shadowColor: '#000',
         shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
         shadowOpacity: 0.5,
-        shadowRadius: 0,
-        marginBottom: width/50,
-        marginHorizontal:width/60,   
-        paddingVertical:height/45,
+        shadowRadius: 0, 
+        marginBottom: deviceWidth(3),
+        paddingVertical:height/60,
         paddingHorizontal:width/20,
         justifyContent: 'center',
         alignItems: 'center',
     },
-    buttonBackView:{
-        flexDirection:'row',
+    buttonBar: {
         backgroundColor:Colors.Sand,
-        height:height/16,
-        justifyContent:'space-between',
-        alignItems:'center',
-        paddingHorizontal:width/20
-    },
-    buttonBack:{
-        height:height/22,
-        paddingHorizontal:width/30
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: deviceWidth(0.5),
+        paddingHorizontal: deviceWidth(10),
+        alignItems: 'center',
     },
     itemView: {
         flex:1,
@@ -71,44 +66,36 @@ export default MediaQueryStyleSheet.create({
         shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
         shadowOpacity: 0.5,
         shadowRadius: 0,
-        margin: 8,    
-        paddingHorizontal:width/15,
-        paddingVertical:width/30,
+        paddingHorizontal:deviceWidth(4),
+        paddingVertical:width/50,
         justifyContent: 'center',
         alignItems: 'center',
     },
 
-}, {
+}, 
+{
     [MediaQueries.iPad] : {
-        middleimage: {
-            height:Dimensions.get('window').height/3,
-            width:Dimensions.get('window').width/1.5
+        scroll: {
+            paddingVertical:deviceWidth(4),
+            paddingHorizontal: deviceWidth(10),
         },
-        scroll:{
-            paddingHorizontal: width/10,
-            paddingVertical:height/40
-        },
-        buttonBackView:{
-            flexDirection:'row',
-            backgroundColor:Colors.Sand,
-            height:height/16,
-            justifyContent:'space-between',
-            alignItems:'center',
-            paddingHorizontal:width/9
+        buttonBar: {
+            paddingHorizontal: deviceWidth(11),            
         },
         itemView: {
-            flex:1,
-            backgroundColor: Colors.backgroundSecondary,
-            borderRadius: 8,
-            shadowColor: '#000',
-            shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
-            shadowOpacity: 0.5,
-            shadowRadius: 0,
-            margin: 8,    
-            paddingHorizontal:width/25,
+            paddingVertical:width/50,
+        },
+    },
+    [MediaQueries.iPhone] : {
+        scroll: {
+            paddingVertical:deviceWidth(3),
+            paddingHorizontal: deviceWidth(5),
+        },
+        buttonBar: {
+            paddingHorizontal: deviceWidth(6),            
+        },
+        itemView: {
             paddingVertical:width/40,
-            justifyContent: 'center',
-            alignItems: 'center',
         },
     }
 });

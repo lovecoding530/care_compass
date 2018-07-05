@@ -62,9 +62,9 @@ export default class ResourceDetail extends Component {
                        
                     </View>
                 </ScrollView> 
-                <View style={Styles.buttonBackView}>
-                    <Button light onPress={ ()=> this.props.navigation.goBack() } buttonStyles={Styles.buttonBack}>Go back</Button>
-                    <Button dark  buttonStyles={Styles.buttonBack}>Find out more</Button>
+                <View style={Styles.buttonBar}>
+                    <Button light onPress={ ()=> this.props.navigation.goBack() } >Go back</Button>
+                    <Button dark  >Find out more</Button>
                 </View>
             </ImageBackground>
         );
