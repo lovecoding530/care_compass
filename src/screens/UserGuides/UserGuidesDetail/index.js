@@ -189,11 +189,11 @@ export default class UserGuidesDetail extends Component {
                     <Loader loading={this.state.loaderVisible}/>
 
                     <View style={Styles.titleView}>
-                             <Text large style={Styles.title}>How to</Text>
+                             <Text large style={Styles.title}>App Instructions</Text>
                             <Text medium style={Styles.subtitle}>{this.state.title}</Text>
                     </View>
 
-                    <View style={[Styles.itemView]}>
+                     <View style={[Styles.itemView]}>
                         <View style={Styles.viewBody}>
                             <HTMLView
                                 value={this.state.body}
@@ -223,11 +223,12 @@ export default class UserGuidesDetail extends Component {
                                 />
                             </View>
                         }
+                       
                     </View>
                 </ScrollView> 
-                <View style={Styles.buttonBackView}>
-                    <Button light onPress={ ()=> this.props.navigation.goBack() } buttonStyles={Styles.buttonBack}>Go back</Button>
-                    <Button dark  onPress={this._share} buttonStyles={Styles.buttonBack}>Share</Button>
+                <View style={Styles.buttonBar}>
+                    <Button light onPress={ ()=> this.props.navigation.goBack() } >Go back</Button>
+                    <Button dark  onPress={this._share} >Share</Button>
                 </View>
             </ImageBackground>
         );

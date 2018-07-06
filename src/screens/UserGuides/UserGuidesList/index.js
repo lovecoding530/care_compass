@@ -22,6 +22,7 @@ import moment from 'moment';
 import {Colors, Images, FontSizes} from '@theme';
 import { MediaQuery } from "react-native-responsive";
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
+import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
 
 const { width,height } = Dimensions.get('window');
 
@@ -112,30 +113,64 @@ export default class UserGuidesList extends Component {
             <TouchableOpacity style={[ index >1 ? Styles.item :Styles.firstrowItem ]} onPress={()=>{ index >1 ? navigate("UserGuidesDetail", {userguideIndex: index}) : navigate("DiscussionAndCardDetail", {userguideIndex: index})}}>
             {first ?
                 <View style={Styles.itemView}>
-                        <MediaQuery minDeviceWidth={768}>
-                            <Image source={Images.icon_cardgame}  style={Styles.icon}/>
-                        </MediaQuery>
+                    <MediaQuery minDeviceWidth={768}>
+                        <View style={{flexDirection:'row'}}>
+                            <Image source={Images.icon_professional} resizeMode='stretch' style={Styles.smallIcon}/>
+                            <Image source={Images.icon_discussion_starter}   style={Styles.icon}/>
+                        </View>
                         <View style={Styles.cardView}>
                             <Text medium style={[Styles.cardtitle,{ color: Colors.Red}]}>{item.title} </Text>
                             <Image source={Images.icon_left_arrow} resizeMode='contain' style={{tintColor: Colors.Red}}/>
                         </View>
+                    </MediaQuery>
+                    <MediaQuery maxDeviceWidth={767}>
+                        <View style={[Styles.cardView,{paddingVertical:deviceWidth(4)}]}>
+                            <Image source={Images.icon_professional} resizeMode='stretch' style={Styles.smallIcon}/>
+                            <Text medium style={[Styles.cardtitle,{ color: Colors.Red}]}>{item.title} </Text>
+                            <Image source={Images.icon_left_arrow} resizeMode='contain' style={{tintColor: Colors.Red}}/>
+                        </View>
+                    </MediaQuery>
                 </View>
                 : second ?
-                        <View style={Styles.itemView}>
-                            <MediaQuery minDeviceWidth={768}>
-                                <Image source={Images.icon_discussion_starter}  style={[Styles.icon,{width:width/5}]}/>
-                            </MediaQuery>
+                    <View style={Styles.itemView}>
+                        <MediaQuery minDeviceWidth={768}>
+                            <View style={{flexDirection:'row'}}>
+                                <Image source={Images.icon_community} resizeMode='stretch' style={Styles.smallIcon}/>
+                                <Image source={Images.icon_cardgame}  style={Styles.icon}/>
+                            </View>
                             <View style={Styles.cardView}>
                                 <Text medium style={[Styles.cardtitle,{ color: Colors.Red}]}>{item.title} </Text>
                                 <Image source={Images.icon_left_arrow} resizeMode='contain' style={{tintColor: Colors.Red}}/>
                             </View>
-                        </View>
-                        :
-                        <View style={Styles.itemView}>
-                            <View style={Styles.cardView}>
-                                <Text medium style={Styles.cardtitle}>{item.title}</Text>
-                                <Image source={Images.icon_left_arrow} resizeMode='contain' />
+                        </MediaQuery>
+                        <MediaQuery maxDeviceWidth={767}>
+                            <View style={[Styles.cardView,{paddingVertical:deviceWidth(4)}]}>
+                                <Image source={Images.icon_community} resizeMode='stretch' style={Styles.smallIcon}/>
+                                <Text medium style={[Styles.cardtitle,{ color: Colors.Red}]}>{item.title} </Text>
+                                <Image source={Images.icon_left_arrow} resizeMode='contain' style={{tintColor: Colors.Red}}/>
                             </View>
+                        </MediaQuery>
+                    </View>
+                        :
+                        <View>
+                            <MediaQuery minDeviceWidth={768}>
+                                <View style={[Styles.cardView,{padding:deviceWidth(0)}]}>
+                                    <View style={{flex:0.5}}>
+                                        <Image source={Images.icon_professional} resizeMode='stretch' style={Styles.smallIcon}/>
+                                    </View>
+                                    <View style={{flexDirection:'row',alignItems:'center'}}>
+                                        <Text medium style={Styles.cardtitle}>{item.title}</Text>
+                                        <Image source={Images.icon_left_arrow} resizeMode='contain' />
+                                    </View>
+                                </View>
+                            </MediaQuery>
+                            <MediaQuery maxDeviceWidth={767}>
+                                <View style={Styles.cardView}>
+                                    <Image source={Images.icon_professional} resizeMode='stretch' style={Styles.smallIcon}/>
+                                    <Text medium style={Styles.cardtitle}>{item.title}</Text>
+                                    <Image source={Images.icon_left_arrow} resizeMode='contain' />
+                                </View>
+                            </MediaQuery>
                         </View>
             }
             </TouchableOpacity>
@@ -150,7 +185,7 @@ export default class UserGuidesList extends Component {
                 <ScrollView contentContainerStyle={Styles.scroll}>
 
                     <View style={Styles.titleView}>
-                        <Text large style={Styles.title}>How to</Text>
+                        <Text large style={Styles.title}>App Instructions</Text>
                         <Text medium style={Styles.subtitle}>
                             Using and getting the most out of the dying to talk app
                         </Text>
@@ -160,7 +195,6 @@ export default class UserGuidesList extends Component {
                         <FlatList
                             numColumns = {2}
                             data = {this.state.userguideIndexes}
-                            extraData={this.state}
                             renderItem = {this.renderUserGuideItem.bind(this)}
                             keyExtractor = {(index) => index.toString()}
                         />
@@ -170,13 +204,15 @@ export default class UserGuidesList extends Component {
                         <FlatList
                             numColumns = {1}
                             data = {this.state.userguideIndexes}
-                            extraData={this.state}
                             renderItem = {this.renderUserGuideItem.bind(this)}
                             keyExtractor = {(index) => index.toString()}
                         />
                     </MediaQuery>
 
                 </ScrollView>
+                <View style={Styles.buttonBar}>
+                    <Button light onPress={ ()=> this.props.navigation.navigate('Home') } >Go back</Button>
+                </View>
             </ImageBackground>
           
         );

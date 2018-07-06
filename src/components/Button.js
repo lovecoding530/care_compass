@@ -8,35 +8,35 @@ import { TouchableOpacity, StyleSheet } from "react-native";
 import {Colors, FontSizes} from '@theme'
 import Text from '@text'
 import { responsiveWidth } from 'react-native-responsive-dimensions';
+import { deviceWidth, deviceHeight, windowHeight } from "@ResponsiveDimensions";
 
 export default (props) => {
     const {buttonStyles, textStyles, children, onPress} = props;
 
-    const colors = {
-        light: Colors.white,
-        dark: Colors.textPrimary,
-    }
-
     var textProps = {}
 
     var buttonStyle = {
-        paddingVertical: responsiveWidth(1),
-        paddingHorizontal: responsiveWidth(2),
-        margin: responsiveWidth(1),
+        paddingVertical: deviceWidth(1),
+        paddingHorizontal: deviceWidth(2),
+        margin: deviceWidth(1),
         justifyContent: 'center',
         alignItems: 'center',
     }
+
+    var textStyle = {}
+
+    var color = (props.color) ? props.color : Colors.Navy
 
     Object.keys(props).forEach(propKey => {
         if (propKey in FontSizes){
             textProps[propKey] = true
         }else if (propKey == 'light'){
             buttonStyle.borderWidth = 2;
-            buttonStyle.borderColor = Colors.buttonPrimary;
-            textProps.dark = true
+            buttonStyle.borderColor = color;
+            textStyle.color=color
         }else if (propKey == 'dark'){
-            buttonStyle.backgroundColor = Colors.buttonPrimary;
-            textProps.light = true
+            buttonStyle.backgroundColor = color;
+            textStyle.color=Colors.white
         }else if (propKey == 'bold'){
             textProps.bold = true;
         }else{
@@ -46,7 +46,7 @@ export default (props) => {
 
     return(
         <TouchableOpacity style={[buttonStyle, buttonStyles]} onPress={onPress}>
-            <Text {...textProps} style={textStyles}>{children}</Text>
+            <Text {...textProps} style={[textStyle, textStyles]}>{children}</Text>
         </TouchableOpacity>
     )
 }

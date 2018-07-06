@@ -10,36 +10,37 @@ import {Colors, MediaQueries} from '@theme';
 const { width,height } = Dimensions.get('window');
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 import { MediaQueryStyleSheet } from "react-native-responsive";
+import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
 
 
 export default MediaQueryStyleSheet.create({
-
     container: {
         flex: 1, 
         backgroundColor: Colors.backgroundPrimary,
     },
     scroll:{
-         paddingHorizontal: responsiveWidth(8.8),
+         paddingHorizontal: deviceWidth(1),
     },
     title: {
         color: Colors.Navy,
         fontWeight:"200"
     },
-    cardtitle: {
-        fontWeight: '300',
-        color: Colors.Navy,
-        margin: 8,
-        textAlign:'center'
-    },
-    cardView:{
-        flexDirection:'row',
-        alignItems:'center'
-    },
     subtitle: {
         color: Colors.textSecondary,
         textAlign: 'center',
         marginTop:2,
-        fontWeight:"100"
+        fontWeight:"200"
+    },
+    cardtitle: {
+        fontWeight: '300',
+        color: Colors.Navy,
+        textAlign:'center',
+        marginHorizontal:deviceWidth(2)
+    },
+    cardView:{
+        flexDirection:'row',
+        alignItems:'center',
+        padding:deviceWidth(2)
     },
     item: {
         flex: 1,
@@ -49,10 +50,12 @@ export default MediaQueryStyleSheet.create({
         shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
         shadowOpacity: 0.5,
         shadowRadius: 0,
-        margin: width/60,   
-        paddingVertical:height/80,  
+        marginHorizontal:deviceWidth(1.5),  
+        marginTop: deviceWidth(3),   
+        paddingVertical:deviceWidth(2),
     },
     itemView:{
+
     },
     firstrowItem: {
         flex: 1,
@@ -60,8 +63,9 @@ export default MediaQueryStyleSheet.create({
         borderRadius: responsiveWidth(1.2),
         borderTopWidth: responsiveWidth(1.2),
         borderTopColor: Colors.Red,
-        margin: width/60,   
-        paddingVertical:height/30,
+        marginTop: deviceWidth(3), 
+        marginHorizontal:deviceWidth(1.5),  
+        paddingVertical:deviceWidth(2),
         shadowColor: '#000',
         shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
         shadowOpacity: 0.5,
@@ -75,33 +79,43 @@ export default MediaQueryStyleSheet.create({
         shadowColor: '#000',
         shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
         shadowOpacity: 0.5,
-        shadowRadius: 0,
-        marginBottom: width/50,
-        marginTop : width/35, 
-        marginHorizontal:width/60,   
-        paddingVertical:height/45,
-        paddingHorizontal:width/20,
+        shadowRadius: 0, 
+        marginHorizontal:deviceWidth(1.5),  
+        paddingVertical:deviceWidth(3),
+        paddingHorizontal:deviceWidth(10),
         justifyContent: 'center',
         alignItems: 'center',
     },
     icon:{
-        width: width/6,
-        height: height/9,
+        width: deviceWidth(25),
+        height: deviceHeight(15),
         resizeMode: 'contain', 
         tintColor: Colors.Red,
-    }
-}, {
+        marginTop:deviceWidth(2),
+        marginRight:deviceWidth(3)
+    },
+    smallIcon:{
+        width: deviceWidth(6),
+        height: deviceHeight(4),
+        resizeMode: 'contain', 
+        tintColor: Colors.Navy,
+    },
+    buttonBar: {
+        backgroundColor:Colors.Sand,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: deviceWidth(0.5),
+        paddingHorizontal: deviceWidth(10),
+        alignItems: 'center',
+    },
+}, 
+{
     [MediaQueries.iPad] : {
-        item: {
-            flex: 1,
-            backgroundColor: Colors.backgroundSecondary,
-            borderRadius: 8,
-            shadowColor: '#000',
-            shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
-            shadowOpacity: 0.5,
-            shadowRadius: 0,
-            margin: width/60,   
-            paddingVertical:height/80,  
+        scroll: {
+            paddingVertical:deviceWidth(3),
+            paddingHorizontal: deviceWidth(12),
+        },
+        firstrowItem: {
             justifyContent: 'center',
             alignItems: 'center',
         },
@@ -109,20 +123,23 @@ export default MediaQueryStyleSheet.create({
             justifyContent: 'center',
             alignItems: 'center',
         },
-        firstrowItem: {
-            flex: 1,
-            backgroundColor: Colors.backgroundSecondary,
-            borderRadius: responsiveWidth(1.2),
-            borderTopWidth: responsiveWidth(1.2),
-            borderTopColor: Colors.Red,
-            margin: width/60,   
-            paddingVertical:height/30,
-            shadowColor: '#000',
-            shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
-            shadowOpacity: 0.5,
-            shadowRadius: 0,
-            justifyContent: 'center',
-            alignItems: 'center',
-        }
+        buttonBar: {
+            paddingHorizontal: deviceWidth(13),            
+        },
+        titleView: {
+            paddingHorizontal:deviceWidth(3),
+        },
+    },
+    [MediaQueries.iPhone] : {
+        scroll: {
+            paddingVertical:deviceWidth(2),
+            paddingHorizontal: deviceWidth(1),
+        },
+        buttonBar: {
+            paddingHorizontal: deviceWidth(3),            
+        },
+        titleView: {
+            paddingHorizontal:deviceWidth(10),
+        },
     }
 });
