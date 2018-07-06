@@ -13,28 +13,28 @@ import {
 import {Colors} from '@theme'
 const { width, height } = Dimensions.get('window'); // Detect screen width and height
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';// use for responsive screen UI
+import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
 
 export default {
   slide: {           
     alignItems: 'center',
-    paddingHorizontal:width/10, 
   },
   scrollcontainer:{
     alignItems:'center',
   },
   logo:{
-    marginBottom:height/15,
-    marginTop:height/10,
-    height:height/8,
-    width:width/3,
+    marginBottom:deviceHeight(5.5),
+    marginTop:deviceHeight(8),
+    height:deviceHeight(15),
+    width:deviceWidth(25),
   },
   middleimage:{
-    height:height/3,
-    width:width/1.38,
+    height:deviceHeight(33),
   },
   descText: {
     textAlign:'center',
-    color:Colors.textSecondary
+    color:Colors.textSecondary,
+    fontSize:deviceWidth(2.5)
   },
   container: {
     flex: 1, 
@@ -44,11 +44,11 @@ export default {
   pagination: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginVertical:height/50
+    marginVertical:deviceHeight(2)
   },
   dot: {
     backgroundColor: Colors.white,
-    width: width/8,
+    width: deviceWidth(12),
     height: 5,
     borderWidth:1,
     borderColor:Colors.Olive,
@@ -65,23 +65,23 @@ export default {
 
   },
   buttonPrev: {         
-    width:width/4,
-    height:height/18,
-    alignItems:'center',
-    justifyContent:'center'
-  },
-  buttonNext: {       
-    width:width/4,
-    height:height/18,
+    width:deviceWidth(25),
+    height:deviceHeight(5.5),
     alignItems:'center',
     justifyContent:'center',
+    marginTop:deviceHeight(3)
+  },
+  buttonNext: {       
+    width:deviceWidth(25),
+    height:deviceHeight(5.5),
+    alignItems:'center',
+    justifyContent:'center',
+    marginTop:deviceHeight(3)
   },
   textView:{
     backgroundColor:Colors.white,
-    width:width/1.38,
-    height:height/8,
-    paddingHorizontal: width/10,
-    paddingVertical:height/40,
+    paddingHorizontal: deviceWidth(10),
+    paddingVertical:deviceHeight(2),
   },
   background: {
     flex: 1,
