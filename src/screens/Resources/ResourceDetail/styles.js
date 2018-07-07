@@ -29,7 +29,7 @@ export default MediaQueryStyleSheet.create({
     subtitle: {
         color: Colors.textSecondary,
         textAlign: 'center',
-        marginVertical:width/50,
+        marginTop:deviceWidth(2),
     },
     middleimage: {
         height:deviceHeight(35),
@@ -38,15 +38,15 @@ export default MediaQueryStyleSheet.create({
     titleView: {
         backgroundColor: Colors.backgroundSecondary,
         borderTopColor: Colors.Navy,
-        borderRadius: responsiveWidth(1.2),
-        borderTopWidth: responsiveWidth(1.2),
+        borderRadius: deviceWidth(1.2),
+        borderTopWidth: deviceWidth(0.5),
         shadowColor: '#000',
-        shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
+        shadowOffset: { width: deviceWidth(1.2), height: deviceWidth(1.2) },
         shadowOpacity: 0.5,
         shadowRadius: 0, 
         marginBottom: deviceWidth(3),
-        paddingVertical:height/60,
-        paddingHorizontal:width/20,
+        paddingHorizontal:deviceWidth(5),
+        paddingVertical:deviceWidth(3),
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -54,20 +54,20 @@ export default MediaQueryStyleSheet.create({
         backgroundColor:Colors.Sand,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingVertical: deviceWidth(0.5),
-        paddingHorizontal: deviceWidth(10),
+        paddingVertical: deviceWidth(1),
+        paddingHorizontal: deviceWidth(14),
         alignItems: 'center',
     },
     itemView: {
         flex:1,
         backgroundColor: Colors.backgroundSecondary,
-        borderRadius: 8,
+        borderRadius: deviceWidth(1.2),
         shadowColor: '#000',
-        shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
+        shadowOffset: { width: deviceWidth(1.2), height: deviceWidth(1.2) },
         shadowOpacity: 0.5,
         shadowRadius: 0,
-        paddingHorizontal:deviceWidth(4),
-        paddingVertical:width/50,
+        paddingHorizontal:deviceWidth(5),
+        paddingVertical:deviceWidth(3),
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -76,26 +76,26 @@ export default MediaQueryStyleSheet.create({
 {
     [MediaQueries.iPad] : {
         scroll: {
-            paddingVertical:deviceWidth(4),
-            paddingHorizontal: deviceWidth(10),
+            paddingVertical:deviceWidth(3),
+            paddingHorizontal: deviceWidth(13),
         },
         buttonBar: {
-            paddingHorizontal: deviceWidth(11),            
+            paddingHorizontal: deviceWidth(14),            
         },
-        itemView: {
-            paddingVertical:width/50,
+        titleView: {
+            borderTopWidth: deviceWidth(0.5),
         },
     },
     [MediaQueries.iPhone] : {
         scroll: {
-            paddingVertical:deviceWidth(3),
-            paddingHorizontal: deviceWidth(5),
+            paddingVertical:deviceWidth(2),
+            paddingHorizontal: deviceWidth(2),
         },
         buttonBar: {
-            paddingHorizontal: deviceWidth(6),            
+            paddingHorizontal: deviceWidth(3),            
         },
-        itemView: {
-            paddingVertical:width/40,
+         titleView: {
+            borderTopWidth: deviceWidth(1.2),
         },
     }
 });

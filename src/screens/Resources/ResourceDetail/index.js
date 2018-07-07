@@ -47,7 +47,7 @@ export default class ResourceDetail extends Component {
         return (
            
 
-            <ImageBackground source={Images.bg_navigation} resizeMode="stretch" style={Styles.container} >
+            <ImageBackground source={Images.bg_more_information} resizeMode="stretch" style={Styles.container} >
 
                 <ScrollView contentContainerStyle={Styles.scroll}>
 
