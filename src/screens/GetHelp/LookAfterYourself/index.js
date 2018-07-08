@@ -80,9 +80,9 @@ export default class LookAfterYourself extends Component {
                        
                     </View>
                 </ScrollView> 
-                <View style={Styles.buttonBackView}>
-                    <Button light onPress={ ()=> this.props.navigation.navigate('Home') } buttonStyles={Styles.buttonBack}>Go back</Button>
-                    <Button dark  onPress={this._share} buttonStyles={Styles.buttonBack}>Share</Button>
+                <View style={Styles.buttonBar}>
+                    <Button bold light onPress={ ()=> this.props.navigation.navigate('Home') } >Go back</Button>
+                    <Button bold dark  onPress={this._share} >Share</Button>
                 </View>
             </ImageBackground>
         );
