@@ -60,8 +60,8 @@ const Footer = () => {
                 justifyContent: 'center'
             }}>
                 <Image 
-                    source={Images.icon_dying_to_talk} 
-                    style={{width: deviceHeight(6), height: deviceHeight(5), resizeMode: 'center'}}
+                    source={Images.dtt_blue} 
+                    style={{width: deviceHeight(6), height: deviceHeight(5), resizeMode: 'contain'}}
                 />
             </View>
             <Text light right small>logo footer logo footer {"\n"} logo footer</Text>
