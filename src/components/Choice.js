@@ -10,7 +10,7 @@ import {Colors, MediaQueries, FontSizes} from '@theme';
 import Button from '@button'
 import Text from '@text'
 import { MediaQueryStyleSheet } from "react-native-responsive";
-import { deviceWidth } from "@ResponsiveDimensions";
+import { deviceWidth, deviceHeight } from "@ResponsiveDimensions";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class Choice extends Component {
@@ -33,12 +33,12 @@ export default class Choice extends Component {
                     <View style={styles.container}>
                         <Icon name={'check'} color={Colors.Navy} style={styles.icon} size={20}/>
                         <Text smallMedium style={styles.text}>{this.props.text}</Text>            
-                        <Button small light color={Colors.Red} onPress={()=>{this.props.onPress(this.props.index)}}>Remove</Button>
+                        <Button small light bold color={Colors.Red} buttonStyles={{width: deviceHeight(8)}} onPress={()=>{this.props.onPress(this.props.index)}}>Remove</Button>
                     </View>
                     :
                     <View style={styles.container}>
                         <Text smallMedium style={styles.text}>{this.props.text}</Text>            
-                        <Button small light onPress={()=>{this.props.onPress(this.props.index)}}>Select</Button>
+                        <Button small light bold buttonStyles={{width: deviceHeight(8)}} onPress={()=>{this.props.onPress(this.props.index)}}>Select</Button>
                     </View>
             }
             </View>    

@@ -15,6 +15,7 @@ import {Button, Text, ProgressBar, Choices, ManyChoices, Loader } from '@compone
 
 import {playSound} from '@utils'
 import { Card } from '@components';
+import { deviceWidth } from "@ResponsiveDimensions";
 
 export default class Activity extends Component {
     constructor(props) {
@@ -154,11 +155,11 @@ export default class Activity extends Component {
                     <View style={Styles.answerButtonWrapper}>
                         <View style={{flex: 1}}/>
                         <TouchableOpacity style={Styles.answerButton} onPress={() => this.onAnswerLater(questionIndex)}>
-                            <Icon name={answerLater ? 'md-checkbox-outline' : 'md-square-outline'} size={24} color={Colors.Navy} style={{marginRight: 8, marginTop: 4}}/>
+                            <Icon name={answerLater ? 'md-checkbox-outline' : 'md-square-outline'} size={24} color={Colors.Navy} style={{marginRight: deviceWidth(1), marginTop: 4}}/>
                             <Text bold color={Colors.Navy}>Answer Later</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={Styles.answerButton} onPress={() => this.onNeverAnswer(questionIndex)}>
-                            <Icon name={neverAnswer ? 'md-checkbox-outline' : 'md-square-outline'} size={24} color={Colors.Navy} style={{marginRight: 8, marginTop: 4}}/>
+                            <Icon name={neverAnswer ? 'md-checkbox-outline' : 'md-square-outline'} size={24} color={Colors.Navy} style={{marginRight: deviceWidth(1), marginTop: 4}}/>
                             <Text bold color={Colors.Navy}>Never Answer</Text>
                         </TouchableOpacity>
                     </View>

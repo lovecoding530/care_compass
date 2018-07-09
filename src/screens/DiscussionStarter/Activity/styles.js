@@ -98,8 +98,8 @@ export default MediaQueryStyleSheet.create({
     },
 
     sound: {
-        width: deviceWidth(3),
-        height: deviceWidth(3)
+        width: deviceHeight(2),
+        height: deviceHeight(2)
     }
 }, {
     [MediaQueries.iPhone] : {

@@ -10,8 +10,7 @@ import {
 } from 'react-native';
 import {Colors, Images, FontSizes} from '@theme';
 import Styles from './styles';
-import {Button, Text, Loader } from '@components';
-import { EmailModal, EmailSentModal, DownloadedModal} from '../../modals';
+import {Button, Text, Loader, InfoAlert } from '@components';
 
 import {postDiscussionAnswers} from "@api";
 import {getSharingHTMLFromResult} from "./HtmlResult";
@@ -32,9 +31,7 @@ export default class Complete extends Component {
             activityCount: activities.length,
             loaderVisible: false,
             modalVisible: {
-                share: false,
-                downloaded: false,
-                email: false,
+                exported: false,
                 emailSent: false,
             },
         })
@@ -45,9 +42,7 @@ export default class Complete extends Component {
         setTimeout(() => {
             this.setState({
                 modalVisible: {
-                    share: false,
-                    downloaded: false,
-                    email: false,
+                    exported: false,
                     emailSent: false,
                     ...modal,
                 }
@@ -58,9 +53,7 @@ export default class Complete extends Component {
     closeModal(){
         this.setState({
             modalVisible: {
-                share: false,
-                downloaded: false,
-                email: false,
+                exported: false,
                 emailSent: false,
             }
         })
@@ -87,13 +80,6 @@ export default class Complete extends Component {
         }, 500)
     }
 
-    async onShare(){
-        this.setState({loaderVisible: true})
-        await postDiscussionAnswers(this.state.discussionStarter)
-        this.setState({loaderVisible: false})
-        this.openModal({share: true})
-    }
-
     async onShareEmail() {
 
         var html = getSharingHTMLFromResult(this.state.discussionStarter)
@@ -116,40 +102,39 @@ export default class Complete extends Component {
               name: 'results.pdf',   // Optional: Custom filename for attachment
             }
         }, (error, event) => {
-
+            console.log("mail", error, event)
+            if(event == "sent"){
+                this.openModal({emailSent: true})
+            }
         });
     }
 
-    async onShareDownload() {
+    async onShareExport() {
         this.closeModal()
 
         var html = getSharingHTMLFromResult(this.state.discussionStarter)
-        console.log(html)
-
         let options = {
             html: html,
-            fileName: 'test',
+            fileName: 'results',
             directory: 'docs',
-        };
-    
+        };    
         let file = await RNHTMLtoPDF.convert(options)
-        console.log(file.filePath)
-        setTimeout(() => {
-            Share.share({
-                title: "Share this!",
-                message: "I just wanted to show you this:",
-                url: file.filePath,
-                subject: "I am only visible for emails :(",
-            })
+
+        setTimeout( async () => {
+            try {
+                let res = await Share.share({
+                    title: "Discussion Starter Results",
+                    message: "Discussion Starter Results",
+                    url: file.filePath,
+                    subject: "Discussion Starter Results",
+                })
+                if(res.action == "sharedAction"){
+                    this.openModal({exported: true})
+                }
+            } catch (error) {
+                console.log('An error happened')
+            }
         }, 500);
-    }
-
-    onSendEmail(name, email){
-        this.openModal({emailSent: true})
-    }
-
-    onShareCancel() {
-        this.closeModal()
     }
 
     onEdit(activityIndex) {
@@ -204,7 +189,7 @@ export default class Complete extends Component {
                                 <Text medium bold center color={Colors.Navy} style={Styles.currentTitle}>Save your results</Text>
                                 <Text bold center style={{marginVertical: 8}}>Personal information will not be stored or used by Palliative Care Australia in any way. Read more here</Text>
                                 <View style={{flexDirection: 'row', paddingHorizontal: 8, justifyContent: 'center'}}>
-                                    <Button dark bold buttonStyles={{paddingHorizontal: 32}} onPress={this.onShareDownload.bind(this)}>Export</Button>
+                                    <Button dark bold buttonStyles={{paddingHorizontal: 32}} onPress={this.onShareExport.bind(this)}>Export</Button>
                                     <Button dark bold buttonStyles={{paddingHorizontal: 32}} onPress={this.onShareEmail.bind(this)}>Email</Button>
                                 </View>
                             </View>}
@@ -214,19 +199,18 @@ export default class Complete extends Component {
                 <View style={Styles.buttonBar}>
                     <Button light bold onPress={this.onExit.bind(this)}>Exit</Button>
                 </View>
-                <EmailModal 
-                    visible={this.state.modalVisible.email} 
-                    onSend={this.onSendEmail.bind(this)}
-                    onCancel={this.onShareCancel.bind(this)}
-                    />
-                <EmailSentModal 
+                <InfoAlert
+                    visible={this.state.modalVisible.exported}
+                    icon={Images.check}
+                    message="Exported"
+                    onCancel={()=>this.closeModal()}
+                />
+                <InfoAlert
                     visible={this.state.modalVisible.emailSent} 
-                    onCancel={this.onShareCancel.bind(this)}
-                    />
-                <DownloadedModal 
-                    visible={this.state.modalVisible.downloaded} 
-                    onCancel={this.onShareCancel.bind(this)}
-                    />
+                    icon={Images.check}
+                    message="Email sent"
+                    onCancel={()=>this.closeModal()}
+                />
             </ImageBackground>
         );
     }
