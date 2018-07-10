@@ -55,7 +55,6 @@ export default MediaQueryStyleSheet.create({
         paddingVertical:deviceWidth(2),
     },
     itemView:{
-
     },
     firstrowItem: {
         flex: 1,
