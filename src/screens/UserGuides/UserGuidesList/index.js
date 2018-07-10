@@ -31,7 +31,7 @@ export default class UserGuidesList extends Component {
         super(props);
         this.state = ({
             userguideIndexes: [],
-            loaderVisible: true
+            loaderVisible: false
         })
     }
 
@@ -51,6 +51,10 @@ export default class UserGuidesList extends Component {
 
                     if(difference >= updateTimeInterval)
                     {
+                        this.setState({
+                            loaderVisible: true
+                        })
+
                         await AsyncStorage.setItem('lastRefereshTimeUserGuide', currrentTime);
                         const ds = await getUserGuides()
                         const userguides = ds[0].guides
@@ -84,6 +88,10 @@ export default class UserGuidesList extends Component {
                 }
                 else {
                   // do something else
+                    this.setState({
+                        loaderVisible: true
+                    })
+
                     var currrentTime = moment(new Date()).format("HH:mm:ss");
                     await AsyncStorage.setItem('lastRefereshTimeUserGuide', currrentTime); 
                     const ds = await getUserGuides()
@@ -183,7 +191,7 @@ export default class UserGuidesList extends Component {
             <ImageBackground source={Images.bg_how_to} resizeMode="stretch" style={Styles.container} >
 
                 <ScrollView contentContainerStyle={Styles.scroll}>
-
+                    <Loader loading={this.state.loaderVisible}/>
                     <View style={Styles.titleView}>
                         <Text large style={Styles.title}>App Instructions</Text>
                         <Text medium style={Styles.subtitle}>
