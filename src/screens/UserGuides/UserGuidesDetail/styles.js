@@ -5,20 +5,22 @@ import {
     Dimensions,
 } from 'react-native';
 
-import {Colors} from '@theme';
+import {Colors, MediaQueries} from '@theme';
 
 const { width,height } = Dimensions.get('window');
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
+import { MediaQueryStyleSheet } from "react-native-responsive";
+import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
 
 
-export default {
+export default MediaQueryStyleSheet.create({
 
     container: {
        flex: 1, 
         backgroundColor: Colors.backgroundPrimary,
     },
     scroll:{
-        paddingHorizontal: responsiveWidth(8.8),
+        paddingHorizontal: deviceWidth(1),
     },
     title: {
         color: Colors.Navy,
@@ -77,27 +79,12 @@ export default {
         shadowColor: '#000',
         shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
         shadowOpacity: 0.5,
-        shadowRadius: 0,
-        marginBottom: width/50,
-        marginTop : width/35, 
-        marginHorizontal:width/60,   
-        paddingVertical:height/45,
-        paddingHorizontal:width/20,
+        shadowRadius: 0, 
+        marginBottom: deviceWidth(3),
+        paddingVertical:deviceWidth(3),
+        paddingHorizontal:deviceWidth(10),
         justifyContent: 'center',
         alignItems: 'center',
-    },
-    buttonBackView:{
-        flexDirection:'row',
-        backgroundColor:Colors.Sand,
-        height:height/16,
-        justifyContent:'space-between',
-        alignItems:'center',
-        paddingHorizontal:width/10
-    },
-    buttonBack:{
-        height:height/22,
-        width:width/6,
-        paddingHorizontal:width/90
     },
     itemView: {
         flex:1,
@@ -107,10 +94,44 @@ export default {
         shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
         shadowOpacity: 0.5,
         shadowRadius: 0,
-        margin: 8,    
-        padding:width/20,
+        paddingHorizontal:deviceWidth(8),
+        paddingVertical:deviceWidth(3),
         justifyContent: 'center',
         alignItems: 'center',
     },
+    buttonBar: {
+        backgroundColor:Colors.Sand,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: deviceWidth(0.5),
+        paddingHorizontal: deviceWidth(10),
+        alignItems: 'center',
+    },
 
-};
+},
+{
+    [MediaQueries.iPad] : {
+        scroll: {
+            paddingVertical:deviceWidth(3),
+            paddingHorizontal: deviceWidth(12),
+        },
+        buttonBar: {
+            paddingHorizontal: deviceWidth(13),            
+        },
+        itemView: {
+            paddingVertical:deviceWidth(3),
+        },
+    },
+    [MediaQueries.iPhone] : {
+        scroll: {
+            paddingVertical:deviceWidth(2),
+            paddingHorizontal: deviceWidth(3),
+        },
+        buttonBar: {
+            paddingHorizontal: deviceWidth(3),            
+        },
+        itemView: {
+            paddingVertical:deviceWidth(3),
+        },
+    }
+});
