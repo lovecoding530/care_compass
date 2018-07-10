@@ -28,7 +28,6 @@ export default MediaQueryStyleSheet.create({
         fontWeight:"200"
     },
     cardtitle: {
-        fontWeight: 'bold',
         color: Colors.Navy,
         margin: deviceWidth(1),
         textAlign:'center'
@@ -54,7 +53,7 @@ export default MediaQueryStyleSheet.create({
         marginBottom: deviceWidth(3), 
         marginHorizontal:deviceWidth(1.5),   
         paddingHorizontal:deviceWidth(5),
-        paddingVertical:deviceWidth(3), 
+        paddingVertical:deviceWidth(2), 
         alignItems:'center',
         justifyContent: 'center',
     },

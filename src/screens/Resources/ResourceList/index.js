@@ -109,7 +109,7 @@ export default class Resources extends Component {
 
              <TouchableOpacity style={Styles.item} onPress={()=>{navigate("ResourceDetail", {resourceIndex: index})}}>
                             <View style={Styles.cardView}>
-                                <Text smallmedium style={Styles.cardtitle}>{item.title}</Text>
+                                <Text smallmedium bold style={Styles.cardtitle}>{item.title}</Text>
                                 <Image source={Images.icon_left_arrow} resizeMode='contain' />
                             </View>
             </TouchableOpacity>

@@ -36,7 +36,7 @@ export default MediaQueryStyleSheet.create({
         width:deviceWidth(60)
     },
     titleView: {
-        backgroundColor: Colors.backgroundSecondary,
+        backgroundColor: Colors.backgroundPrimary,
         borderTopColor: Colors.Navy,
         borderRadius: deviceWidth(1.2),
         borderTopWidth: deviceWidth(0.5),
@@ -60,7 +60,7 @@ export default MediaQueryStyleSheet.create({
     },
     itemView: {
         flex:1,
-        backgroundColor: Colors.backgroundSecondary,
+        backgroundColor: Colors.backgroundPrimary,
         borderRadius: deviceWidth(1.2),
         shadowColor: '#000',
         shadowOffset: { width: deviceWidth(1.2), height: deviceWidth(1.2) },
