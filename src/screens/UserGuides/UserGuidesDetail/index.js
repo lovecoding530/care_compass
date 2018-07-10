@@ -24,8 +24,7 @@ import { getUserGuides, API_HTML_ROOT } from "@api";
 import HTMLView from 'react-native-htmlview';
 const { width,height } = Dimensions.get('window');
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
-
-
+import {SharedModal} from '../../modals';
 
 function renderNode(node, index, siblings, parent, defaultRenderer) {
 
@@ -117,7 +116,8 @@ export default class UserGuidesDetail extends Component {
             image : '',
             body : '',
             faqs : [],
-            loaderVisible: true
+            loaderVisible: true,
+            modalVisible : false
         })
     }
 
@@ -147,14 +147,16 @@ export default class UserGuidesDetail extends Component {
         }
 
     }
+
     _showResult(result){
         if(result.action == "sharedAction")
         {
-            alert("Your content has been share successfully.");
+                this.setState({modalVisible: true})
+            console.log("Your content has been share successfully.");
         }
         else
         {
-            alert("You have cancelled sharing.");
+            console.log("You have cancelled sharing.");
         }
     }
 
@@ -163,6 +165,12 @@ export default class UserGuidesDetail extends Component {
             message : 'Dying To Talk',
             url : 'http://www.godeckyourself.com'
         }).then(this._showResult.bind(this));
+    }
+
+    closeModal(){
+        this.setState({
+            modalVisible: false
+        })
     }
 
     renderFAQItem({item, index}){
@@ -201,13 +209,12 @@ export default class UserGuidesDetail extends Component {
                             />
                         </View>
 
-                         {this.state.image == '' ? null 
+                        {this.state.image == '' ? null 
                             
                             : <View style={Styles.viewImage}>
                                 <Image style={[Styles.middleimage]} source={{uri: this.state.image}}/>
                               </View>  
-                         }
-
+                        }
                         
                         {this.state.faqs.length == 0 ? null 
                             : <View>
@@ -230,6 +237,10 @@ export default class UserGuidesDetail extends Component {
                     <Button light onPress={ ()=> this.props.navigation.goBack() } >Go back</Button>
                     <Button dark  onPress={this._share} >Share</Button>
                 </View>
+                <SharedModal 
+                    visible={this.state.modalVisible} 
+                    onCancel={this.closeModal.bind(this)}
+                    />
             </ImageBackground>
         );
     }
