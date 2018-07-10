@@ -43,7 +43,7 @@ export default MediaQueryStyleSheet.create({
         padding:deviceWidth(2)
     },
     item: {
-        flex: 1,
+        flex: 0.5,
         backgroundColor: Colors.backgroundSecondary,
         borderRadius: 8,
         shadowColor: '#000',
@@ -51,7 +51,7 @@ export default MediaQueryStyleSheet.create({
         shadowOpacity: 0.5,
         shadowRadius: 0,
         marginHorizontal:deviceWidth(1.5),  
-        marginTop: deviceWidth(3),   
+        marginBottom: deviceWidth(3),   
         paddingVertical:deviceWidth(2),
     },
     itemView:{
@@ -63,7 +63,7 @@ export default MediaQueryStyleSheet.create({
         borderRadius: responsiveWidth(1.2),
         borderTopWidth: responsiveWidth(1.2),
         borderTopColor: Colors.Red,
-        marginTop: deviceWidth(3), 
+        marginBottom: deviceWidth(3),  
         marginHorizontal:deviceWidth(1.5),  
         paddingVertical:deviceWidth(2),
         shadowColor: '#000',
@@ -80,6 +80,7 @@ export default MediaQueryStyleSheet.create({
         shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
         shadowOpacity: 0.5,
         shadowRadius: 0, 
+        marginBottom: deviceWidth(3), 
         marginHorizontal:deviceWidth(1.5),  
         paddingVertical:deviceWidth(3),
         paddingHorizontal:deviceWidth(10),

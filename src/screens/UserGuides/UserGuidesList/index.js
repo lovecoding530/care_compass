@@ -194,6 +194,7 @@ export default class UserGuidesList extends Component {
                     <MediaQuery minDeviceWidth={768}>
                         <FlatList
                             numColumns = {2}
+                            columnWrapperStyle = {{justifyContent:'center'}}
                             data = {this.state.userguideIndexes}
                             renderItem = {this.renderUserGuideItem.bind(this)}
                             keyExtractor = {(index) => index.toString()}
