@@ -175,12 +175,12 @@ export default class UserGuidesDetail extends Component {
         return (
             <View style={Styles.item}>
                 <View style={Styles.itemTitle}>
-                    <Text bold style={[Styles.txtQuestion,{fontSize:orientation === 'PORTRAIT' ? width/30 : height/30}]}>{index + 1}: </Text>
+                    <Text bold style={[Styles.txtQuestion]}>{index + 1}: </Text>
                     <Text style={Styles.txtQuestion}>
                         {" "}{item.question}
                     </Text>
                 </View>
-                <Text style={[Styles.txtAnswer,{fontSize:orientation === 'PORTRAIT' ? width/30 : height/30}]}>{item.answer} </Text>
+                <Text style={[Styles.txtAnswer]}>{item.answer} </Text>
             </View>
         )
     }
