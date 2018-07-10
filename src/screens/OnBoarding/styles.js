@@ -40,7 +40,6 @@ export default MediaQueryStyleSheet.create({
   descText: {
     textAlign:'center',
     color:Colors.Navy,
-    fontSize:deviceWidth(2.5)
   },
   titleText: {
     textAlign:'center',
