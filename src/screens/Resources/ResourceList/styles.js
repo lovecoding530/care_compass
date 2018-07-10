@@ -43,7 +43,7 @@ export default MediaQueryStyleSheet.create({
         fontWeight:"100"
     },
     item: {
-        flex: 1,
+        flex: 0.5,
         backgroundColor: Colors.backgroundPrimary,
         borderRadius: deviceWidth(1.2),
         shadowColor: '#000',
@@ -52,7 +52,6 @@ export default MediaQueryStyleSheet.create({
         shadowRadius: 0,
         marginBottom: deviceWidth(3), 
         marginHorizontal:deviceWidth(1.5),   
-        paddingHorizontal:deviceWidth(5),
         paddingVertical:deviceWidth(2), 
         alignItems:'center',
         justifyContent: 'center',

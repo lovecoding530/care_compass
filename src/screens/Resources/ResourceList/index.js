@@ -106,13 +106,14 @@ export default class Resources extends Component {
     renderResourceItem({item, index}){
         const {navigate} = this.props.navigation
         return (
-
-             <TouchableOpacity style={Styles.item} onPress={()=>{navigate("ResourceDetail", {resourceIndex: index})}}>
+            
+                <TouchableOpacity style={Styles.item} onPress={()=>{navigate("ResourceDetail", {resourceIndex: index})}}>
                             <View style={Styles.cardView}>
                                 <Text smallmedium bold style={Styles.cardtitle}>{item.title}</Text>
                                 <Image source={Images.icon_left_arrow} resizeMode='contain' />
                             </View>
-            </TouchableOpacity>
+                </TouchableOpacity>
+        
         )
     }
 
@@ -133,6 +134,7 @@ export default class Resources extends Component {
                     <MediaQuery minDeviceWidth={768}>
                         <FlatList
                             numColumns = {2}
+                            columnWrapperStyle = {{justifyContent:'center'}}
                             data = {this.state.resourceIndexes}
                             renderItem = {this.renderResourceItem.bind(this)}
                             keyExtractor={item => item.title}
