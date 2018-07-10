@@ -22,6 +22,7 @@ import { Loader } from '@components';
 
 const { width,height } = Dimensions.get('window');
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
+import {SharedModal} from '../../modals';
 
 export default class LookAfterYourself extends Component {
     constructor(props) {
@@ -29,6 +30,7 @@ export default class LookAfterYourself extends Component {
         this._share=this._share.bind(this);
         this._showResult=this._showResult.bind(this);
         this.state = ({
+            modalVisible : false
         })
     }
 
@@ -36,14 +38,16 @@ export default class LookAfterYourself extends Component {
        
 
     }
+    
     _showResult(result){
         if(result.action == "sharedAction")
         {
-            alert("Your content has been share successfully.");
+                this.setState({modalVisible: true})
+            console.log("Your content has been share successfully.");
         }
         else
         {
-            alert("You have cancelled sharing.");
+            console.log("You have cancelled sharing.");
         }
     }
 
@@ -52,6 +56,12 @@ export default class LookAfterYourself extends Component {
             message : 'Dying To Talk',
             url : 'http://www.godeckyourself.com'
         }).then(this._showResult.bind(this));
+    }
+
+    closeModal(){
+        this.setState({
+            modalVisible: false
+        })
     }
 
     render() {   
@@ -84,6 +94,10 @@ export default class LookAfterYourself extends Component {
                     <Button bold light onPress={ ()=> this.props.navigation.navigate('Home') } >Go back</Button>
                     <Button bold dark  onPress={this._share} >Share</Button>
                 </View>
+                <SharedModal 
+                    visible={this.state.modalVisible} 
+                    onCancel={this.closeModal.bind(this)}
+                    />
             </ImageBackground>
         );
     }
