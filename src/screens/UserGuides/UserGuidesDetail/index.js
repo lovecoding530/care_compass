@@ -231,8 +231,8 @@ export default class UserGuidesDetail extends Component {
                     </View>
                 </ScrollView> 
                 <View style={Styles.buttonBar}>
-                    <Button light onPress={ ()=> this.props.navigation.goBack() } >Go back</Button>
-                    <Button dark  onPress={this._share} >Share</Button>
+                    <Button light bold onPress={ ()=> this.props.navigation.goBack() } >Go back</Button>
+                    <Button dark  bold onPress={this._share} >Share</Button>
                 </View>
                 <SharedModal 
                     visible={this.state.modalVisible} 
