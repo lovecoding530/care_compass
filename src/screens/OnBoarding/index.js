@@ -14,6 +14,7 @@ import {
 import Styles from '@OnBoardingstyles';
 let { width, height } = Dimensions.get('window');// use for device height and width
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions'; // use for responsive screen UI
+import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
 import Button from '@button'
 import Footer from '@footer'
 import Text from '@text'
@@ -167,7 +168,7 @@ class Swiper extends Component {
     if (this.internals.isScrolling || this.state.total < 2) {
       return;
     }
-
+ 
     const state = this.state,
       diff = this.state.index + 1,
       x = diff * orientationWidth,
@@ -288,9 +289,10 @@ class Swiper extends Component {
    * Render Next or Done button
    */
   renderButton = () => {   
-   const lastScreen = this.state.index === this.state.total - 1;
+    const lastScreen = this.state.index === this.state.total - 1;
     const firstScreen = this.state.index === 0;
-        const secondScreen = this.state.index === 1;
+    const secondScreen = this.state.index === 1;
+    const thirdScreen = this.state.index === 2;
     return (
 
        <View pointerEvents="box-none">
@@ -308,7 +310,12 @@ class Swiper extends Component {
                     <Button light bold textStyles={{color:Colors.darkNavy}} buttonStyles={Styles.buttonPrev} onPress={() => this.swipePrev()}>Previous</Button>
                     <Button dark bold textStyles={{color:Colors.white}} buttonStyles={Styles.buttonNext} onPress={() => this.swipe()}>Next</Button>
                   </View>
-                  : null
+                  :   thirdScreen 
+                      ?  <View style={[Styles.buttonContainer]}>
+                            <Button light bold textStyles={{color:Colors.darkNavy}} buttonStyles={Styles.buttonPrev} onPress={() => this.swipePrev()}>Previous</Button>
+                            <Button dark bold textStyles={{color:Colors.white}} buttonStyles={Styles.buttonNext} onPress={() => this.swipe()}>Next</Button>
+                          </View>
+                          : null
           }
         </View>
 
@@ -318,7 +325,8 @@ class Swiper extends Component {
   onLayout(e) {
     width = Dimensions.get('window').width
     height = Dimensions.get('window').height
- if (orientation === 'LANDSCAPE') {
+
+    if (orientation === 'LANDSCAPE') {
 
       orientationWidth = width;
       offset = orientationWidth * this.state.index;
@@ -348,12 +356,19 @@ class Swiper extends Component {
         offset
       };
 
-      if(this.state.index==1)
+      
+      x = this.state.index * width,
+      y = 0;
+
+      if (Platform.OS === 'ios') 
       {
-        x = this.state.index * width,
-        y = 0;
-    
-        this.scrollView && this.scrollView.scrollTo({ x, y, animated: true });
+        setTimeout(() => {
+          this.scrollView &&  this.scrollView.scrollTo({ x, y, animated: true });
+        }, 5)
+      }
+      else
+      {
+        this.scrollView &&  this.scrollView.scrollTo({ x, y, animated: true });
       }
         
       this.forceUpdate()
@@ -371,14 +386,19 @@ class Swiper extends Component {
 
         <ScrollView contentContainerStyle={Styles.scrollcontainer}>
           {/* Render screens */}
-          <Image style={Styles.logo} resizeMode='contain'  source={require('../../../assets/images/dtt-logo-blue.png')}/>
-          {this.renderScrollView(children)}
-          {/* Render Continue or Done button */}
-           <View style={{width:width/1.38,backgroundColor:Colors.white,}}>
-          {this.renderButton()}
-          {/* Render pagination */}
-          {this.renderPagination()}
-          </View>
+            <Text bold large style={Styles.titleText}>Dying to Talk in the Bush</Text>
+            <View style={Styles.subTitleView}>
+              <Text bold medium style={Styles.subTitleText}>Working out what's right for you</Text>
+              <Text bold medium style={Styles.subTitleText}>dyingtotalk.org.au</Text>
+            </View>
+
+            {this.renderScrollView(children)}
+            {/* Render Continue or Done button */}
+             <View style={Styles.buttonpageView}>
+            {this.renderButton()}
+            {/* Render pagination */}
+            {this.renderPagination()}
+            </View>
 
           </ScrollView>
         </ImageBackground>
@@ -416,21 +436,27 @@ export default class OnBoarding extends Component {
         return (
            <Swiper onLayout={this.onLayout.bind(this)}>
             <View style={[Styles.slide,{width:width}]} >
-              <Image style={[Styles.middleimage,{ width:width/1.38,}]}  resizeMode='stretch' source={require('../../../assets/images/Dark-navy-back.png')}/>
-              <View style={[Styles.textView,{width:width/1.38,}]}>
-                <Text bold smallMedium style={Styles.descText}>Start discussion with us by choose activity and give answers of our questions.</Text>
+              <Image style={[Styles.middleimage]}  resizeMode='stretch' source={require('../../../assets/images/Dark-navy-back.png')}/>
+              <View style={[Styles.textView]}>
+                <Text  smallMedium style={Styles.descText}>Start discussion with us by choose activity and give answers of our questions.</Text>
               </View>
             </View>
             <View style={[Styles.slide,{width:width}]} >
-              <Image style={[Styles.middleimage,{ width:width/1.38,}]} resizeMode='stretch' source={require('../../../assets/images/Dark-navy-back.png')}/>
-              <View style={[Styles.textView,{width:width/1.38,}]}>
-                <Text bold smallMedium style={Styles.descText}>Play card game by set card priority and submit to us.</Text>
+              <Image style={[Styles.middleimage]} resizeMode='stretch' source={require('../../../assets/images/Dark-navy-back.png')}/>
+              <View style={[Styles.textView]}>
+                <Text  smallMedium style={Styles.descText}>Play card game by set card priority and submit to us.</Text>
               </View>
             </View>
             <View style={[Styles.slide,{width:width}]} >
-              <Image style={[Styles.middleimage,{ width:width/1.38,}]} resizeMode='stretch' source={require('../../../assets/images/Dark-navy-back.png')}/>
-              <View style={[Styles.textView,{width:width/1.38,}]}>
-                <Text bold smallMedium style={Styles.descText}>Use our resources link and user guidance to learn more.</Text>
+              <Image style={[Styles.middleimage]} resizeMode='stretch' source={require('../../../assets/images/Dark-navy-back.png')}/>
+              <View style={[Styles.textView]}>
+                <Text  smallMedium style={Styles.descText}>This app will start conversations around  end-of-life whishes and planning.</Text>
+              </View>
+            </View>
+            <View style={[Styles.slide,{width:width}]} >
+              <Image style={[Styles.middleimage]} resizeMode='stretch' source={require('../../../assets/images/Dark-navy-back.png')}/>
+              <View style={[Styles.textView]}>
+                <Text  smallMedium style={Styles.descText}>Use our resources link and user guidance to learn more.</Text>
               </View>
             </View>
           </Swiper>
