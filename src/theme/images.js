@@ -31,7 +31,7 @@ const images = {
     icon_how_to: require('../../assets/images/icon-how-to.png'),
     icon_dying_to_talk: require('../../assets/images/icon-dtt-logo.png'),
     icon_left_arrow: require('../../assets/images/icon-left-arrow.png'),
-    icon_professional: require('../../assets/images/icon-professional.png'),
+    icon_professional: require('../../assets/images/professional.png'),
     icon_community: require('../../assets/images/icon-community.png'),
     iocn_lookig_after_yourself: require('../../assets/images/iocn-lookig-after-yourself.png'),
     icon_loader: require('../../assets/images/icon-loader.png'),
