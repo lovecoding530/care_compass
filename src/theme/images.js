@@ -12,9 +12,9 @@ const images = {
 
     skip : require('../../assets/images/skip.png'),
 
+    cardgame: require('../../assets/images/cardgame.png'),
+    discussion_starter: require('../../assets/images/discussion_starter.png'),
     icon_back: require('../../assets/images/icon-back.png'),
-    icon_cardgame: require('../../assets/images/icon-cardgame.png'),
-    icon_discussion_starter: require('../../assets/images/icon-discussion-starter.png'),
     icon_dying_to_talk: require('../../assets/images/icon-dtt-logo.png'),
     logo_footer: require('../../assets/images/pca-logo-footer.png'),
     icon_left_arrow: require('../../assets/images/icon-left-arrow.png'),

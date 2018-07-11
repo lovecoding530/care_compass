@@ -124,7 +124,7 @@ export default class UserGuidesList extends Component {
                     <MediaQuery minDeviceWidth={768}>
                         <View style={{flexDirection:'row'}}>
                             <Image source={Images.icon_professional} resizeMode='stretch' style={Styles.smallIcon}/>
-                            <Image source={Images.icon_discussion_starter}   style={Styles.icon}/>
+                            <Image source={Images.discussion_starter}   style={Styles.icon}/>
                         </View>
                         <View style={Styles.cardView}>
                             <Text smallmedium bold style={[Styles.cardtitle,{ color: Colors.Red}]}>{item.title} </Text>
@@ -144,7 +144,7 @@ export default class UserGuidesList extends Component {
                         <MediaQuery minDeviceWidth={768}>
                             <View style={{flexDirection:'row'}}>
                                 <Image source={Images.icon_community} resizeMode='stretch' style={Styles.smallIcon}/>
-                                <Image source={Images.icon_cardgame}  style={Styles.icon}/>
+                                <Image source={Images.cardgame}  style={Styles.icon}/>
                             </View>
                             <View style={Styles.cardView}>
                                 <Text smallmedium bold style={[Styles.cardtitle,{ color: Colors.Red}]}>{item.title} </Text>
@@ -220,7 +220,7 @@ export default class UserGuidesList extends Component {
 
                 </ScrollView>
                 <View style={Styles.buttonBar}>
-                    <Button light onPress={ ()=> this.props.navigation.navigate('Home') } >Go back</Button>
+                    <Button light bold onPress={ ()=> this.props.navigation.navigate('Home') } >Go back</Button>
                 </View>
             </ImageBackground>
           

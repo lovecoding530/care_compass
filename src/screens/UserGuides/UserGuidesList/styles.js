@@ -90,8 +90,7 @@ export default MediaQueryStyleSheet.create({
         width: deviceWidth(25),
         height: deviceHeight(15),
         resizeMode: 'contain', 
-        tintColor: Colors.Red,
-        marginTop:deviceWidth(2),
+        marginVertical:deviceWidth(2),
         marginRight:deviceWidth(3)
     },
     smallIcon:{
