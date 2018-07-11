@@ -5,51 +5,104 @@ import {
     Dimensions,
 } from 'react-native';
 
-import {Colors, FontSizes} from '@theme';
+import {Colors, FontSizes, MediaQueries, Metrics} from '@theme';
 
-const { width } = Dimensions.get('window');
+import { MediaQueryStyleSheet } from "react-native-responsive";
+import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
 
-import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
-
-export default {
+export default MediaQueryStyleSheet.create({
 
     container: {
         flex: 1, 
         backgroundColor: Colors.backgroundPrimary,
-        paddingHorizontal: responsiveWidth(8),
-        paddingVertical: responsiveWidth(13),
+    },
+
+    contentView: {
+        flexGrow: 1, 
+        paddingHorizontal: deviceWidth(8),
+        paddingVertical: deviceWidth(2)
+    },
+    
+    titleView: {
+        marginVertical: deviceWidth(2),
+        marginHorizontal: deviceWidth(1)
     },
 
     flatList: {
-        marginVertical: responsiveWidth(4),
+        justifyContent: 'center',
+        paddingHorizontal: deviceWidth(1.2),
     },
 
-    item: {
-        marginVertical: responsiveWidth(1.2), 
+    currentWrapper: {
+        marginVertical: deviceHeight(1), 
+        shadowColor: '#000',
+        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
+        shadowOpacity: 0.4,
+        shadowRadius: 0,
     },
 
-    itemTitle: {
-        padding: responsiveWidth(2),
+    current: {
+        borderRadius: deviceWidth(1.2),
+        overflow: 'hidden'
+    },
+
+    currentHeader: {
+        padding: deviceWidth(1),
         flexDirection: 'row',
-        backgroundColor: Colors.backgroundSecondary,
+        backgroundColor: Colors.Navy,
+        alignItems: 'center',
+        justifyContent: 'space-between',        
     },
 
-    itemPrecomment: {
-        padding : responsiveWidth(2), 
-        borderWidth: 1.5,
-        borderColor: Colors.backgroundSecondary,
+    complete_text: {
+        fontSize: deviceHeight(3)
+    },
+
+    currentDescView: {
+        backgroundColor: '#fff',
+        padding: deviceWidth(2),
+        alignItems: 'center',
+    },
+
+    currentTitle: {
+        marginVertical: 8,
+        fontWeight: '300'
+    },
+
+    currentPrecomment: {
+    },
+
+    saveView: {
+        backgroundColor: '#fff',
+        borderRadius: deviceWidth(1.2),
+        shadowColor: '#000',
+        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
+        shadowOpacity: 0.4,
+        shadowRadius: 0,
+        padding: deviceWidth(1),
+        marginVertical: deviceWidth(1.2),
     },
 
     buttonBar: {
         flexDirection: 'row',
-        marginVertical: responsiveWidth(2),
-        marginHorizontal : responsiveWidth(6.6), 
-        justifyContent: 'center',
+        justifyContent: 'space-between',
+        backgroundColor: '#E6E0D4',
+        paddingHorizontal: deviceWidth(9),
     },
 
     checkIcon: {
-        width: responsiveHeight(3.2),
-        height: responsiveHeight(3.2),
-        marginRight: responsiveHeight(1),
+        width: deviceHeight(3.6),
+        height: deviceHeight(3.6),
+        marginHorizontal: deviceWidth(1),
+        tintColor: '#fff',
     }
-};
+}, {
+    [MediaQueries.iPhone] : {
+        contentView: {
+            paddingHorizontal: deviceWidth(2.8),
+        },
+        buttonBar: {
+            paddingHorizontal: deviceWidth(2.8),
+        },
+    }
+});

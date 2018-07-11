@@ -62,7 +62,7 @@ export default class SingleView extends Component {
     render() {
         const {navigate} = this.props.navigation
         return (
-            <View style={Styles.container}>
+            <ScrollView contentContainerStyle={Styles.container}>
                 <View style={Styles.title}>
                     <Text mediumLarge bold center>How important is...</Text>
                 </View>
@@ -95,7 +95,7 @@ export default class SingleView extends Component {
                     <Button dark onPress={this.onSkip.bind(this)}>SKIP</Button>
                     <Button dark onPress={this.onFinish.bind(this)}>FINISH</Button>
                 </View>
-            </View>
+            </ScrollView>
         );
     }
 }

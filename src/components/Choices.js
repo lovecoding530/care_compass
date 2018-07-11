@@ -4,16 +4,9 @@
 
 import React, { Component } from 'react';
 import {
-    StyleSheet,
-    Image,
-    TouchableOpacity,
-    View,
     FlatList,
 } from 'react-native';
 
-import {Colors} from '@theme';
-import Button from '@button'
-import Text from '@text'
 import Choice from '@choice'
 
 export default class Choices extends Component {

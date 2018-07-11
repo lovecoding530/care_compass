@@ -5,35 +5,37 @@ import {
     Dimensions,
 } from 'react-native';
 
-import {Colors, MediaQueries} from '@theme';
+import {Colors, MediaQueries, Metrics} from '@theme';
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 import { MediaQueryStyleSheet } from "react-native-responsive";
+import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
 
 export default MediaQueryStyleSheet.create({
     container: {
         flex: 1, 
         backgroundColor: Colors.backgroundPrimary,
-        padding: responsiveWidth(10),
-        justifyContent: 'center',
-        alignItems: 'center',
     },
 
     introContainer: {
-        justifyContent: 'center',
-        alignItems: 'center',
+        flexGrow: 1, 
+        // alignSelf: 'center'
     },
 
     title: {
-        margin: 8,
+        marginTop: deviceWidth(1),
+        fontWeight: '300',
     },
 
     subtitle: {
         textAlign: 'center',
-        margin: 8,
+        margin: deviceWidth(1),
+        fontWeight: '300',
     },
 
     icon: {
-        height: responsiveWidth(25),
+        width: deviceWidth(27),
+        height: deviceWidth(25),
+        resizeMode: 'contain',
     },
 
     intro: {
@@ -43,17 +45,32 @@ export default MediaQueryStyleSheet.create({
 
     buttonBar: {
         flexDirection: 'row',
-        margin: 16,
+        justifyContent: 'space-between',
+        backgroundColor: '#E6E0D4',
+        paddingHorizontal: deviceWidth(10),
     },
+
+    titleView: {
+        marginVertical: deviceWidth(4),
+    },
+
+    descView: {
+    }
 }, {
     [MediaQueries.iPad] : {
-        container: {
-            padding: responsiveWidth(10),
+        introContainer: {
+            paddingHorizontal: deviceWidth(10),
+        },
+        buttonBar: {
+            paddingHorizontal: deviceWidth(10),            
         }
     },
     [MediaQueries.iPhone] : {
-        container: {
-            padding: responsiveWidth(5),
+        introContainer: {
+            paddingHorizontal: deviceWidth(5),
+        },
+        buttonBar: {
+            paddingHorizontal: deviceWidth(5),            
         }
     }
 });

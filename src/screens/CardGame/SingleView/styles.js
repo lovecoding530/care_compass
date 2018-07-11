@@ -6,36 +6,35 @@ import {
 } from 'react-native';
 
 import {Colors, FontSizes, MediaQueries} from '@theme';
-import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 import { MediaQueryStyleSheet } from "react-native-responsive";
-
+import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
 
 export default {
 
     container: {
-        flex: 1, 
+        flexGrow: 1, 
         backgroundColor: Colors.backgroundPrimary,
-        paddingVertical: responsiveWidth(8),
-        paddingHorizontal: responsiveWidth(13),
+        paddingHorizontal: deviceWidth(12),
+        justifyContent: 'center'
     },
 
     title: {
-        marginVertical: responsiveWidth(4),
+        marginVertical: deviceWidth(4),
     },
 
     questionView: {
         backgroundColor: Colors.backgroundThird,
-        height: responsiveWidth(40),
-        marginHorizontal: responsiveWidth(1),
-        marginVertical: responsiveWidth(2),
+        height: deviceWidth(40),
+        marginHorizontal: deviceWidth(1),
+        marginVertical: deviceWidth(2),
         justifyContent: 'center'
     },
 
     additionalInfo: {
         backgroundColor: Colors.backgroundThird,
-        marginHorizontal: responsiveWidth(1),
-        marginBottom: responsiveWidth(2),
-        padding: responsiveWidth(1),
+        marginHorizontal: deviceWidth(1),
+        marginBottom: deviceWidth(2),
+        padding: deviceWidth(1),
     },
 
     levelBar: {
@@ -45,25 +44,25 @@ export default {
 
     levelItem: {
         backgroundColor: Colors.backgroundThird,
-        marginHorizontal: responsiveWidth(1),
+        marginHorizontal: deviceWidth(1),
         alignItems: 'center',
-        padding: responsiveWidth(1),
+        padding: deviceWidth(1),
         flex: 1,
     },
 
     levelIcon: {
-        width: responsiveWidth(3.2),
-        height: responsiveWidth(3.2),
+        width: deviceWidth(3.2),
+        height: deviceWidth(3.2),
         marginVertical: 4,
     },
 
     progress: {
-        marginVertical: responsiveWidth(4),
+        marginVertical: deviceWidth(4),
     },
 
     progressBar: {
-        marginHorizontal: responsiveWidth(6.6),
-        marginVertical: responsiveWidth(1.2),
+        marginHorizontal: deviceWidth(6.6),
+        marginVertical: deviceWidth(1.2),
     },
 
     buttonBar: {

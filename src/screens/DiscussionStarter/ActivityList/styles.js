@@ -5,51 +5,113 @@ import {
     Dimensions,
 } from 'react-native';
 
-import {Colors} from '@theme';
+import {Colors, MediaQueries, Metrics} from '@theme';
 
 const { width } = Dimensions.get('window');
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
+import { MediaQueryStyleSheet } from "react-native-responsive";
+import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
 
-
-export default {
+export default MediaQueryStyleSheet.create({
 
     container: {
         flex: 1, 
         backgroundColor: Colors.backgroundPrimary,
-        padding: responsiveWidth(8),
-        justifyContent: 'center',
-        alignItems: 'center',
+    },
+
+    scrollView: {
+        flexGrow: 1,
+        padding: deviceWidth(8.8),
     },
 
     introContainer: {
     },
 
     title: {
-        margin: 8,
+        color: Colors.Red,
+        margin: 4,
+        fontWeight: '300'
     },
 
     subtitle: {
-        margin: 8,
+        color: Colors.Navy,
+        margin: 4,
+        fontWeight: '300'
+    },
+
+    flatList: {
+        // alignItems: 'center',
     },
 
     item: {
-        width: width/3,
-        height: width/3,
-        backgroundColor: Colors.backgroundSecondary,
-        borderRadius: 2,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.5,
-        shadowRadius: 2,
-        margin: 8,        
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-
-    itemText: {
-        fontSize: 24,
         flex: 1,
-        width: 200
+        height: width/3,
+        margin: deviceWidth(1.2), 
     },
 
-};
+    item_content: {
+        justifyContent: 'space-between', 
+        paddingVertical: deviceWidth(4)
+    },
+
+    titleView: {
+        margin: deviceWidth(1.2), 
+        marginBottom: deviceWidth(2),
+    },
+
+    item_number_view: {
+        width: deviceWidth(6),
+        height: deviceWidth(6),
+        backgroundColor: Colors.Navy,
+        justifyContent: 'center',
+        borderRadius: deviceWidth(3),
+    },
+    item_number: {
+        color: Colors.Navy,
+        fontWeight: '900'
+    }, 
+    item_text: {
+        color: Colors.Navy,
+        fontSize: 30,
+        fontWeight: '300'
+    },
+    item_start_text: {
+        color: Colors.Red,
+    },
+
+    buttonBar: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        backgroundColor: '#E6E0D4',
+        paddingHorizontal: deviceWidth(10),
+    },
+
+
+}, {
+    [MediaQueries.iPhone] : {
+        scrollView: {
+            padding: deviceWidth(2.8),
+        },
+        buttonBar: {
+            paddingHorizontal: deviceWidth(4),            
+        },
+        item: {
+            height: null,
+            marginVertical: deviceWidth(2),
+        },
+        item_content: {
+            flexDirection: 'row',
+            justifyContent: 'space-between', 
+            paddingVertical: deviceWidth(4)
+        },    
+        item_text: {
+            flex: 1,
+            fontSize: 22,
+            marginLeft: deviceWidth(2),
+            textAlign: 'left',
+        },
+        buttonBar: {
+            paddingHorizontal: deviceWidth(5),            
+        }
+    }
+});

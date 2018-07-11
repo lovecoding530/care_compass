@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
 import {
-    Platform,
-    StyleSheet,
     Image,
-    TouchableOpacity,
+    ImageBackground,
     FlatList,
     View,
-    Modal,
     Alert,
     Share,
+    ScrollView,
 } from 'react-native';
-import {Colors, Images} from '@theme';
+import {Colors, Images, FontSizes} from '@theme';
 import Styles from './styles';
-import {Button, Text, Loader } from '@components';
-import { ShareModal, EmailModal, EmailSentModal, DownloadedModal} from '../../modals';
+import {Button, Text, Loader, InfoAlert } from '@components';
 
 import {postDiscussionAnswers} from "@api";
 import {getSharingHTMLFromResult} from "./HtmlResult";
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import Mailer from 'react-native-mail';
+import { Card } from '@components';
+import { deviceWidth } from "@ResponsiveDimensions";
 
 export default class Complete extends Component {
     constructor(props) {
@@ -31,9 +31,7 @@ export default class Complete extends Component {
             activityCount: activities.length,
             loaderVisible: false,
             modalVisible: {
-                share: false,
-                downloaded: false,
-                email: false,
+                exported: false,
                 emailSent: false,
             },
         })
@@ -44,9 +42,7 @@ export default class Complete extends Component {
         setTimeout(() => {
             this.setState({
                 modalVisible: {
-                    share: false,
-                    downloaded: false,
-                    email: false,
+                    exported: false,
                     emailSent: false,
                     ...modal,
                 }
@@ -57,9 +53,7 @@ export default class Complete extends Component {
     closeModal(){
         this.setState({
             modalVisible: {
-                share: false,
-                downloaded: false,
-                email: false,
+                exported: false,
                 emailSent: false,
             }
         })
@@ -74,110 +68,150 @@ export default class Complete extends Component {
             const {navigate, goBack} = this.props.navigation
             Alert.alert(
                 'Are you sure?',
-                'Are you sure to exit without share the results?',
+                'Any information you have entered will be deleted.',
                 [
-                  {text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                  {text: 'YES', onPress: () => goBack("DiscussionStarter")},
+                    {text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    {text: 'YES', onPress: () => {
+                        goBack("DiscussionStarter")
+                    }},
                 ],
                 { cancelable: false }
             )
         }, 500)
     }
 
-    async onShare(){
-        this.setState({loaderVisible: true})
-        await postDiscussionAnswers(this.state.discussionStarter)
-        this.setState({loaderVisible: false})
-        this.openModal({share: true})
-    }
-
-    onShareEmail() {
-        this.openModal({email: true})
-    }
-
-    async onShareDownload() {
-        this.closeModal()
+    async onShareEmail() {
 
         var html = getSharingHTMLFromResult(this.state.discussionStarter)
-        console.log(html)
 
         let options = {
             html: html,
-            fileName: 'test',
+            fileName: 'results',
             directory: 'docs',
         };
     
         let file = await RNHTMLtoPDF.convert(options)
-        console.log(file.filePath)
-        setTimeout(() => {
-            Share.share({
-                title: "Share this!",
-                message: "I just wanted to show you this:",
-                url: file.filePath,
-                subject: "I am only visible for emails :(",
-            })
+        Mailer.mail({
+            subject: 'Discussion Starter Results',
+            recipients: [],
+            body: '<b>Resuls as pdf attach</b>',
+            isHTML: true,
+            attachment: {
+              path: file.filePath,  // The absolute path of the file from which to read data.
+              type: 'pdf',   // Mime Type: jpg, png, doc, ppt, html, pdf, csv
+              name: 'results.pdf',   // Optional: Custom filename for attachment
+            }
+        }, (error, event) => {
+            console.log("mail", error, event)
+            if(event == "sent"){
+                this.openModal({emailSent: true})
+            }
+        });
+    }
+
+    async onShareExport() {
+        this.closeModal()
+
+        var html = getSharingHTMLFromResult(this.state.discussionStarter)
+        let options = {
+            html: html,
+            fileName: 'results',
+            directory: 'docs',
+        };    
+        let file = await RNHTMLtoPDF.convert(options)
+
+        setTimeout( async () => {
+            try {
+                let res = await Share.share({
+                    title: "Discussion Starter Results",
+                    message: "Discussion Starter Results",
+                    url: file.filePath,
+                    subject: "Discussion Starter Results",
+                })
+                if(res.action == "sharedAction"){
+                    this.openModal({exported: true})
+                }
+            } catch (error) {
+                console.log('An error happened')
+            }
         }, 500);
     }
 
-    onSendEmail(name, email){
-        this.openModal({emailSent: true})
-    }
-
-    onShareCancel() {
-        this.closeModal()
+    onEdit(activityIndex) {
+        const {navigate, goBack} = this.props.navigation
+        // if(activityIndex < this.state.activityCount - 1){
+        //     goBack(`UpNext${activityIndex}`)
+        // }else{
+        //     goBack()
+        // }
+        navigate("Activity", {editFromResults: true, activityIndex, discussionStarter: this.state.discussionStarter})
     }
 
     renderActivityItem({item, index}){
         return (
-            <View style={Styles.item}>
-                <View style={Styles.itemTitle}>
-                    <Image source={Images.check} style={Styles.checkIcon}/>
-                    <Text medium bold>Activity {index + 1}: </Text>
-                    <Text medium>
-                        {" "}{item.stage}
-                    </Text>
+            <View style={Styles.currentWrapper}>
+                <View style={Styles.current}>
+                    <View style={Styles.currentHeader}>
+                        <View style={{flexDirection: 'row'}}>
+                            <Image source={Images.check} style={Styles.checkIcon}/>
+                            <Text medium bold color={'#fff'} style={Styles.complete_text}>
+                                Complete
+                            </Text>
+                        </View>
+                        <Button light bold color={'#fff'} onPress={()=>this.onEdit(index)}>Edit</Button>
+                    </View>
+                    <View style={Styles.currentDescView}>
+                        <Text medium color={Colors.Navy} style={Styles.currentTitle}>Activity {index + 1}: {item.stage}</Text>
+                        <Text style={Styles.currentPrecomment}>
+                            {item.pre_commencement_text} 
+                        </Text>
+                    </View>
                 </View>
-                <Text style={Styles.itemPrecomment}>{item.pre_commencement_text} </Text>
             </View>
         )
     }
 
     render() { 
         return (
-            <View style={Styles.container}>
+            <ImageBackground source={Images.bg_discussion_starter}  style={Styles.container}>
                 <Loader loading={this.state.loaderVisible}/>
-                <Text mediumLarge bold center>Complete... </Text>
-                <FlatList
-                    data = {this.state.activities}
-                    renderItem = {this.renderActivityItem.bind(this)}
-                    keyExtractor = {(item, index) => index.toString()}
-                    style={Styles.flatList}
-                    />
+                <ScrollView contentContainerStyle={Styles.contentView}>
+                    <Card topbar style={Styles.titleView} contentStyle={{paddingVertical: deviceWidth(4),}}>
+                        <Text mediumLarge center color={Colors.Red} style={{fontWeight: '300'}}>Your Results</Text>
+                    </Card>
+                    <FlatList
+                        data = {this.state.activities}
+                        renderItem = {this.renderActivityItem.bind(this)}
+                        keyExtractor = {(item, index) => index.toString()}
+                        contentContainerStyle={Styles.flatList}
+                        ListFooterComponent = {()=>
+                            <View style={Styles.saveView}>
+                                <Text medium bold center color={Colors.Navy} style={Styles.currentTitle}>Save your results</Text>
+                                <Text bold center style={{marginVertical: 8}}>Personal information will not be stored or used by Palliative Care Australia in any way. Read more here</Text>
+                                <View style={{flexDirection: 'row', paddingHorizontal: 8, justifyContent: 'center'}}>
+                                    <Button dark bold buttonStyles={{paddingHorizontal: 32}} onPress={this.onShareExport.bind(this)}>Export</Button>
+                                    <Button dark bold buttonStyles={{paddingHorizontal: 32}} onPress={this.onShareEmail.bind(this)}>Email</Button>
+                                </View>
+                            </View>}
+                        />
+                    
+                </ScrollView>
                 <View style={Styles.buttonBar}>
-                    <Button light onPress={this.onExit.bind(this)}>EXIT</Button>
-                    <Button dark onPress={this.onShare.bind(this)}>SHARE RESULTS</Button>
+                    <Button light bold onPress={this.onExit.bind(this)}>Exit</Button>
                 </View>
-                <Text medium center>Need more information? Try our resources</Text>
-                <ShareModal 
-                    visible={this.state.modalVisible.share} 
-                    onDownload={this.onShareDownload.bind(this)}
-                    onEmail={this.onShareEmail.bind(this)}
-                    onCancel={this.onShareCancel.bind(this)}
-                    />
-                <EmailModal 
-                    visible={this.state.modalVisible.email} 
-                    onSend={this.onSendEmail.bind(this)}
-                    onCancel={this.onShareCancel.bind(this)}
-                    />
-                <EmailSentModal 
+                <InfoAlert
+                    visible={this.state.modalVisible.exported}
+                    icon={Images.check}
+                    message="Exported"
+                    onCancel={()=>this.closeModal()}
+                />
+                <InfoAlert
                     visible={this.state.modalVisible.emailSent} 
-                    onCancel={this.onShareCancel.bind(this)}
-                    />
-                <DownloadedModal 
-                    visible={this.state.modalVisible.downloaded} 
-                    onCancel={this.onShareCancel.bind(this)}
-                    />
-            </View>
+                    icon={Images.check}
+                    message="Email sent"
+                    onCancel={()=>this.closeModal()}
+                />
+            </ImageBackground>
         );
     }
 }
