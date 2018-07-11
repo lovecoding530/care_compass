@@ -56,8 +56,8 @@ export default class ManyChoices extends Component {
         })    
 
         //react bug Not render until scroll
-        this.flatList.scrollToOffset({offset: -1})
-        this.flatList.scrollToOffset({offset: 1})
+        // this.flatList.scrollToOffset({offset: -1})
+        // this.flatList.scrollToOffset({offset: 1})
 
         var selectedIndexes = []
         

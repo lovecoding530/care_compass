@@ -67,8 +67,8 @@ export default class Choices extends Component {
         })    
 
         //react bug Not render until scroll
-        this.flatList.scrollToOffset({offset: -1})
-        this.flatList.scrollToOffset({offset: 1})
+        // this.flatList.scrollToOffset({offset: -1})
+        // this.flatList.scrollToOffset({offset: 1})
 
         this.props.onChangedAnswer(this.props.questionIndex, selectedIndex)
     }
