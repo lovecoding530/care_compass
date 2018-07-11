@@ -57,7 +57,7 @@ export default class Home extends Component {
                             <MediaQuery minDeviceWidth={768}>
                                 <Image source={Images.looking_after} style={Styles.left_icon}/>
                             </MediaQuery>
-                            <ArrowText bold color={Colors.Navy} style={Styles.left_item_text}>Looking after your self</ArrowText>
+                            <ArrowText bold color={Colors.Navy} style={Styles.left_item_text}>Looking after yourself</ArrowText>
                         </Card>
                         <Card topbar={{color: Colors.Navy}} style={Styles.item} onPress={()=>{this.gotoRoute("UserGuides")}}>
                             <MediaQuery minDeviceWidth={768}>
@@ -71,7 +71,7 @@ export default class Home extends Component {
                             </MediaQuery>
                             <ArrowText bold color={Colors.Navy} style={Styles.left_item_text}>Resource library</ArrowText>
                         </Card>
-                        <Card topbar={{color: Colors.Navy}} style={[Styles.item, Styles.survey_item]} onPress={()=>{this.gotoRoute("GetHelp")}}>
+                        <Card topbar={{color: Colors.Navy}} style={[Styles.item, Styles.survey_item]} onPress={()=>{}}>
                             <ArrowText bold color={Colors.Navy} style={Styles.left_item_text}>Take a quick survey</ArrowText>
                         </Card>
                     </View>

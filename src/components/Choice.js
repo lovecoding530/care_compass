@@ -32,13 +32,21 @@ export default class Choice extends Component {
                 this.props.selected?
                     <View style={styles.container}>
                         <Icon name={'check'} color={Colors.Navy} style={styles.icon} size={20}/>
-                        <Text smallMedium style={styles.text}>{this.props.text}</Text>            
-                        <Button small light bold color={Colors.Red} buttonStyles={{width: deviceHeight(8), paddingHorizontal: 0}} onPress={()=>{this.props.onPress(this.props.index)}}>Remove</Button>
+                        <Text smallMedium style={styles.text}>{this.props.text}</Text>
+                        <Button small light bold color={Colors.Red} 
+                            buttonStyles={{width: deviceHeight(8), paddingHorizontal: 0}} 
+                            onPress={()=>{this.props.onPress(this.props.index)}}>
+                            Remove
+                        </Button>
                     </View>
                     :
                     <View style={styles.container}>
                         <Text smallMedium style={styles.text}>{this.props.text}</Text>            
-                        <Button small light bold buttonStyles={{width: deviceHeight(8), paddingHorizontal: 0}} onPress={()=>{this.props.onPress(this.props.index)}}>Select</Button>
+                        <Button small light bold color={Colors.Navy} 
+                            buttonStyles={{width: deviceHeight(8), paddingHorizontal: 0}} 
+                            onPress={()=>{this.props.onPress(this.props.index)}}>
+                            Select
+                        </Button>
                     </View>
             }
             </View>    
