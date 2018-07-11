@@ -58,13 +58,12 @@ export default class ResourceDetail extends Component {
                     <View style={[Styles.itemView]}>
                         <Image style={[Styles.middleimage]} resizeMode="contain" source={{uri: this.state.image}}/>
                         <Text smallMedium  style={Styles.subtitle}>{this.state.subtitle}</Text>
-                    
-                       
                     </View>
+
                 </ScrollView> 
                 <View style={Styles.buttonBar}>
-                    <Button light onPress={ ()=> this.props.navigation.goBack() } >Go back</Button>
-                    <Button dark  >Find out more</Button>
+                    <Button light bold onPress={ ()=> this.props.navigation.goBack() } >Go back</Button>
+                    { this.state.link == '' ? null : <Button dark  bold onPress={ ()=> Linking.openURL(this.state.link).catch(err => console.error('An error occurred', err)) }>Find out more</Button> }
                 </View>
             </ImageBackground>
         );
