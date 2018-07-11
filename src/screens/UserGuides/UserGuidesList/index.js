@@ -118,7 +118,7 @@ export default class UserGuidesList extends Component {
         const first = index === 0;
         const second = index === 1;
         return (
-            <TouchableOpacity style={[ index >1 ? Styles.item :Styles.firstrowItem ]} onPress={()=>{ index >1 ? navigate("UserGuidesDetail", {userguideIndex: index}) : navigate("DiscussionAndCardDetail", {userguideIndex: index})}}>
+            <TouchableOpacity style={[ index >1 ? Styles.item :Styles.firstrowItem ]} onPress={()=>{ navigate("UserGuidesDetail", {userguideIndex: index})}}>
             {first ?
                 <View style={Styles.itemView}>
                     <MediaQuery minDeviceWidth={768}>
@@ -127,14 +127,14 @@ export default class UserGuidesList extends Component {
                             <Image source={Images.icon_discussion_starter}   style={Styles.icon}/>
                         </View>
                         <View style={Styles.cardView}>
-                            <Text medium style={[Styles.cardtitle,{ color: Colors.Red}]}>{item.title} </Text>
+                            <Text smallmedium bold style={[Styles.cardtitle,{ color: Colors.Red}]}>{item.title} </Text>
                             <Image source={Images.icon_left_arrow} resizeMode='contain' style={{tintColor: Colors.Red}}/>
                         </View>
                     </MediaQuery>
                     <MediaQuery maxDeviceWidth={767}>
                         <View style={[Styles.cardView,{paddingVertical:deviceWidth(4)}]}>
                             <Image source={Images.icon_professional} resizeMode='stretch' style={Styles.smallIcon}/>
-                            <Text medium style={[Styles.cardtitle,{ color: Colors.Red}]}>{item.title} </Text>
+                            <Text smallmedium bold style={[Styles.cardtitle,{ color: Colors.Red}]}>{item.title} </Text>
                             <Image source={Images.icon_left_arrow} resizeMode='contain' style={{tintColor: Colors.Red}}/>
                         </View>
                     </MediaQuery>
@@ -147,14 +147,14 @@ export default class UserGuidesList extends Component {
                                 <Image source={Images.icon_cardgame}  style={Styles.icon}/>
                             </View>
                             <View style={Styles.cardView}>
-                                <Text medium style={[Styles.cardtitle,{ color: Colors.Red}]}>{item.title} </Text>
+                                <Text smallmedium bold style={[Styles.cardtitle,{ color: Colors.Red}]}>{item.title} </Text>
                                 <Image source={Images.icon_left_arrow} resizeMode='contain' style={{tintColor: Colors.Red}}/>
                             </View>
                         </MediaQuery>
                         <MediaQuery maxDeviceWidth={767}>
                             <View style={[Styles.cardView,{paddingVertical:deviceWidth(4)}]}>
                                 <Image source={Images.icon_community} resizeMode='stretch' style={Styles.smallIcon}/>
-                                <Text medium style={[Styles.cardtitle,{ color: Colors.Red}]}>{item.title} </Text>
+                                <Text smallmedium bold style={[Styles.cardtitle,{ color: Colors.Red}]}>{item.title} </Text>
                                 <Image source={Images.icon_left_arrow} resizeMode='contain' style={{tintColor: Colors.Red}}/>
                             </View>
                         </MediaQuery>
@@ -162,12 +162,12 @@ export default class UserGuidesList extends Component {
                         :
                         <View>
                             <MediaQuery minDeviceWidth={768}>
-                                <View style={[Styles.cardView,{padding:deviceWidth(0)}]}>
-                                    <View style={{flex:0.5}}>
+                                <View style={[Styles.cardView,{paddingHorizontal:deviceWidth(0.5)}]}>
+                                    <View>
                                         <Image source={Images.icon_professional} resizeMode='stretch' style={Styles.smallIcon}/>
                                     </View>
-                                    <View style={{flexDirection:'row',alignItems:'center'}}>
-                                        <Text medium style={Styles.cardtitle}>{item.title}</Text>
+                                    <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+                                        <Text smallmedium bold style={[Styles.cardtitle]}>{item.title}</Text>
                                         <Image source={Images.icon_left_arrow} resizeMode='contain' />
                                     </View>
                                 </View>
@@ -175,7 +175,7 @@ export default class UserGuidesList extends Component {
                             <MediaQuery maxDeviceWidth={767}>
                                 <View style={Styles.cardView}>
                                     <Image source={Images.icon_professional} resizeMode='stretch' style={Styles.smallIcon}/>
-                                    <Text medium style={Styles.cardtitle}>{item.title}</Text>
+                                    <Text smallmedium bold style={Styles.cardtitle}>{item.title}</Text>
                                     <Image source={Images.icon_left_arrow} resizeMode='contain' />
                                 </View>
                             </MediaQuery>

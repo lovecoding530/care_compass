@@ -18,7 +18,7 @@ const images = {
     icon_dying_to_talk: require('../../assets/images/icon-dtt-logo.png'),
     logo_footer: require('../../assets/images/pca-logo-footer.png'),
     icon_left_arrow: require('../../assets/images/icon-left-arrow.png'),
-    icon_professional: require('../../assets/images/icon-professional.png'),
+    icon_professional: require('../../assets/images/professional.png'),
     icon_community: require('../../assets/images/icon-community.png'),
 
     bg_how_to: require('../../assets/images/bg-how-to.jpg'),

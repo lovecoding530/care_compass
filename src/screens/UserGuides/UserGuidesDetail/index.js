@@ -209,7 +209,7 @@ export default class UserGuidesDetail extends Component {
                         {this.state.image == '' ? null 
                             
                             : <View style={Styles.viewImage}>
-                                <Image style={[Styles.middleimage]} source={{uri: this.state.image}}/>
+                                <Image style={[Styles.middleimage]} source={{uri: this.state.image}} resizeMode='stretch'/>
                               </View>  
                         }
                         
