@@ -19,7 +19,7 @@ export default MediaQueryStyleSheet.create({
         backgroundColor: Colors.backgroundPrimary,
     },
     scroll:{
-         paddingHorizontal: deviceWidth(1),
+        flexGrow: 1,
     },
     title: {
         color: Colors.Navy,
@@ -39,59 +39,24 @@ export default MediaQueryStyleSheet.create({
     cardView:{
         flexDirection:'row',
         alignItems:'center',
-        paddingHorizontal:deviceWidth(2),
     },
     item: {
-        flex: 0.5,
-        backgroundColor: Colors.backgroundSecondary,
-        borderRadius: 8,
-        shadowColor: '#000',
-        shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
-        shadowOpacity: 0.5,
-        shadowRadius: 0,
-        marginHorizontal:deviceWidth(1.5),  
-        marginBottom: deviceWidth(3),   
-        paddingVertical:deviceWidth(2),
-        justifyContent:'center'
-    },
-    itemView:{
-    },
-    firstrowItem: {
-        flex: 1,
-        backgroundColor: Colors.backgroundSecondary,
-        borderRadius: responsiveWidth(1.2),
-        borderTopWidth: responsiveWidth(1.2),
-        borderTopColor: Colors.Red,
-        marginBottom: deviceWidth(3),  
-        marginHorizontal:deviceWidth(1.5),  
-        paddingVertical:deviceWidth(2),
-        shadowColor: '#000',
-        shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
-        shadowOpacity: 0.5,
-        shadowRadius: 0,
+        flex : 1,
+        margin: deviceWidth(1.2), 
     },
     titleView: {
-        backgroundColor: Colors.backgroundSecondary,
-        borderTopColor: Colors.Navy,
-        borderRadius: responsiveWidth(1.2),
-        borderTopWidth: responsiveWidth(1.2),
-        shadowColor: '#000',
-        shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
-        shadowOpacity: 0.5,
-        shadowRadius: 0, 
-        marginBottom: deviceWidth(3), 
-        marginHorizontal:deviceWidth(1.5),  
-        paddingVertical:deviceWidth(3),
-        paddingHorizontal:deviceWidth(10),
-        justifyContent: 'center',
-        alignItems: 'center',
+        margin: deviceWidth(1.2), 
+        marginBottom: deviceWidth(2),
+    },
+    title_content: {
+        paddingVertical: deviceWidth(2),
     },
     icon:{
         width: deviceWidth(25),
         height: deviceHeight(15),
         resizeMode: 'contain', 
         marginVertical:deviceWidth(2),
-        marginRight:deviceWidth(3)
+        marginRight:deviceWidth(6)
     },
     smallIcon:{
         width: deviceWidth(6),
@@ -112,33 +77,28 @@ export default MediaQueryStyleSheet.create({
     [MediaQueries.iPad] : {
         scroll: {
             paddingVertical:deviceWidth(3),
-            paddingHorizontal: deviceWidth(12),
-        },
-        firstrowItem: {
-            justifyContent: 'center',
-            alignItems: 'center',
-        },
-        itemView:{
-            justifyContent: 'center',
-            alignItems: 'center',
+             paddingHorizontal: deviceWidth(8.8),
         },
         buttonBar: {
-            paddingHorizontal: deviceWidth(13),            
+            paddingHorizontal: deviceWidth(9.8),            
         },
-        titleView: {
-            paddingHorizontal:deviceWidth(3),
+        item_content: {
+            justifyContent: 'space-between', 
+            paddingVertical: deviceWidth(2),
         },
     },
     [MediaQueries.iPhone] : {
         scroll: {
             paddingVertical:deviceWidth(2),
-            paddingHorizontal: deviceWidth(1),
+            paddingHorizontal: deviceWidth(2.8),
         },
         buttonBar: {
-            paddingHorizontal: deviceWidth(3),            
+            paddingHorizontal: deviceWidth(3.8),            
         },
-        titleView: {
-            paddingHorizontal:deviceWidth(10),
-        },
+        item_content: {
+            flexDirection: 'row',
+            justifyContent: 'space-between', 
+            paddingVertical: deviceWidth(2)
+        },   
     }
 });

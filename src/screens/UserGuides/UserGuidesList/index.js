@@ -13,10 +13,8 @@ import {
 } from 'react-native';
 
 import Styles from './styles';
-import Text from '@text'
-import Button from '@button'
 import Footer from '@footer'
-import { Loader } from '@components';
+import {Button, Loader, Card, Text} from '@components'
 import { getUserGuides,updateTimeInterval } from "@api";
 import moment from 'moment';
 import {Colors, Images, FontSizes} from '@theme';
@@ -118,9 +116,9 @@ export default class UserGuidesList extends Component {
         const first = index === 0;
         const second = index === 1;
         return (
-            <TouchableOpacity style={[ index >1 ? Styles.item :Styles.firstrowItem ]} onPress={()=>{ navigate("UserGuidesDetail", {userguideIndex: index})}}>
+            <View style={{flex:0.5}}>
             {first ?
-                <View style={Styles.itemView}>
+                  <Card topbar={{color: Colors.Red}} style={Styles.item} contentStyle={Styles.item_content} onPress={()=>{ navigate("UserGuidesDetail", {userguideIndex: index})}}>
                     <MediaQuery minDeviceWidth={768}>
                         <View style={{flexDirection:'row'}}>
                             <Image source={Images.icon_professional} resizeMode='stretch' style={Styles.smallIcon}/>
@@ -138,11 +136,11 @@ export default class UserGuidesList extends Component {
                             <Image source={Images.icon_left_arrow} resizeMode='contain' style={{tintColor: Colors.Red}}/>
                         </View>
                     </MediaQuery>
-                </View>
+               </Card>
                 : second ?
-                    <View style={Styles.itemView}>
+                     <Card topbar={{color: Colors.Red}} style={Styles.item} contentStyle={Styles.item_content} onPress={()=>{ navigate("UserGuidesDetail", {userguideIndex: index})}}>
                         <MediaQuery minDeviceWidth={768}>
-                            <View style={{flexDirection:'row'}}>
+                            <View style={{flexDirection:'row' }}>
                                 <Image source={Images.icon_community} resizeMode='stretch' style={Styles.smallIcon}/>
                                 <Image source={Images.cardgame}  style={Styles.icon}/>
                             </View>
@@ -158,15 +156,15 @@ export default class UserGuidesList extends Component {
                                 <Image source={Images.icon_left_arrow} resizeMode='contain' style={{tintColor: Colors.Red}}/>
                             </View>
                         </MediaQuery>
-                    </View>
+                    </Card>
                         :
-                        <View>
+                         <Card style={Styles.item} contentStyle={Styles.item_content} onPress={()=>{ navigate("UserGuidesDetail", {userguideIndex: index})}}>
                             <MediaQuery minDeviceWidth={768}>
                                 <View style={[Styles.cardView,{paddingHorizontal:deviceWidth(0.5)}]}>
                                     <View>
                                         <Image source={Images.icon_professional} resizeMode='stretch' style={Styles.smallIcon}/>
                                     </View>
-                                    <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+                                    <View style={{flex:1,flexDirection:'row',alignItems:'center',justifyContent:'center',paddingRight:deviceWidth(5)}}>
                                         <Text smallmedium bold style={[Styles.cardtitle]}>{item.title}</Text>
                                         <Image source={Images.icon_left_arrow} resizeMode='contain' />
                                     </View>
@@ -179,9 +177,9 @@ export default class UserGuidesList extends Component {
                                     <Image source={Images.icon_left_arrow} resizeMode='contain' />
                                 </View>
                             </MediaQuery>
-                        </View>
+                        </Card>
             }
-            </TouchableOpacity>
+          </View>
         )
     }
 
@@ -192,12 +190,12 @@ export default class UserGuidesList extends Component {
 
                 <ScrollView contentContainerStyle={Styles.scroll}>
                     <Loader loading={this.state.loaderVisible}/>
-                    <View style={Styles.titleView}>
+                    <Card topbar={{color: Colors.Navy}} style={Styles.titleView} contentStyle={Styles.title_content} >
                         <Text large style={Styles.title}>App Instructions</Text>
                         <Text medium style={Styles.subtitle}>
                             Using and getting the most out of the dying to talk app
                         </Text>
-                    </View>
+                    </Card>
 
                     <MediaQuery minDeviceWidth={768}>
                         <FlatList
