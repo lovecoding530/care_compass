@@ -35,7 +35,14 @@ export default MediaQueryStyleSheet.create({
   },
   middleimage:{
     height:deviceHeight(33),
-    width:deviceWidth(70)
+    width:deviceWidth(70),
+    padding:deviceWidth(10),
+    alignItems:'center',
+    justifyContent:'center'
+  },
+  middleicon:{
+    height:deviceHeight(23),
+    width:deviceWidth(40),
   },
   descText: {
     textAlign:'center',
@@ -135,6 +142,7 @@ export default MediaQueryStyleSheet.create({
         },
         textView:{
           width:deviceWidth(60),
+          height:deviceWidth(12),
         },
         buttonpageView: {
           width:deviceWidth(60),
@@ -155,6 +163,7 @@ export default MediaQueryStyleSheet.create({
         },
         textView:{
           width:deviceWidth(70),
+          height:deviceWidth(16),
         },
          buttonpageView: {
           width:deviceWidth(70),

@@ -18,7 +18,7 @@ import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@Responsiv
 import Button from '@button'
 import Footer from '@footer'
 import Text from '@text'
-import {Colors} from '@theme'
+import {Colors, Images, FontSizes} from '@theme';
 var orientation = 'PORTRAIT'
 let orientationWidth=width;
 
@@ -382,9 +382,9 @@ class Swiper extends Component {
   
   return(
      <View style={Styles.container} onLayout={this.onLayout.bind(this)}>
-      <ImageBackground source={require('../../../assets/images/bg-splash-onboarding.jpg')} resizeMode='stretch' style={Styles.background} >
+      <ImageBackground source={Images.bg_splash_onboarding} resizeMode='stretch' style={Styles.background} >
 
-        <ScrollView contentContainerStyle={Styles.scrollcontainer}>
+        <ScrollView contentContainerStyle={Styles.scrollcontainer} style={{backgroundColor: '#0009'}}>
           {/* Render screens */}
             <Text bold large style={Styles.titleText}>Dying to Talk in the Bush</Text>
             <View style={Styles.subTitleView}>
@@ -436,27 +436,36 @@ export default class OnBoarding extends Component {
         return (
            <Swiper onLayout={this.onLayout.bind(this)}>
             <View style={[Styles.slide,{width:width}]} >
-              <Image style={[Styles.middleimage]}  resizeMode='stretch' source={require('../../../assets/images/Dark-navy-back.png')}/>
+              <ImageBackground source={Images.onboarding_icon_background} resizeMode='stretch' style={Styles.middleimage} >
+                <Image style={[Styles.middleicon]}  resizeMode='contain' source={Images.onboarding_icon_logo}/>
+              </ImageBackground>
               <View style={[Styles.textView]}>
-                <Text  smallMedium style={Styles.descText}>Start discussion with us by choose activity and give answers of our questions.</Text>
+                <Text  smallMedium style={Styles.descText}>This app will help start conversations around end-of-life wishes and planning.</Text>
               </View>
             </View>
             <View style={[Styles.slide,{width:width}]} >
-              <Image style={[Styles.middleimage]} resizeMode='stretch' source={require('../../../assets/images/Dark-navy-back.png')}/>
+              <ImageBackground source={Images.onboarding_icon_background} resizeMode='stretch' style={Styles.middleimage} >
+                <Image style={[Styles.middleicon]}  resizeMode='contain' source={Images.onboarding_icon_discussion}/>
+              </ImageBackground>
               <View style={[Styles.textView]}>
-                <Text  smallMedium style={Styles.descText}>Play card game by set card priority and submit to us.</Text>
+                <Text  smallMedium style={Styles.descText}>The discussion starter will guide you through talking about how you want to be cared for at the end of your life.</Text>
               </View>
             </View>
             <View style={[Styles.slide,{width:width}]} >
-              <Image style={[Styles.middleimage]} resizeMode='stretch' source={require('../../../assets/images/Dark-navy-back.png')}/>
+              <ImageBackground source={Images.onboarding_icon_background} resizeMode='stretch' style={Styles.middleimage} >
+                <Image style={[Styles.middleicon]}  resizeMode='contain' source={Images.onboarding_icon_resources}/>
+              </ImageBackground>
+
               <View style={[Styles.textView]}>
-                <Text  smallMedium style={Styles.descText}>This app will start conversations around  end-of-life whishes and planning.</Text>
+                <Text  smallMedium style={Styles.descText}>You will find resources and more information to support you before, during and after this conversation.</Text>
               </View>
             </View>
             <View style={[Styles.slide,{width:width}]} >
-              <Image style={[Styles.middleimage]} resizeMode='stretch' source={require('../../../assets/images/Dark-navy-back.png')}/>
+              <ImageBackground source={Images.onboarding_icon_background} resizeMode='stretch' style={Styles.middleimage} >
+                <Image style={[Styles.middleicon]}  resizeMode='contain' source={Images.onboarding_icon_padlock}/>
+              </ImageBackground>
               <View style={[Styles.textView]}>
-                <Text  smallMedium style={Styles.descText}>Use our resources link and user guidance to learn more.</Text>
+                <Text  smallMedium style={Styles.descText}>You will find resources and more information to support you before, during and after this conversation.</Text>
               </View>
             </View>
           </Swiper>

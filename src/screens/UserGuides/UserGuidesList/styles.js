@@ -32,15 +32,14 @@ export default MediaQueryStyleSheet.create({
         fontWeight:"200"
     },
     cardtitle: {
-        fontWeight: '300',
         color: Colors.Navy,
         textAlign:'center',
-        marginHorizontal:deviceWidth(2)
+        marginHorizontal:deviceWidth(1.5),
     },
     cardView:{
         flexDirection:'row',
         alignItems:'center',
-        padding:deviceWidth(2)
+        paddingHorizontal:deviceWidth(2),
     },
     item: {
         flex: 0.5,
@@ -53,6 +52,7 @@ export default MediaQueryStyleSheet.create({
         marginHorizontal:deviceWidth(1.5),  
         marginBottom: deviceWidth(3),   
         paddingVertical:deviceWidth(2),
+        justifyContent:'center'
     },
     itemView:{
     },
@@ -90,8 +90,7 @@ export default MediaQueryStyleSheet.create({
         width: deviceWidth(25),
         height: deviceHeight(15),
         resizeMode: 'contain', 
-        tintColor: Colors.Red,
-        marginTop:deviceWidth(2),
+        marginVertical:deviceWidth(2),
         marginRight:deviceWidth(3)
     },
     smallIcon:{

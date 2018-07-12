@@ -31,7 +31,7 @@ const images = {
     icon_how_to: require('../../assets/images/icon-how-to.png'),
     icon_dying_to_talk: require('../../assets/images/icon-dtt-logo.png'),
     icon_left_arrow: require('../../assets/images/icon-left-arrow.png'),
-    icon_professional: require('../../assets/images/icon-professional.png'),
+    icon_professional: require('../../assets/images/professional.png'),
     icon_community: require('../../assets/images/icon-community.png'),
     iocn_lookig_after_yourself: require('../../assets/images/iocn-lookig-after-yourself.png'),
     icon_loader: require('../../assets/images/icon-loader.png'),
@@ -45,6 +45,12 @@ const images = {
     bg_more_information: require('../../assets/images/background/bg-more-information.jpg'),
     bg_navigation: require('../../assets/images/background/bg-navigation.jpg'),
     bg_splash_onboarding: require('../../assets/images/background/bg-splash-onboarding.jpg'),
+
+    onboarding_icon_logo: require('../../assets/images/onboarding-icon-logo.png'),
+    onboarding_icon_discussion: require('../../assets/images/onboarding-icon-discussion.png'),
+    onboarding_icon_resources: require('../../assets/images/onboarding-icon-resources.png'),
+    onboarding_icon_padlock: require('../../assets/images/onboarding-icon-padlock.png'),
+    onboarding_icon_background: require('../../assets/images/Dark-navy-back.png'),
     
 }
 
