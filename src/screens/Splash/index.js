@@ -1,25 +1,21 @@
 import React, { Component } from 'react';
 import {
-    Platform,
-    StyleSheet,
     Image,
     ImageBackground,
-    ActivityIndicator,
     Text,
+    View,
+    ScrollView,
 } from 'react-native';
-import Spinner from "react-native-spinkit";
+import {MySpinner} from "@components"
 
-import {Colors} from '@theme';
+import {Images} from '@theme';
 import Styles from './styles';
 import {getBundle} from '@api';
-import { responsiveWidth } from 'react-native-responsive-dimensions';
+import { deviceWidth, deviceHeight } from "@ResponsiveDimensions";
 
 export default class Splash extends Component {
-    constructor(props) {
-        super(props);
-        this.state = ({
-            animating: true,
-        })
+    state = {
+        loading: true,
     }
 
     async componentDidMount() {
@@ -27,19 +23,29 @@ export default class Splash extends Component {
         let json = await getBundle()
 
         // alert(JSON.stringify(json))
-
-        this.setState({
-            animating: false,
-        })
+        this.setState({ loading: false })
 
         navigate("OnBoardingScreen");
     }
 
     render() {
         return (
-            <ImageBackground style={Styles.backgroundImage}>
-                <Text style={Styles.logoText}>Dying To Talk</Text>
-                <Spinner isVisible={true} size={responsiveWidth(10)} type='FadingCircle'/>
+            <ImageBackground style={Styles.backgroundImage} source={Images.bg_splash_onboarding}>
+                <ScrollView contentContainerStyle={Styles.scrollView} style={{backgroundColor: '#0009'}}>
+                    <View style={Styles.circle_above}>
+                        <Image source={Images.dtt_blue} style={Styles.pca_logo}/>
+                    </View>
+                    <View style={Styles.center_view}>
+                        <Text style={Styles.app_name}>Dying to Talk in the Bush</Text>
+                        <Text style={Styles.text_desc}>Working out what's right for you</Text>
+                        <Text style={Styles.text_website}>dyingtotalk.org.au</Text>
+                    </View>
+                    <View style={Styles.bottom_view}>
+                        <View style={Styles.circle_center}>
+                            <MySpinner loading={this.state.loading} size={deviceWidth(10)} style={Styles.spinner}/>
+                        </View>
+                    </View>
+                </ScrollView>
             </ImageBackground>
         );
     }

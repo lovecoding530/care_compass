@@ -9,11 +9,11 @@ import Button from '@button'
 import Text from '@text'
 
 import { getDiscussionStarter } from "@api";
-import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 
 export default Share =  (props) => {
     return (
         <Modal
+            supportedOrientations={['portrait', 'landscape']}
             animationType="slide"
             transparent={true}
             visible={props.visible}
@@ -24,7 +24,7 @@ export default Share =  (props) => {
                     <View>
                         <Button dark onPress={()=>props.onDownload()}>DOWNLOAD</Button>
                         <Button dark onPress={()=>props.onEmail()}>EMAIL</Button>
-                        <Button light onPress={()=>props.onCancel()}>CANCEL</Button>
+                        <Button light color={Colors.Red} onPress={()=>props.onCancel()}>CANCEL</Button>
                     </View>
                 </View>
             </View>
@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
 
     modal: {
         backgroundColor: Colors.backgroundPrimary,
-        width: responsiveWidth(40),
-        padding: responsiveWidth(2),
+        width: 300,
+        padding: 15,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.5,
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        marginBottom: responsiveWidth(2),
+        marginBottom: 10,
     },
 
     buttons: {

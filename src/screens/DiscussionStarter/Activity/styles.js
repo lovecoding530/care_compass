@@ -5,30 +5,31 @@ import {
     Dimensions,
 } from 'react-native';
 
-import {Colors, FontSizes, MediaQueries} from '@theme';
+import {Colors, FontSizes, MediaQueries, Metrics} from '@theme';
 
 const { width } = Dimensions.get('window');
 
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 import { MediaQueryStyleSheet } from "react-native-responsive";
+import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
 
 export default MediaQueryStyleSheet.create({
 
     container: {
         flex: 1, 
         backgroundColor: Colors.backgroundPrimary,
-        padding: responsiveWidth(8),
     },
 
     pregressBar: {
-        marginHorizontal: responsiveWidth(13),
-        marginVertical: responsiveWidth(4),
+        marginHorizontal: deviceWidth(13),
+        marginVertical: deviceWidth(2),
     },
 
     title: {
-        margin: responsiveWidth(1),
+        margin: deviceWidth(1),
         flexDirection: 'row',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flexWrap: 'wrap',
     },
 
     icon: {
@@ -36,38 +37,77 @@ export default MediaQueryStyleSheet.create({
     },
 
     questionItem: {
-        marginTop: responsiveWidth(1.3),
-        marginBottom: responsiveWidth(4),
+        marginVertical: deviceWidth(1.5),
+        backgroundColor: '#fff',
+        borderRadius: deviceWidth(1.2),
+        shadowColor: '#000',
+        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
+        shadowOpacity: 0.4,
+        shadowRadius: 0,
+        padding: deviceWidth(1.2),
     },
 
     questionTitle: {
-        marginBottom: responsiveWidth(1.8),
-        marginHorizontal: responsiveWidth(2),
+        marginBottom: deviceWidth(1.8),
+        marginLeft: deviceWidth(1),
+        marginRight: deviceWidth(3),
+        flex: 1,
     },
 
     textArea: {
         backgroundColor: Colors.backgroundSecondary,
-        height: responsiveWidth(16),
+        height: deviceWidth(16),
         color: Colors.textPrimary,
         fontSize: FontSizes.smallMedium,
-        padding: 8,
+        padding: deviceWidth(1.2),
+        borderWidth: 1,
+        borderColor: '#222222'
     },
-
+    
     buttonBar: {
         flexDirection: 'row',
-        marginVertical: 16,
         justifyContent: 'space-between',
+        backgroundColor: '#E6E0D4',
+        paddingHorizontal: deviceWidth(8),
     },
 
-}, {
-    [MediaQueries.iPad] : {
-        container: {
-            padding: responsiveWidth(8),
-        }
+    titleView: {
+        marginBottom: deviceWidth(2),
     },
+
+    scrollView: {
+        flexGrow: 1,
+        paddingTop: deviceWidth(4),
+        paddingHorizontal: deviceWidth(8),
+        paddingBottom: 0,
+    }, 
+
+    answerButtonWrapper: {
+        flexDirection: 'row', 
+        justifyContent: 'center'
+    },
+
+    answerButton: {
+        backgroundColor: Colors.Blue, 
+        paddingVertical: 4, 
+        paddingHorizontal: 8, 
+        marginTop: deviceWidth(1),
+        marginHorizontal: deviceWidth(1),
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+
+    sound: {
+        width: deviceHeight(2),
+        height: deviceHeight(2)
+    }
+}, {
     [MediaQueries.iPhone] : {
-        container: {
-            padding: responsiveWidth(4),
-        }
+        scrollView: {
+            paddingHorizontal: deviceWidth(2.8),
+        },
+        buttonBar: {
+            paddingHorizontal: deviceWidth(2.8),
+        },
     }
 });

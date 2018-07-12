@@ -1,20 +1,14 @@
 import React, { Component } from 'react';
 import {
-    Platform,
-    StyleSheet,
     Image,
-    TouchableOpacity,
-    FlatList,
     View,
     ScrollView,
-    TextInput,
+    ImageBackground,
 } from 'react-native';
 import {Colors, Images} from '@theme';
 import Styles from './styles';
 import Button from '@button'
 import Text from '@text'
-
-import { getDiscussionStarter } from "@api";
 
 export default class ActivityList extends Component {
     constructor(props) {
@@ -30,42 +24,74 @@ export default class ActivityList extends Component {
         })
     }
 
+    onEdit = () => {
+        const {goBack} = this.props.navigation
+        goBack()
+    }
+
+    renderLaterView() {
+        var laterActivities = []
+        for (let index = this.state.activityIndex + 2; index < this.state.activityCount; index++) {
+            laterActivities.push(this.state.activities[index])
+        }
+        return laterActivities.map(activity=>
+            <Text medium center color={Colors.Navy} style={Styles.currentTitle}>
+                Activity {index + 1}: {activity.stage}
+            </Text>
+        )
+    }
+
     render() { 
-        const {navigate} = this.props.navigation
+        const {navigate, goBack} = this.props.navigation
         return (
-            this.state.activityCount > 0 ?
-            <View style={Styles.container}>
-                <View style={Styles.current}>
-                    <View style={Styles.currentTitle}>
-                        <Image source={Images.check} style={Styles.checkIcon}/>
-                        <Text medium bold>Activity {this.state.activityIndex + 1}: </Text>
-                        <Text medium>
-                            {" "}{this.state.activities[this.state.activityIndex].stage}
-                        </Text>
+            <ImageBackground source={Images.bg_discussion_starter} style={Styles.container}>
+                <ScrollView contentContainerStyle={Styles.contentView}>
+                    <View style={Styles.currentWrapper}>
+                        <View style={Styles.current}>
+                            <View style={Styles.currentHeader}>
+                                <View style={{flexDirection: 'row'}}>
+                                    <Image source={Images.check} style={Styles.checkIcon}/>
+                                    <Text medium bold color={'#fff'} style={Styles.complete_text}>
+                                        Complete
+                                    </Text>
+                                </View>
+                                <Button light bold color={'#fff'} onPress={this.onEdit}>Edit</Button>
+                            </View>
+                            <View style={Styles.currentDescView}>
+                                <Text medium color={Colors.Navy} style={Styles.currentTitle}>Activity {this.state.activityIndex + 1}: {this.state.activities[this.state.activityIndex].stage}</Text>
+                                <Text style={Styles.currentPrecomment}>
+                                    {this.state.activities[this.state.activityIndex].pre_commencement_text} 
+                                </Text>
+                            </View>
+                        </View>
                     </View>
-                    <Text style={Styles.currentPrecomment}>{this.state.activities[this.state.activityIndex].pre_commencement_text} </Text>
+                    {this.state.nextActivityIndex < this.state.activities.length &&
+                    <View style={Styles.next}>
+                        <View>
+                            <Text center medium bold color={Colors.Red} style={{marginVertical: 8,}}> UP NEXT </Text>
+                            <View style={Styles.nextTitle}>
+                                <Text medium color={Colors.Navy} style={Styles.currentTitle}>
+                                    Activity {this.state.nextActivityIndex + 1}: {this.state.activities[this.state.nextActivityIndex].stage}
+                                </Text>
+                            </View>
+                            <Text center style={Styles.nextPrecomment}> 
+                                {this.state.activities[this.state.nextActivityIndex].pre_commencement_text} 
+                            </Text>
+                        </View>
+                        {this.state.activityIndex + 2 < this.state.activityCount &&
+                        <View style={Styles.later}>
+                            <Text center medium bold color={Colors.Red}> LATER </Text>
+                            {this.renderLaterView()}
+                        </View>
+                        }
+                    </View>
+                    }
+                </ScrollView>
+                <View style={Styles.buttonBar}>
+                    <Button light bold onPress={() => {navigate("Complete", {activityIndex: this.state.nextActivityIndex, discussionStarter: this.state.discussionStarter})}}>Finish here</Button>
+                    <Button dark bold onPress={() => {navigate("Activity", {activityIndex: this.state.nextActivityIndex, discussionStarter: this.state.discussionStarter})}}>Start Activity {this.state.activityIndex + 2}</Button>
                 </View>
-                {this.state.nextActivityIndex < this.state.activities.length &&
-                <View style={Styles.next}>
-                    <Text center> UP NEXT </Text>
-                    <View style={Styles.nextTitle}>
-                        <Text mediumLarge bold>Activity {this.state.nextActivityIndex + 1}: </Text>
-                        <Text mediumLarge>
-                            {" "}{this.state.activities[this.state.nextActivityIndex].stage}
-                        </Text>
-                    </View>
-                    <Text center style={Styles.nextPrecomment}> 
-                        {this.state.activities[this.state.nextActivityIndex].pre_commencement_text} 
-                    </Text>
-                    <View style={Styles.buttonBar}>
-                        <Button light onPress={() => {navigate("Complete", {activityIndex: this.state.nextActivityIndex, discussionStarter: this.state.discussionStarter})}}>FINISH HERE</Button>
-                        <Button dark onPress={() => {navigate("Activity", {activityIndex: this.state.nextActivityIndex, discussionStarter: this.state.discussionStarter})}}>START ACTIVITY {this.state.activityIndex + 2}</Button>
-                    </View>
-                </View>
-                }
-            </View>
-            :
-            <View/>
+            </ImageBackground>
         );
     }
 }

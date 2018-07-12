@@ -13,12 +13,11 @@ export default {
     container: {
         flex: 1, 
         backgroundColor: Colors.backgroundPrimary,
-        padding: responsiveWidth(10),
-        justifyContent: 'center',
-        alignItems: 'center',
     },
 
     introContainer: {
+        flexGrow: 1,
+        padding: responsiveWidth(10),
         justifyContent: 'center',
         alignItems: 'center',
     },

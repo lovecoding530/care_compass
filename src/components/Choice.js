@@ -4,33 +4,26 @@
 
 import React, { Component } from 'react';
 import {
-    StyleSheet,
-    Image,
-    TouchableOpacity,
     View,
 } from 'react-native';
-import {Colors, MediaQueries} from '@theme';
+import {Colors, MediaQueries, FontSizes} from '@theme';
 import Button from '@button'
 import Text from '@text'
-import { Icon } from "native-base";
-import { responsiveWidth } from 'react-native-responsive-dimensions';
 import { MediaQueryStyleSheet } from "react-native-responsive";
+import { deviceWidth, deviceHeight } from "@ResponsiveDimensions";
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class Choice extends Component {
-    constructor(props) {
-        super(props);
-
-        const {odd} = props
-
-        this.style = {}
-        if(odd){
-            this.style.backgroundColor = Colors.backgroundSecondary
-        }
-    }
-
     render() {
+        const {selected} = this.props
+
+        var style = {}
+        if(selected){
+            style.backgroundColor = Colors.backgroundSecondary
+        }
+        
         return (
-            <View style={this.style}>
+            <View style={style}>
             {this.props.disabled?
                 <View style={styles.container}>
                     <Text smallMedium style={styles.text}>{this.props.text}</Text>            
@@ -38,14 +31,14 @@ export default class Choice extends Component {
                 :
                 this.props.selected?
                     <View style={styles.container}>
-                        <Icon name={'checkmark'} style={styles.icon}/>
+                        <Icon name={'check'} color={Colors.Navy} style={styles.icon} size={20}/>
                         <Text smallMedium style={styles.text}>{this.props.text}</Text>            
-                        <Button small light onPress={()=>{this.props.onPress(this.props.index)}}>REMOVE</Button>
+                        <Button small light bold color={Colors.Red} buttonStyles={{width: deviceHeight(8), paddingHorizontal: 0}} onPress={()=>{this.props.onPress(this.props.index)}}>Remove</Button>
                     </View>
                     :
                     <View style={styles.container}>
                         <Text smallMedium style={styles.text}>{this.props.text}</Text>            
-                        <Button small light onPress={()=>{this.props.onPress(this.props.index)}}>SELECT</Button>
+                        <Button small light bold buttonStyles={{width: deviceHeight(8), paddingHorizontal: 0}} onPress={()=>{this.props.onPress(this.props.index)}}>Select</Button>
                     </View>
             }
             </View>    
@@ -57,12 +50,12 @@ const styles = MediaQueryStyleSheet.create({
     container: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingLeft: responsiveWidth(1),
-        minHeight: responsiveWidth(6.6),
+        paddingLeft: deviceWidth(1),
+        minHeight: FontSizes.smallMedium + deviceWidth(5),
     },
 
     icon: {
-        marginRight: responsiveWidth(1),
+        marginRight: deviceWidth(1),
     },
 
     text: {
@@ -75,8 +68,8 @@ const styles = MediaQueryStyleSheet.create({
 }, {
     [MediaQueries.iPhone] : {
         container: {
-            padding: responsiveWidth(1),
-            minHeight: responsiveWidth(8.6),
+            padding: deviceWidth(1),
+            minHeight: FontSizes.smallMedium + deviceWidth(7),
         }
     }
 });

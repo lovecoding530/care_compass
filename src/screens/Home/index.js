@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import {
-    Platform,
-    StyleSheet,
     Image,
     ImageBackground,
     View,
     TouchableOpacity,
     Dimensions,
+    ScrollView,
 } from 'react-native';
 
-import {Colors} from '@theme';
+import {Colors, Images, FontSizes} from '@theme';
 import Styles from './styles';
-import Text from '@text'
+import { MediaQuery } from "react-native-responsive";
+import store from '../../Store'
+import { Card, ArrowText } from "@components";
+
+const {height, width} = Dimensions.get('window');
 
 export default class Home extends Component {
     constructor(props) {
@@ -24,29 +27,56 @@ export default class Home extends Component {
         console.log(Dimensions.get('window'))
     }
 
+    gotoRoute(routeName){
+        store.activeRoute = routeName
+        store.routesInStack.push(routeName)
+        var key = routeName
+        this.props.navigation.navigate({routeName, key})
+    }
+
     render() {
         return ( 
-            <View style={Styles.container}>
-                <View style={Styles.containerLeft}>
-                    <TouchableOpacity style={Styles.item} onPress={()=>{this.props.navigation.navigate({routeName: "DiscussionStarter", key: "DiscussionStarter"})}}>
-                        <Text medium bold>Discussion Starter</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={Styles.item} onPress={()=>{this.props.navigation.navigate({routeName: "CardGame", key: "CardGame"})}}>
-                        <Text medium bold>Card Game</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={Styles.containerRight}>
-                    <TouchableOpacity style={Styles.item} onPress={()=>{this.props.navigation.navigate("UserGuides")}}>
-                        <Text medium bold>User Guide</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={Styles.item} onPress={()=>{this.props.navigation.navigate("Resources")}}>
-                        <Text medium bold>Resources</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={Styles.item} onPress={()=>{this.props.navigation.navigate("GetHelp")}}>
-                        <Text medium bold>Get Help</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
+            <ImageBackground source={Images.bg_navigation} style={Styles.container}>
+                <ScrollView contentContainerStyle={Styles.scrollView} scrollEnabled={height < 768}>
+                    <View style={Styles.containerLeft}>
+                        <Card topbar={{color: Colors.Red}} style={Styles.item} onPress={()=>{this.gotoRoute('DiscussionStarter')}}>
+                            <MediaQuery minDeviceWidth={768}>
+                                <Image source={Images.discussion_starter} style={Styles.right_icon}/>
+                            </MediaQuery>
+                            <ArrowText medium bold color={Colors.Red}>Use discussion starter</ArrowText>
+                        </Card>
+                        <Card topbar={{color: Colors.Red}} style={Styles.item} onPress={()=>{this.gotoRoute('CardGame')}}>
+                            <MediaQuery minDeviceWidth={768}>
+                                <Image source={Images.cardgame} style={Styles.right_icon}/>
+                            </MediaQuery>
+                            <ArrowText medium bold color={Colors.Red}>Start discussion cards</ArrowText>
+                        </Card>
+                    </View>
+                    <View style={Styles.containerRight}>
+                        <Card topbar={{color: Colors.Navy}} style={Styles.item} onPress={()=>{this.gotoRoute("GetHelp")}}>
+                            <MediaQuery minDeviceWidth={768}>
+                                <Image source={Images.looking_after} style={Styles.left_icon}/>
+                            </MediaQuery>
+                            <ArrowText bold color={Colors.Navy} style={Styles.left_item_text}>Looking after your self</ArrowText>
+                        </Card>
+                        <Card topbar={{color: Colors.Navy}} style={Styles.item} onPress={()=>{this.gotoRoute("UserGuides")}}>
+                            <MediaQuery minDeviceWidth={768}>
+                                <Image source={Images.icon_how_to} style={Styles.left_icon}/>
+                            </MediaQuery>
+                            <ArrowText bold color={Colors.Navy} style={Styles.left_item_text}>App instructions</ArrowText>
+                        </Card>
+                        <Card topbar={{color: Colors.Navy}} style={Styles.item} onPress={()=>{this.gotoRoute("Resources")}}>
+                            <MediaQuery minDeviceWidth={768}>
+                                <Image source={Images.more_info} style={Styles.left_icon}/>
+                            </MediaQuery>
+                            <ArrowText bold color={Colors.Navy} style={Styles.left_item_text}>Resource library</ArrowText>
+                        </Card>
+                        <Card topbar={{color: Colors.Navy}} style={[Styles.item, Styles.survey_item]} onPress={()=>{this.gotoRoute("GetHelp")}}>
+                            <ArrowText bold color={Colors.Navy} style={Styles.left_item_text}>Take a quick survey</ArrowText>
+                        </Card>
+                    </View>
+                </ScrollView>
+            </ImageBackground>
         );
     }
 }

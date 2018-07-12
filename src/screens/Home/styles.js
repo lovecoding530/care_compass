@@ -5,16 +5,21 @@ import {
     Dimensions,
 } from 'react-native';
 
-import {Colors} from '@theme';
+import {Colors, MediaQueries, FontSizes, Metrics} from '@theme';
 
-const deviceHeight = Dimensions.get("window").height;
+import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
+import { MediaQueryStyleSheet } from "react-native-responsive";
+import { deviceWidth, deviceHeight, windowHeight } from "@ResponsiveDimensions";
 
-export default {
-
+export default MediaQueryStyleSheet.create({
     container: {
         flex: 1, 
         backgroundColor: Colors.backgroundPrimary,
-        padding: 16,
+        paddingHorizontal: 32,
+    },
+
+    scrollView: {
+        flexGrow: 1,
         flexDirection: 'row'
     },
 
@@ -27,16 +32,50 @@ export default {
     },
 
     item: {
-        backgroundColor: Colors.backgroundSecondary,
-        borderRadius: 2,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.5,
-        shadowRadius: 1,
-        margin: 8,        
+        margin: 8,
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+    },
+
+    survey_item: {
+        flex: 0.25,
+    },
+
+    right_item_text: {
     },
     
-};
+    left_item_text: {
+    },
+    
+    right_icon: {
+        width: '60%',
+        height: '60%',
+        resizeMode: 'contain', 
+        marginVertical: 20,
+    },
+
+    left_icon: {
+        width: '60%',
+        height: '60%',
+        resizeMode: 'contain', 
+        marginVertical: 20,
+    }
+}, {
+    [MediaQueries.iPhone] : {
+        scrollView: {
+            flexDirection: 'column',
+        },
+
+        survey_item: {
+            flex: 1,
+        },
+        containerLeft: {
+            flex: 3,
+        },
+        containerRight: {
+            flex: 5,
+        },
+        left_item_text: {
+            fontSize: FontSizes.medium
+        }
+    }
+});

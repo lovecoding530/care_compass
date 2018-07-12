@@ -22,24 +22,34 @@ const API_RESOURCES = API_ROOT + "/resources/"
 const API_USER_GUIDE = API_ROOT + "/user-guides/"
 const API_GET_HELP = API_ROOT + "/get-help/"
 
+const TIMEOUT_IN_MILLISECONDS = updateTimeInterval * 60 * 60 * 1000
+
 export async function getJSONwithCache(url, fromCached){
+    var timestampKey = `timestamp.${url}`
     if (fromCached) {
-        const cached = await AsyncStorage.getItem(url)
-        return JSON.parse(cached)                        
+        var currentTimestamp = new Date().getTime()
+        var cachedTimestamp = await AsyncStorage.getItem(timestampKey)
+        if(currentTimestamp - cachedTimestamp < TIMEOUT_IN_MILLISECONDS ){
+            const cached = await AsyncStorage.getItem(url)
+            return JSON.parse(cached)
+        }else{
+            return null
+        }
     }else{
         try {
             let response = await fetch(url)
             let json = await response.json() 
-            await AsyncStorage.setItem(url, JSON.stringify(json))            
+            await AsyncStorage.setItem(url, JSON.stringify(json))
+            await AsyncStorage.setItem(timestampKey, new Date().getTime().toString())
             return json
         } catch (error) {
             try {
                 const cached = await AsyncStorage.getItem(url)
-                return JSON.parse(cached)                    
+                return JSON.parse(cached)
             } catch (error) {
                 return null
             }
-        }    
+        }
     }
 }
 

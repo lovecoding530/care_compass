@@ -10,12 +10,12 @@ import Button from '@button'
 import Text from '@text'
 
 import { getDiscussionStarter } from "@api";
-import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 
 export default Email =  (props) => {
     var name, email = ""
     return (
         <Modal
+            supportedOrientations={['portrait', 'landscape']}
             animationType="slide"
             transparent={true}
             visible={props.visible}
@@ -38,7 +38,7 @@ export default Email =  (props) => {
                             />
                     </View>
                     <View style={styles.buttons}>
-                        <Button light onPress={()=>props.onCancel()}>CANCEL</Button>
+                        <Button light color={Colors.Red} onPress={()=>props.onCancel()}>CANCEL</Button>
                         <Button dark onPress={()=>props.onSend(name, email)}>SEND</Button>
                     </View>
                 </View>
@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
 
     modal: {
         backgroundColor: Colors.backgroundPrimary,
-        width: responsiveWidth(50),
-        padding: responsiveWidth(2),
+        width: 300,
+        padding: 15,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.5,
@@ -68,13 +68,13 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        marginBottom: responsiveWidth(1.2),
+        marginBottom: 10,
     },
 
     textInput: {
-        height: responsiveHeight(4.4),
+        height: 44,
         backgroundColor: Colors.backgroundSecondary,
-        marginVertical: responsiveWidth(1.2),
+        marginVertical: 10,
         fontSize: FontSizes.smallMedium,
         color: Colors.textPrimary
     },

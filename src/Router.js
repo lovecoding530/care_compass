@@ -3,10 +3,10 @@
  */
 
 import React, { Component } from 'react';
-import { Dimensions, Image, StyleSheet, TouchableOpacity, View, } from 'react-native';
-import { StackNavigator, DrawerNavigator, addNavigationHelpers } from 'react-navigation';
+import { Dimensions, Image, StyleSheet, TouchableOpacity, View, SafeAreaView} from 'react-native';
+import { StackNavigator, DrawerNavigator, NavigationActions } from 'react-navigation';
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 import {Colors, FontSizes, Images} from './theme';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -19,65 +19,122 @@ import {DSIntro, ActivityList, Activity, UpNext, Complete} from "./screens/Discu
 import {CDIntro, CDSingleView, CDListView, CDSummary} from "./screens/CardGame";
 import {ResourceList, ResourceDetail} from "./screens/Resources";
 import {UserGuidesList,UserGuidesDetail,DiscussionAndCardDetail} from "./screens/UserGuides";
-import {GetHelpList, GetHelpDetail} from "./screens/GetHelp";
-import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
+import {GetHelpList, GetHelpDetail, LookAfterYourself} from "./screens/GetHelp";
+import { deviceWidth, deviceHeight } from "./components/ResponsiveDimensions";
+import store from './Store';
+
+var drawerNavigator = null
 
 const headerStyle = { 
     backgroundColor: Colors.Navy, 
-    height: responsiveHeight(6), 
-    paddingHorizontal: responsiveHeight(1)
+    height: deviceHeight(6), 
 }
 
 const HeaderTitle = () => {
     return (
-        <Image 
-            source={Images.icon_dying_to_talk} 
-            style={{width: responsiveHeight(7), height: responsiveHeight(5), tintColor: '#fff'}}
-        />
+        <Text light smallMedium bold center style={{
+            position: 'absolute',
+            width: '100%',
+            zIndex: -1,
+        }}>Dying to Talk{"\n"}in the Bush</Text>
     );
 }
 
 const Footer = () => {
     return (
         <View style={{
-            height: responsiveHeight(7), 
+            height: deviceHeight(5), 
             flexDirection: 'row', 
             alignItems: 'center', 
             justifyContent: 'space-between',
-            padding: responsiveWidth(2),
-            backgroundColor: Colors.Navy}}>
-            <Image 
-                source={Images.logo_footer} 
-                resizeMode={"contain"}
-                style={{width: responsiveHeight(16), height: responsiveHeight(5), tintColor: '#fff'}}
-            />
-            <Text light right>logo footer logo footer {"\n"} logo footer</Text>
+            paddingHorizontal: deviceWidth(2),
+            backgroundColor: Colors.Navy,
+            overflow: 'hidden'
+        }}>
+            <View style={{
+                width: deviceHeight(7),
+                height: deviceHeight(7),
+                borderRadius: deviceHeight(3.5),
+                backgroundColor: '#fff',
+                alignItems: 'center',
+                justifyContent: 'center'
+            }}>
+                <Image 
+                    source={Images.dtt_blue} 
+                    style={{width: deviceHeight(6), height: deviceHeight(5), resizeMode: 'contain'}}
+                />
+            </View>
+            <Text light right small>logo footer logo footer {"\n"} logo footer</Text>
         </View>
     );
 }
 
-const MenuIcon = ({ navigate }) => {
+const withFooter = (Screen) => {
+    const screen = (props) => {
+        return (
+            <View style={{flex: 1}}>
+                <Screen {...props}/>
+                <SafeAreaView style={{backgroundColor: Colors.Navy}}>
+                    {height > 414 ? 
+                        <Footer/>
+                    :
+                        <View/>
+                    }
+                </SafeAreaView>
+            </View>
+        )
+    }
+    screen.router = Screen.router
+    return screen
+}
+
+const MenuIcon = () => {
     return (
         <Icon.Button 
             name="bars" 
             size={FontSizes.medium}
-            style={{height: responsiveHeight(4.5), paddingHorizontal: 10,}}
+            style={{height: deviceHeight(4.5), paddingHorizontal: 10, marginHorizontal: deviceHeight(1)}}
             backgroundColor={'#0000'} 
-            onPress={() => navigate('DrawerOpen')}>
-            <Text light bold>MENU</Text>
+            onPress={() => drawerNavigator.navigate('DrawerOpen')}>
+            <Text light bold>Menu</Text>
         </Icon.Button>
     );
 }
 
-const HomeIcon = ({ navigate, goBack }) => {
+const WelcomeIcon = ({dispatch}) => {
+    return (
+        <TouchableOpacity 
+            style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal: deviceWidth(1)}}
+            onPress={() => {
+                const resetAction = NavigationActions.reset({
+                    index: 0,
+                    key: null,
+                    actions: [
+                        NavigationActions.navigate({ routeName: 'OnBoardingScreen' }),
+                    ],
+                });
+                dispatch(resetAction);
+            }}
+        >
+            <Image source={Images.welcome_arrow} style={{width: deviceWidth(5), height: deviceWidth(3.5), resizeMode: 'contain'}}/>
+            <Text light bold>Welcome</Text>
+        </TouchableOpacity>
+    );
+}
+
+const HomeIcon = ({goBack}) => {
     return (
         <Icon.Button 
             name="home" 
             size={FontSizes.medium}
-            style={{height: responsiveHeight(4.5), paddingHorizontal: 10,}}
+            style={{height: deviceHeight(4.5), paddingHorizontal: 10,}}
             backgroundColor={'#0000'} 
-            onPress={() => goBack()}>
-            <Text light>HOME</Text>
+            onPress={() => {
+                goBack(store.routesInStack[0])
+                store.activeRoute = null
+                store.routesInStack = []
+            }}>
+            <Text light bold>Home</Text>
         </Icon.Button>
     );
 }
@@ -89,7 +146,13 @@ export const DiscussionStarterStack = StackNavigator({
     UpNext: {screen: UpNext},
     Complete: {screen: Complete},
 }, {
-    headerMode: 'none',
+    navigationOptions: ({ navigation }) => ({
+        headerTitle: <HeaderTitle/>,
+        headerStyle: headerStyle,
+        headerRight: <MenuIcon {...navigation} />,
+        headerLeft: <HomeIcon {...navigation} />,
+        gesturesEnabled: false,
+    }),
 });
 
 export const CardGameStack = StackNavigator({
@@ -98,125 +161,109 @@ export const CardGameStack = StackNavigator({
     CDListView: {screen: CDListView},
     CDSummary: {screen: CDSummary},
 }, {
-    headerMode: 'none',
+    navigationOptions: ({ navigation }) => ({
+        headerTitle: <HeaderTitle/>,
+        headerStyle: headerStyle,
+        headerRight: <MenuIcon {...navigation} />,
+        headerLeft: <HomeIcon {...navigation} />,
+        gesturesEnabled: false,
+    }),
 });
 
 export const ResourcesStack = StackNavigator({
     ResourceList: {screen: ResourceList},
     ResourceDetail: {screen: ResourceDetail},
 }, {
-    headerMode: 'none',
+    navigationOptions: ({ navigation }) => ({
+        headerTitle: <HeaderTitle/>,
+        headerStyle: headerStyle,
+        headerRight: <MenuIcon {...navigation} />,
+        headerLeft: <HomeIcon {...navigation} />,
+    }),
 });
 
 export const UserGuidesStack = StackNavigator({
     UserGuidesList: {screen: UserGuidesList},
-    DiscussionAndCardDetail: {screen: DiscussionAndCardDetail},
     UserGuidesDetail: {screen: UserGuidesDetail},
 }, {
-    headerMode: 'none',
+    navigationOptions: ({ navigation }) => ({
+        headerTitle: <HeaderTitle/>,
+        headerStyle: headerStyle,
+        headerRight: <MenuIcon {...navigation} />,
+        headerLeft: <HomeIcon {...navigation} />,
+    }),
 });
 
 export const GetHelpStack = StackNavigator({
-    GetHelpList: {screen: GetHelpList},
-    GetHelpDetail: {screen: GetHelpDetail},
+    LookAfterYourself:{screen:LookAfterYourself},
 }, {
-    headerMode: 'none',
+    navigationOptions: ({ navigation }) => ({
+        headerTitle: <HeaderTitle/>,
+        headerStyle: headerStyle,
+        headerRight: <MenuIcon {...navigation} />,
+        headerLeft: <HomeIcon {...navigation} />,
+    }),
 });
+
+const HomeWithHeader = ({navigation}) => { 
+    homeNavigator = navigation
+    return ( 
+        <View style={{flex: 1}}> 
+            <SafeAreaView style={{backgroundColor: Colors.Navy}}> 
+                <View style={[headerStyle, {flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}]}> 
+                    <WelcomeIcon {...navigation}/> 
+                    <HeaderTitle/> 
+                    <MenuIcon/> 
+                </View> 
+            </SafeAreaView> 
+            <Home navigation={navigation}/> 
+        </View> 
+    ) 
+} 
 
 export const HomeStack = StackNavigator({
     Home: {
-        screen: Home,
-        navigationOptions: ({ navigation }) => ({
-            headerTitle: <HeaderTitle/>,
-            headerStyle: headerStyle,
-            headerRight: <MenuIcon {...navigation} />,
-        }),
+        screen: HomeWithHeader,
     },
     DiscussionStarter: {
         screen: DiscussionStarterStack,
-        navigationOptions: ({ navigation }) => ({
-            headerTitle: <HeaderTitle/>,
-            headerStyle: headerStyle,
-            headerRight: <MenuIcon {...navigation} />,
-            headerLeft: <HomeIcon {...navigation} />,
-        }),
     },
     CardGame: {
         screen: CardGameStack,
-        navigationOptions: ({ navigation }) => ({
-            headerTitle: <HeaderTitle/>,
-            headerStyle: headerStyle,
-            headerRight: <MenuIcon {...navigation} />,
-            headerLeft: <HomeIcon {...navigation} />,
-        }),
     },
     Resources: {
         screen: ResourcesStack,
-        navigationOptions: ({ navigation }) => ({
-            headerTitle: <HeaderTitle/>,
-            headerStyle: headerStyle,
-            headerRight: <MenuIcon {...navigation} />,
-            headerLeft: <HomeIcon {...navigation} />,
-        }),
     },
     UserGuides: {
         screen: UserGuidesStack,
-        navigationOptions: ({ navigation }) => ({
-            headerTitle: <HeaderTitle/>,
-            headerStyle: headerStyle,
-            headerRight: <MenuIcon {...navigation} />,
-            headerLeft: <HomeIcon {...navigation} />,
-        }),
     },
     GetHelp: {
         screen: GetHelpStack,
-        navigationOptions: ({ navigation }) => ({
-            headerTitle: <HeaderTitle/>,
-            headerStyle: headerStyle,
-            headerRight: <MenuIcon {...navigation} />,
-            headerLeft: <HomeIcon {...navigation} />,
-        }),
     },
+}, {
+    headerMode: 'none',
 });
 
-const HomeStackWithFooter = ({navigation, screenProps}) => {
-    console.log(navigation)
-    return (
-        <View style={{flex: 1}}>
-            <HomeStack  
-            />
-            <Footer/>
-        </View>
-    );
-}
-
-export const DrawerStack = DrawerNavigator(
-    {
-        homeStack: {
-            screen: HomeStackWithFooter,
-        }
+export const DrawerStack = DrawerNavigator({
+    Home: {
+        screen: withFooter(HomeStack),
     },
-    {
-        drawerWidth: width / 2.5,
-        drawerPosition: 'right',
-        contentComponent: props => <Menu {...props} />
+},{
+    drawerWidth: (deviceWidth(100) >= 768) ? deviceWidth(40) : deviceWidth(66),
+    drawerPosition: 'right',
+    contentComponent: props => {
+        drawerNavigator = props.navigation
+        return <Menu {...props}/>
     }
-);
-
-const DrawerStackWithFooter = () => {
-    return (
-        <View style={{flex: 1}}>
-            <DrawerStack/>
-            <Footer/>
-        </View>
-    );
-}
+});
 
 export const PrimaryNav = StackNavigator({
     SplashScreen: { screen: Splash },
-    OnBoardingScreen: { screen: OnBoarding },
+    OnBoardingScreen: { screen: withFooter(OnBoarding) },
     DrawerStack: { screen: DrawerStack },
-    
 }, {
     headerMode: 'none',
+    navigationOptions: {
+        gesturesEnabled: false,
+    }
 })

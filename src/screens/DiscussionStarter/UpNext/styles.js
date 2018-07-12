@@ -5,66 +5,119 @@ import {
     Dimensions,
 } from 'react-native';
 
-import {Colors, FontSizes, MediaQueries} from '@theme';
+import {Colors, FontSizes, MediaQueries, Metrics} from '@theme';
 
 const { width } = Dimensions.get('window');
 
-import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 import { MediaQueryStyleSheet } from "react-native-responsive";
+import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
 
-export default StyleSheet.create({
+export default MediaQueryStyleSheet.create({
 
     container: {
         flex: 1, 
         backgroundColor: Colors.backgroundPrimary,
-        paddingHorizontal: responsiveWidth(8),
-        paddingVertical: responsiveWidth(13),
-        justifyContent: 'space-between',
+    },
+
+    contentView: {
+        paddingHorizontal: deviceWidth(8),
+        paddingVertical: deviceWidth(2),
+        flexGrow: 1,
+    },
+
+    currentWrapper: {
+        marginVertical: deviceHeight(2), 
+        shadowColor: '#000',
+        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
+        shadowOpacity: 0.4,
+        shadowRadius: 0,
     },
 
     current: {
-        marginVertical: responsiveHeight(5), 
+        borderRadius: deviceWidth(1.2),
+        overflow: 'hidden'
     },
 
     next: {
-        marginVertical: responsiveHeight(5), 
+        backgroundColor: '#fff',
+        marginVertical: deviceHeight(2), 
+        paddingVertical: deviceHeight(2), 
+        borderRadius: deviceWidth(1.2),
+        shadowColor: '#000',
+        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
+        shadowOpacity: 0.4,
+        shadowRadius: 0,
+    },
+
+    currentHeader: {
+        padding: deviceWidth(1),
+        flexDirection: 'row',
+        backgroundColor: Colors.Navy,
+        alignItems: 'center',
+        justifyContent: 'space-between',        
+    },
+
+    complete_text: {
+        fontSize: deviceHeight(3)
+    },
+
+    currentDescView: {
+        backgroundColor: '#fff',
+        padding: deviceWidth(2),
+        alignItems: 'center',
     },
 
     currentTitle: {
-        padding: responsiveWidth(2),
-        flexDirection: 'row',
-        backgroundColor: Colors.backgroundSecondary,
+        marginVertical: deviceWidth(1),
+        fontWeight: '300',
+        fontSize: 28,
     },
 
     currentPrecomment: {
-        padding : responsiveWidth(2), 
-        borderWidth: 1.5,
-        borderColor: Colors.backgroundSecondary,
     },
 
     nextTitle: {
-        padding: responsiveWidth(2),
+        margin: deviceWidth(1),
         flexDirection: 'row',
         justifyContent: 'center',
     },
 
     nextPrecomment: {
-        paddingHorizontal : responsiveWidth(6.6), 
-        borderWidth: 1,
-        borderColor: Colors.backgroundSecondary,
+    },
+
+    later: {
+        marginVertical: deviceWidth(4),
+    },
+
+    later_text: {
+        marginBottom: deviceWidth(2),
     },
 
     buttonBar: {
         flexDirection: 'row',
-        marginVertical: responsiveWidth(2),
-        marginHorizontal : responsiveWidth(6.6), 
-        justifyContent: 'center',
+        justifyContent: 'space-between',
+        backgroundColor: '#E6E0D4',
+        paddingHorizontal: deviceWidth(9),
     },
     
     checkIcon: {
-        width: responsiveHeight(3.2),
-        height: responsiveHeight(3.2),
-        marginRight: 8,
+        width: deviceHeight(3.6),
+        height: deviceHeight(3.6),
+        marginHorizontal: deviceWidth(1),
+        tintColor: '#fff',
     }
 
+}, {
+    [MediaQueries.iPhone] : {
+        contentView: {
+            paddingHorizontal: deviceWidth(2.8),
+            paddingVertical: deviceWidth(2.8),
+        },
+        buttonBar: {
+            paddingHorizontal: deviceWidth(2.8),
+        },
+        currentWrapper: {
+            marginVertical: 0,
+        }
+    }
 });

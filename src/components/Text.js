@@ -32,7 +32,9 @@ export default (props) => {
         }else if (positions.includes(propKey)){
             style.textAlign = propKey;
         }else if (propKey == 'bold'){
-            style.fontWeight = 'bold';
+            style.fontWeight = '800';
+        }else if (propKey == 'color'){
+            style.color = props.color;
         }else{
 
         }

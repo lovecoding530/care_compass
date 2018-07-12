@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import React, {Component} from 'react';
 import {View, StyleSheet } from "react-native";
 import {Colors, FontSizes} from '@theme'
-import { responsiveWidth } from 'react-native-responsive-dimensions';
+import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
 
 export default (props) => {
     const {total, progress, style} = props
@@ -15,7 +15,7 @@ export default (props) => {
     for(let i = 0; i < total; i++){
         if(i < progress){
             items.push(
-                <View key={i} style={[defaultStyles.item, {backgroundColor: Colors.buttonPrimary}]}/>
+                <View key={i} style={[defaultStyles.item, {backgroundColor: Colors.Olive}]}/>
             )                
         }else{
             items.push(
@@ -38,8 +38,8 @@ const defaultStyles = StyleSheet.create({
     },
     item: {
         borderWidth: 1,
-        borderColor: Colors.buttonPrimary,
-        height: responsiveWidth(1),
+        borderColor: Colors.Olive,
+        height: deviceWidth(1),
         margin: 1,
         flex: 1,
     }

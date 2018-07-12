@@ -6,27 +6,28 @@ import {
 } from 'react-native';
 
 import {Colors, FontSizes, MediaQueries} from '@theme';
-import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 import { MediaQueryStyleSheet } from "react-native-responsive";
+import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
 
 export default MediaQueryStyleSheet.create({
 
     container: {
         flex: 1, 
         backgroundColor: Colors.backgroundPrimary,
-        padding: responsiveWidth(8),
+        paddingHorizontal: deviceWidth(8),
     },
 
     title: {
-        marginVertical: responsiveWidth(2),
+        marginVertical: deviceWidth(2),
     },
 
     importantBar: {
         flexDirection: 'row',     
+        flexWrap: 'wrap',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginTop: responsiveWidth(5),
-        marginBottom: responsiveWidth(1),
+        marginTop: deviceWidth(5),
+        marginBottom: deviceWidth(1),
     },
 
     row: {
@@ -45,58 +46,58 @@ export default MediaQueryStyleSheet.create({
         flexDirection: 'row',
         flex: 1,
         alignItems: 'center',
-        padding: responsiveWidth(1),
+        padding: deviceWidth(1),
         paddingRight: 0,
-        marginRight: responsiveWidth(1),
+        marginRight: deviceWidth(1),
     },
 
     question: {
-        marginHorizontal: responsiveWidth(1),
+        marginHorizontal: deviceWidth(1),
         flex: 1,
     },
     
     levelContainer: {
-        marginBottom: responsiveWidth(5),
+        marginBottom: deviceWidth(5),
     },
 
     levelIcon: {
-        width: responsiveHeight(2.4),
-        height: responsiveHeight(2.4),
+        width: deviceHeight(2.4),
+        height: deviceHeight(2.4),
         marginRight: 4,
         tintColor: Colors.textPrimary
     },
 
     dragIcon: {
-        width: responsiveWidth(1),
-        height: responsiveWidth(3),
+        width: deviceHeight(1),
+        height: deviceHeight(3),
         marginRight: 4,
         tintColor: Colors.textPrimary
     },
 
     progress: {
-        marginVertical: responsiveWidth(4),
+        marginVertical: deviceWidth(4),
     },
 
     progressBar: {
-        marginHorizontal: responsiveWidth(6.6),
-        marginVertical: responsiveWidth(1.2),
+        marginHorizontal: deviceWidth(6.6),
+        marginVertical: deviceWidth(1.2),
     },
 
     buttonBar: {
         flexDirection: 'row',
         justifyContent: 'center',
-        marginVertical: responsiveWidth(2),
+        marginVertical: deviceWidth(2),
     },
 
 }, {
     [MediaQueries.iPad] : {
         container: {
-            padding: responsiveWidth(8),
+            paddingHorizontal: deviceWidth(8),
         }
     },
     [MediaQueries.iPhone] : {
         container: {
-            padding: responsiveWidth(4),
+            paddingHorizontal: deviceWidth(4),
         }
     }
 });
