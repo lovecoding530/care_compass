@@ -196,7 +196,7 @@ export default class UserGuidesDetail extends Component {
                             <Text medium style={Styles.subtitle}>{this.state.title}</Text>
                     </Card>
 
-                      <Card style={Styles.item} contentStyle={Styles.item_content} onPress={()=>{ navigate("UserGuidesDetail", {userguideIndex: index})}}>
+                      <Card style={Styles.item} contentStyle={Styles.item_content}>
                         <View style={Styles.viewBody}>
                             <HTMLView
                                 value={this.state.body}
