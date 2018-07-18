@@ -131,6 +131,7 @@ export default class Activity extends Component {
                     </View>
                     {question_type == "freetext" ?
                         <TextInput
+                            key={questionIndex.toString()}
                             style={Styles.textArea}
                             value={answerData?answerData:""}
                             multiline={true}
@@ -138,6 +139,7 @@ export default class Activity extends Component {
                             onChangeText={(text) => this.onChangedAnswer(questionIndex, text)}/>
                     :question_type == "choices" ?
                         <Choices 
+                            key={questionIndex.toString()}
                             scrollViewRef = {this.scrollView}
                             questionIndex={questionIndex}
                             data={answerList} 
@@ -145,6 +147,7 @@ export default class Activity extends Component {
                             onChangedAnswer={this.onChangedAnswer.bind(this)}/>
                     :question_type == "manychoices" ?
                         <ManyChoices 
+                            key={questionIndex.toString()}
                             scrollViewRef = {this.scrollView}
                             questionIndex={questionIndex}
                             data={answerList} 

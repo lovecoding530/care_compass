@@ -10,7 +10,7 @@ import Styles from './styles';
 import Button from '@button'
 import Text from '@text'
 
-export default class ActivityList extends Component {
+export default class UpNext extends Component {
     constructor(props) {
         super(props);
         const {activityIndex, discussionStarter} = this.props.navigation.state.params
@@ -34,9 +34,9 @@ export default class ActivityList extends Component {
         for (let index = this.state.activityIndex + 2; index < this.state.activityCount; index++) {
             laterActivities.push(this.state.activities[index])
         }
-        return laterActivities.map(activity=>
-            <Text medium center color={Colors.Navy} style={Styles.currentTitle}>
-                Activity {index + 1}: {activity.stage}
+        return laterActivities.map((activity, index) =>
+            <Text key={index.toString()} medium center color={Colors.Navy} style={Styles.currentTitle}>
+                Activity {this.state.activityIndex + index + 3}: {activity.stage}
             </Text>
         )
     }
@@ -80,7 +80,7 @@ export default class ActivityList extends Component {
                         </View>
                         {this.state.activityIndex + 2 < this.state.activityCount &&
                         <View style={Styles.later}>
-                            <Text center medium bold color={Colors.Red}> LATER </Text>
+                            <Text center medium bold color={Colors.Red} style={{marginVertical: 8,}}> LATER </Text>
                             {this.renderLaterView()}
                         </View>
                         }

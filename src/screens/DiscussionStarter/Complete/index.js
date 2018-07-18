@@ -18,6 +18,7 @@ import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import Mailer from 'react-native-mail';
 import { Card } from '@components';
 import { deviceWidth } from "@ResponsiveDimensions";
+import store from '../../../Store';
 
 export default class Complete extends Component {
     constructor(props) {
@@ -72,7 +73,9 @@ export default class Complete extends Component {
                 [
                     {text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
                     {text: 'YES', onPress: () => {
-                        goBack("DiscussionStarter")
+                        goBack(store.routesInStack[0])
+                        store.activeRoute = null
+                        store.routesInStack = []
                     }},
                 ],
                 { cancelable: false }
