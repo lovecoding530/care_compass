@@ -20,7 +20,7 @@ export default MediaQueryStyleSheet.create({
         backgroundColor: Colors.backgroundPrimary,
     },
     scroll:{
-        paddingHorizontal: deviceWidth(1),
+        flexGrow: 1,
     },
     title: {
         color: Colors.Navy,
@@ -44,7 +44,7 @@ export default MediaQueryStyleSheet.create({
         marginHorizontal : width/9,
         alignItems: 'center'
     },
-    item: {
+    faqItem: {
         marginVertical: height/40,
     },
     itemTitle: {
@@ -72,30 +72,19 @@ export default MediaQueryStyleSheet.create({
         height: height-responsiveHeight(15), 
     },
     titleView: {
-        backgroundColor: Colors.backgroundPrimary,
-        borderTopColor: Colors.Navy,
-        borderRadius: responsiveWidth(1.2),
-        borderTopWidth: responsiveWidth(1.2),
-        shadowColor: '#000',
-        shadowOffset: { width: responsiveWidth(1.2), height: responsiveWidth(1.2) },
-        shadowOpacity: 0.5,
-        shadowRadius: 0, 
-        marginBottom: deviceWidth(3),
-        paddingVertical:deviceWidth(3),
-        paddingHorizontal:deviceWidth(10),
-        justifyContent: 'center',
-        alignItems: 'center',
+        margin: deviceWidth(1.2), 
+        marginBottom: deviceWidth(2),
     },
-    itemView: {
-        flex:1,
-        backgroundColor: Colors.backgroundPrimary,
-        borderRadius: deviceWidth(1.2),
-        shadowColor: '#000',
-        shadowOffset: { width: deviceWidth(1.2), height: deviceWidth(1.2) },
-        shadowOpacity: 0.5,
-        shadowRadius: 0,
-        paddingHorizontal:deviceWidth(5),
-        paddingVertical:deviceWidth(3),
+    title_content: {
+        paddingVertical: deviceWidth(2),
+    },
+    item: {
+         margin: deviceWidth(1.2), 
+    },
+    item_content: {
+        alignItems: 'center',
+        justifyContent: 'space-between', 
+        paddingVertical: deviceWidth(2),
     },
     buttonBar: {
         backgroundColor:Colors.Sand,
@@ -105,31 +94,24 @@ export default MediaQueryStyleSheet.create({
         paddingHorizontal: deviceWidth(10),
         alignItems: 'center',
     },
-
 },
 {
     [MediaQueries.iPad] : {
         scroll: {
             paddingVertical:deviceWidth(3),
-            paddingHorizontal: deviceWidth(12),
+             paddingHorizontal: deviceWidth(8.8),
         },
         buttonBar: {
-            paddingHorizontal: deviceWidth(13),            
-        },
-        itemView: {
-            paddingVertical:deviceWidth(3),
+            paddingHorizontal: deviceWidth(9.8),            
         },
     },
     [MediaQueries.iPhone] : {
         scroll: {
             paddingVertical:deviceWidth(2),
-            paddingHorizontal: deviceWidth(3),
+            paddingHorizontal: deviceWidth(2.8),
         },
         buttonBar: {
-            paddingHorizontal: deviceWidth(3),            
-        },
-        itemView: {
-            paddingVertical:deviceWidth(3),
-        },
+            paddingHorizontal: deviceWidth(3.8),            
+        }, 
     }
 });

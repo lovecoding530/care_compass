@@ -465,7 +465,7 @@ export default class OnBoarding extends Component {
                 <Image style={[Styles.middleicon]}  resizeMode='contain' source={Images.onboarding_icon_padlock}/>
               </ImageBackground>
               <View style={[Styles.textView]}>
-                <Text  smallMedium style={Styles.descText}>You will find resources and more information to support you before, during and after this conversation.</Text>
+                <Text  smallMedium style={Styles.descText}>Your personal data and information will not be stored or used by Palliative Care Australia in any way.</Text>
               </View>
             </View>
           </Swiper>

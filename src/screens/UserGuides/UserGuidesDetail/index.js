@@ -14,11 +14,9 @@ import {
 } from 'react-native';
 
 import Styles from './styles';
-import Text from '@text'
 import Footer from '@footer'
-import Button from '@button'
 import {Colors, Images, FontSizes} from '@theme';
-
+import {Button, Card, Text} from '@components'
 import { getUserGuides, API_HTML_ROOT } from "@api";
 import HTMLView from 'react-native-htmlview';
 const { width,height } = Dimensions.get('window');
@@ -173,7 +171,7 @@ export default class UserGuidesDetail extends Component {
 
     renderFAQItem({item, index}){
         return (
-            <View style={Styles.item}>
+            <View style={Styles.faqItem}>
                 <View style={Styles.itemTitle}>
                     <Text bold style={[Styles.txtQuestion]}>{index + 1}: </Text>
                     <Text style={Styles.txtQuestion}>
@@ -193,12 +191,12 @@ export default class UserGuidesDetail extends Component {
 
                 <ScrollView contentContainerStyle={Styles.scroll}>
 
-                    <View style={Styles.titleView}>
+                   <Card topbar={{color: Colors.Navy}} style={Styles.titleView} contentStyle={Styles.title_content} >
                              <Text large style={Styles.title}>App Instructions</Text>
                             <Text medium style={Styles.subtitle}>{this.state.title}</Text>
-                    </View>
+                    </Card>
 
-                     <View style={[Styles.itemView]}>
+                      <Card style={Styles.item} contentStyle={Styles.item_content}>
                         <View style={Styles.viewBody}>
                             <HTMLView
                                 value={this.state.body}
@@ -228,7 +226,7 @@ export default class UserGuidesDetail extends Component {
                             </View>
                         }
                        
-                    </View>
+                    </Card>
                 </ScrollView> 
                 <View style={Styles.buttonBar}>
                     <Button light bold onPress={ ()=> this.props.navigation.goBack() } >Go back</Button>
