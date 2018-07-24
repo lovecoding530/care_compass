@@ -36,7 +36,7 @@ const HeaderTitle = () => {
             position: 'absolute',
             width: '100%',
             zIndex: -1,
-        }}>Dying to Talk{"\n"}in the Bush</Text>
+        }}>Dying to Talk{deviceWidth(100) < 768 ? "\n" : " "}in the Bush</Text>
     );
 }
 

@@ -25,11 +25,13 @@ export default class Complete extends Component {
         super(props);
         const {discussionStarter} = this.props.navigation.state.params
         const activities = discussionStarter.discussion_starter
+        activities.forEach((activity, index) => activity.index = index)
+        const startedActivities = activities.filter(activity => activity.isStarted)
         console.log(discussionStarter)
         this.state = ({
             discussionStarter: discussionStarter,
             activities: activities,
-            activityCount: activities.length,
+            startedActivities,
             loaderVisible: false,
             modalVisible: {
                 exported: false,
@@ -142,15 +144,10 @@ export default class Complete extends Component {
 
     onEdit(activityIndex) {
         const {navigate, goBack} = this.props.navigation
-        // if(activityIndex < this.state.activityCount - 1){
-        //     goBack(`UpNext${activityIndex}`)
-        // }else{
-        //     goBack()
-        // }
         navigate("Activity", {editFromResults: true, activityIndex, discussionStarter: this.state.discussionStarter})
     }
 
-    renderActivityItem({item, index}){
+    renderActivityItem({item}){
         return (
             <View style={Styles.currentWrapper}>
                 <View style={Styles.current}>
@@ -161,10 +158,10 @@ export default class Complete extends Component {
                                 Complete
                             </Text>
                         </View>
-                        <Button light bold color={'#fff'} onPress={()=>this.onEdit(index)}>Edit</Button>
+                        <Button light bold color={'#fff'} onPress={()=>this.onEdit(item.index)}>Edit</Button>
                     </View>
                     <View style={Styles.currentDescView}>
-                        <Text medium color={Colors.Navy} style={Styles.currentTitle}>Activity {index + 1}: {item.stage}</Text>
+                        <Text medium color={Colors.Navy} style={Styles.currentTitle}>Activity {item.index + 1}: {item.stage}</Text>
                         <Text style={Styles.currentPrecomment}>
                             {item.pre_commencement_text} 
                         </Text>
@@ -183,7 +180,7 @@ export default class Complete extends Component {
                         <Text mediumLarge center color={Colors.Red} style={{fontWeight: '300'}}>Your Results</Text>
                     </Card>
                     <FlatList
-                        data = {this.state.activities}
+                        data = {this.state.startedActivities}
                         renderItem = {this.renderActivityItem.bind(this)}
                         keyExtractor = {(item, index) => index.toString()}
                         contentContainerStyle={Styles.flatList}

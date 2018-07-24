@@ -24,6 +24,7 @@ export default class Activity extends Component {
         console.log(this.props.navigation.state.params)
         const activities = discussionStarter.discussion_starter
         const activity = activities[activityIndex]
+        activity.isStarted = true
         const pageTotalCount = parseInt((activity.questions.length - 1) / 3) + 1
 
         this.state = ({

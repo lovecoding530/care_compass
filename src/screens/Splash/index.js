@@ -38,7 +38,7 @@ export default class Splash extends Component {
                     <View style={Styles.center_view}>
                         <Text style={Styles.app_name}>Dying to Talk in the Bush</Text>
                         <Text style={Styles.text_desc}>Working out what's right for you</Text>
-                        <Text style={Styles.text_website}>dyingtotalk.org.au</Text>
+                        {/* <Text style={Styles.text_website}>dyingtotalk.org.au</Text> */}
                     </View>
                     <View style={Styles.bottom_view}>
                         <View style={Styles.circle_center}>

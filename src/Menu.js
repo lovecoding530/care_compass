@@ -83,10 +83,7 @@ export default class Menu extends Component {
                         <ArrowText light bold color={Colors.white}>Looking after yourself</ArrowText>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem}>
-                        <ArrowText light bold color={Colors.white}>Take a quick survey</ArrowText>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuItem}>
-                        <ArrowText light bold color={Colors.white}>Support / FAQ</ArrowText>
+                        <ArrowText light bold color={Colors.white}>Take our survey</ArrowText>
                     </TouchableOpacity>
                 </View>
                 <Image  
