@@ -43,13 +43,13 @@ export default class Home extends Component {
                             <MediaQuery minDeviceWidth={768}>
                                 <Image source={Images.discussion_starter} style={Styles.right_icon}/>
                             </MediaQuery>
-                            <ArrowText medium bold color={Colors.Red}>Use discussion starter</ArrowText>≈≈≈
+                            <ArrowText medium bold color={Colors.Red} style={Styles.right_item_text}>Use discussion starter</ArrowText>≈≈≈
                         </Card>
                         <Card topbar={{color: Colors.Red}} style={Styles.item} onPress={()=>{this.gotoRoute('CardGame')}}>
                             <MediaQuery minDeviceWidth={768}>
                                 <Image source={Images.cardgame} style={Styles.right_icon}/>
                             </MediaQuery>
-                            <ArrowText medium bold color={Colors.Red}>Start discussion cards</ArrowText>
+                            <ArrowText medium bold color={Colors.Red} style={Styles.right_item_text}>Start discussion cards</ArrowText>
                         </Card>
                     </View>
                     <View style={Styles.containerRight}>

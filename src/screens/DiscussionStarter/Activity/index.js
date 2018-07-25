@@ -13,7 +13,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import {Button, Text, ProgressBar, Choices, ManyChoices, Loader } from '@components';
 
-import {playSound} from '@utils'
+import {playSounds} from '@utils'
 import { Card } from '@components';
 import { deviceWidth } from "@ResponsiveDimensions";
 
@@ -113,20 +113,25 @@ export default class Activity extends Component {
         }
     }
 
+    playAudios(questionAudioURL, choiceAudioURLs){
+        let audioURLs = [questionAudioURL, ...choiceAudioURLs];
+        playSounds(audioURLs);
+    }
+
     renderQuestions(){
         var startIndex = this.state.pageIndex * 3
         var endIndex = startIndex + 3
         var pageQuestions = this.state.activity.questions.slice(startIndex, endIndex)
         var questionList = pageQuestions.map((questionData, index) => {
             var questionIndex = startIndex + index
-            const {question, question_type, question_choices, category, question_audio_url, answerLater, neverAnswer, answerData} = questionData;
+            const {question, question_type, question_choices, category, question_audio_url, question_choices_audio_urls, answerLater, neverAnswer, answerData} = questionData;
             const answerList = question_choices.split("\r\n")
 
             return (
                 <View style={Styles.questionItem} key={index}>
                     <View style={{flexDirection: 'row'}}>
                         <Text bold style={Styles.questionTitle}>{questionIndex + 1}. {question}</Text>
-                        <TouchableOpacity onPress={()=>playSound(question_audio_url)} >
+                        <TouchableOpacity onPress={()=>this.playAudios(question_audio_url, question_choices_audio_urls)} >
                             <Image source={Images.sound} style={Styles.sound}/>
                         </TouchableOpacity>
                     </View>

@@ -1,5 +1,5 @@
 function renderActivities(activities){
-    var activitiesHtml = activities.map((activity, aID) => `
+    var activitiesHtml = activities.map((activity, aID) => activity.isStarted ? `
         <div>
             <h3 class="activityTitle">Activity ${aID + 1}: ${activity.stage}</h3>
             <p class="activityPrecomment">${activity.pre_commencement_text}</p>
@@ -39,7 +39,7 @@ function renderActivities(activities){
                     `}).join('')}
             </div>
         </div>
-    `).join('')
+    ` : '').join('')
     return activitiesHtml
 }
 
