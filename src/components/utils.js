@@ -13,7 +13,7 @@ export function copy(o) {
     return output;
 }
 
-export function playSound(url) {
+export function playSound(url, onDone) {
   
     const callback = (error, sound) => {
       if (error) {
@@ -23,9 +23,20 @@ export function playSound(url) {
       sound.play(() => {
         // Release when it's done so we're not using up resources
         sound.release();
+        if(onDone) onDone();
       });
     };
   
     const sound = new Sound(url, null, error => callback(error, sound));
 }
-  
+
+export function playSounds(urls) {
+    let i = 0;
+    const nextSound = () => {
+        playSound(urls[i], ()=>{
+            i++;
+            if(urls[i]) nextSound();
+        })
+    }
+    nextSound()
+}
