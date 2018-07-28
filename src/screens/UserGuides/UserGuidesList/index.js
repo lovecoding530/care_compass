@@ -34,81 +34,95 @@ export default class UserGuidesList extends Component {
     }
 
     async componentDidMount() {
-            try 
-            {
-                let value = await AsyncStorage.getItem('lastRefereshTimeUserGuide');
+        // try 
+        // {
+        //     let value = await AsyncStorage.getItem('lastRefereshTimeUserGuide');
 
-                if (value != null){
-                  // do something 
+        //     if (value != null){
+        //       // do something 
 
-                    var currrentTime = moment(new Date()).format("HH:mm:ss");
-                    var startTime=moment(value, "HH:mm:ss");
-                    var endTime=moment(currrentTime, "HH:mm:ss");
-                    var duration = moment.duration(endTime.diff(startTime));
-                    var difference = moment.utc(+duration).format('H');
+        //         var currrentTime = moment(new Date()).format("HH:mm:ss");
+        //         var startTime=moment(value, "HH:mm:ss");
+        //         var endTime=moment(currrentTime, "HH:mm:ss");
+        //         var duration = moment.duration(endTime.diff(startTime));
+        //         var difference = moment.utc(+duration).format('H');
 
-                    if(difference >= updateTimeInterval)
-                    {
-                        this.setState({
-                            loaderVisible: true
-                        })
+        //         if(difference >= updateTimeInterval)
+        //         {
+        //             this.setState({
+        //                 loaderVisible: true
+        //             })
 
-                        await AsyncStorage.setItem('lastRefereshTimeUserGuide', currrentTime);
-                        const ds = await getUserGuides()
-                        const userguides = ds[0].guides
+        //             await AsyncStorage.setItem('lastRefereshTimeUserGuide', currrentTime);
+        //             const ds = await getUserGuides()
+        //             const userguides = ds[0].guides
 
-                        var userguideIndexes = [];
-                        for(var i = 0; i < userguides.length; i ++){
-                            userguideIndexes.push(userguides[i]);
-                        }
+        //             var userguideIndexes = [];
+        //             for(var i = 0; i < userguides.length; i ++){
+        //                 userguideIndexes.push(userguides[i]);
+        //             }
 
-                        this.setState({
-                            userguideIndexes: userguideIndexes,
-                            loaderVisible: false
-                        })
-                    }
-                    else
-                    {
+        //             this.setState({
+        //                 userguideIndexes: userguideIndexes,
+        //                 loaderVisible: false
+        //             })
+        //         }
+        //         else
+        //         {
 
-                        const ds = await getUserGuides(true)
-                        const userguides = ds[0].guides
+        //             const ds = await getUserGuides(true)
+        //             const userguides = ds[0].guides
 
-                        var userguideIndexes = [];
-                        for(var i = 0; i < userguides.length; i ++){
-                            userguideIndexes.push(userguides[i]);
-                        }
+        //             var userguideIndexes = [];
+        //             for(var i = 0; i < userguides.length; i ++){
+        //                 userguideIndexes.push(userguides[i]);
+        //             }
 
-                        this.setState({
-                            userguideIndexes: userguideIndexes,
-                            loaderVisible: false
-                        })
-                    }   
-                }
-                else {
-                  // do something else
-                    this.setState({
-                        loaderVisible: true
-                    })
+        //             this.setState({
+        //                 userguideIndexes: userguideIndexes,
+        //                 loaderVisible: false
+        //             })
+        //         }   
+        //     }
+        //     else {
+        //       // do something else
+        //         this.setState({
+        //             loaderVisible: true
+        //         })
 
-                    var currrentTime = moment(new Date()).format("HH:mm:ss");
-                    await AsyncStorage.setItem('lastRefereshTimeUserGuide', currrentTime); 
-                    const ds = await getUserGuides()
-                    const userguides = ds[0].guides
+        //         var currrentTime = moment(new Date()).format("HH:mm:ss");
+        //         await AsyncStorage.setItem('lastRefereshTimeUserGuide', currrentTime); 
+        //         const ds = await getUserGuides()
+        //         const userguides = ds[0].guides
 
-                    var userguideIndexes = [];
-                    for(var i = 0; i < userguides.length; i ++){
-                        userguideIndexes.push(userguides[i]);
-                    }
+        //         var userguideIndexes = [];
+        //         for(var i = 0; i < userguides.length; i ++){
+        //             userguideIndexes.push(userguides[i]);
+        //         }
 
-                    this.setState({
-                        userguideIndexes: userguideIndexes,
-                        loaderVisible: false
-                    })
-                } 
-            }
-            catch (error) {
-              // Error retrieving data
-            }
+        //         this.setState({
+        //             userguideIndexes: userguideIndexes,
+        //             loaderVisible: false
+        //         })
+        //     } 
+        // }
+        // catch (error) {
+        //   // Error retrieving data
+        // }
+        var json = await getUserGuides(true)
+        if(!json){
+            this.setState({loaderVisible: true})
+            json = await getUserGuides(false)
+            this.setState({loaderVisible: false})
+        }
+        const userguides = json[0].guides
+        console.log(userguides);
+
+        var userguideIndexes = [];
+        for(var i = 0; i < userguides.length; i ++){
+            userguideIndexes.push(userguides[i]);
+        }
+        this.setState({userguideIndexes})
     }
 
     renderUserGuideItem({item, index}){
@@ -203,7 +217,7 @@ export default class UserGuidesList extends Component {
                             columnWrapperStyle = {{justifyContent:'center'}}
                             data = {this.state.userguideIndexes}
                             renderItem = {this.renderUserGuideItem.bind(this)}
-                            keyExtractor = {(index) => index.toString()}
+                            keyExtractor = {(item, index) => index.toString()}
                         />
                     </MediaQuery>
 
@@ -212,7 +226,7 @@ export default class UserGuidesList extends Component {
                             numColumns = {1}
                             data = {this.state.userguideIndexes}
                             renderItem = {this.renderUserGuideItem.bind(this)}
-                            keyExtractor = {(index) => index.toString()}
+                            keyExtractor = {(item, index) => index.toString()}
                         />
                     </MediaQuery>
 

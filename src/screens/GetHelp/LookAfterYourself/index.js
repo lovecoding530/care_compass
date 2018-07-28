@@ -76,7 +76,7 @@ export default class LookAfterYourself extends Component {
                     </View>
 
                     <View style={[Styles.itemView]}>
-                        <Image style={[Styles.middleimage]} resizeMode="contain" source={Images.iocn_lookig_after_yourself}/>
+                        <Image style={[Styles.middleimage]} resizeMode="contain" source={Images.looking_after}/>
                         <Text smallMedium  style={Styles.subtitle}>Primis mi condimentum magnis parturient mollis parturient vestibulum non quisque potenti 
                                                             integer cum elit sed sit sodales netus nullam phasellus diam. Sem molestie primis ornare 
                                                             aenean a a ut a class parturient ipsum magnis nunc ipsum nibh elit.</Text>
@@ -84,9 +84,9 @@ export default class LookAfterYourself extends Component {
                                                             ullamcorper donec cum nulla.</Text>
                         <Text  smallMedium style={Styles.subtitle}>Primis mi condimentum magnis parturient mollis parturient vestibulum non quisque potenti 
                                                             integer cum elit sed sit sodales netus nullam phasellus diam.</Text>
-                        <Text  smallMedium bold style={Styles.subtitle}>If you, or someone you know needs support, call lifeline now on 13 11 14.</Text>
+                        {/* <Text  smallMedium bold style={Styles.subtitle}>If you, or someone you know needs support, call lifeline now on 13 11 14.</Text>
 
-                        <Text  smallMedium bold style={Styles.subtitle}>If life is in immediate danger call 000</Text>
+                        <Text  smallMedium bold style={Styles.subtitle}>If life is in immediate danger call 000</Text> */}
                        
                     </View>
                 </ScrollView> 

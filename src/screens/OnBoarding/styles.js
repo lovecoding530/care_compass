@@ -45,6 +45,7 @@ export default MediaQueryStyleSheet.create({
     width:deviceWidth(40),
   },
   descText: {
+    fontSize:deviceHeight(2.0),
     textAlign:'center',
     color:Colors.Navy,
   },

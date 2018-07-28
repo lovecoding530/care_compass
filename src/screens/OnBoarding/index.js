@@ -389,17 +389,18 @@ class Swiper extends Component {
             <Text bold large style={Styles.titleText}>Dying to Talk in the Bush</Text>
             <View style={Styles.subTitleView}>
               <Text bold medium style={Styles.subTitleText}>Working out what's right for you</Text>
-              <Text bold medium style={Styles.subTitleText}>dyingtotalk.org.au</Text>
+              {/* <Text bold medium style={Styles.subTitleText}>dyingtotalk.org.au</Text> */}
             </View>
 
             {this.renderScrollView(children)}
-            {/* Render Continue or Done button */}
-             <View style={Styles.buttonpageView}>
-            {this.renderButton()}
-            {/* Render pagination */}
-            {this.renderPagination()}
-            </View>
 
+            {/* Render Continue or Done button */}
+            <View style={Styles.buttonpageView}>
+                {this.renderButton()}
+                {/* Render pagination */}
+                {this.renderPagination()}
+            </View>
+            <Button light bold color={Colors.white} onPress={()=>this.onDone()}>Skip</Button>
           </ScrollView>
         </ImageBackground>
       </View>
