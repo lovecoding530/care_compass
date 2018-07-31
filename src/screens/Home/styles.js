@@ -41,7 +41,7 @@ export default MediaQueryStyleSheet.create({
     },
 
     right_item_text: {
-        fontSize: deviceHeight(2.6)
+        fontSize: deviceHeight(2.7)
     },
     
     left_item_text: {
