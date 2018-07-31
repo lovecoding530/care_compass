@@ -29,12 +29,13 @@ export default MediaQueryStyleSheet.create({
     },
     subtitle: {
         color: Colors.textSecondary,
-        textAlign: 'center',
+        textAlign: 'left',
         marginVertical:width/50,
     },
     middleimage: {
         height:height/5,
         width:width/4.5,
+        alignSelf: 'center',
     },
     titleView: {
         backgroundColor: Colors.backgroundPrimary,
@@ -77,7 +78,7 @@ export default MediaQueryStyleSheet.create({
         paddingVertical:deviceWidth(3),
         marginBottom : width/35, 
         justifyContent: 'center',
-        alignItems: 'center',
+        // alignItems: 'center',
     },
 },
 {
