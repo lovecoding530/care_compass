@@ -7,7 +7,8 @@ import {
     FlatList,
     View,
     ScrollView,
-    AsyncStorage
+    AsyncStorage,
+    ImageBackground
 } from 'react-native';
 
 import Styles from './styles';
@@ -16,6 +17,8 @@ import Footer from '@footer'
 import { Loader } from '@components';
 import { getResources,updateTimeInterval } from "@api";
 import moment from 'moment'
+import {Colors, Images, FontSizes} from '@theme';
+import { MediaQuery } from "react-native-responsive";
 
 export default class Resources extends Component {
     constructor(props) {
@@ -23,107 +26,147 @@ export default class Resources extends Component {
         Props=this.props;
         this.state = ({
             resourceIndexes: [],
-            loaderVisible: true
+            loaderVisible: false
         })
     }
 
     async componentDidMount() {
-         try 
-            {
-                let value = await AsyncStorage.getItem('lastRefereshTimeResource');
+        // try 
+        // {
+        //     let value = await AsyncStorage.getItem('lastRefereshTimeResource');
 
-                if (value != null){
-                  // do something 
-                    var currrentTime = moment(new Date()).format("HH:mm:ss");
-                    var startTime=moment(value, "HH:mm:ss");
-                    var endTime=moment(currrentTime, "HH:mm:ss");
-                    var duration = moment.duration(endTime.diff(startTime));
-                    var difference = moment.utc(+duration).format('H');
+        //     if (value != null){
+        //         // do something 
+        //         var currrentTime = moment(new Date()).format("HH:mm:ss");
+        //         var startTime=moment(value, "HH:mm:ss");
+        //         var endTime=moment(currrentTime, "HH:mm:ss");
+        //         var duration = moment.duration(endTime.diff(startTime));
+        //         var difference = moment.utc(+duration).format('H');
 
-                    if(difference >= updateTimeInterval)
-                    {
-                        await AsyncStorage.setItem('lastRefereshTimeResource', currrentTime);
-                        const ds = await getResources()
+        //         if(difference >= updateTimeInterval)
+        //         {
+        //             this.setState({
+        //                 loaderVisible: true
+        //             })
 
-                        var resourceIndexes = [];
-                        for(var i = 0; i < ds.resources.length; i ++){
-                            resourceIndexes.push(ds.resources[i]);
-                        }
+        //             await AsyncStorage.setItem('lastRefereshTimeResource', currrentTime);
+        //             const ds = await getResources()
 
-                        this.setState({
-                            resourceIndexes: resourceIndexes,
-                            loaderVisible: false
-                        })
-                    }
-                    else
-                    {
-                        const ds = await getResources(true)
+        //             var resourceIndexes = [];
+        //             for(var i = 0; i < ds.resources.length; i ++){
+        //                 resourceIndexes.push(ds.resources[i]);
+        //             }
 
-                        var resourceIndexes = [];
-                        for(var i = 0; i < ds.resources.length; i ++){
-                            resourceIndexes.push(ds.resources[i]);
-                        }
+        //             this.setState({
+        //                 resourceIndexes: resourceIndexes,
+        //                 loaderVisible: false
+        //             })
+        //         }
+        //         else
+        //         {
+        //             const ds = await getResources(true)
 
-                        this.setState({
-                            resourceIndexes: resourceIndexes,
-                            loaderVisible: false
-                        })
-                    }   
-                }
-                else {
-                  // do something else
-                    var currrentTime = moment(new Date()).format("HH:mm:ss");
-                    await AsyncStorage.setItem('lastRefereshTimeResource', currrentTime); 
-                    const ds = await getResources()
+        //             var resourceIndexes = [];
+        //             for(var i = 0; i < ds.resources.length; i ++){
+        //                 resourceIndexes.push(ds.resources[i]);
+        //             }
 
-                    var resourceIndexes = [];
-                    for(var i = 0; i < ds.resources.length; i ++){
-                        resourceIndexes.push(ds.resources[i]);
-                    }
+        //             this.setState({
+        //                 resourceIndexes: resourceIndexes,
+        //             })
+        //         }   
+        //     }
+        //     else {
+        //         // do something else
+        //         this.setState({
+        //                 loaderVisible: true
+        //             })
 
-                    this.setState({
-                        resourceIndexes: resourceIndexes,
-                        loaderVisible: false
-                    })
-                } 
-            }
-            catch (error) {
-              // Error retrieving data
-            }
-       
+        //         var currrentTime = moment(new Date()).format("HH:mm:ss");
+        //         await AsyncStorage.setItem('lastRefereshTimeResource', currrentTime); 
+        //         const ds = await getResources()
+
+        //         var resourceIndexes = [];
+        //         for(var i = 0; i < ds.resources.length; i ++){
+        //             resourceIndexes.push(ds.resources[i]);
+        //         }
+
+        //         this.setState({
+        //             resourceIndexes: resourceIndexes,
+        //             loaderVisible: false
+        //         })
+        //     } 
+        // }
+        // catch (error) {
+        //     // Error retrieving data
+        // }
+        
+        var json = await getResources(true)
+        if(!json){
+            this.setState({loaderVisible: true})
+            json = await getResources(false)
+            this.setState({loaderVisible: false})
+        }
+        const resources = json.resources
+        console.log(resources);
+
+        var resourceIndexes = [];
+        for(var i = 0; i < resources.length; i ++){
+            resourceIndexes.push(resources[i]);
+        }
+        this.setState({resourceIndexes})
+    
     }
 
     renderResourceItem({item, index}){
         const {navigate} = this.props.navigation
         return (
-            <TouchableOpacity style={Styles.item} onPress={()=>{navigate("ResourceDetail", {resourceIndex: index})}}>
-                <Text style={Styles.txttitle}>{item.title}</Text>
-            </TouchableOpacity>
+            
+                <TouchableOpacity style={Styles.item} onPress={()=>{navigate("ResourceDetail", {resourceIndex: index})}}>
+                            <View style={Styles.cardView}>
+                                <Text smallmedium bold style={Styles.cardtitle}>{item.title}</Text>
+                                <Image source={Images.icon_left_arrow} resizeMode='contain' />
+                            </View>
+                </TouchableOpacity>
+        
         )
     }
 
     render() {
-        return (
-            
-            <View style={Styles.container}>
-                <View style={Styles.scrollcontainer}> 
+        return ( 
+
+            <ImageBackground source={Images.bg_more_information} resizeMode="stretch" style={Styles.container} >
+
+                <ScrollView contentContainerStyle={Styles.scroll}>
                     <Loader loading={this.state.loaderVisible}/>
-                    <ScrollView contentContainerStyle={Styles.scroll}>
-                        <Text bold style={Styles.title}>resources</Text>
-                        <Text style={Styles.subtitle}>
-                            View list of resources and use to learn more
+                    <View style={Styles.titleView}>
+                        <Text large style={Styles.title}>Resource library</Text>
+                        <Text medium style={Styles.subtitle}>
+                            Extra information and resources.
                         </Text>
-                 
+                    </View>
+
+                    <MediaQuery minDeviceWidth={768}>
                         <FlatList
                             numColumns = {2}
+                            columnWrapperStyle = {{justifyContent:'center'}}
                             data = {this.state.resourceIndexes}
                             renderItem = {this.renderResourceItem.bind(this)}
                             keyExtractor={item => item.title}
                         />
-                    </ScrollView>
-                </View>
-                <Footer />
-            </View>    
+                    </MediaQuery>
+
+                    <MediaQuery maxDeviceWidth={767}>
+                        <FlatList
+                            numColumns = {1}
+                            data = {this.state.resourceIndexes}
+                            renderItem = {this.renderResourceItem.bind(this)}
+                            keyExtractor={item => item.title}
+                        />
+                    </MediaQuery>
+
+                </ScrollView>
+            </ImageBackground> 
         );
     }
 }

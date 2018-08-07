@@ -18,19 +18,22 @@ export default MediaQueryStyleSheet.create({
 
     introContainer: {
         flexGrow: 1, 
-        alignSelf: 'center'
+        // alignSelf: 'center'
     },
 
     title: {
-        margin: 8,
+        marginTop: deviceWidth(1),
+        fontWeight: '300',
     },
 
     subtitle: {
         textAlign: 'center',
-        margin: 8,
+        margin: deviceWidth(1),
+        fontWeight: '300',
     },
 
     icon: {
+        width: deviceWidth(27),
         height: deviceWidth(25),
         resizeMode: 'contain',
     },
@@ -43,32 +46,15 @@ export default MediaQueryStyleSheet.create({
     buttonBar: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        backgroundColor: '#fff',
+        backgroundColor: '#E6E0D4',
         paddingHorizontal: deviceWidth(10),
     },
 
     titleView: {
-        borderTopColor: Colors.Red,
-        backgroundColor: '#fff',
-        borderRadius: deviceWidth(1.2),
-        borderTopWidth: deviceWidth(1.2),
-        shadowColor: '#000',
-        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
-        shadowOpacity: 0.5,
-        shadowRadius: 0,
-        padding: 8,
         marginVertical: deviceWidth(4),
     },
 
     descView: {
-        backgroundColor: '#fff',
-        borderRadius: deviceWidth(1.2),
-        shadowColor: '#000',
-        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
-        shadowOpacity: 0.5,
-        shadowRadius: 0,
-        alignItems: 'center',
-        padding: 16,
     }
 }, {
     [MediaQueries.iPad] : {

@@ -6,7 +6,6 @@ import {
 } from 'react-native';
 
 import { MediaQueries } from '@theme'
-import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 import { MediaQueryStyleSheet } from "react-native-responsive";
 import { deviceWidth, deviceHeight, windowHeight } from "@ResponsiveDimensions";
 import { FontSizes } from '../../theme';
@@ -39,8 +38,8 @@ export default MediaQueryStyleSheet.create({
     },
 
     pca_logo: {
-        width: deviceWidth(25),
-        height: deviceWidth(25),
+        width: deviceWidth(23),
+        height: deviceWidth(23),
         resizeMode: 'contain',
     },
 
@@ -51,8 +50,9 @@ export default MediaQueryStyleSheet.create({
 
     app_name: {
         color: '#fff',
-        fontSize: FontSizes.mediumLarge,
+        fontSize: FontSizes.large,
         fontWeight: 'bold',
+        margin: deviceWidth(1),
     },
 
     spinner: {
@@ -74,22 +74,23 @@ export default MediaQueryStyleSheet.create({
 
     bottom_view: {
         position: 'absolute',
-        bottom: 20,
+        bottom: 40,
     },
 
     text_desc: {
         color: '#fff',
+        fontSize: FontSizes.medium,
         fontWeight: 'bold',
         textAlign: 'center',
         width: deviceWidth(50),
-        margin: deviceWidth(2),
+        margin: deviceWidth(1),
     },
 
     text_website: {
         color: '#fff',
+        fontSize: FontSizes.medium,
         fontWeight: 'bold',
         textAlign: 'center',
-        margin: deviceWidth(2),
     }
 }, {
     [MediaQueries.iPad] : {

@@ -1,31 +1,34 @@
 import React, { Component } from 'react';
 import {
-    Platform,
-    StyleSheet,
-    Image,
     TouchableOpacity,
-    FlatList,
     View,
     ScrollView,
     TextInput,
     ImageBackground,
+    Image,
 } from 'react-native';
 import {Colors, Images} from '@theme';
 import Styles from './styles';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import {Button, Text, ProgressBar, Choices, ManyChoices, Loader } from '@components';
-import DeviceInfo from 'react-native-device-info'
+
+import {playSounds} from '@utils'
+import { Card } from '@components';
+import { deviceWidth } from "@ResponsiveDimensions";
 
 export default class Activity extends Component {
     constructor(props) {
         super(props);
-        const {activityIndex, discussionStarter} = this.props.navigation.state.params
-
+        const {activityIndex, discussionStarter, editFromResults} = this.props.navigation.state.params
+        console.log(this.props.navigation.state.params)
         const activities = discussionStarter.discussion_starter
         const activity = activities[activityIndex]
+        activity.isStarted = true
         const pageTotalCount = parseInt((activity.questions.length - 1) / 3) + 1
 
         this.state = ({
+            editFromResults,
             discussionStarter: discussionStarter,
             activityCount: activities.length,
             activityIndex: activityIndex,
@@ -53,6 +56,7 @@ export default class Activity extends Component {
         var activity = discussionStarter.discussion_starter[this.state.activityIndex]
         var question = activity.questions[questionIndex]
         question.answerLater = !question.answerLater
+        if (question.neverAnswer) question.neverAnswer = false
 
         this.setState({discussionStarter: discussionStarter})
 
@@ -63,6 +67,7 @@ export default class Activity extends Component {
         var activity = discussionStarter.discussion_starter[this.state.activityIndex]
         var question = activity.questions[questionIndex]
         question.neverAnswer = !question.neverAnswer
+        if (question.answerLater) question.answerLater = false
 
         this.setState({discussionStarter: discussionStarter})
     }
@@ -80,25 +85,37 @@ export default class Activity extends Component {
 
     onNext(){
         if(this.state.pageIndex < (this.state.pageTotalCount - 1)){
-            this.setState({
-                pageIndex: this.state.pageIndex + 1,
-            })
+            this.setState({ pageIndex: this.state.pageIndex + 1 })
+            setTimeout(() => {
+                this.scrollView.scrollTo(0)             
+            });
         }else{
             this.onFinish()
         }
     }
 
     onFinish(){
-        // const {navigate} = this.props.navigation
-        // navigate("Complete", {discussionStarter: this.state.discussionStarter})    
+        setTimeout(() => {
+            this.setState({ pageIndex: 0 })
+            this.scrollView.scrollTo({y: 0})        
+        }, 500);
 
-        const {navigate} = this.props.navigation
+        const {navigate, goBack} = this.props.navigation
 
-        if(this.state.activityIndex + 1 >= this.state.activityCount){
-            navigate("Complete", {discussionStarter: this.state.discussionStarter})
+        if(this.state.editFromResults){
+            goBack()
         }else{
-            navigate({routeName: "UpNext", key: `UpNext${this.state.activityIndex}`, params: {activityIndex: this.state.activityIndex, discussionStarter: this.state.discussionStarter}})
+            if(this.state.activityIndex + 1 >= this.state.activityCount){
+                navigate("Complete", {discussionStarter: this.state.discussionStarter})
+            }else{
+                navigate({routeName: "UpNext", key: `UpNext${this.state.activityIndex}`, params: {activityIndex: this.state.activityIndex, discussionStarter: this.state.discussionStarter}})
+            }    
         }
+    }
+
+    playAudios(questionAudioURL, choiceAudioURLs){
+        let audioURLs = [questionAudioURL, ...choiceAudioURLs];
+        playSounds(audioURLs);
     }
 
     renderQuestions(){
@@ -107,55 +124,52 @@ export default class Activity extends Component {
         var pageQuestions = this.state.activity.questions.slice(startIndex, endIndex)
         var questionList = pageQuestions.map((questionData, index) => {
             var questionIndex = startIndex + index
-            const {question, question_type, question_choices, category, question_audio_url, answerLater, neverAnswer} = questionData;
+            const {question, question_type, question_choices, category, question_audio_url, question_choices_audio_urls, answerLater, neverAnswer, answerData} = questionData;
             const answerList = question_choices.split("\r\n")
-
-            let answerLaterButtonStyle = {}
-            let neverAnswerButtonStyle = {}
-            if(answerLater){
-                answerLaterButtonStyle.backgroundColor = Colors.Blue
-            }else{
-                answerLaterButtonStyle.backgroundColor = Colors.lightGray                
-            }
-
-            if(neverAnswer){
-                neverAnswerButtonStyle.backgroundColor = Colors.Blue
-            }else{
-                neverAnswerButtonStyle.backgroundColor = Colors.lightGray                
-            }
 
             return (
                 <View style={Styles.questionItem} key={index}>
-                    <Text center style={Styles.questionTitle}>{questionIndex + 1}. {question}</Text>
+                    <View style={{flexDirection: 'row'}}>
+                        <Text bold style={Styles.questionTitle}>{questionIndex + 1}. {question}</Text>
+                        <TouchableOpacity onPress={()=>this.playAudios(question_audio_url, question_choices_audio_urls)} >
+                            <Image source={Images.sound} style={Styles.sound}/>
+                        </TouchableOpacity>
+                    </View>
                     {question_type == "freetext" ?
                         <TextInput
+                            key={questionIndex.toString()}
                             style={Styles.textArea}
-                            value={""}
+                            value={answerData?answerData:""}
                             multiline={true}
                             numberOfLines={4}
                             onChangeText={(text) => this.onChangedAnswer(questionIndex, text)}/>
                     :question_type == "choices" ?
                         <Choices 
+                            key={questionIndex.toString()}
                             scrollViewRef = {this.scrollView}
                             questionIndex={questionIndex}
                             data={answerList} 
-                            selectedIndex={-1}
+                            selectedIndex={answerData?answerData:-1}
                             onChangedAnswer={this.onChangedAnswer.bind(this)}/>
                     :question_type == "manychoices" ?
                         <ManyChoices 
+                            key={questionIndex.toString()}
                             scrollViewRef = {this.scrollView}
                             questionIndex={questionIndex}
                             data={answerList} 
-                            selectedIndexes={[]}
+                            selectedIndexes={answerData?answerData:[]}
                             onChangedAnswer={this.onChangedAnswer.bind(this)}/>
                     :<View/>
                     }
                     <View style={Styles.answerButtonWrapper}>
-                        <TouchableOpacity style={[Styles.answerButton, answerLaterButtonStyle]} onPress={() => this.onAnswerLater(questionIndex)}>
-                            <Text bold color={Colors.Navy}>ANSWER LATER</Text>
+                        <View style={{flex: 1}}/>
+                        <TouchableOpacity style={Styles.answerButton} onPress={() => this.onAnswerLater(questionIndex)}>
+                            <Icon name={answerLater ? 'md-checkbox-outline' : 'md-square-outline'} size={24} color={Colors.Navy} style={{marginRight: deviceWidth(1), marginTop: 4}}/>
+                            <Text bold color={Colors.Navy}>Answer Later</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={[Styles.answerButton, neverAnswerButtonStyle]} onPress={() => this.onNeverAnswer(questionIndex)}>
-                            <Text bold color={Colors.Navy}>NEVER ANSWER</Text>
+                        <TouchableOpacity style={Styles.answerButton} onPress={() => this.onNeverAnswer(questionIndex)}>
+                            <Icon name={neverAnswer ? 'md-checkbox-outline' : 'md-square-outline'} size={24} color={Colors.Navy} style={{marginRight: deviceWidth(1), marginTop: 4}}/>
+                            <Text bold color={Colors.Navy}>Never Answer</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -172,21 +186,26 @@ export default class Activity extends Component {
                     ref={ref => this.scrollView = ref} 
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={Styles.scrollView}>
-                    <View style={Styles.titleView}>
+                    <Card topbar style={Styles.titleView}>
                         <View style={Styles.title}>
-                            <Text mediumLarge bold center color={Colors.Red}>Activity {this.state.activityIndex + 1}: </Text>
-                            <Text mediumLarge center color={Colors.Red}>{" "}{this.state.activity.stage}</Text>
+                            <Text mediumLarge center color={Colors.Red} style={{fontWeight: '300'}}>Activity {this.state.activityIndex + 1}: {this.state.activity.stage}</Text>
                         </View>
                         <ProgressBar total={this.state.pageTotalCount} progress={this.state.pageIndex+1} style={Styles.pregressBar}/>
-                    </View>
+                    </Card>
                     {this.renderQuestions()}
                 </ScrollView>
                 <View style={Styles.buttonBar}>
                     <View style={{flexDirection: 'row'}}>
-                        <Button light onPress={this.goBack.bind(this)}>GO BACK</Button>
-                        <Button light onPress={this.onFinish.bind(this)}>FINISH</Button>
+                        <Button light bold onPress={this.goBack.bind(this)}>Go back</Button>
+                        <Button light bold onPress={this.onFinish.bind(this)}>Finish</Button>
                     </View>
-                    <Button dark onPress={this.onNext.bind(this)}>NEXT PAGE</Button>
+                    <Button dark bold onPress={this.onNext.bind(this)}>
+                        {this.state.editFromResults && this.state.pageIndex == this.state.pageTotalCount - 1 ?
+                            "Done editing"
+                            :
+                            "Next page"
+                        }
+                    </Button>
                 </View>
             </ImageBackground>
         );

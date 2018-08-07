@@ -28,11 +28,15 @@ export default MediaQueryStyleSheet.create({
     },
 
     title: {
+        color: Colors.Red,
         margin: 4,
+        fontWeight: '300'
     },
 
     subtitle: {
+        color: Colors.Navy,
         margin: 4,
+        fontWeight: '300'
     },
 
     flatList: {
@@ -42,30 +46,15 @@ export default MediaQueryStyleSheet.create({
     item: {
         flex: 1,
         height: width/3,
-        borderTopColor: Colors.Navy,
-        borderTopWidth: deviceWidth(1.2),
-        backgroundColor: Colors.backgroundSecondary,
-        borderRadius: deviceWidth(1),
-        shadowColor: '#000',
-        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
-        shadowOpacity: 0.5,
-        shadowRadius: 0,
         margin: deviceWidth(1.2), 
-        paddingVertical: deviceWidth(4),     
-        justifyContent: 'space-between',
-        alignItems: 'center',
+    },
+
+    item_content: {
+        justifyContent: 'space-between', 
+        paddingVertical: deviceWidth(4)
     },
 
     titleView: {
-        borderTopColor: Colors.Red,
-        backgroundColor: '#fff',
-        borderRadius: deviceWidth(1.2),
-        borderTopWidth: deviceWidth(1.2),
-        shadowColor: '#000',
-        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
-        shadowOpacity: 0.5,
-        shadowRadius: 0,
-        padding: 8,
         margin: deviceWidth(1.2), 
         marginBottom: deviceWidth(2),
     },
@@ -83,6 +72,8 @@ export default MediaQueryStyleSheet.create({
     }, 
     item_text: {
         color: Colors.Navy,
+        fontSize: 30,
+        fontWeight: '300'
     },
     item_start_text: {
         color: Colors.Red,
@@ -91,7 +82,7 @@ export default MediaQueryStyleSheet.create({
     buttonBar: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        backgroundColor: '#fff',
+        backgroundColor: '#E6E0D4',
         paddingHorizontal: deviceWidth(10),
     },
 
@@ -105,13 +96,17 @@ export default MediaQueryStyleSheet.create({
             paddingHorizontal: deviceWidth(4),            
         },
         item: {
-            flexDirection: 'row',
             height: null,
-            padding: deviceWidth(2),
             marginVertical: deviceWidth(2),
         },
+        item_content: {
+            flexDirection: 'row',
+            justifyContent: 'space-between', 
+            paddingVertical: deviceWidth(4)
+        },    
         item_text: {
             flex: 1,
+            fontSize: 22,
             marginLeft: deviceWidth(2),
             textAlign: 'left',
         },

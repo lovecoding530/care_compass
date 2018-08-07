@@ -16,13 +16,12 @@ import { postCardGameAnswers } from "@api";
 import { Loader, Button, ImageButton, Text } from '@components';
 import { ShareModal, EmailModal, EmailSentModal, DownloadedModal} from '../../modals';
 import { copy } from '@utils';
-import DeviceInfo from 'react-native-device-info'
 import SortableListView from 'react-native-sortable-listview';
 
 import {getSharingHTMLFromResult} from "./HtmlResult";
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
-import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
+import store from '../../../Store';
 
 export default class SummaryDraggable extends Component {
     constructor(props) {
@@ -157,7 +156,11 @@ export default class SummaryDraggable extends Component {
                 'Are you sure to exit without share the results?',
                 [
                   {text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                  {text: 'YES', onPress: () => goBack("CardGame")},
+                  {text: 'YES', onPress: () => {
+                    goBack(store.routesInStack[0])
+                    store.activeRoute = null
+                    store.routesInStack = []
+                  }},
                 ],
                 { cancelable: false }
             )                

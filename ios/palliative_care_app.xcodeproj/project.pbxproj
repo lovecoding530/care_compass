@@ -43,7 +43,6 @@
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		6176FCD391B94EC7B7831F73 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8FAF1E2B938A47C089EF7D26 /* Foundation.ttf */; };
 		6205AB6B6FCC4F7CB2CFAFD1 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DF3D35B053924C46BC358AEA /* Zocial.ttf */; };
-		779014A9FB424BE8AD4F92CF /* RNMailTests.xctest in Frameworks */ = {isa = PBXBuildFile; fileRef = 532B74C88B5A4F1ABB71A445 /* RNMailTests.xctest */; };
 		7E14103F411345F3B0B141E0 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3454477AAC8340F5ACAF67AE /* rubicon-icon-font.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		884F224924F3437AA11EB311 /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D0A0219AA4B43368543BBAE /* Roboto.ttf */; };
@@ -54,6 +53,7 @@
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B81DEE2B5358415A8FFB722E /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1A40379F3F1C44DCADDE308D /* SimpleLineIcons.ttf */; };
 		B85996341A8046FC8A92DE3C /* libRNMail.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FE138ED61DE4B9E8E47CF88 /* libRNMail.a */; };
+		C30BC047FEA04E69AF85B2FF /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2ADE0B0AF62B4DF9B6A4375C /* libRNSound.a */; };
 		EF19E46B20B577D60086AFFE /* libRNHTMLtoPDF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 849CF4E920A2B21200DE9F44 /* libRNHTMLtoPDF.a */; };
 		EF37974D208B0B3700A3AAC3 /* libRNSpinkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 843C9CFE208944FC006615C3 /* libRNSpinkit.a */; };
 		FCA3EE1D6AE54653A224DC1A /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F31F227F2EFF4EDDA1F06288 /* FontAwesome.ttf */; };
@@ -348,13 +348,6 @@
 			remoteGlobalIDString = 46FEDE7F1AFF192F00D3261C;
 			remoteInfo = RNMail;
 		};
-		849171A820C8A5EB00FB62DD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 21BA223B008D42BB9E65C575 /* RNMail.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 46FEDE8A1AFF192F00D3261C;
-			remoteInfo = RNMailTests;
-		};
 		849CF4E820A2B21200DE9F44 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 908DE7BC72F349B8A8DE6673 /* RNHTMLtoPDF.xcodeproj */;
@@ -376,6 +369,20 @@
 			remoteGlobalIDString = E72EC1401F7ABB5A0001BC90;
 			remoteInfo = "RNDeviceInfo-tvOS";
 		};
+		96797B7820DB07A60011D71F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 908DE7BC72F349B8A8DE6673 /* RNHTMLtoPDF.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 117405FA1B9954BF004425E1;
+			remoteInfo = RNHTMLtoPDFTests;
+		};
+		96797BBD20DB092D0011D71F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21BA223B008D42BB9E65C575 /* RNMail.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 46FEDE8A1AFF192F00D3261C;
+			remoteInfo = RNMailTests;
+		};
 		ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */;
@@ -396,6 +403,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RCTOrientation;
+		};
+		EFFEBCA520F771F60081E259 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D848E12813794A998152DCF7 /* RNSound.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 19825A1E1BD4A89800EE0337;
+			remoteInfo = RNSound;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -424,6 +438,7 @@
 		169CA66025A74D1085360D32 /* libRNHTMLtoPDF.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNHTMLtoPDF.a; sourceTree = "<group>"; };
 		1A40379F3F1C44DCADDE308D /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		21BA223B008D42BB9E65C575 /* RNMail.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNMail.xcodeproj; path = "../node_modules/react-native-mail/RNMail.xcodeproj"; sourceTree = "<group>"; };
+		2ADE0B0AF62B4DF9B6A4375C /* libRNSound.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSound.a; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* palliative_care_app-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "palliative_care_app-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* palliative_care_app-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "palliative_care_app-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -432,7 +447,6 @@
 		3454477AAC8340F5ACAF67AE /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; };
 		3FE138ED61DE4B9E8E47CF88 /* libRNMail.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNMail.a; sourceTree = "<group>"; };
 		460AB4E4A3A14239BC5B8747 /* libRNSpinkit.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSpinkit.a; sourceTree = "<group>"; };
-		532B74C88B5A4F1ABB71A445 /* RNMailTests.xctest */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = RNMailTests.xctest; sourceTree = "<group>"; };
 		5D8FC00FF3774EAC9E499059 /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		6B294E8893FB402B810CA518 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/native-base/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
@@ -444,6 +458,7 @@
 		8FAF1E2B938A47C089EF7D26 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		908DE7BC72F349B8A8DE6673 /* RNHTMLtoPDF.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNHTMLtoPDF.xcodeproj; path = "../node_modules/react-native-html-to-pdf/ios/RNHTMLtoPDF.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
+		D848E12813794A998152DCF7 /* RNSound.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSound.xcodeproj; path = "../node_modules/react-native-sound/RNSound.xcodeproj"; sourceTree = "<group>"; };
 		DF3D35B053924C46BC358AEA /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		DF8A15170F164C46BA052406 /* RNSpinkit.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSpinkit.xcodeproj; path = "../node_modules/react-native-spinkit/ios/RNSpinkit.xcodeproj"; sourceTree = "<group>"; };
 		E128CCFE93DD4D869BA6ECDC /* libRCTOrientation.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTOrientation.a; sourceTree = "<group>"; };
@@ -488,7 +503,7 @@
 				4A9DA9EBA59B4D2AAEF280D7 /* libRNDeviceInfo.a in Frameworks */,
 				254AB0CF3DF44B109F6C66BD /* libReactNativeKeyboardManager.a in Frameworks */,
 				B85996341A8046FC8A92DE3C /* libRNMail.a in Frameworks */,
-				779014A9FB424BE8AD4F92CF /* RNMailTests.xctest in Frameworks */,
+				C30BC047FEA04E69AF85B2FF /* libRNSound.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -682,6 +697,7 @@
 				908DE7BC72F349B8A8DE6673 /* RNHTMLtoPDF.xcodeproj */,
 				ED98FC5D27274DAC9C7D933A /* ReactNativeKeyboardManager.xcodeproj */,
 				21BA223B008D42BB9E65C575 /* RNMail.xcodeproj */,
+				D848E12813794A998152DCF7 /* RNSound.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -735,7 +751,7 @@
 			isa = PBXGroup;
 			children = (
 				849171A720C8A5EB00FB62DD /* libRNMail.a */,
-				849171A920C8A5EB00FB62DD /* RNMailTests.xctest */,
+				96797BBE20DB092D0011D71F /* RNMailTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -744,6 +760,7 @@
 			isa = PBXGroup;
 			children = (
 				849CF4E920A2B21200DE9F44 /* libRNHTMLtoPDF.a */,
+				96797B7920DB07A60011D71F /* RNHTMLtoPDFTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -804,7 +821,7 @@
 				EE9BE70B8C9E4B2382B4AD51 /* RNHTMLtoPDFTests.xctest */,
 				323BE07A44B8484DB78AE15F /* libReactNativeKeyboardManager.a */,
 				3FE138ED61DE4B9E8E47CF88 /* libRNMail.a */,
-				532B74C88B5A4F1ABB71A445 /* RNMailTests.xctest */,
+				2ADE0B0AF62B4DF9B6A4375C /* libRNSound.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -813,6 +830,14 @@
 			isa = PBXGroup;
 			children = (
 				EFEAADF62090955A0014F4D4 /* libRCTOrientation.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EFFEBCA220F771F60081E259 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EFFEBCA620F771F60081E259 /* libRNSound.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -998,6 +1023,10 @@
 				{
 					ProductGroup = 849171A220C8A5EB00FB62DD /* Products */;
 					ProjectRef = 21BA223B008D42BB9E65C575 /* RNMail.xcodeproj */;
+				},
+				{
+					ProductGroup = EFFEBCA220F771F60081E259 /* Products */;
+					ProjectRef = D848E12813794A998152DCF7 /* RNSound.xcodeproj */;
 				},
 				{
 					ProductGroup = 843C9CF9208944FC006615C3 /* Products */;
@@ -1288,13 +1317,6 @@
 			remoteRef = 849171A620C8A5EB00FB62DD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		849171A920C8A5EB00FB62DD /* RNMailTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = RNMailTests.xctest;
-			remoteRef = 849171A820C8A5EB00FB62DD /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		849CF4E920A2B21200DE9F44 /* libRNHTMLtoPDF.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1316,6 +1338,20 @@
 			remoteRef = 9605ABDA2096A3A8004DB7E7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		96797B7920DB07A60011D71F /* RNHTMLtoPDFTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RNHTMLtoPDFTests.xctest;
+			remoteRef = 96797B7820DB07A60011D71F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		96797BBE20DB092D0011D71F /* RNMailTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RNMailTests.xctest;
+			remoteRef = 96797BBD20DB092D0011D71F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1335,6 +1371,13 @@
 			fileType = archive.ar;
 			path = libRCTOrientation.a;
 			remoteRef = EFEAADF52090955A0014F4D4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		EFFEBCA620F771F60081E259 /* libRNSound.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNSound.a;
+			remoteRef = EFFEBCA520F771F60081E259 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1496,6 +1539,7 @@
 					"$(SRCROOT)/../node_modules/react-native-html-to-pdf/ios/RNHTMLtoPDF/**",
 					"$(SRCROOT)/../node_modules/react-native-keyboard-manager/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-mail/RNMail",
+					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
 				);
 				INFOPLIST_FILE = palliative_care_appTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1506,6 +1550,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1538,6 +1583,7 @@
 					"$(SRCROOT)/../node_modules/react-native-html-to-pdf/ios/RNHTMLtoPDF/**",
 					"$(SRCROOT)/../node_modules/react-native-keyboard-manager/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-mail/RNMail",
+					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
 				);
 				INFOPLIST_FILE = palliative_care_appTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1548,6 +1594,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1570,8 +1617,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = R6XH8645JQ;
@@ -1583,6 +1630,7 @@
 					"$(SRCROOT)/../node_modules/react-native-html-to-pdf/ios/RNHTMLtoPDF/**",
 					"$(SRCROOT)/../node_modules/react-native-keyboard-manager/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-mail/RNMail",
+					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
 				);
 				INFOPLIST_FILE = palliative_care_app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1597,8 +1645,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.techequipt.dying-to-talk";
 				PRODUCT_NAME = palliative_care_app;
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "e2920fde-d90c-4260-8f1b-512afa3545ca";
+				PROVISIONING_PROFILE_SPECIFIER = "Dying To Talk (Live)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1608,8 +1656,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = R6XH8645JQ;
 				HEADER_SEARCH_PATHS = (
@@ -1620,6 +1668,7 @@
 					"$(SRCROOT)/../node_modules/react-native-html-to-pdf/ios/RNHTMLtoPDF/**",
 					"$(SRCROOT)/../node_modules/react-native-keyboard-manager/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-mail/RNMail",
+					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
 				);
 				INFOPLIST_FILE = palliative_care_app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1634,8 +1683,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.techequipt.dying-to-talk";
 				PRODUCT_NAME = palliative_care_app;
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "e2920fde-d90c-4260-8f1b-512afa3545ca";
+				PROVISIONING_PROFILE_SPECIFIER = "Dying To Talk (Live)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1662,6 +1711,7 @@
 					"$(SRCROOT)/../node_modules/react-native-html-to-pdf/ios/RNHTMLtoPDF/**",
 					"$(SRCROOT)/../node_modules/react-native-keyboard-manager/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-mail/RNMail",
+					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
 				);
 				INFOPLIST_FILE = "palliative_care_app-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1670,6 +1720,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1712,6 +1763,7 @@
 					"$(SRCROOT)/../node_modules/react-native-html-to-pdf/ios/RNHTMLtoPDF/**",
 					"$(SRCROOT)/../node_modules/react-native-keyboard-manager/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-mail/RNMail",
+					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
 				);
 				INFOPLIST_FILE = "palliative_care_app-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1720,6 +1772,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1761,6 +1814,7 @@
 					"$(SRCROOT)/../node_modules/react-native-html-to-pdf/ios/RNHTMLtoPDF/**",
 					"$(SRCROOT)/../node_modules/react-native-keyboard-manager/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-mail/RNMail",
+					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
 				);
 				INFOPLIST_FILE = "palliative_care_app-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1770,6 +1824,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1811,6 +1866,7 @@
 					"$(SRCROOT)/../node_modules/react-native-html-to-pdf/ios/RNHTMLtoPDF/**",
 					"$(SRCROOT)/../node_modules/react-native-keyboard-manager/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-mail/RNMail",
+					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
 				);
 				INFOPLIST_FILE = "palliative_care_app-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1820,6 +1876,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

@@ -1,11 +1,11 @@
 function renderActivities(activities){
-    var activitiesHtml = activities.map((activity, aID) => `
+    var activitiesHtml = activities.map((activity, aID) => activity.isStarted ? `
         <div>
             <h3 class="activityTitle">Activity ${aID + 1}: ${activity.stage}</h3>
             <p class="activityPrecomment">${activity.pre_commencement_text}</p>
             <div class="questions">
                 ${activity.questions.map((questionData, qID) => {
-                    const {question, question_type, question_choices, answerData} = questionData;
+                    const {question, question_type, question_choices, answerData, answerLater, neverAnswer} = questionData;
                     const answerList = question_choices.split("\r\n")
                     var response = ""
                     if (answerData != null)
@@ -32,11 +32,14 @@ function renderActivities(activities){
                         <div>
                             <h4 class="question">Q${qID + 1}: ${question}</h4>
                             ${response}
+                            <div>
+                                ${answerLater ? "Answer later" : neverAnswer ? "Never answer" : ""}
+                            </div>
                         </div>
                     `}).join('')}
             </div>
         </div>
-    `).join('')
+    ` : '').join('')
     return activitiesHtml
 }
 

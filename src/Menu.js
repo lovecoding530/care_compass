@@ -1,21 +1,46 @@
 import React, { Component } from 'react';
-import { View, StatusBar, StyleSheet, Image, ImageBackground, TouchableOpacity, ScrollView, SafeAreaView} from 'react-native';
+import { View, Alert, StyleSheet, Image, ImageBackground, TouchableOpacity, ScrollView, SafeAreaView} from 'react-native';
 import { Colors, Images, FontSizes } from './theme';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Text from '@text'
-import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 import { deviceWidth, deviceHeight, windowHeight } from "@ResponsiveDimensions";
 import { NavigationActions } from 'react-navigation';
+import store from './Store';
+import { ArrowText } from "@components";
 
-var currentRoute = null
-
-// StatusBar.setHidden(true);
+const CHECK_ROUTES = ['DiscussionStarter', 'CardGame']
 export default class Menu extends Component {
-    goto(route){
+    goto(routeName){
         this.props.navigation.navigate("DrawerClose")
-        setTimeout(() => {
-            this.props.navigation.navigate(route)
-        }, 500);
+        if (store.activeRoute == routeName) return
+
+        let goToRoute = (routeName) => {
+            setTimeout(() => {
+                var key = `${routeName} ${store.routesInStack.length}`
+                store.activeRoute = routeName
+                store.routesInStack.push(key)
+                this.props.navigation.navigate({routeName, key})
+            }, 500);
+        }
+
+        if(CHECK_ROUTES.includes(store.activeRoute)){
+            setTimeout(()=>{
+                const {navigate, goBack} = this.props.navigation
+                Alert.alert(
+                    'Are you sure?',
+                    'Any information you have entered will be deleted.',
+                    [
+                        {text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                        {text: 'YES', onPress: () => {
+                            goToRoute(routeName)
+                        }},
+                    ],
+                    { cancelable: false }
+                )
+            }, 500)
+        }else{
+            goToRoute(routeName)
+        }
     }
 
     goBackToOnboarding(){
@@ -32,44 +57,44 @@ export default class Menu extends Component {
     render() {
         return (
             <ScrollView contentContainerStyle={styles.container} style={{backgroundColor: Colors.darkNavy}}>
-                <ImageBackground source={Images.bg_splash_onboarding} style={styles.logo}>
-                    <View style={styles.opacityView}>
-                        <Image source={Images.icon_dying_to_talk} style={styles.icon_dtt}/>
-                    </View>
-                </ImageBackground>
+                <View style={styles.circle_above}>
+                    <Image source={Images.dtt_blue} style={styles.logo}/>
+                </View>
                 <View style={styles.menu}>
-                    <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('DiscussionStarter')}>
-                        <Text light>Use Discussion Starter <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('CardGame')}>
-                        <Text light>Start Discussion Cards <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('GetHelp')}>
-                        <Text light>Looking after yourself <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('UserGuides')}>
-                        <Text light>App instructions <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('Resources')}>
-                        <Text light>Resource library <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
-                    </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem}>
-                        <Text light>Take a quick survey <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuItem}>
-                        <Text light>About this app <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <ArrowText light bold color={Colors.white}>About this app</ArrowText>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem} onPress={()=>this.goBackToOnboarding()}>
-                        <Text light>Welcome slides <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <ArrowText light bold color={Colors.white}>Welcome slides</ArrowText>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('DiscussionStarter')}>
+                        <ArrowText light bold color={Colors.white}>Use discussion starter</ArrowText>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('CardGame')}>
+                        <ArrowText light bold color={Colors.white}>Start discussion cards</ArrowText>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('UserGuides')}>
+                        <ArrowText light bold color={Colors.white}>App instructions</ArrowText>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('Resources')}>
+                        <ArrowText light bold color={Colors.white}>Resource library</ArrowText>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.menuItem} onPress={()=>this.goto('GetHelp')}>
+                        <ArrowText light bold color={Colors.white}>Looking after yourself</ArrowText>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuItem}>
-                        <Text light>Support / FAQ <Icon name="arrow-right" size={FontSizes.smallMedium}/></Text>
+                        <ArrowText light bold color={Colors.white}>Take our survey</ArrowText>
                     </TouchableOpacity>
                 </View>
                 <Image  
                     source={Images.logo_footer} 
                     resizeMode={"contain"}
-                    style={{width: deviceHeight(20), height: deviceHeight(5), tintColor: '#fff', alignSelf: 'center'}}
+                    style={{width: deviceHeight(20), height: deviceHeight(5), marginBottom: deviceWidth(1), alignSelf: 'center'}}
+                />
+                <Image  
+                    source={Images.flying_doctor_logo} 
+                    resizeMode={"contain"}
+                    style={{width: deviceHeight(20), height: deviceHeight(5.5), marginBottom: deviceWidth(1), alignSelf: 'center'}}
                 />
                 <SafeAreaView style={{backgroundColor: Colors.darkNavy}}>
                     <View style={styles.footer}>
@@ -87,15 +112,21 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.Navy,
     },
 
-    logo: {
-        height: deviceHeight(20),
-    },
-
-    opacityView: {
+    circle_above: {
+        width: deviceWidth(30),
+        height: deviceWidth(30),
+        borderRadius: deviceWidth(15),
+        backgroundColor: '#fff',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#0009',
-        flex: 1,
+        alignSelf: 'center',
+        marginTop: deviceWidth(5),
+    },
+
+    logo: {
+        width: deviceWidth(23),
+        height: deviceWidth(23),
+        resizeMode: 'contain',
     },
 
     icon_dtt: {
@@ -108,16 +139,15 @@ const styles = StyleSheet.create({
     },
 
     menuItem: {
-        paddingVertical: deviceWidth(2),
+        paddingVertical: deviceWidth(1.2),
     },
 
     footer: {
-        marginTop: 8,
-        padding: 8,
+        paddingHorizontal: 8,
         backgroundColor: Colors.darkNavy,
         justifyContent: 'center',
         alignItems: 'center',
-        height: deviceHeight(7),
+        height: deviceHeight(5),
     },
 
     text_footer: {

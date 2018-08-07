@@ -32,46 +32,25 @@ export default MediaQueryStyleSheet.create({
     },
 
     item: {
-        backgroundColor: Colors.backgroundSecondary,
-        borderRadius: deviceWidth(1.2),
-        borderTopWidth: deviceWidth(1.2),
-        shadowColor: '#000',
-        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
-        shadowOpacity: 0.5,
-        shadowRadius: 0,
-        margin: 8,        
+        margin: 8,
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 16,
-    },
-
-    right_item: {
-        borderTopColor: Colors.Red,
-    },
-    
-    left_item: {
-        borderTopColor: Colors.Navy,
     },
 
     survey_item: {
-        borderTopColor: Colors.Navy,
-        flex: 0.4,
+        flex: 0.25,
     },
 
     right_item_text: {
-        color: Colors.Red,
+        fontSize: deviceHeight(2.7)
     },
     
     left_item_text: {
-        color: Colors.Navy,
     },
     
     right_icon: {
         width: '60%',
         height: '60%',
         resizeMode: 'contain', 
-        tintColor: Colors.Red,
         marginVertical: 20,
     },
 
@@ -79,7 +58,6 @@ export default MediaQueryStyleSheet.create({
         width: '60%',
         height: '60%',
         resizeMode: 'contain', 
-        tintColor: Colors.Navy,
         marginVertical: 20,
     }
 }, {
