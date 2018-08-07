@@ -45,6 +45,7 @@ export default MediaQueryStyleSheet.create({
     width:deviceWidth(40),
   },
   descText: {
+    // height: '100%',
     fontSize:deviceHeight(2.0),
     textAlign:'center',
     color:Colors.Navy,
@@ -112,8 +113,8 @@ export default MediaQueryStyleSheet.create({
   },
   textView:{
     backgroundColor:Colors.white,
-    paddingHorizontal: deviceWidth(5),
-    paddingVertical:deviceHeight(1),
+    paddingHorizontal: deviceWidth(2),
+    // paddingVertical:deviceHeight(1),
     height:deviceWidth(15),
     width:deviceWidth(70),
     alignItems:'center',

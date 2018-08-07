@@ -441,7 +441,7 @@ export default class OnBoarding extends Component {
                 <Image style={[Styles.middleicon]}  resizeMode='contain' source={Images.onboarding_icon_logo}/>
               </ImageBackground>
               <View style={[Styles.textView]}>
-                <Text  smallMedium style={Styles.descText}>This app will help start conversations around end-of-life wishes and planning.</Text>
+                <Text smallMedium style={Styles.descText}>This app will help start conversations around end-of-life wishes and planning.</Text>
               </View>
             </View>
             <View style={[Styles.slide,{width:width}]} >
@@ -449,7 +449,7 @@ export default class OnBoarding extends Component {
                 <Image style={[Styles.middleicon]}  resizeMode='contain' source={Images.onboarding_icon_discussion}/>
               </ImageBackground>
               <View style={[Styles.textView]}>
-                <Text  smallMedium style={Styles.descText}>The discussion starter will guide you through talking about how you want to be cared for at the end of your life.</Text>
+                <Text  smallMedium  style={Styles.descText}>The discussion starter will guide you through talking about how you want to be cared for at the end of your life.</Text>
               </View>
             </View>
             <View style={[Styles.slide,{width:width}]} >
