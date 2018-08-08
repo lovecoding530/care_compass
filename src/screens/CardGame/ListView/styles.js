@@ -10,24 +10,36 @@ import { MediaQueryStyleSheet } from "react-native-responsive";
 import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
 
 export default MediaQueryStyleSheet.create({
+    background: {
+        flex: 1,
+    },
 
     container: {
-        flex: 1, 
-        backgroundColor: Colors.backgroundPrimary,
+        flexGrow: 1, 
         paddingHorizontal: deviceWidth(8),
     },
 
+    titleView: {
+        marginVertical: deviceWidth(3),
+        marginHorizontal: deviceWidth(1),
+    },
+
     title: {
-        marginVertical: deviceWidth(2),
+        marginTop: deviceWidth(1),
+        fontWeight: '300',
+    },
+
+    flatList: {
+        paddingHorizontal: deviceWidth(1)
     },
 
     cardItem: {
-        marginBottom: deviceWidth(4),
+        marginBottom: deviceWidth(2),
     },
 
     question: {
-        flexDirection: 'row',
-        marginBottom: deviceWidth(2),
+        fontWeight: '600',
+        marginVertical: deviceWidth(2),
     },
 
     questionView: {
@@ -45,40 +57,56 @@ export default MediaQueryStyleSheet.create({
     },
 
     levelBar: {
-        justifyContent: 'space-between',
+        flexDirection: 'row',
     },
 
     levelItem: {
-        backgroundColor: Colors.backgroundThird,
+        flex: 1,
+        backgroundColor: Colors.Blue,
         flexDirection: 'row',
-        marginLeft: deviceHeight(1.5),
+        marginHorizontal: 4,
         justifyContent: 'center',
         alignItems: 'center',
         padding: deviceWidth(1),
-        width: deviceHeight(15.5),
     },
 
     levelIcon: {
         width: deviceHeight(2.3),
         height: deviceHeight(2.3),
         marginHorizontal: 4,
+        tintColor: Colors.Navy
     },
 
     progress: {
-        marginVertical: deviceWidth(4),
+        flex: 1,
+        flexDirection: 'row',
+        width: '75%',
+        alignItems: 'center',
+        marginVertical: deviceWidth(1),
     },
 
     progressBar: {
-        marginHorizontal: deviceWidth(6.6),
+        flex: 1,
         marginVertical: deviceWidth(1.2),
     },
 
     buttonBar: {
         flexDirection: 'row',
-        justifyContent: 'center',
-        marginVertical: deviceWidth(2),
+        justifyContent: 'space-between',
+        backgroundColor: '#E6E0D4',
+        paddingHorizontal: deviceWidth(8),
     },
 
+    sound_btn: {
+        position: 'absolute',
+        top: deviceWidth(1),
+        right: deviceWidth(1),
+    },
+
+    sound: {
+        width: deviceHeight(2),
+        height: deviceHeight(2)
+    }
 }, {
     [MediaQueries.iPad] : {
         container: {

@@ -5,12 +5,13 @@ import {
     Image,
     View,
     ScrollView,
+    ImageBackground, 
 } from 'react-native';
 
-import {Colors} from '@theme';
+import {Colors, Images} from '@theme';
 import Styles from './styles';
 import Text from '@text'
-import { Loader, Button } from '@components';
+import {Button, Loader, Card} from '@components'
 
 import { getCardGame } from "@api";
 
@@ -48,23 +49,27 @@ export default class intro extends Component {
     render() {
         const {navigate} = this.props.navigation
         return (
-            <View style={Styles.container}>
+            <ImageBackground source={Images.bg_navigation} style={Styles.container}>
                 <Loader loading={this.state.loaderVisible}/>
                 <ScrollView contentContainerStyle={Styles.introContainer}>
-                    <Text mediumLarge bold style={Styles.title}>Card Game</Text>
-                    <Text medium bold style={Styles.subtitle}>
-                        {this.state.cardGame.title}
-                    </Text>
-                    <Image style={Styles.icon}/>
-                    <Text style={Styles.intro}>
-                        {this.state.cardGame.description}
-                    </Text>
-                    <View style={Styles.buttonBar}>
-                        <Button dark 
-                            onPress={()=>{navigate("CDSingleView", {cardIndex: 0, cardGame: this.state.cardGame})}}>{"  PLAY  "}</Button>
-                    </View>
+                    <Card topbar style={Styles.titleView}>
+                        <Text mediumLarge center color={Colors.Red} style={Styles.title}>Discussion cards</Text>
+                        <Text medium bold style={Styles.subtitle} color={Colors.Navy}>
+                            {this.state.cardGame.title}
+                        </Text>
+                    </Card>
+                    <Card style={Styles.descView}>
+                        <Image source={Images.cardgame} style={Styles.icon}/>
+                        <Text style={Styles.intro}>
+                            {this.state.cardGame.description}
+                        </Text>
+                    </Card>
                 </ScrollView>
-            </View>
+                <View style={Styles.buttonBar}>
+                    <View style={{flex: 1}}/>
+                    <Button dark bold onPress={()=>{navigate("CDSingleView", {cardIndex: 0, cardGame: this.state.cardGame})}}>Start discussion cards</Button>
+                </View>
+            </ImageBackground>
         );
     }
 }
