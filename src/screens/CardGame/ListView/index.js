@@ -13,7 +13,7 @@ import {
 import {Colors, Images} from '@theme';
 import Styles from './styles';
 
-import { Card, ProgressBar, Text, Button } from '@components';
+import { Card, ProgressBar, Text, Button, InfoAlert } from '@components';
 import { copy } from '@utils';
 import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
 import {playSounds} from '@utils'
@@ -28,6 +28,7 @@ export default class ListView extends Component {
             pageTotalCount,
             pageIndex: 0,
             currentCards: this.cardsInPage(cardGame.cards, 0),
+            info: "",
         })
     }
 
@@ -90,9 +91,14 @@ export default class ListView extends Component {
 
         return (
             <Card style={Styles.cardItem}>
+                {item.additional_info && 
+                <TouchableOpacity onPress={()=>{this.setState({info: item.additional_info})}} style={Styles.info_btn}>
+                    <Image source={Images.more_info} style={Styles.info_icon}/>
+                </TouchableOpacity>
+                }
                 <TouchableOpacity onPress={()=>{playSounds([item.question_audio_url])}} style={Styles.sound_btn}>
                     <Image source={Images.sound} style={Styles.sound}/>
-                </TouchableOpacity>  
+                </TouchableOpacity>
                 <Text bold center color={Colors.Olive} style={Styles.howImportant}>How important is...</Text>
                 <Text medium center style={Styles.question}>{item.question}</Text>
                 <View style={Styles.levelBar}>
@@ -158,6 +164,12 @@ export default class ListView extends Component {
                         <Button dark bold onPress={this.onDone}>Done</Button>    
                     }
                 </View>
+                <InfoAlert
+                    visible={Boolean(this.state.info)} 
+                    icon={Images.more_info}
+                    message={this.state.info}
+                    onCancel={()=>{this.setState({info: ""})}}
+                />
             </ImageBackground>
         );
     }

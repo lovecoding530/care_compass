@@ -68,9 +68,10 @@ const styles = StyleSheet.create({
     },
 
     icon: {
+        resizeMode: 'contain',
         width: 64,
         height: 64,
-        tintColor: Colors.Olive,
+        // tintColor: Colors.Olive,
         marginVertical: 5,
     }
 })
