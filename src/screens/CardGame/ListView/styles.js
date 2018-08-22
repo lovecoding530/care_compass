@@ -106,6 +106,20 @@ export default MediaQueryStyleSheet.create({
     sound: {
         width: deviceHeight(2),
         height: deviceHeight(2)
+    },
+
+    info_btn: {
+        position: 'absolute',
+        top: deviceWidth(1),
+        left: deviceWidth(1),
+        backgroundColor: Colors.Blue,
+        borderRadius: deviceHeight(1),
+    },
+
+    info_icon: {
+        resizeMode: 'contain',
+        width: deviceHeight(2),
+        height: deviceHeight(2)
     }
 }, {
     [MediaQueries.iPad] : {
