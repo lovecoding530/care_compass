@@ -5,10 +5,15 @@ const images = {
     levelSomewhat : require('../../assets/images/level_somewhat.png'),
     levelVery : require('../../assets/images/level_very.png'),
 
+    levelNotBlue : require('../../assets/images/icon-not-blue.png'),
+    levelSomewhatBlue : require('../../assets/images/icon-somewhat-blue.png'),
+    levelVeryBlue : require('../../assets/images/icon-very-blue.png'),
+
     threeDots : require('../../assets/images/three_dots.png'),
 
-    star : require('../../assets/images/star.png'),
-    starEmpty : require('../../assets/images/star_empty.png'),
+    star : require('../../assets/images/icon-star-selected.png'),
+    starWhite : require('../../assets/images/icon-star-white.png'),
+    starEmpty : require('../../assets/images/icon-star.png'),
 
     skip : require('../../assets/images/skip.png'),
 
@@ -35,7 +40,8 @@ const images = {
     icon_community: require('../../assets/images/icon-community.png'),
     iocn_lookig_after_yourself: require('../../assets/images/iocn-lookig-after-yourself.png'),
     icon_loader: require('../../assets/images/icon-loader.png'),
-    
+    icon_info_blue: require('../../assets/images/icon-info-blue.png'),
+
     logo_footer: require('../../assets/images/pca-logo-footer.png'),
     pca_logo: require('../../assets/images/pca-logo.png'),
 

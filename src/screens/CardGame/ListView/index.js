@@ -93,7 +93,7 @@ export default class ListView extends Component {
             <Card style={Styles.cardItem}>
                 {item.additional_info && 
                 <TouchableOpacity onPress={()=>{this.setState({info: item.additional_info})}} style={Styles.info_btn}>
-                    <Image source={Images.more_info} style={Styles.info_icon}/>
+                    <Image source={Images.icon_info_blue} style={Styles.info_icon}/>
                 </TouchableOpacity>
                 }
                 <TouchableOpacity onPress={()=>{playSounds([item.question_audio_url])}} style={Styles.sound_btn}>
@@ -166,7 +166,7 @@ export default class ListView extends Component {
                 </View>
                 <InfoAlert
                     visible={Boolean(this.state.info)} 
-                    icon={Images.more_info}
+                    icon={Images.icon_info_blue}
                     message={this.state.info}
                     onCancel={()=>{this.setState({info: ""})}}
                 />
