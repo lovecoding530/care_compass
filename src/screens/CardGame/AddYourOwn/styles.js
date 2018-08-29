@@ -9,7 +9,7 @@ import {Colors, FontSizes, MediaQueries} from '@theme';
 import { MediaQueryStyleSheet } from "react-native-responsive";
 import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
 
-export default MediaQueryStyleSheet.create({
+export default {
     background: {
         flex: 1,
     },
@@ -24,7 +24,7 @@ export default MediaQueryStyleSheet.create({
     },
 
     title: {
-        marginTop: deviceWidth(1),
+        margin: deviceWidth(2),
         fontWeight: '300',
     },
 
@@ -124,19 +124,18 @@ export default MediaQueryStyleSheet.create({
     sound: {
         width: deviceHeight(2),
         height: deviceHeight(2)
-    }
-
-}, {
-    [MediaQueries.iPad] : {
-        container: {
-            flexGrow: 1, 
-            paddingHorizontal: deviceWidth(12),
-        },
     },
-    [MediaQueries.iPhone] : {
-        container: {
-            flexGrow: 1, 
-            paddingHorizontal: deviceWidth(8),
-        },
-    }
-});
+
+    textArea: {
+        flex: 1,
+        width: '100%',
+        backgroundColor: Colors.backgroundSecondary,
+        height: deviceWidth(16),
+        color: Colors.textPrimary,
+        fontSize: FontSizes.smallMedium,
+        padding: deviceWidth(1.2),
+        borderWidth: 1,
+        borderColor: '#222222',
+        marginTop: deviceWidth(1),
+    },
+};

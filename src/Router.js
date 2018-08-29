@@ -16,7 +16,7 @@ import Splash from "./screens/Splash";
 import OnBoarding from "./screens/OnBoarding";
 import Home from "./screens/Home";
 import {DSIntro, ActivityList, Activity, UpNext, Complete} from "./screens/DiscussionStarter";
-import {CDIntro, CDSingleView, CDListView, CDSummary} from "./screens/CardGame";
+import {CDIntro, CDSingleView, CDListView, CDSummary, CDAddYourOwn} from "./screens/CardGame";
 import {ResourceList, ResourceDetail} from "./screens/Resources";
 import {UserGuidesList,UserGuidesDetail,DiscussionAndCardDetail} from "./screens/UserGuides";
 import {GetHelpList, GetHelpDetail, LookAfterYourself} from "./screens/GetHelp";
@@ -160,6 +160,7 @@ export const CardGameStack = StackNavigator({
     CDSingleView: {screen: CDSingleView},
     CDListView: {screen: CDListView},
     CDSummary: {screen: CDSummary},
+    CDAddYourOwn: {screen: CDAddYourOwn},
 }, {
     navigationOptions: ({ navigation }) => ({
         headerTitle: <HeaderTitle/>,

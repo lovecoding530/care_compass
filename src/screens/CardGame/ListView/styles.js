@@ -112,8 +112,6 @@ export default MediaQueryStyleSheet.create({
         position: 'absolute',
         top: deviceWidth(1),
         left: deviceWidth(1),
-        backgroundColor: Colors.Blue,
-        borderRadius: deviceHeight(1),
     },
 
     info_icon: {
