@@ -100,7 +100,6 @@ export async function getBundle() {
 }
 
 export async function getDiscussionStarter() {
-  const res = await getJSONwithCache(ApiDefinitions.discussion_starter);
   return await getJSONwithCache(ApiDefinitions.discussion_starter);
 }
 
@@ -114,4 +113,11 @@ export async function getResources() {
 
 export async function getLookingAfterYourself() {
   return await getJSONwithCache(ApiDefinitions.looking_after_yourself);
+}
+
+export async function getApiData(key) {
+  if (key in ApiDefinitions) {
+    return await getJSONwithCache(key);
+  }
+  return null;
 }
