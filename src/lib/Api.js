@@ -111,3 +111,7 @@ export async function getCardGame() {
 export async function getResources() {
   return await getJSONwithCache(ApiDefinitions.resources);
 }
+
+export async function getLookingAfterYourself() {
+  return await getJSONwithCache(ApiDefinitions.looking_after_yourself);
+}
