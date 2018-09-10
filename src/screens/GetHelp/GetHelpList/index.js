@@ -17,7 +17,7 @@ import Text from '@text'
 import Footer from '@footer'
 import Button from '@button'
 import { Loader } from '@components';
-import { getGetHelp,updateTimeInterval,API_HTML_ROOT } from "@api";
+import { getGetHelp,updateTimeInterval,API_HTML_ROOT } from "@apiNew";
 import Communications from 'react-native-communications';
 import moment from 'moment';
 var { width,height } = Dimensions.get('window');
@@ -38,7 +38,7 @@ export default class GetHelpList extends Component {
     }
 
     async componentDidMount() {
-        try 
+        try
             {
                 let value = await AsyncStorage.getItem('lastRefereshTimeGetHelp');
 
@@ -84,11 +84,11 @@ export default class GetHelpList extends Component {
                             tagline : ds[0].tagline,
                             loaderVisible: false
                         })
-                    }   
+                    }
                 }
                 else {
                     var currrentTime = moment(new Date()).format("HH:mm:ss");
-                    await AsyncStorage.setItem('lastRefereshTimeGetHelp', currrentTime); 
+                    await AsyncStorage.setItem('lastRefereshTimeGetHelp', currrentTime);
                     const ds = await getGetHelp()
                     const gethelp = ds[0].services
 
@@ -103,7 +103,7 @@ export default class GetHelpList extends Component {
                         tagline : ds[0].tagline,
                         loaderVisible: false
                     })
-                } 
+                }
             }
             catch (error) {
               // Error retrieving data
@@ -117,7 +117,7 @@ export default class GetHelpList extends Component {
 
     renderGetHelpItem({item, index}){
         const {navigate} = this.props.navigation
-      
+
         return (
             <View style={[Styles.listitem,{ width : width/1.3,}]} onLayout={this.onLayout.bind(this)}>
                     <View style={Styles.listitemTopView}>
@@ -188,7 +188,7 @@ export default class GetHelpList extends Component {
 
             setTimeout(() => {
                     this.refs.scrollView.scrollTo({y: this.state.Y})
-            }, 10)  
+            }, 10)
         }
     }
 
@@ -200,7 +200,7 @@ export default class GetHelpList extends Component {
 
             setTimeout(() => {
                 this.refs.scrollView.scrollTo({y: this.state.Y})
-            }, 10)  
+            }, 10)
         }
     }
 
@@ -217,7 +217,7 @@ export default class GetHelpList extends Component {
     render() {
         return (
             <View style={Styles.container} onLayout={this.onLayout.bind(this)}>
-                <View style={[Styles.scrollcontainer,{paddingHorizontal:width/25}]}> 
+                <View style={[Styles.scrollcontainer,{paddingHorizontal:width/25}]}>
                         <ScrollView contentContainerStyle={[Styles.scroll,{marginLeft:width/20}]} ref="scrollView" onScroll={this.onScroll.bind(this)} scrollEnabled={false}>
                             <Loader loading={this.state.loaderVisible}/>
 
@@ -227,7 +227,7 @@ export default class GetHelpList extends Component {
                                     {this.state.tagline}
                                 </Text>
                             </View>
-                                
+
                             <FlatList
                                 scrollEnabled={false}
                                 data = {this.state.gethelpIndexes}
@@ -235,7 +235,7 @@ export default class GetHelpList extends Component {
                                 renderItem = {this.renderGetHelpItem.bind(this)}
                                 keyExtractor = {(index) => index.toString()}
                             />
-                          
+
                         </ScrollView>
 
                         <View style={{justifyContent:'space-between'}}>
@@ -246,7 +246,7 @@ export default class GetHelpList extends Component {
                                  <Image style={{width:orientation === 'PORTRAIT' ? width/15 : height/15,height: orientation === 'PORTRAIT' ? width/15 : height/15,marginTop:height/35,marginBottom:height/40, }} source={require('../../../../assets/images/down_arrow.png')}/>
                             </TouchableOpacity>
                         </View>
-                  
+
                 </View>
             </View>
         );

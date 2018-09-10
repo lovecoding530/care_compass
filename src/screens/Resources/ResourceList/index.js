@@ -15,7 +15,7 @@ import Styles from './styles';
 import Text from '@text'
 import Footer from '@footer'
 import { Loader } from '@components';
-import { getResources,updateTimeInterval } from "@api";
+import { getResources,updateTimeInterval } from "@apiNew";
 import moment from 'moment'
 import {Colors, Images, FontSizes} from '@theme';
 import { MediaQuery } from "react-native-responsive";
@@ -31,12 +31,12 @@ export default class Resources extends Component {
     }
 
     async componentDidMount() {
-        // try 
+        // try
         // {
         //     let value = await AsyncStorage.getItem('lastRefereshTimeResource');
 
         //     if (value != null){
-        //         // do something 
+        //         // do something
         //         var currrentTime = moment(new Date()).format("HH:mm:ss");
         //         var startTime=moment(value, "HH:mm:ss");
         //         var endTime=moment(currrentTime, "HH:mm:ss");
@@ -74,7 +74,7 @@ export default class Resources extends Component {
         //             this.setState({
         //                 resourceIndexes: resourceIndexes,
         //             })
-        //         }   
+        //         }
         //     }
         //     else {
         //         // do something else
@@ -83,7 +83,7 @@ export default class Resources extends Component {
         //             })
 
         //         var currrentTime = moment(new Date()).format("HH:mm:ss");
-        //         await AsyncStorage.setItem('lastRefereshTimeResource', currrentTime); 
+        //         await AsyncStorage.setItem('lastRefereshTimeResource', currrentTime);
         //         const ds = await getResources()
 
         //         var resourceIndexes = [];
@@ -95,12 +95,12 @@ export default class Resources extends Component {
         //             resourceIndexes: resourceIndexes,
         //             loaderVisible: false
         //         })
-        //     } 
+        //     }
         // }
         // catch (error) {
         //     // Error retrieving data
         // }
-        
+
         var json = await getResources(true)
         if(!json){
             this.setState({loaderVisible: true})
@@ -115,25 +115,25 @@ export default class Resources extends Component {
             resourceIndexes.push(resources[i]);
         }
         this.setState({resourceIndexes})
-    
+
     }
 
     renderResourceItem({item, index}){
         const {navigate} = this.props.navigation
         return (
-            
+
                 <TouchableOpacity style={Styles.item} onPress={()=>{navigate("ResourceDetail", {resourceIndex: index})}}>
                             <View style={Styles.cardView}>
                                 <Text smallmedium bold style={Styles.cardtitle}>{item.title}</Text>
                                 <Image source={Images.icon_left_arrow} resizeMode='contain' />
                             </View>
                 </TouchableOpacity>
-        
+
         )
     }
 
     render() {
-        return ( 
+        return (
 
             <ImageBackground source={Images.bg_more_information} resizeMode="stretch" style={Styles.container} >
 
@@ -166,7 +166,7 @@ export default class Resources extends Component {
                     </MediaQuery>
 
                 </ScrollView>
-            </ImageBackground> 
+            </ImageBackground>
         );
     }
 }

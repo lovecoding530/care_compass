@@ -15,7 +15,7 @@ import {
 import Styles from './styles';
 import Footer from '@footer'
 import {Button, Loader, Card, Text} from '@components'
-import { getUserGuides,updateTimeInterval } from "@api";
+import { getUserGuides,updateTimeInterval } from "@apiNew";
 import moment from 'moment';
 import {Colors, Images, FontSizes} from '@theme';
 import { MediaQuery } from "react-native-responsive";
@@ -34,12 +34,12 @@ export default class UserGuidesList extends Component {
     }
 
     async componentDidMount() {
-        // try 
+        // try
         // {
         //     let value = await AsyncStorage.getItem('lastRefereshTimeUserGuide');
 
         //     if (value != null){
-        //       // do something 
+        //       // do something
 
         //         var currrentTime = moment(new Date()).format("HH:mm:ss");
         //         var startTime=moment(value, "HH:mm:ss");
@@ -82,7 +82,7 @@ export default class UserGuidesList extends Component {
         //                 userguideIndexes: userguideIndexes,
         //                 loaderVisible: false
         //             })
-        //         }   
+        //         }
         //     }
         //     else {
         //       // do something else
@@ -91,7 +91,7 @@ export default class UserGuidesList extends Component {
         //         })
 
         //         var currrentTime = moment(new Date()).format("HH:mm:ss");
-        //         await AsyncStorage.setItem('lastRefereshTimeUserGuide', currrentTime); 
+        //         await AsyncStorage.setItem('lastRefereshTimeUserGuide', currrentTime);
         //         const ds = await getUserGuides()
         //         const userguides = ds[0].guides
 
@@ -104,7 +104,7 @@ export default class UserGuidesList extends Component {
         //             userguideIndexes: userguideIndexes,
         //             loaderVisible: false
         //         })
-        //     } 
+        //     }
         // }
         // catch (error) {
         //   // Error retrieving data
@@ -198,7 +198,7 @@ export default class UserGuidesList extends Component {
     }
 
     render() {
-       
+
         return (
             <ImageBackground source={Images.bg_how_to} resizeMode="stretch" style={Styles.container} >
 
@@ -235,7 +235,7 @@ export default class UserGuidesList extends Component {
                     <Button light bold onPress={ ()=> this.props.navigation.navigate('Home') } >Go back</Button>
                 </View>
             </ImageBackground>
-          
+
         );
     }
 }

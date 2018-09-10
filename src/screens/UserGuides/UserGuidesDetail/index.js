@@ -17,7 +17,7 @@ import Styles from './styles';
 import Footer from '@footer'
 import {Colors, Images, FontSizes} from '@theme';
 import {Button, Card, Text} from '@components'
-import { getUserGuides, API_HTML_ROOT } from "@api";
+import { getUserGuides, API_HTML_ROOT } from "@apiNew";
 import HTMLView from 'react-native-htmlview';
 const { width,height } = Dimensions.get('window');
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
@@ -59,7 +59,7 @@ function renderNode(node, index, siblings, parent, defaultRenderer) {
                     />
                 );
             }
-            
+
         }
     }
     else
@@ -70,8 +70,8 @@ function renderNode(node, index, siblings, parent, defaultRenderer) {
             var iframeHtml = `<iframe src=\"${atribute.src}" width=\"${width/1.7}\" frameborder=\"0\" allow=\"autoplay; encrypted-media\" allowfullscreen></iframe>`;
             return (
               <View key={index} style={{height: height/4.3,}}>
-                <WebView 
-                    source={{html: iframeHtml}} 
+                <WebView
+                    source={{html: iframeHtml}}
                     style={{backgroundColor: Colors.backgroundPrimary}}
                     javaScriptEnabled={true}
                     domStorageEnabled={true}/>
@@ -139,7 +139,7 @@ export default class UserGuidesDetail extends Component {
                body : userguide.body,
                faqs : userguide.faqs,
                 image: API_HTML_ROOT + userguide.featured_image.url,
-            }) 
+            })
         }
 
     }
@@ -184,7 +184,7 @@ export default class UserGuidesDetail extends Component {
     }
 
 
-    render() {   
+    render() {
 
         return (
             <ImageBackground source={Images.bg_how_to} resizeMode="stretch" style={Styles.container} >
@@ -204,14 +204,14 @@ export default class UserGuidesDetail extends Component {
                             />
                         </View>
 
-                        {this.state.image == '' ? null 
-                            
+                        {this.state.image == '' ? null
+
                             : <View style={Styles.viewImage}>
                                 <Image style={[Styles.middleimage]} source={{uri: this.state.image}} resizeMode='stretch'/>
-                              </View>  
+                              </View>
                         }
-                        
-                        {this.state.faqs.length == 0 ? null 
+
+                        {this.state.faqs.length == 0 ? null
                             : <View>
                                 <View style={Styles.faqTitle}>
                                     <Text bold >FAQ</Text>
@@ -225,15 +225,15 @@ export default class UserGuidesDetail extends Component {
                                 />
                             </View>
                         }
-                       
+
                     </Card>
-                </ScrollView> 
+                </ScrollView>
                 <View style={Styles.buttonBar}>
                     <Button light bold onPress={ ()=> this.props.navigation.goBack() } >Go back</Button>
                     <Button dark  bold onPress={this._share} >Share</Button>
                 </View>
-                <SharedModal 
-                    visible={this.state.modalVisible} 
+                <SharedModal
+                    visible={this.state.modalVisible}
                     onCancel={this.closeModal.bind(this)}
                     />
             </ImageBackground>
