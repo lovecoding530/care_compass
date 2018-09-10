@@ -15,7 +15,7 @@ import {
 import Styles from './styles';
 import Footer from '@footer'
 import {Button, Loader, Card, Text} from '@components'
-import { getUserGuides,updateTimeInterval } from "@apiNew";
+import { getUserGuides,updateTimeInterval } from "@api";
 import moment from 'moment';
 import {Colors, Images, FontSizes} from '@theme';
 import { MediaQuery } from "react-native-responsive";

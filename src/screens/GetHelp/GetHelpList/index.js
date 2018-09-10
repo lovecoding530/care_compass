@@ -17,7 +17,7 @@ import Text from '@text'
 import Footer from '@footer'
 import Button from '@button'
 import { Loader } from '@components';
-import { getGetHelp,updateTimeInterval,API_HTML_ROOT } from "@apiNew";
+import { getGetHelp,updateTimeInterval,API_HTML_ROOT } from "@api";
 import Communications from 'react-native-communications';
 import moment from 'moment';
 var { width,height } = Dimensions.get('window');

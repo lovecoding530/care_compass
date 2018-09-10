@@ -1,5 +1,5 @@
 /**
- * @providesModule @apiNew
+ * @providesModule @api
  */
 
 import { Platform, AsyncStorage, NetInfo } from 'react-native';

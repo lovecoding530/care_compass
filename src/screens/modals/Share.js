@@ -4,7 +4,7 @@ import { Colors } from "@theme";
 import Button from "@button";
 import Text from "@text";
 
-import { getDiscussionStarter } from "@apiNew";
+import { getDiscussionStarter } from "@api";
 
 export default (Share = props => {
   return (

@@ -16,7 +16,7 @@ import {
 import { Colors, Images } from "@theme";
 import Styles from "./styles";
 
-import { postCardGameAnswers } from "@apiNew";
+import { postCardGameAnswers } from "@api";
 import { Loader, Button, ImageButton, Text, Card } from "@components";
 import { copy } from "@utils";
 import { deviceWidth, deviceHeight } from "@ResponsiveDimensions";

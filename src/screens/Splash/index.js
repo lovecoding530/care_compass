@@ -4,7 +4,7 @@ import { MySpinner } from "@components";
 
 import { Images } from "@theme";
 import Styles from "./styles";
-import { getBundle } from "@apiNew";
+import { getBundle } from "@api";
 import { deviceWidth, deviceHeight } from "@ResponsiveDimensions";
 
 export default class Splash extends Component {

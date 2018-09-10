@@ -10,7 +10,7 @@ import {
   windowWidth
 } from "@ResponsiveDimensions";
 
-import { getDiscussionStarter } from "@apiNew";
+import { getDiscussionStarter } from "@api";
 
 export default (Downloaded = props => {
   return (
