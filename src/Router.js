@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import { Dimensions, Image, StyleSheet, TouchableOpacity, View, SafeAreaView } from 'react-native';
 import { StackNavigator, DrawerNavigator, NavigationActions } from 'react-navigation';
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 
 import { Colors, FontSizes, Images } from './theme';
 import Icon from 'react-native-vector-icons/FontAwesome';

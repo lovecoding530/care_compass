@@ -45,39 +45,42 @@ export async function getJSONwithCache(key, bypassCache) {
 
   If the device is offline, it try and always use the cache.
   */
-	const timestampKey = `timestamp.${key}`;
-	const url = ApiDefinitions[key] || key;
-	let makeLiveCall = true; // Whether we need to call the live API or use cache.
-	let json = null; // Will store the response
+  const timestampKey = `timestamp.${key}`;
+  const url = ApiDefinitions[key] || key;
+  let makeLiveCall = true; // Whether we need to call the live API or use cache.
+  let json = null; // Will store the response
 
-	var currentTimestamp = new Date().getTime();
-	var cachedTimestamp = await AsyncStorage.getItem(timestampKey);
-	if (cachedTimestamp && currentTimestamp - cachedTimestamp < TIMEOUT_IN_MILLISECONDS) {
-		makeLiveCall = false;
-	}
+  var currentTimestamp = new Date().getTime();
+  var cachedTimestamp = await AsyncStorage.getItem(timestampKey);
+  if (
+    cachedTimestamp &&
+    currentTimestamp - cachedTimestamp < TIMEOUT_IN_MILLISECONDS
+  ) {
+    makeLiveCall = false;
+  }
 
-	if ((await NetInfo.isConnected.fetch()) === false) {
-		console.log('NetInfo disconnected');
-		makeLiveCall = false;
-	}
+  if ((await NetInfo.isConnected.fetch()) === false) {
+    console.log("NetInfo disconnected");
+    makeLiveCall = false;
+  }
 
-	console.log('makLiveCall is ' + makeLiveCall || bypassCache);
-	if (makeLiveCall || bypassCache) {
-		try {
-			const response = await fetch(url);
-			json = await response.json();
-			await AsyncStorage.setItem(key, JSON.stringify(json));
-			await AsyncStorage.setItem(timestampKey, new Date().getTime().toString());
-		} catch (error) {}
-	}
-	if (!json) {
-		try {
-			json = getJSONFromCache(key);
-		} catch (error) {
-			return null;
-		}
-	}
-	return json;
+  if (makeLiveCall || bypassCache) {
+    console.log("calling live");
+    try {
+      const response = await fetch(url);
+      json = await response.json();
+      await AsyncStorage.setItem(key, JSON.stringify(json));
+      await AsyncStorage.setItem(timestampKey, new Date().getTime().toString());
+    } catch (error) {}
+  }
+  if (!json) {
+    try {
+      json = getJSONFromCache(key);
+    } catch (error) {
+      return null;
+    }
+  }
+  return json;
 }
 
 async function getJSONFromCache(key) {
@@ -95,8 +98,7 @@ export async function getBundle() {
 }
 
 export async function getDiscussionStarter() {
-	const res = await getJSONwithCache(ApiDefinitions.discussion_starter);
-	return await getJSONwithCache(ApiDefinitions.discussion_starter);
+  return await getJSONwithCache(ApiDefinitions.discussion_starter);
 }
 
 export async function getCardGame() {
@@ -109,4 +111,15 @@ export async function getResources() {
 
 export async function getPrivacyPolicy() {
 	return await getJSONwithCache(ApiDefinitions.privacy_policy);
+}
+
+export async function getLookingAfterYourself() {
+  return await getJSONwithCache(ApiDefinitions.looking_after_yourself);
+}
+
+export async function getApiData(key) {
+  if (key in ApiDefinitions) {
+    return await getJSONwithCache(key);
+  }
+  return null;
 }
