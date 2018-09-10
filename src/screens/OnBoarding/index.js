@@ -1,26 +1,26 @@
 import React, { Component } from 'react';
 import {
-    Platform,
-    StyleSheet,
-    Image,
-    ImageBackground,
-    View,
-    TouchableOpacity,
-    Dimensions,
-    ScrollView,
-    Orientation
+	Platform,
+	StyleSheet,
+	Image,
+	ImageBackground,
+	View,
+	TouchableOpacity,
+	Dimensions,
+	ScrollView,
+	Orientation
 } from 'react-native';
 
 import Styles from '@OnBoardingstyles';
-let { width, height } = Dimensions.get('window');// use for device height and width
+let { width, height } = Dimensions.get('window'); // use for device height and width
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions'; // use for responsive screen UI
-import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
-import Button from '@button'
-import Footer from '@footer'
-import Text from '@text'
-import {Colors, Images, FontSizes} from '@theme';
-var orientation = 'PORTRAIT'
-let orientationWidth=width;
+import { deviceWidth, deviceHeight, windowHeight, windowWidth } from '@ResponsiveDimensions';
+import Button from '@button';
+import Footer from '@footer';
+import Text from '@text';
+import { Colors, Images, FontSizes } from '@theme';
+var orientation = 'PORTRAIT';
+let orientationWidth = width;
 
 let swiperprops; // use to get props for navigating to home screen
 
@@ -28,453 +28,541 @@ let swiperprops; // use to get props for navigating to home screen
 *  set constuctor and initial configuration of swiper
 */
 class Swiper extends Component {
+	constructor(props) {
+		super(props);
+	}
 
-  constructor(props) {
-        super(props);
-    }
+	// Props for ScrollView component
+	static defaultProps = {
+		// Arrange screens horizontally
+		horizontal: true,
+		// Scroll exactly to the next screen, instead of continous scrolling
+		pagingEnabled: true,
+		// Hide all scroll indicators
+		showsHorizontalScrollIndicator: false,
+		showsVerticalScrollIndicator: false,
+		// Do not bounce when the end is reached
+		bounces: false,
+		// Do not scroll to top when the status bar is tapped
+		scrollsToTop: false,
+		// Remove offscreen child views
+		removeClippedSubviews: true,
+		// Do not adjust content behind nav-, tab- or toolbars automatically
+		automaticallyAdjustContentInsets: false,
+		// Fisrt is screen is active
+		index: 0
+	};
 
-  // Props for ScrollView component
-  static defaultProps = {
-    // Arrange screens horizontally
-    horizontal: true,
-    // Scroll exactly to the next screen, instead of continous scrolling
-    pagingEnabled: true,
-    // Hide all scroll indicators
-    showsHorizontalScrollIndicator: false,
-    showsVerticalScrollIndicator: false,
-    // Do not bounce when the end is reached
-    bounces: false,
-    // Do not scroll to top when the status bar is tapped
-    scrollsToTop: false,
-    // Remove offscreen child views
-    removeClippedSubviews: true,
-    // Do not adjust content behind nav-, tab- or toolbars automatically
-    automaticallyAdjustContentInsets: false,
-    // Fisrt is screen is active
-    index: 0
-  };
+	componentDidMount() {
+		Dimensions.addEventListener('change', ({ window: { width, height } }) => {
+			orientation = width > height ? 'LANDSCAPE' : 'PORTRAIT';
+		});
+	}
 
-  componentDidMount() {
+	state = this.initState(this.props);
 
-    Dimensions.addEventListener('change', ({ window: { width, height } }) => {
-      orientation = width > height ? 'LANDSCAPE' : 'PORTRAIT';
-
-    });
-  }
-
-  state = this.initState(this.props);
-
-  /**
+	/**
    * Initialize the state
    */
-  initState(props) {
+	initState(props) {
+		// Get the total number of slides passed as children
+		const total = props.children ? props.children.length || 1 : 0,
+			// Current index
+			index = total > 1 ? Math.min(props.index, total - 1) : 0,
+			// Current offset
+			offset = width * index;
 
-    // Get the total number of slides passed as children
-    const total = props.children ? props.children.length || 1 : 0,
-      // Current index
-      index = total > 1 ? Math.min(props.index, total - 1) : 0,
-      // Current offset
-      offset = width * index;
+		const state = {
+			total,
+			index,
+			offset,
+			width,
+			height
+		};
 
-    const state = {
-      total,
-      index,
-      offset,
-      width,
-      height,
-    };
+		// Component internals as a class property,
+		// and not state to avoid component re-renders when updated
+		this.internals = {
+			isScrolling: false,
+			offset
+		};
 
-    // Component internals as a class property,
-    // and not state to avoid component re-renders when updated
-    this.internals = {
-      isScrolling: false,
-      offset
-    };
+		return state;
+	}
 
-    return state;
-  }
-
-  /**
+	/**
   * Scroll begin handler
   */
-  onScrollBegin = e => {
-    // Update internal isScrolling state
-    this.internals.isScrolling = true;
-  }
+	onScrollBegin = (e) => {
+		// Update internal isScrolling state
+		this.internals.isScrolling = true;
+	};
 
-  /**
+	/**
    * Scroll end handler
    */
-  onScrollEnd = e => {
-    // Update internal isScrolling state
-    this.internals.isScrolling = false;
+	onScrollEnd = (e) => {
+		// Update internal isScrolling state
+		this.internals.isScrolling = false;
 
-    // Update index
-    this.updateIndex(e.nativeEvent.contentOffset
-      ? e.nativeEvent.contentOffset.x
-      // When scrolled with .scrollTo() on Android there is no contentOffset
-      : e.nativeEvent.position * orientationWidth
-    );
-  }
+		// Update index
+		this.updateIndex(
+			e.nativeEvent.contentOffset
+				? e.nativeEvent.contentOffset.x
+				: // When scrolled with .scrollTo() on Android there is no contentOffset
+					e.nativeEvent.position * orientationWidth
+		);
+	};
 
-  /**
+	/**
   * Drag end handler
   */
-  onScrollEndDrag = e => {
-    const { contentOffset: { x: newOffset } } = e.nativeEvent,
-      { children } = this.props,
-      { index } = this.state,
-      { offset } = this.internals;
+	onScrollEndDrag = (e) => {
+		const { contentOffset: { x: newOffset } } = e.nativeEvent,
+			{ children } = this.props,
+			{ index } = this.state,
+			{ offset } = this.internals;
 
-    // Update internal isScrolling state
-    // if swiped right on the last slide
-    // or left on the first one
-    if (offset === newOffset &&
-      (index === 0 || index === children.length - 1)) {
-      this.internals.isScrolling = false;
-    }
-  }
+		// Update internal isScrolling state
+		// if swiped right on the last slide
+		// or left on the first one
+		if (offset === newOffset && (index === 0 || index === children.length - 1)) {
+			this.internals.isScrolling = false;
+		}
+	};
 
-  /**
+	/**
   * Update index after scroll
   */
-  updateIndex = (offset) => {
-    const state = this.state,
-      diff = offset - this.internals.offset,
-      step = orientationWidth;
-    let index = state.index;
+	updateIndex = (offset) => {
+		const state = this.state,
+			diff = offset - this.internals.offset,
+			step = orientationWidth;
+		let index = state.index;
 
-    // Do nothing if offset didn't change
-    if (!diff) {
-      return;
-    }
+		// Do nothing if offset didn't change
+		if (!diff) {
+			return;
+		}
 
-    // Make sure index is always an integer
-    index = parseInt(index + Math.round(diff / step), 10);
+		// Make sure index is always an integer
+		index = parseInt(index + Math.round(diff / step), 10);
 
-    // Update internal offset
-    this.internals.offset = offset;
-    // Update index in the state
-    this.setState({
-      index
-    });
-  }
+		// Update internal offset
+		this.internals.offset = offset;
+		// Update index in the state
+		this.setState({
+			index
+		});
+	};
 
-  /**
+	/**
   * Swipe one slide forward
   */
-  swipe = () => {
-    // Ignore if already scrolling or if there is less than 2 slides
-    if (this.internals.isScrolling || this.state.total < 2) {
-      return;
-    }
- 
-    const state = this.state,
-      diff = this.state.index + 1,
-      x = diff * orientationWidth,
-      y = 0;
+	swipe = () => {
+		// Ignore if already scrolling or if there is less than 2 slides
+		if (this.internals.isScrolling || this.state.total < 2) {
+			return;
+		}
 
-    // Call scrollTo on scrollView component to perform the swipe
-    this.scrollView && this.scrollView.scrollTo({ x, y, animated: true });
+		const state = this.state,
+			diff = this.state.index + 1,
+			x = diff * orientationWidth,
+			y = 0;
 
-    // Update internal scroll state
-    this.internals.isScrolling = true;
+		// Call scrollTo on scrollView component to perform the swipe
+		this.scrollView && this.scrollView.scrollTo({ x, y, animated: true });
 
-    // Trigger onScrollEnd manually on android
-    if (Platform.OS === 'android') {
-      setImmediate(() => {
-        this.onScrollEnd({
-          nativeEvent: {
-            position: diff
-          }
-        });
-      });
-    }
-  }
+		// Update internal scroll state
+		this.internals.isScrolling = true;
 
-  /**
+		// Trigger onScrollEnd manually on android
+		if (Platform.OS === 'android') {
+			setImmediate(() => {
+				this.onScrollEnd({
+					nativeEvent: {
+						position: diff
+					}
+				});
+			});
+		}
+	};
+
+	/**
   * Swipe one slide forward
   */
-  swipePrev = () => {
-    // Ignore if already scrolling or if there is less than 2 slides
-    if (this.internals.isScrolling || this.state.total < 2) {
-      return;
-    }
+	swipePrev = () => {
+		// Ignore if already scrolling or if there is less than 2 slides
+		if (this.internals.isScrolling || this.state.total < 2) {
+			return;
+		}
 
-    const state = this.state,
-      diff = this.state.index - 1,
-      x = diff * orientationWidth,
-      y = 0;
+		const state = this.state,
+			diff = this.state.index - 1,
+			x = diff * orientationWidth,
+			y = 0;
 
-    // Call scrollTo on scrollView component to perform the swipe
-    this.scrollView && this.scrollView.scrollTo({ x, y, animated: true });
+		// Call scrollTo on scrollView component to perform the swipe
+		this.scrollView && this.scrollView.scrollTo({ x, y, animated: true });
 
-    // Update internal scroll state
-    this.internals.isScrolling = true;
+		// Update internal scroll state
+		this.internals.isScrolling = true;
 
-    // Trigger onScrollEnd manually on android
-    if (Platform.OS === 'android') {
-      setImmediate(() => {
-        this.onScrollEnd({
-          nativeEvent: {
-            position: diff
-          }
-        });
-      });
-    }
-  }
+		// Trigger onScrollEnd manually on android
+		if (Platform.OS === 'android') {
+			setImmediate(() => {
+				this.onScrollEnd({
+					nativeEvent: {
+						position: diff
+					}
+				});
+			});
+		}
+	};
 
-  /**
+	/**
   * Render ScrollView component
   */
-  renderScrollView = pages => {
-    return (
-      <ScrollView ref={component => { this.scrollView = component; }}
-        {...this.props}
-        onScrollBeginDrag={this.onScrollBegin}
-        onMomentumScrollEnd={this.onScrollEnd}
-        onScrollEndDrag={this.onScrollEndDrag}
-      >
-        {pages.map((page, i) =>
-          // Render each slide inside a View
-          <View key={i}>
-            {page}
-          </View>
-        )}
-      </ScrollView>
-    );
-  }
+	renderScrollView = (pages) => {
+		return (
+			<ScrollView
+				ref={(component) => {
+					this.scrollView = component;
+				}}
+				{...this.props}
+				onScrollBeginDrag={this.onScrollBegin}
+				onMomentumScrollEnd={this.onScrollEnd}
+				onScrollEndDrag={this.onScrollEndDrag}
+			>
+				{pages.map((page, i) => (
+					// Render each slide inside a View
+					<View key={i}>{page}</View>
+				))}
+			</ScrollView>
+		);
+	};
 
-  /**
+	/**
   * Render pagination indicators
   */
-  renderPagination = () => {
-    if (this.state.total <= 1) {
-      return null;
-    }
+	renderPagination = () => {
+		if (this.state.total <= 1) {
+			return null;
+		}
 
-    const ActiveDot = <View style={[Styles.dot, Styles.activeDot]} />,
-      Dot = <View style={[Styles.dot]} />;
+		const ActiveDot = <View style={[ Styles.dot, Styles.activeDot ]} />,
+			Dot = <View style={[ Styles.dot ]} />;
 
-    let dots = [];
+		let dots = [];
 
-    for (let key = 0; key < this.state.total; key++) {
-      dots.push(key === this.state.index
-        // Active dot
-        ? React.cloneElement(ActiveDot, { key })
-        // Other dots
-        : React.cloneElement(Dot, { key })
-      );
-    }
+		for (let key = 0; key < this.state.total; key++) {
+			dots.push(
+				key === this.state.index
+					? // Active dot
+						React.cloneElement(ActiveDot, { key })
+					: // Other dots
+						React.cloneElement(Dot, { key })
+			);
+		}
 
-    return (
-      <View
-        pointerEvents="none"
-        style={[Styles.pagination]}
-      >
-        {dots}
-      </View>
-    );
-  }
+		return (
+			<View pointerEvents="none" style={[ Styles.pagination ]}>
+				{dots}
+			</View>
+		);
+	};
 
-  /**
+	/**
   * Method to handle Done button click
   */
-  onDone(){
-    const {navigate} = swiperprops.navigation;
-    navigate("DrawerStack");
-  }
+	onDone() {
+		const { navigate } = swiperprops.navigation;
+		navigate('DrawerStack');
+	}
 
-  /**
+	/**
    * Render Next or Done button
    */
-  renderButton = () => {   
-    const lastScreen = this.state.index === this.state.total - 1;
-    const firstScreen = this.state.index === 0;
-    const secondScreen = this.state.index === 1;
-    const thirdScreen = this.state.index === 2;
-    return (
+	renderButton = () => {
+		const lastScreen = this.state.index === this.state.total - 1;
+		const firstScreen = this.state.index === 0;
+		return (
+			<View pointerEvents="box-none">
+				{lastScreen ? (
+					<View style={Styles.buttonContainer}>
+						<Button
+							light
+							bold
+							textStyles={{ color: Colors.darkNavy }}
+							buttonStyles={Styles.buttonPrev}
+							onPress={() => this.swipePrev()}
+						>
+							Previous
+						</Button>
+						<Button
+							dark
+							bold
+							textStyles={{ color: Colors.white }}
+							buttonStyles={Styles.buttonNext}
+							onPress={() => this.onDone()}
+						>
+							Done
+						</Button>
+					</View>
+				) : firstScreen ? (
+					<View style={Styles.buttonContainer}>
+						<Button
+							dark
+							bold
+							textStyles={{ color: Colors.white }}
+							buttonStyles={Styles.buttonNext}
+							onPress={() => this.swipe()}
+						>
+							Next
+						</Button>
+					</View>
+				) : (
+					<View style={[ Styles.buttonContainer ]}>
+						<Button
+							light
+							bold
+							textStyles={{ color: Colors.darkNavy }}
+							buttonStyles={Styles.buttonPrev}
+							onPress={() => this.swipePrev()}
+						>
+							Previous
+						</Button>
+						<Button
+							dark
+							bold
+							textStyles={{ color: Colors.white }}
+							buttonStyles={Styles.buttonNext}
+							onPress={() => this.swipe()}
+						>
+							Next
+						</Button>
+					</View>
+				)}
+			</View>
+		);
+	};
 
-       <View pointerEvents="box-none">
-          {lastScreen
-            ? <View style={Styles.buttonContainer}>
-                <Button light bold textStyles={{color:Colors.darkNavy}} buttonStyles={Styles.buttonPrev} onPress={() => this.swipePrev()}>Previous</Button>
-                <Button dark bold textStyles={{color:Colors.white}} buttonStyles={Styles.buttonNext} onPress={() => this.onDone()}>Done</Button>
-              </View>
-            : firstScreen
-            ? <View style={Styles.buttonContainer}>
-                <Button dark bold textStyles={{color:Colors.white}} buttonStyles={Styles.buttonNext} onPress={() => this.swipe()}>Next</Button>
-              </View>
-               :   secondScreen 
-               ?  <View style={[Styles.buttonContainer]}>
-                    <Button light bold textStyles={{color:Colors.darkNavy}} buttonStyles={Styles.buttonPrev} onPress={() => this.swipePrev()}>Previous</Button>
-                    <Button dark bold textStyles={{color:Colors.white}} buttonStyles={Styles.buttonNext} onPress={() => this.swipe()}>Next</Button>
-                  </View>
-                  :   thirdScreen 
-                      ?  <View style={[Styles.buttonContainer]}>
-                            <Button light bold textStyles={{color:Colors.darkNavy}} buttonStyles={Styles.buttonPrev} onPress={() => this.swipePrev()}>Previous</Button>
-                            <Button dark bold textStyles={{color:Colors.white}} buttonStyles={Styles.buttonNext} onPress={() => this.swipe()}>Next</Button>
-                          </View>
-                          : null
-          }
-        </View>
+	onLayout(e) {
+		width = Dimensions.get('window').width;
+		height = Dimensions.get('window').height;
 
-    )
-  }
+		if (orientation === 'LANDSCAPE') {
+			orientationWidth = width;
+			offset = orientationWidth * this.state.index;
 
-  onLayout(e) {
-    width = Dimensions.get('window').width
-    height = Dimensions.get('window').height
+			this.internals = {
+				isScrolling: false,
+				offset
+			};
 
-    if (orientation === 'LANDSCAPE') {
+			(x = this.state.index * width), (y = 0);
 
-      orientationWidth = width;
-      offset = orientationWidth * this.state.index;
+			this.scrollView && this.scrollView.scrollTo({ x, y, animated: true });
 
-      this.internals = {
-        isScrolling: false,
-        offset
-      };
+			this.forceUpdate();
+		} else {
+			orientationWidth = width;
 
+			offset = orientationWidth * this.state.index;
 
-      x = this.state.index * width,
-      y = 0;
+			this.internals = {
+				isScrolling: false,
+				offset
+			};
 
-      this.scrollView && this.scrollView.scrollTo({ x, y, animated: true });
+			(x = this.state.index * width), (y = 0);
 
-      this.forceUpdate();
+			if (Platform.OS === 'ios') {
+				setTimeout(() => {
+					this.scrollView && this.scrollView.scrollTo({ x, y, animated: true });
+				}, 5);
+			} else {
+				this.scrollView && this.scrollView.scrollTo({ x, y, animated: true });
+			}
 
-    } 
-    else 
-    {
-      orientationWidth = width;
+			this.forceUpdate();
+		}
+	}
 
-      offset = orientationWidth * this.state.index;
-
-      this.internals = {
-        isScrolling: false,
-        offset
-      };
-
-      
-      x = this.state.index * width,
-      y = 0;
-
-      if (Platform.OS === 'ios') 
-      {
-        setTimeout(() => {
-          this.scrollView &&  this.scrollView.scrollTo({ x, y, animated: true });
-        }, 5)
-      }
-      else
-      {
-        this.scrollView &&  this.scrollView.scrollTo({ x, y, animated: true });
-      }
-        
-      this.forceUpdate()
-    }
-  }
-
-  /**
+	/**
   * Render the component
   */
-  render = ({ children } = this.props) => {
-  
-  return(
-     <View style={Styles.container} onLayout={this.onLayout.bind(this)}>
-      <ImageBackground source={Images.bg_splash_onboarding} resizeMode='stretch' style={Styles.background} >
+	render = ({ children } = this.props) => {
+		return (
+			<View style={Styles.container} onLayout={this.onLayout.bind(this)}>
+				<ImageBackground source={Images.bg_splash_onboarding} resizeMode="stretch" style={Styles.background}>
+					<ScrollView contentContainerStyle={Styles.scrollcontainer} style={{ backgroundColor: '#0009' }}>
+						{/* Render screens */}
+						<Text bold large style={Styles.titleText}>
+							Dying to Talk in the Bush
+						</Text>
+						<View style={Styles.subTitleView}>
+							<Text bold medium style={Styles.subTitleText}>
+								Working out what's right for you
+							</Text>
+							{/* <Text bold medium style={Styles.subTitleText}>dyingtotalk.org.au</Text> */}
+						</View>
 
-        <ScrollView contentContainerStyle={Styles.scrollcontainer} style={{backgroundColor: '#0009'}}>
-          {/* Render screens */}
-            <Text bold large style={Styles.titleText}>Dying to Talk in the Bush</Text>
-            <View style={Styles.subTitleView}>
-              <Text bold medium style={Styles.subTitleText}>Working out what's right for you</Text>
-              {/* <Text bold medium style={Styles.subTitleText}>dyingtotalk.org.au</Text> */}
-            </View>
+						{this.renderScrollView(children)}
 
-            {this.renderScrollView(children)}
-
-            {/* Render Continue or Done button */}
-            <View style={Styles.buttonpageView}>
-                {this.renderButton()}
-                {/* Render pagination */}
-                {this.renderPagination()}
-            </View>
-            <Button light bold color={Colors.white} onPress={()=>this.onDone()}>Skip</Button>
-          </ScrollView>
-        </ImageBackground>
-      </View>
-    );
-  }
+						{/* Render Continue or Done button */}
+						<View style={Styles.buttonpageView}>
+							{this.renderButton()}
+							{/* Render pagination */}
+							{this.renderPagination()}
+						</View>
+						<Button light bold color={Colors.white} onPress={() => this.onDone()}>
+							Skip
+						</Button>
+					</ScrollView>
+				</ImageBackground>
+			</View>
+		);
+	};
 }
 
 /**
 *  set constuctor and initial configuration of page
 */
 export default class OnBoarding extends Component {
-    constructor(props) {
-        super(props);
-        swiperprops=props;
-    }
+	constructor(props) {
+		super(props);
+		swiperprops = props;
+	}
 
-    /**
+	/**
     * call just after load main view  
     */
-    componentDidMount() {
-    }
+	componentDidMount() {}
 
-     onLayout(e) {
-       width = Dimensions.get('window').width
-       height = Dimensions.get('window').height
+	onLayout(e) {
+		width = Dimensions.get('window').width;
+		height = Dimensions.get('window').height;
 
-       this.forceUpdate();
-    }
+		this.forceUpdate();
+	}
 
-    /**
+	/**
     * Render View with Swip
     */
-    render() {
-        return (
-           <Swiper onLayout={this.onLayout.bind(this)}>
-            <View style={[Styles.slide,{width:width}]} >
-              <ImageBackground source={Images.onboarding_icon_background} resizeMode='stretch' style={Styles.middleimage} >
-                <Image style={[Styles.middleicon]}  resizeMode='contain' source={Images.onboarding_icon_logo}/>
-              </ImageBackground>
-              <View style={[Styles.textView]}>
-                <Text smallMedium style={Styles.descText}>This app will help start conversations around end-of-life wishes and planning.</Text>
-              </View>
-            </View>
-            <View style={[Styles.slide,{width:width}]} >
-              <ImageBackground source={Images.onboarding_icon_background} resizeMode='stretch' style={Styles.middleimage} >
-                <Image style={[Styles.middleicon]}  resizeMode='contain' source={Images.onboarding_icon_discussion}/>
-              </ImageBackground>
-              <View style={[Styles.textView]}>
-                <Text  smallMedium  style={Styles.descText}>The discussion starter will guide you through talking about how you want to be cared for at the end of your life.</Text>
-              </View>
-            </View>
-            <View style={[Styles.slide,{width:width}]} >
-              <ImageBackground source={Images.onboarding_icon_background} resizeMode='stretch' style={Styles.middleimage} >
-                <Image style={[Styles.middleicon]}  resizeMode='contain' source={Images.onboarding_icon_resources}/>
-              </ImageBackground>
+	render() {
+		return (
+			<Swiper onLayout={this.onLayout.bind(this)}>
+				{/* Slide 1 */}
+				<View style={[ Styles.slide, { width: width } ]}>
+					<ImageBackground
+						source={Images.onboarding_icon_background}
+						resizeMode="stretch"
+						style={Styles.middleimage}
+					>
+						<Image
+							style={[ Styles.middleicon ]}
+							resizeMode="contain"
+							source={Images.onboarding_icon_logo}
+						/>
+					</ImageBackground>
+					<View style={[ Styles.textView ]}>
+						<Text smallMedium style={Styles.descText}>
+							This app will help start conversations around end-of-life wishes and planning.
+						</Text>
+					</View>
+				</View>
 
-              <View style={[Styles.textView]}>
-                <Text  smallMedium style={Styles.descText}>You will find resources and more information to support you before, during and after this conversation.</Text>
-              </View>
-            </View>
-            <View style={[Styles.slide,{width:width}]} >
-              <ImageBackground source={Images.onboarding_icon_background} resizeMode='stretch' style={Styles.middleimage} >
-                <Image style={[Styles.middleicon]}  resizeMode='contain' source={Images.onboarding_icon_padlock}/>
-              </ImageBackground>
-              <View style={[Styles.textView]}>
-                <Text  smallMedium style={Styles.descText}>Your personal data and information will not be stored or used by Palliative Care Australia in any way.</Text>
-              </View>
-            </View>
-          </Swiper>
-        )
-     
-    }
+				{/* Slide 2 */}
+				<View style={[ Styles.slide, { width: width } ]}>
+					<ImageBackground
+						source={Images.onboarding_icon_background}
+						resizeMode="stretch"
+						style={Styles.middleimage}
+					>
+						<Image
+							style={[ Styles.middleicon ]}
+							resizeMode="contain"
+							source={Images.onboarding_icon_discussion}
+						/>
+					</ImageBackground>
+					<View style={[ Styles.textView ]}>
+						<Text smallMedium style={Styles.descText}>
+							The discussion starter will guide you through talking about how you want to be cared for at
+							the end of your life.
+						</Text>
+					</View>
+				</View>
+
+				{/* Slide 3 */}
+				<View style={[ Styles.slide, { width: width } ]}>
+					<ImageBackground
+						source={Images.onboarding_icon_background}
+						resizeMode="stretch"
+						style={Styles.middleimage}
+					>
+						<Image
+							style={[ Styles.middleicon ]}
+							resizeMode="contain"
+							source={Images.onboarding_icon_resources}
+						/>
+					</ImageBackground>
+
+					<View style={[ Styles.textView ]}>
+						<Text smallMedium style={Styles.descText}>
+							You will find resources and more information to support you before, during and after this
+							conversation.
+						</Text>
+					</View>
+				</View>
+
+				{/* Slide 4 */}
+				<View style={[ Styles.slide, { width: width } ]}>
+					<ImageBackground
+						source={Images.onboarding_icon_background}
+						resizeMode="stretch"
+						style={Styles.middleimage}
+					>
+						<Image
+							style={[ Styles.middleicon ]}
+							resizeMode="contain"
+							source={Images.onboarding_icon_padlock}
+						/>
+					</ImageBackground>
+					<View style={[ Styles.textView ]}>
+						<Text smallMedium style={Styles.descText}>
+							Palliative Care Australia respects the privacy of all app users and will not make any
+							attempt to identify you.
+						</Text>
+					</View>
+				</View>
+
+				{/* Slide 5 */}
+				<View style={[ Styles.slide, { width: width } ]}>
+					<ImageBackground
+						source={Images.onboarding_icon_background}
+						resizeMode="stretch"
+						style={Styles.middleimage}
+					>
+						<Image
+							style={[ Styles.middleicon ]}
+							resizeMode="contain"
+							source={Images.onboarding_icon_info}
+						/>
+					</ImageBackground>
+					<View style={[ Styles.textView ]}>
+						<Text smallMedium style={Styles.descText}>
+							This resource should not be considered legal advice and is not an Advance Care Plan. People
+							should always consult health care professionals for advice about their specific
+							circumstances.
+						</Text>
+					</View>
+				</View>
+			</Swiper>
+		);
+	}
 }
 
 // const Styles = StyleSheet.create({
- 
+
 // });
