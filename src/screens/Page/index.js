@@ -4,7 +4,7 @@ import Styles from './styles';
 import Text from '@text';
 import Button from '@button';
 import { htmlStyles, Images } from '@theme';
-import { getApiData } from '@apiNew';
+import { getApiData } from '@api';
 import HTMLView from 'react-native-htmlview';
 
 export default class Page extends Component {
