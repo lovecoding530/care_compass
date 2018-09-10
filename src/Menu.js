@@ -19,16 +19,31 @@ import { ArrowText } from '@components';
 
 const CHECK_ROUTES = [ 'DiscussionStarter', 'CardGame' ];
 export default class Menu extends Component {
-	goto(routeName) {
+	goto(routeName, pageName) {
 		this.props.navigation.navigate('DrawerClose');
+		console.log('route');
+		console.log(routeName);
+		console.log('page');
+		console.log(pageName);
 		if (store.activeRoute == routeName) return;
 
-		let goToRoute = (routeName) => {
+		let goToRoute = (routeName, pageName) => {
+			console.log('route');
+			console.log(routeName);
+			console.log('page');
+			console.log(pageName);
 			setTimeout(() => {
 				var key = `${routeName} ${store.routesInStack.length}`;
 				store.activeRoute = routeName;
 				store.routesInStack.push(key);
-				this.props.navigation.navigate({ routeName, key });
+				this.props.navigation.navigate(
+					routeName,
+					{
+						pageName: pageName
+					},
+					null,
+					key
+				);
 			}, 500);
 		};
 
@@ -43,7 +58,7 @@ export default class Menu extends Component {
 						{
 							text: 'YES',
 							onPress: () => {
-								goToRoute(routeName);
+								goToRoute(routeName, pageName);
 							}
 						}
 					],
@@ -51,7 +66,7 @@ export default class Menu extends Component {
 				);
 			}, 500);
 		} else {
-			goToRoute(routeName);
+			goToRoute(routeName, pageName);
 		}
 	}
 
@@ -71,7 +86,7 @@ export default class Menu extends Component {
 					<Image source={Images.dtt_blue} style={styles.logo} />
 				</View>
 				<View style={styles.menu}>
-					<TouchableOpacity style={styles.menuItem}>
+					<TouchableOpacity style={styles.menuItem} onPress={() => this.goto('Page', 'about_this_app')}>
 						<ArrowText light bold color={Colors.white}>
 							About this app
 						</ArrowText>
@@ -101,7 +116,10 @@ export default class Menu extends Component {
 							Resource library
 						</ArrowText>
 					</TouchableOpacity>
-					<TouchableOpacity style={styles.menuItem} onPress={() => this.goto('GetHelp')}>
+					<TouchableOpacity
+						style={styles.menuItem}
+						onPress={() => this.goto('Page', 'looking_after_yourself')}
+					>
 						<ArrowText light bold color={Colors.white}>
 							Looking after yourself
 						</ArrowText>

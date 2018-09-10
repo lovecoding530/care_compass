@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import { Dimensions, Image, StyleSheet, TouchableOpacity, View, SafeAreaView } from 'react-native';
 import { StackNavigator, DrawerNavigator, NavigationActions } from 'react-navigation';
 
-const { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get('window');
 
 import { Colors, FontSizes, Images } from './theme';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -19,7 +19,7 @@ import { DSIntro, ActivityList, Activity, UpNext, Complete } from './screens/Dis
 import { CDIntro, CDSingleView, CDListView, CDSummary, CDAddYourOwn } from './screens/CardGame';
 import { ResourceList, ResourceDetail } from './screens/Resources';
 import { UserGuidesList, UserGuidesDetail, DiscussionAndCardDetail } from './screens/UserGuides';
-import { GetHelpList, GetHelpDetail, LookAfterYourself } from './screens/GetHelp';
+import { GetHelpList, GetHelpDetail, LookingAfterYourself } from './screens/GetHelp';
 import Page from './screens/Page';
 import { deviceWidth, deviceHeight } from './components/ResponsiveDimensions';
 import store from './Store';
@@ -77,13 +77,11 @@ const Footer = (props) => {
 					style={{ width: deviceHeight(6), height: deviceHeight(5), resizeMode: 'contain' }}
 				/>
 			</View>
-			{console.log('footer props')}
-			{console.log(props)}
 			<TouchableOpacity
 				style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal: deviceWidth(1) }}
 				onPress={() => {
 					let routeName = 'Page';
-					let pageName = 'privacy-policy';
+					let pageName = 'privacy_policy';
 					const key = `${routeName} ${store.routesInStack.length}`;
 					store.activeRoute = routeName;
 					store.routesInStack.push(key);
@@ -250,7 +248,7 @@ export const UserGuidesStack = StackNavigator(
 
 export const GetHelpStack = StackNavigator(
 	{
-		LookAfterYourself: { screen: LookAfterYourself }
+		LookingAfterYourself: { screen: LookingAfterYourself }
 	},
 	{
 		navigationOptions: ({ navigation }) => ({

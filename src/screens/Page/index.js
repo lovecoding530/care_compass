@@ -4,7 +4,7 @@ import Styles from './styles';
 import Text from '@text';
 import Button from '@button';
 import { htmlStyles, Images } from '@theme';
-import { getPrivacyPolicy } from '@apiNew';
+import { getApiData } from '@apiNew';
 import HTMLView from 'react-native-htmlview';
 
 export default class Page extends Component {
@@ -16,7 +16,10 @@ export default class Page extends Component {
 	}
 
 	async componentDidMount() {
-		const content = await getPrivacyPolicy();
+		const { pageName } = this.props.navigation.state.params;
+		console.log('page name');
+		console.log(pageName);
+		const content = await getApiData(pageName);
 		this.setState({ pageContent: content[0] });
 	}
 
