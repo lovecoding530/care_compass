@@ -14,7 +14,7 @@ import Styles from "./styles";
 import { Button, Loader, Card } from "@components";
 import Text from "@text";
 
-import { getDiscussionStarter, ApiDefinitions } from "@apiNew";
+import { getDiscussionStarter } from "@apiNew";
 
 export default class Intro extends Component {
   constructor(props) {
@@ -44,6 +44,7 @@ export default class Intro extends Component {
 
   render() {
     const { navigate } = this.props.navigation;
+    const { discussionStarter } = this.state;
     return (
       <ImageBackground
         source={Images.bg_discussion_starter}
@@ -56,27 +57,12 @@ export default class Intro extends Component {
               Discussion Starter
             </Text>
             <Text medium bold style={Styles.subtitle} color={Colors.Navy}>
-              Supporting you to talk about how you want to be cared for at the
-              end of your life
+              {discussionStarter.subheading}
             </Text>
           </Card>
           <Card style={Styles.descView}>
             <Image source={Images.discussion_starter} style={Styles.icon} />
-            <Text style={Styles.intro}>
-              You never know what the future holds, it is never too early to
-              plan ahead, Talking now can help your family and friends in the
-              future and can make sure you goget the kind of care that you want.
-            </Text>
-            <Text style={Styles.intro}>
-              The Dying to Talk Discussion Starter will guide you through that
-              discussion, It will help you prepare, so that you know what you
-              want to say and it will provide you with tips about how to start
-              talking.
-            </Text>
-            <Text style={Styles.intro}>
-              Talking about dying might be hard, but it won't ill you, You might
-              even find that your family is dying to talk too.
-            </Text>
+            <Text style={Styles.intro}>{discussionStarter.intro}</Text>
           </Card>
         </ScrollView>
         <View style={Styles.buttonBar}>
@@ -86,7 +72,7 @@ export default class Intro extends Component {
             onPress={() => {
               navigate("Activity", {
                 activityIndex: 0,
-                discussionStarter: this.state.discussionStarter
+                discussionStarter: discussionStarter
               });
             }}
           >
@@ -97,7 +83,7 @@ export default class Intro extends Component {
             bold
             onPress={() => {
               navigate("ActivityList", {
-                discussionStarter: this.state.discussionStarter
+                discussionStarter: discussionStarter
               });
             }}
           >
