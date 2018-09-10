@@ -17,7 +17,7 @@ import Styles from './styles';
 import Footer from '@footer'
 import {Colors, Images, FontSizes} from '@theme';
 import {Button, Card, Text} from '@components'
-import { getUserGuides, API_HTML_ROOT } from "@apiNew";
+import { getUserGuides, API_HTML_ROOT } from "@api";
 import HTMLView from 'react-native-htmlview';
 const { width,height } = Dimensions.get('window');
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';

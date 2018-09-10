@@ -14,7 +14,7 @@ import Styles from "./styles";
 import { Button, Loader, Card } from "@components";
 import Text from "@text";
 
-import { getDiscussionStarter } from "@apiNew";
+import { getDiscussionStarter } from "@api";
 
 export default class Intro extends Component {
   constructor(props) {

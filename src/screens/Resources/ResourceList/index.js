@@ -15,7 +15,7 @@ import Styles from './styles';
 import Text from '@text'
 import Footer from '@footer'
 import { Loader } from '@components';
-import { getResources,updateTimeInterval } from "@apiNew";
+import { getResources,updateTimeInterval } from "@api";
 import moment from 'moment'
 import {Colors, Images, FontSizes} from '@theme';
 import { MediaQuery } from "react-native-responsive";

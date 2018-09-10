@@ -20,7 +20,7 @@ import { Loader } from '@components';
 import EmailModal from '../../modals/Email'
 import EmailSentModal from '../../modals/EmailSent'
 
-import { getGetHelp, API_HTML_ROOT} from "@apiNew";
+import { getGetHelp, API_HTML_ROOT} from "@api";
 import HTMLView from 'react-native-htmlview';
 import Communications from 'react-native-communications';
 import {Colors} from '@theme';

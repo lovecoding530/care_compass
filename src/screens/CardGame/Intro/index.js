@@ -13,7 +13,7 @@ import Styles from "./styles";
 import Text from "@text";
 import { Button, Loader, Card } from "@components";
 
-import { getCardGame } from "@apiNew";
+import { getCardGame } from "@api";
 
 export default class intro extends Component {
   constructor(props) {

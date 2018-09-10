@@ -12,7 +12,7 @@ import {
 import { Colors, Images } from "@theme";
 import Styles from "./styles";
 
-import { postCardGameAnswers } from "@apiNew";
+import { postCardGameAnswers } from "@api";
 import { Loader, Button, ImageButton, Text } from "@components";
 import {
   ShareModal,

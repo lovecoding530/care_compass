@@ -11,7 +11,7 @@ import Styles from "./styles";
 import Text from "@text";
 import Button from "@button";
 import { Images } from "@theme";
-import { getResources } from "@apiNew";
+import { getResources } from "@api";
 var BASE_URL = "https://pca.techequipt.com.au";
 
 export default class ResourceDetail extends Component {

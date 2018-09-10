@@ -13,7 +13,7 @@ import {
 import { Colors, Images } from "@theme";
 import Styles from "./styles";
 
-import { getCardGame } from "@apiNew";
+import { getCardGame } from "@api";
 import { Loader, Button, Text, ProgressBar, Card } from "@components";
 import { playSounds } from "@utils";
 

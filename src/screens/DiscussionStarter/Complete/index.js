@@ -12,7 +12,7 @@ import { Colors, Images, FontSizes } from "@theme";
 import Styles from "./styles";
 import { Button, Text, Loader, InfoAlert } from "@components";
 
-import { postDiscussionAnswers } from "@apiNew";
+import { postDiscussionAnswers } from "@api";
 import { getSharingHTMLFromResult } from "./HtmlResult";
 import RNHTMLtoPDF from "react-native-html-to-pdf";
 import Mailer from "react-native-mail";
