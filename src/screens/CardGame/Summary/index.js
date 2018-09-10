@@ -406,11 +406,11 @@ export default class Summary extends Component {
                 color={Colors.Navy}
                 style={Styles.saveTitle}
               >
-                Save your results
+                Save a copy of my results
               </Text>
               <Text bold center style={{ marginVertical: 8 }}>
-                Personal information will not be stored or used by Palliative
-                Care Australia in any way. Read more here
+                Palliative Care Australia respects the privacy of all app users
+                and will not make any attempt to identify you.
               </Text>
               <View
                 style={{
