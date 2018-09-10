@@ -1,5 +1,5 @@
 import GetHelpList from "./GetHelpList";
 import GetHelpDetail from "./GetHelpDetail";
-import LookAfterYourself from "./LookAfterYourself";
+import LookingAfterYourself from "./LookingAfterYourself";
 
-export {GetHelpList, GetHelpDetail, LookAfterYourself}
+export { GetHelpList, GetHelpDetail, LookingAfterYourself };

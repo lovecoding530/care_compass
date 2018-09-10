@@ -66,8 +66,8 @@ export async function getJSONwithCache(key, bypassCache) {
     makeLiveCall = false;
   }
 
-  console.log("makLiveCall is " + makeLiveCall || bypassCache);
   if (makeLiveCall || bypassCache) {
+    console.log("calling live");
     try {
       const response = await fetch(url);
       json = await response.json();
