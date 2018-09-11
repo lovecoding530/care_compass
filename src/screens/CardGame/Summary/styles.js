@@ -77,15 +77,21 @@ export default MediaQueryStyleSheet.create({
     itemLevelIcon: {
         width: deviceHeight(2.4),
         height: deviceHeight(2.4),
-        marginLeft: 5,
+        marginLeft: 12,
     },
 
     dragIcon: {
-        width: deviceHeight(0.7),
-        height: deviceHeight(2.1),
+        width: deviceHeight(0.6), 
+        height: deviceHeight(2.0), 
         marginRight: 4,
-        tintColor: Colors.textPrimary
+        tintColor: Colors.lightGray
     },
+
+    starIcon: { 
+        width: deviceHeight(2.2), 
+        height: deviceHeight(2.2), 
+        marginHorizontal: 8, 
+    }, 
 
     progress: {
         marginVertical: 30,
@@ -167,6 +173,9 @@ export default MediaQueryStyleSheet.create({
         veryImportantTitle: {
             flexDirection: 'column',
             alignItems: 'flex-start'
-        }    
+        },
+        dropLevelBar: { 
+            marginHorizontal: deviceWidth(4), 
+        }
     }
 });
