@@ -10,8 +10,6 @@ import { ArrowText } from '@components';
 import { MediaQueryStyleSheet } from 'react-native-responsive';
 let { width, height } = Dimensions.get('window');
 const initialOrientation = width > height ? 'LANDSCAPE' : 'PORTRAIT';
-console.log('initialOrientation');
-console.log(initialOrientation);
 
 const CHECK_ROUTES = [ 'DiscussionStarter', 'CardGame' ];
 export default class Menu extends Component {
@@ -24,14 +22,6 @@ export default class Menu extends Component {
 
 	goto(routeName, pageName) {
 		this.props.navigation.navigate('DrawerClose');
-		console.log('route');
-		console.log(routeName);
-		console.log('page');
-		console.log(pageName);
-		console.log('store.activeRoute');
-		console.log(store.activeRoute);
-		console.log('store.activePage');
-		console.log(store.activePage);
 		if (store.activeRoute == routeName && store.activePage == pageName) return;
 
 		let goToRoute = (routeName, pageName) => {

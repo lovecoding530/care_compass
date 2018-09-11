@@ -17,8 +17,6 @@ export default class Page extends Component {
 
 	async componentDidMount() {
 		const { pageName } = this.props.navigation.state.params;
-		console.log('page name');
-		console.log(pageName);
 		const content = await getApiData(pageName);
 		this.setState({ pageContent: content[0] });
 	}
@@ -28,8 +26,6 @@ export default class Page extends Component {
 			<ImageBackground source={Images.bg_navigation} resizeMode="stretch" style={Styles.container}>
 				<ScrollView contentContainerStyle={Styles.scroll}>
 					<View style={Styles.titleView}>
-						{console.log('state')}
-						{console.log(this.state)}
 						<Text large style={Styles.title}>
 							{this.state.pageContent.title}
 						</Text>
