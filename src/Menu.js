@@ -129,11 +129,6 @@ export default class Menu extends Component {
 							Take our survey
 						</ArrowText>
 					</TouchableOpacity>
-					<TouchableOpacity style={styles.menuItem} onPress={() => this.goto('Page')}>
-						<ArrowText light bold color={Colors.white}>
-							Privacy Policy
-						</ArrowText>
-					</TouchableOpacity>
 				</View>
 				<Image
 					source={Images.logo_footer}
