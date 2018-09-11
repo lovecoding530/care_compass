@@ -331,7 +331,7 @@ export const DrawerStack = DrawerNavigator(
 		}
 	},
 	{
-		drawerWidth: deviceWidth(100) >= 768 ? deviceWidth(40) : deviceWidth(66),
+		drawerWidth: deviceWidth(100) >= 768 ? deviceWidth(40) : deviceWidth(80),
 		drawerPosition: 'right',
 		contentComponent: (props) => {
 			drawerNavigator = props.navigation;
