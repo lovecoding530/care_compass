@@ -6,6 +6,7 @@ import Styles from './styles';
 import { MediaQuery } from 'react-native-responsive';
 import store from '../../Store';
 import { Card, ArrowText } from '@components';
+import Text from '@text';
 
 const { height, width } = Dimensions.get('window');
 
@@ -60,11 +61,17 @@ export default class Home extends Component {
 							}}
 						>
 							<MediaQuery minDeviceWidth={768}>
-								<Image source={Images.cardgame} style={Styles.right_icon} />
+								<Image source={Images.cardgame} style={[ Styles.right_icon, Styles.reduce_opacity ]} />
 							</MediaQuery>
-							<ArrowText medium bold color={Colors.Red} style={Styles.right_item_text}>
-								Start discussion cards
-							</ArrowText>
+							<Text
+								medium
+								bold
+								color={Colors.Red}
+								style={[ Styles.right_item_text, Styles.reduce_opacity ]}
+							>
+								Discussion cards
+							</Text>
+							<Text style={Styles.coming_soon}>Coming soon...</Text>
 						</Card>
 					</View>
 					<View style={Styles.containerRight}>
@@ -115,9 +122,10 @@ export default class Home extends Component {
 							style={[ Styles.item, Styles.survey_item ]}
 							onPress={() => {}}
 						>
-							<ArrowText bold color={Colors.Navy} style={Styles.left_item_text}>
-								Take our survey
-							</ArrowText>
+							<Text bold color={Colors.Navy} style={Styles.left_item_text}>
+								Survey
+							</Text>
+							<Text style={Styles.coming_soon}>Coming soon...</Text>
 						</Card>
 					</View>
 				</ScrollView>
