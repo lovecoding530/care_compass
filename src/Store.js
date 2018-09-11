@@ -1,16 +1,17 @@
 class Store {
-    static instance = null
-    static getInstance () {
-        if (!Store.instance) {
-            Store.instance = new Store()
-        }
-        return Store.instance
-    }
+	static instance = null;
+	static getInstance() {
+		if (!Store.instance) {
+			Store.instance = new Store();
+		}
+		return Store.instance;
+	}
 
-    activeRoute = null
-    routesInStack = []
+	activeRoute = null;
+	activePage = null;
+	routesInStack = [];
 }
 
-let store = new Store()
+let store = new Store();
 
-export default store
+export default store;

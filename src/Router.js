@@ -84,6 +84,7 @@ const Footer = (props) => {
 					let pageName = 'privacy_policy';
 					const key = `${routeName} ${store.routesInStack.length}`;
 					store.activeRoute = routeName;
+					store.activePage = pageName;
 					store.routesInStack.push(key);
 					props.navigation.navigate(
 						routeName,
@@ -158,7 +159,7 @@ const WelcomeIcon = ({ dispatch }) => {
 	);
 };
 
-const HomeIcon = ({ goBack }) => {
+const HomeIcon = (props) => {
 	return (
 		<Icon.Button
 			name="home"
@@ -166,7 +167,7 @@ const HomeIcon = ({ goBack }) => {
 			style={{ height: deviceHeight(4.5), paddingHorizontal: 10 }}
 			backgroundColor={'#0000'}
 			onPress={() => {
-				goBack(store.routesInStack[0]);
+				props.navigate('Home');
 				store.activeRoute = null;
 				store.routesInStack = [];
 			}}

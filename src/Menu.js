@@ -28,16 +28,17 @@ export default class Menu extends Component {
 		console.log(routeName);
 		console.log('page');
 		console.log(pageName);
-		if (store.activeRoute == routeName) return;
+		console.log('store.activeRoute');
+		console.log(store.activeRoute);
+		console.log('store.activePage');
+		console.log(store.activePage);
+		if (store.activeRoute == routeName && store.activePage == pageName) return;
 
 		let goToRoute = (routeName, pageName) => {
-			console.log('route');
-			console.log(routeName);
-			console.log('page');
-			console.log(pageName);
 			setTimeout(() => {
 				var key = `${routeName} ${store.routesInStack.length}`;
 				store.activeRoute = routeName;
+				store.activePage = pageName;
 				store.routesInStack.push(key);
 				this.props.navigation.navigate(
 					routeName,
