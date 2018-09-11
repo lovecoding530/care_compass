@@ -5,7 +5,7 @@ import Text from '@text';
 import Button from '@button';
 import { htmlStyles, Images } from '@theme';
 import { getApiData } from '@api';
-import HTMLView from 'react-native-htmlview';
+import HTML from 'react-native-render-html';
 
 export default class Page extends Component {
 	constructor(props) {
@@ -36,7 +36,7 @@ export default class Page extends Component {
 					</View>
 
 					<View style={[ Styles.itemView ]}>
-						<HTMLView value={this.state.pageContent.body} stylesheet={htmlStyles} />
+						<HTML html={this.state.pageContent.body} tagsStyles={htmlStyles} />
 					</View>
 				</ScrollView>
 				<View style={Styles.buttonBar}>

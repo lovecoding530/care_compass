@@ -27,13 +27,12 @@ const MediaQueries = {
 	iPhone: '@media (max-device-width: 767)'
 };
 
-const htmlStyles = StyleSheet.create({
+const htmlStyles = {
 	p: {
 		color: Colors.textPrimary,
 		fontSize: FontSizes.smallMedium
 	},
 	a: {
-		color: Colors.textPrimary,
 		fontSize: FontSizes.smallMedium
 	},
 	ul: {
@@ -44,6 +43,6 @@ const htmlStyles = StyleSheet.create({
 		color: Colors.textPrimary,
 		fontSize: FontSizes.smallMedium
 	}
-});
+};
 
 export { Colors, Images, FontSizes, MediaQueries, Metrics, htmlStyles };
