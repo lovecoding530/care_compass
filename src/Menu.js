@@ -157,7 +157,9 @@ export default class Menu extends Component {
 				/>
 				<SafeAreaView style={{ backgroundColor: Colors.darkNavy }}>
 					<View style={styles.footer}>
-						<Text style={styles.text_footer}>Funded by the Australian Goverment</Text>
+						<Text style={styles.text_footer}>
+							Funded by the Australian Government through the Dementia and Aged Care Services Fund
+						</Text>
 					</View>
 				</SafeAreaView>
 			</ScrollView>
@@ -206,12 +208,13 @@ const styles = StyleSheet.create({
 		backgroundColor: Colors.darkNavy,
 		justifyContent: 'center',
 		alignItems: 'center',
-		height: deviceHeight(5)
+		height: deviceHeight(6)
 	},
 
 	text_footer: {
 		color: '#fff',
-		fontSize: 16,
-		fontStyle: 'italic'
+		fontSize: 13,
+		fontStyle: 'italic',
+		textAlign: 'center'
 	}
 });
