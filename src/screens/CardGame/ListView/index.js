@@ -21,13 +21,14 @@ import {playSounds} from '@utils'
 export default class ListView extends Component {
     constructor(props) {
         super(props);
-        const {cardGame} = this.props.navigation.state.params;
-        const pageTotalCount = parseInt((cardGame.cards.length - 1) / 3) + 1
+        const {cardGame, cardIndex} = this.props.navigation.state.params; 
+        const pageTotalCount = parseInt((cardGame.cards.length - 1) / 3) + 1; 
+        let pageIndex = parseInt(cardIndex/3); 
         this.state = ({
             cardGame,
             pageTotalCount,
-            pageIndex: 0,
-            currentCards: this.cardsInPage(cardGame.cards, 0),
+            pageIndex, 
+            currentCards: this.cardsInPage(cardGame.cards, pageIndex), 
             info: "",
         })
     }
@@ -151,7 +152,7 @@ export default class ListView extends Component {
                     />
                 </ScrollView>
                 <View style={Styles.buttonBar}>
-                    <Button light bold onPress={()=>{navigate("CDSingleView", {cardIndex: 0, cardGame: this.state.cardGame})}}>Single view</Button>
+                    <Button light bold onPress={()=>{navigate("CDSingleView", {cardIndex: this.state.pageIndex * 3, cardGame: this.state.cardGame})}}>Single view</Button> 
                     <Button light bold onPress={()=>{navigate("CDSummary", {cardGame: this.state.cardGame})}}>Finish</Button>
                     <View style={{flex: 1}}/>
                     {this.state.pageIndex > 0 &&
@@ -168,6 +169,7 @@ export default class ListView extends Component {
                     visible={Boolean(this.state.info)} 
                     icon={Images.icon_info_blue}
                     message={this.state.info}
+                    dark
                     onCancel={()=>{this.setState({info: ""})}}
                 />
             </ImageBackground>

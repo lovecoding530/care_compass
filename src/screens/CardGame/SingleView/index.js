@@ -112,14 +112,16 @@ export default class SingleView extends Component {
                 {this.state.currentCard.question}
               </Text>
             </View>
-            <View style={Styles.additionalInfoWrapper}>
-              <View style={Styles.triangle} />
-              <View style={Styles.additionalInfoView}>
-                <Text center style={Styles.additionalInfo}>
-                  {this.state.currentCard.additional_info}
-                </Text>
-              </View>
-            </View>
+            {this.state.currentCard.additional_info && 
+                <View style={Styles.additionalInfoWrapper}>
+                    <View style={Styles.triangle} />
+                    <View style={Styles.additionalInfoView}>
+                        <Text center style={Styles.additionalInfo}>
+                            {this.state.currentCard.additional_info}
+                        </Text>
+                    </View>
+                </View>
+            }
           </Card>
           <View style={Styles.levelBar}>
             <TouchableOpacity
@@ -162,7 +164,7 @@ export default class SingleView extends Component {
             light
             bold
             onPress={() =>
-              navigate("CDListView", { cardGame: this.state.cardGame })
+              navigate("CDListView", { cardGame: this.state.cardGame, cardIndex: this.state.cardIndex })
             }
           >
             List view

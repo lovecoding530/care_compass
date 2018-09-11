@@ -11,7 +11,7 @@ import Text from '@text'
 import { deviceWidth } from "@ResponsiveDimensions";
 
 export default InfoAlert =  (props) => {
-    const {icon, message, onCancel} = props
+    const {icon, message, onCancel, dark} = props 
     return (
         <Modal
             supportedOrientations={['portrait', 'landscape']}
@@ -22,8 +22,12 @@ export default InfoAlert =  (props) => {
             <View style={styles.container}>
                 <View style={styles.modal}>
                     <Image source={icon} style={styles.icon}/>
-                    <Text medium center color={Colors.Olive}>{message}</Text>
-                    <Button light bold color={Colors.Navy} buttonStyles={styles.closeButton} onPress={()=>onCancel()}>Close</Button>
+                    <Text medium center color={dark ? Colors.textPrimary : Colors.Olive}>{message}</Text> 
+                    {dark ? 
+                        <Button dark bold color={Colors.Navy} buttonStyles={styles.closeButton} onPress={()=>onCancel()}>Close</Button> 
+                        : 
+                        <Button light bold color={Colors.Navy} buttonStyles={styles.closeButton} onPress={()=>onCancel()}>Close</Button> 
+                    }
                 </View>
             </View>
         </Modal>
