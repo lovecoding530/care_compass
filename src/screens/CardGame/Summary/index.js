@@ -26,6 +26,21 @@ import RNHTMLtoPDF from "react-native-html-to-pdf";
 import Mailer from "react-native-mail";
 import store from "../../../Store";
 
+const levelBarSource = [ 
+    { 
+        image: Images.levelNot, 
+        text: "Not" 
+    }, 
+    { 
+        image: Images.levelSomewhat, 
+        text: "Somewhat" 
+    }, 
+    { 
+        image: Images.levelVery, 
+        text: "Very" 
+    } 
+] 
+
 export default class Summary extends Component {
   constructor(props) {
     super(props);
@@ -40,7 +55,8 @@ export default class Summary extends Component {
         emailSent: false
       },
       draggingItem: null,
-      pan: new Animated.ValueXY()
+      pan: new Animated.ValueXY(),
+      hoverDropZone: -1, 
     };
     this.levelDropZones = [];
   }
@@ -49,30 +65,39 @@ export default class Summary extends Component {
 
   componentWillMount() {
     this.panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: (e, gesture) =>
-        Boolean(this.state.draggingItem),
+      onStartShouldSetPanResponder: (e, gesture) => Boolean(this.state.draggingItem),
       onMoveShouldSetPanResponder: () => Boolean(this.state.draggingItem),
       onPanResponderGrant: (e, gestureState) => {
         // adjusting delta value
         this.state.pan.setValue({ x: 0, y: 0 });
-        console.log("onPanResponderGrant");
       },
-      onPanResponderMove: Animated.event([
-        null,
-        {
-          dx: this.state.pan.x,
-          dy: this.state.pan.y
-        }
-      ]),
+      onPanResponderMove: (e, gestureState) => { 
+        let {moveX, moveY} = gestureState; 
+        this.levelDropZones.forEach((dropZone, levelIndex) => { 
+          dropZone.measure( (fx, fy, width, height, px, py) => { 
+            let sX = px + width; 
+            let sY = py + height; 
+            if(moveX > px && moveX < sX && moveY > py && moveY < sY){ 
+                // console.log("hover drop zone", levelIndex); 
+                this.setState({hoverDropZone: levelIndex}); 
+            } 
+          }) 
+        }) 
+        return Animated.event([ 
+          null,  
+          {  
+              dx: this.state.pan.x,  
+              dy: this.state.pan.y  
+          } 
+        ])(e, gestureState); 
+      },
       onPanResponderRelease: (e, gestureState) => {
-        console.log("onPanResponderRelease", gestureState);
         let { moveX, moveY } = gestureState;
         this.levelDropZones.forEach((dropZone, levelIndex) => {
           dropZone.measure((fx, fy, width, height, px, py) => {
             let sX = px + width;
             let sY = py + height;
             if (moveX > px && moveX < sX && moveY > py && moveY < sY) {
-              console.log("selected drop zone", levelIndex);
               this.onSelectedLevel(
                 this.state.draggingItem.cardIndex,
                 levelIndex
@@ -81,7 +106,7 @@ export default class Summary extends Component {
           });
         });
         setTimeout(() => {
-          this.setState({ draggingItem: null });
+          this.setState({draggingItem: null, hoverDropZone: -1}); 
         }, 100);
       }
     });
@@ -251,7 +276,7 @@ export default class Summary extends Component {
         {item.selectedLevel == 2 && (
           <ImageButton
             source={item.star ? Images.star : Images.starEmpty}
-            style={Styles.itemLevelIcon}
+            style={Styles.starIcon}
             onPress={this.onStarSelected.bind(this, item.cardIndex)}
           />
         )}
@@ -336,7 +361,7 @@ export default class Summary extends Component {
                     <Text light style={{ fontStyle: "italic" }}>
                       Choose your top 3 priorities with a{" "}
                     </Text>
-                    <Image source={Images.starWhite} style={Styles.levelIcon} />
+                    <Image source={Images.starWhite} style={Styles.starIcon} />
                   </View>
                 </View>
                 <FlatList
@@ -443,7 +468,7 @@ export default class Summary extends Component {
               Exit
             </Button>
             <Button light bold onPress={this.onAddYourOwn}>
-              Add your owns
+              Add your own
             </Button>
             <View style={{ flex: 1 }} />
           </View>
@@ -525,42 +550,18 @@ export default class Summary extends Component {
               </Animated.View>
 
               <View style={Styles.dropLevelBar}>
-                <View
-                  style={Styles.dropLevelItem}
-                  ref={ref => (this.levelDropZones[0] = ref)}
-                >
-                  <Image
-                    source={Images.levelNot}
-                    style={Styles.dropLevelIcon}
-                  />
-                  <Text bold medium color={Colors.Navy}>
-                    Not
-                  </Text>
-                </View>
-                <View
-                  style={Styles.dropLevelItem}
-                  ref={ref => (this.levelDropZones[1] = ref)}
-                >
-                  <Image
-                    source={Images.levelSomewhat}
-                    style={Styles.dropLevelIcon}
-                  />
-                  <Text bold medium color={Colors.Navy}>
-                    Somewhat
-                  </Text>
-                </View>
-                <View
-                  style={Styles.dropLevelItem}
-                  ref={ref => (this.levelDropZones[2] = ref)}
-                >
-                  <Image
-                    source={Images.levelVery}
-                    style={Styles.dropLevelIcon}
-                  />
-                  <Text bold medium color={Colors.Navy}>
-                    Very
-                  </Text>
-                </View>
+                {levelBarSource.map((item, index)=>( 
+                  index == this.state.hoverDropZone ? 
+                  <View key={index.toString()} style={[Styles.dropLevelItem, {backgroundColor: Colors.Navy}]} ref={ref=>this.levelDropZones[index]=ref}> 
+                      <Image source={item.image} style={[Styles.dropLevelIcon, {tintColor: Colors.white}]}/> 
+                      <Text bold medium color={Colors.white}>{item.text}</Text> 
+                  </View> 
+                  : 
+                  <View key={index.toString()} style={Styles.dropLevelItem} ref={ref=>this.levelDropZones[index]=ref}> 
+                      <Image source={item.image} style={Styles.dropLevelIcon}/> 
+                      <Text bold medium color={Colors.Navy}>{item.text}</Text> 
+                  </View>
+                ))}
               </View>
             </View>
           )}
