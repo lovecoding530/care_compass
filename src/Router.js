@@ -143,7 +143,10 @@ const WelcomeIcon = ({ dispatch }) => {
 				const resetAction = NavigationActions.reset({
 					index: 0,
 					key: null,
-					actions: [ NavigationActions.navigate({ routeName: 'OnBoardingScreen' }) ]
+					actions: [
+						NavigationActions.navigate({ routeName: 'OnBoardingScreen' }),
+						NavigationActions.navigate({ routeName: 'DrawerStack' })
+					]
 				});
 				dispatch(resetAction);
 			}}
@@ -167,7 +170,15 @@ const HomeIcon = (props) => {
 			style={{ height: deviceHeight(4.5), paddingHorizontal: 10 }}
 			backgroundColor={'#0000'}
 			onPress={() => {
-				props.navigate('Home');
+				const resetAction = NavigationActions.reset({
+					index: 1,
+					key: null,
+					actions: [ 
+						NavigationActions.navigate({ routeName: 'OnBoardingScreen' }),
+						NavigationActions.navigate({ routeName: 'DrawerStack' })
+					]
+				});
+				props.dispatch(resetAction);
 				store.activeRoute = null;
 				store.routesInStack = [];
 			}}
