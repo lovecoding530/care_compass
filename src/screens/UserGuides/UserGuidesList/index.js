@@ -142,11 +142,6 @@ export default class UserGuidesList extends Component {
 					>
 						<MediaQuery minDeviceWidth={768}>
 							<View style={{ flexDirection: 'row' }}>
-								<Image
-									source={Images.icon_professional}
-									resizeMode="stretch"
-									style={Styles.smallIcon}
-								/>
 								<Image source={Images.discussion_starter} style={Styles.icon} />
 							</View>
 							<View style={Styles.cardView}>
@@ -162,11 +157,6 @@ export default class UserGuidesList extends Component {
 						</MediaQuery>
 						<MediaQuery maxDeviceWidth={767}>
 							<View style={[ Styles.cardView, { paddingVertical: deviceWidth(4) } ]}>
-								<Image
-									source={Images.icon_professional}
-									resizeMode="stretch"
-									style={Styles.smallIcon}
-								/>
 								<Text smallmedium bold style={[ Styles.cardtitle, { color: Colors.Red } ]}>
 									{item.title}{' '}
 								</Text>
@@ -189,7 +179,6 @@ export default class UserGuidesList extends Component {
 					>
 						<MediaQuery minDeviceWidth={768}>
 							<View style={{ flexDirection: 'row' }}>
-								<Image source={Images.icon_community} resizeMode="stretch" style={Styles.smallIcon} />
 								<Image source={Images.cardgame} style={Styles.icon} />
 							</View>
 							<View style={Styles.cardView}>
@@ -205,7 +194,6 @@ export default class UserGuidesList extends Component {
 						</MediaQuery>
 						<MediaQuery maxDeviceWidth={767}>
 							<View style={[ Styles.cardView, { paddingVertical: deviceWidth(4) } ]}>
-								<Image source={Images.icon_community} resizeMode="stretch" style={Styles.smallIcon} />
 								<Text smallmedium bold style={[ Styles.cardtitle, { color: Colors.Red } ]}>
 									{item.title}{' '}
 								</Text>
