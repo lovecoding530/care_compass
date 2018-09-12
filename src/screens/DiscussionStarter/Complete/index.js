@@ -4,7 +4,6 @@ import { Colors, Images, FontSizes } from '@theme';
 import Styles from './styles';
 import { Button, Text, Loader, InfoAlert } from '@components';
 
-<<<<<<< HEAD
 import { postDiscussionAnswers } from "@api";
 import { getSharingHTMLFromResult } from "./HtmlResult";
 import RNHTMLtoPDF from "react-native-html-to-pdf";
@@ -13,15 +12,6 @@ import { Card } from "@components";
 import { deviceWidth } from "@ResponsiveDimensions";
 import store from "../../../Store";
 import { gotoHome } from "router";
-=======
-import { postDiscussionAnswers } from '@api';
-import { getSharingHTMLFromResult } from './HtmlResult';
-import RNHTMLtoPDF from 'react-native-html-to-pdf';
-import Mailer from 'react-native-mail';
-import { Card } from '@components';
-import { deviceWidth } from '@ResponsiveDimensions';
-import store from '../../../Store';
->>>>>>> testflight
 
 export default class Complete extends Component {
 	constructor(props) {
@@ -70,7 +60,6 @@ export default class Complete extends Component {
 		await postDiscussionAnswers(this.state.discussionStarter);
 		this.setState({ loaderVisible: false });
 
-<<<<<<< HEAD
     setTimeout(() => {
       const { navigate, goBack } = this.props.navigation;
       Alert.alert(
@@ -96,32 +85,6 @@ export default class Complete extends Component {
       );
     }, 500);
   }
-=======
-		setTimeout(() => {
-			const { navigate, goBack } = this.props.navigation;
-			Alert.alert(
-				'Are you sure?',
-				'Any information you have entered will be deleted.',
-				[
-					{
-						text: 'NO',
-						onPress: () => console.log('Cancel Pressed'),
-						style: 'cancel'
-					},
-					{
-						text: 'YES',
-						onPress: () => {
-							goBack(store.routesInStack[0]);
-							store.activeRoute = null;
-							store.routesInStack = [];
-						}
-					}
-				],
-				{ cancelable: false }
-			);
-		}, 500);
-	}
->>>>>>> testflight
 
 	async onShareEmail() {
 		var html = getSharingHTMLFromResult(this.state.discussionStarter);
