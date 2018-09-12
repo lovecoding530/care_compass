@@ -236,7 +236,15 @@ class Swiper extends Component {
 			>
 				{pages.map((page, i) => (
 					// Render each slide inside a View
-					<View key={i}>{page}</View>
+					<View style={[ Styles.slide, { width: width } ]} key={i}>
+						{page}
+						{/* Render Continue or Done button */}
+						<View style={Styles.buttonpageView}>
+							{this.renderButton()}
+							{/* Render pagination */}
+							{this.renderPagination()}
+						</View>
+					</View>
 				))}
 			</ScrollView>
 		);
@@ -288,8 +296,8 @@ class Swiper extends Component {
 		const firstScreen = this.state.index === 0;
 		return (
 			<View pointerEvents="box-none">
-				{lastScreen ? (
-					<View style={Styles.buttonContainer}>
+				<View style={Styles.buttonContainer}>
+					{this.state.index > 0 ? (
 						<Button
 							light
 							bold
@@ -299,50 +307,17 @@ class Swiper extends Component {
 						>
 							Previous
 						</Button>
-						<Button
-							dark
-							bold
-							textStyles={{ color: Colors.white }}
-							buttonStyles={Styles.buttonNext}
-							onPress={() => this.onDone()}
-						>
-							Done
-						</Button>
-					</View>
-				) : firstScreen ? (
-					<View style={Styles.buttonContainer}>
-						<Button
-							dark
-							bold
-							textStyles={{ color: Colors.white }}
-							buttonStyles={Styles.buttonNext}
-							onPress={() => this.swipe()}
-						>
-							Next
-						</Button>
-					</View>
-				) : (
-					<View style={[ Styles.buttonContainer ]}>
-						<Button
-							light
-							bold
-							textStyles={{ color: Colors.darkNavy }}
-							buttonStyles={Styles.buttonPrev}
-							onPress={() => this.swipePrev()}
-						>
-							Previous
-						</Button>
-						<Button
-							dark
-							bold
-							textStyles={{ color: Colors.white }}
-							buttonStyles={Styles.buttonNext}
-							onPress={() => this.swipe()}
-						>
-							Next
-						</Button>
-					</View>
-				)}
+					) : null}
+					<Button
+						dark
+						bold
+						textStyles={{ color: Colors.white }}
+						buttonStyles={Styles.buttonNext}
+						onPress={this.state.index === this.state.total - 1 ? () => this.onDone() : () => this.swipe()}
+					>
+						{lastScreen ? `Done` : `Next`}
+					</Button>
+				</View>
 			</View>
 		);
 	};
@@ -410,12 +385,6 @@ class Swiper extends Component {
 
 						{this.renderScrollView(children)}
 
-						{/* Render Continue or Done button */}
-						<View style={Styles.buttonpageView}>
-							{this.renderButton()}
-							{/* Render pagination */}
-							{this.renderPagination()}
-						</View>
 						<Button light bold color={Colors.white} onPress={() => this.onDone()}>
 							Skip
 						</Button>
@@ -454,7 +423,7 @@ export default class OnBoarding extends Component {
 		return (
 			<Swiper onLayout={this.onLayout.bind(this)}>
 				{/* Slide 1 */}
-				<View style={[ Styles.slide, { width: width } ]}>
+				<View>
 					<ImageBackground
 						source={Images.onboarding_icon_background}
 						resizeMode="stretch"
@@ -474,7 +443,7 @@ export default class OnBoarding extends Component {
 				</View>
 
 				{/* Slide 2 */}
-				<View style={[ Styles.slide, { width: width } ]}>
+				<View>
 					<ImageBackground
 						source={Images.onboarding_icon_background}
 						resizeMode="stretch"
@@ -495,7 +464,7 @@ export default class OnBoarding extends Component {
 				</View>
 
 				{/* Slide 3 */}
-				<View style={[ Styles.slide, { width: width } ]}>
+				<View>
 					<ImageBackground
 						source={Images.onboarding_icon_background}
 						resizeMode="stretch"
@@ -517,7 +486,7 @@ export default class OnBoarding extends Component {
 				</View>
 
 				{/* Slide 4 */}
-				<View style={[ Styles.slide, { width: width } ]}>
+				<View>
 					<ImageBackground
 						source={Images.onboarding_icon_background}
 						resizeMode="stretch"
@@ -538,7 +507,7 @@ export default class OnBoarding extends Component {
 				</View>
 
 				{/* Slide 5 */}
-				<View style={[ Styles.slide, { width: width } ]}>
+				<View>
 					<ImageBackground
 						source={Images.onboarding_icon_background}
 						resizeMode="stretch"
