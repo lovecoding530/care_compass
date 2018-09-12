@@ -7,7 +7,7 @@ const header = `
       <h1>Dying to Talk in the Bush Study</h1>
       <p>This study is for people living in rural and remote Australia. It aims to help people work out what is right for them, when thinking about if they were really sick or at the end of their life. As you would have discussed with the Royal Flying Doctor Service (RFDS) team, this doesn’t mean you are about to die.</p>
     </div>
-    <div class='header-logo'><img src=${Images.dtt_blue} alt='' /></div>
+    <div class='header-logo'><img src=${Images.base64_dtt_logo} alt='' /></div>
   </div>
 `;
 
@@ -88,10 +88,10 @@ function renderActivities(activities) {
 const footer = `
   <div class='footer'>
     <div class='logo-rfds'>
-      RFDS Logo
+      <img src=${Images.base64_rfds_logo} alt='' width='241' height='74' />
     </div>
     <div class='logo-pca'>
-      PCA Logo
+      <img src=${Images.base64_pca_logo} alt='' width='225' height='85' />
     </div>
   </div>
 `;
@@ -146,7 +146,7 @@ const style = `
   }
   .header-title p {
     font-size: 1rem;
-    color: ${Colors.Navy};
+    color: ${Colors.Red};
     margin-bottom: 0;
   }
   .header-logo img {
@@ -184,12 +184,14 @@ const style = `
     border-bottom: solid 1px ${Colors.Navy};
   }
   .activityTitle {
+    color: ${Colors.Red};
     margin-bottom: 8px;
   }
   .activityPrecomment {
     margin-bottom: 16px;
   }
   .question {
+    color: ${Colors.Navy};
     margin-bottom: 8px;
   }
   .footer {
@@ -199,6 +201,9 @@ const style = `
     margin: 2rem 0 1rem;
     padding-top: 1rem;
     border-top: solid 2px ${Colors.Navy};
+  }
+  .footer .logo-rfds img {
+    margin-right: 2rem;
   }
   .disclaimer {
     display: block;
