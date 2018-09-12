@@ -4,16 +4,9 @@
 
 import React, { Component } from 'react';
 import {
-    StyleSheet,
-    Image,
-    TouchableOpacity,
-    View,
     FlatList,
 } from 'react-native';
 
-import {Colors} from '@theme';
-import Button from '@button'
-import Text from '@text'
 import Choice from '@choice'
 
 export default class Choices extends Component {
@@ -74,8 +67,8 @@ export default class Choices extends Component {
         })    
 
         //react bug Not render until scroll
-        this.flatList.scrollToOffset({offset: -1})
-        this.flatList.scrollToOffset({offset: 1})
+        // this.flatList.scrollToOffset({offset: -1})
+        // this.flatList.scrollToOffset({offset: 1})
 
         this.props.onChangedAnswer(this.props.questionIndex, selectedIndex)
     }

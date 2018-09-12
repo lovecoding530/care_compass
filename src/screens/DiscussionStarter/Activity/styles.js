@@ -49,7 +49,9 @@ export default MediaQueryStyleSheet.create({
 
     questionTitle: {
         marginBottom: deviceWidth(1.8),
-        marginHorizontal: deviceWidth(2),
+        marginLeft: deviceWidth(1),
+        marginRight: deviceWidth(3),
+        flex: 1,
     },
 
     textArea: {
@@ -57,26 +59,19 @@ export default MediaQueryStyleSheet.create({
         height: deviceWidth(16),
         color: Colors.textPrimary,
         fontSize: FontSizes.smallMedium,
-        padding: 8,
+        padding: deviceWidth(1.2),
+        borderWidth: 1,
+        borderColor: '#222222'
     },
     
     buttonBar: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        backgroundColor: '#fff',
+        backgroundColor: '#E6E0D4',
         paddingHorizontal: deviceWidth(8),
     },
 
     titleView: {
-        borderTopColor: Colors.Red,
-        backgroundColor: '#fff',
-        borderRadius: deviceWidth(1.2),
-        borderTopWidth: deviceWidth(1.2),
-        shadowColor: '#000',
-        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
-        shadowOpacity: 0.4,
-        shadowRadius: 0,
-        padding: 8,
         marginBottom: deviceWidth(2),
     },
 
@@ -93,11 +88,18 @@ export default MediaQueryStyleSheet.create({
     },
 
     answerButton: {
-        backgroundColor: Colors.lightGray, 
-        paddingVertical: deviceWidth(1), 
-        paddingHorizontal: deviceWidth(2), 
+        backgroundColor: Colors.Blue, 
+        paddingVertical: 4, 
+        paddingHorizontal: 8, 
         marginTop: deviceWidth(1),
         marginHorizontal: deviceWidth(1),
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+
+    sound: {
+        width: deviceHeight(2),
+        height: deviceHeight(2)
     }
 }, {
     [MediaQueries.iPhone] : {

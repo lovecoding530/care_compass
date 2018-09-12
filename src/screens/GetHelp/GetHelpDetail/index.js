@@ -63,7 +63,7 @@ function renderNode(node, index, siblings, parent, defaultRenderer) {
                     />
                 );
             }
-            
+
         }
     }
     else
@@ -74,8 +74,8 @@ function renderNode(node, index, siblings, parent, defaultRenderer) {
             var iframeHtml = `<iframe src=\"${atribute.src}" width=\"${width/1.7}\" frameborder=\"0\" allow=\"autoplay; encrypted-media\" allowfullscreen></iframe>`;
             return (
               <View key={index} style={{height: height/4.3,}}>
-                <WebView 
-                    source={{html: iframeHtml}} 
+                <WebView
+                    source={{html: iframeHtml}}
                     style={{backgroundColor: Colors.backgroundSecondary}}
                     javaScriptEnabled={true}
                     domStorageEnabled={true}/>
@@ -152,7 +152,7 @@ export default class UserGuidesDetail extends Component {
         const gethepls = ds[0].services
         const gethelp = gethepls[this.state.gethelpIndexes]
 
-       
+
         this.setState({
             title : gethelp.title,
             logo : gethelp.logo,
@@ -161,7 +161,7 @@ export default class UserGuidesDetail extends Component {
             website : gethelp.website,
             phonenumber : gethelp.phone_number,
             loaderVisible: false
-        }) 
+        })
 
         Dimensions.addEventListener('change', ({ window: { width, height } }) => {
             orientation = width > height ? 'LANDSCAPE' : 'PORTRAIT';
@@ -176,7 +176,7 @@ export default class UserGuidesDetail extends Component {
         else
         {
             alert("You have cancelled sharing.");
-        } 
+        }
     }
 
     _share(){
@@ -194,7 +194,7 @@ export default class UserGuidesDetail extends Component {
                 email: false,
                 emailSent: false,
             }
-        })        
+        })
         setTimeout(()=>{
             this.setState({
                 modalVisible: {
@@ -203,7 +203,7 @@ export default class UserGuidesDetail extends Component {
                     email: true,
                     emailSent: false,
                 }
-            })                        
+            })
         }, 200)
     }
 
@@ -216,7 +216,7 @@ export default class UserGuidesDetail extends Component {
                     email: false,
                     emailSent: true,
                 }
-            })                        
+            })
         }, 1000)
     }
 
@@ -241,11 +241,11 @@ export default class UserGuidesDetail extends Component {
          this.forceUpdate();
     }
 
-    render() {   
+    render() {
         return (
             <View style={Styles.container} onLayout={this.onLayout.bind(this)}>
-            <View style={[Styles.scrollcontainer]}> 
-               <ScrollView contentContainerStyle={Styles.scroll}> 
+            <View style={[Styles.scrollcontainer]}>
+               <ScrollView contentContainerStyle={Styles.scroll}>
 
                     <Loader loading={this.state.loaderVisible}/>
                     <View style={[Styles.itemTop,{paddingVertical : height/45,width : width/1.2,marginTop : width/25,}]}>
@@ -253,27 +253,27 @@ export default class UserGuidesDetail extends Component {
                     </View>
 
                     <View style={[Styles.itemBottom,{width : width/1.2,}]}>
-                       
+
                             {this.state.logo == null ?
                                 <Image style={{ width:width/1.2,height:height/2.5,marginBottom : 8}} source={require('../../../../assets/images/default_appLogo.png')} resizeMode="stretch"/>
                                 :
                                 <Image style={{ width:width/1.2,height:height/2.5,marginBottom : 8}} source={{uri:  API_HTML_ROOT + this.state.logo.url}} resizeMode="stretch"/>
                             }
-                           
+
                         <View style={[Styles.viewBody,{marginHorizontal : width/9,}]}>
                             <HTMLView
                                 value={this.state.description}
                                 renderNode={renderNode}
                             />
-                            
+
                         </View>
 
-                        
-                        {this.state.email == '' 
+
+                        {this.state.email == ''
                             ?
                             <View style={{flex:1}}>
                                 <View style={{flexDirection : 'row',padding:10}}>
-                 
+
                                     <View style={Styles.contactView}>
                                         <View style={{justifyContent:'center'}}><Image source={require('../../../../assets/images/icon_call.png')}/></View>
                                         <Text style={Styles.contactText}>{this.state.phonenumber}</Text>
@@ -303,7 +303,7 @@ export default class UserGuidesDetail extends Component {
 
                             <View style={{flex:1}}>
                                 <View style={{flexDirection : 'row',padding:10}}>
-                 
+
                                     <View style={Styles.contactView}>
                                         <View style={{justifyContent:'center'}}><Image source={require('../../../../assets/images/icon_call.png')}/></View>
                                         <Text style={[Styles.contactText,{paddingHorizontal:width/50,fontSize: orientation === 'PORTRAIT' ?  width/50 : height/50}]}>{this.state.phonenumber}</Text>
@@ -340,9 +340,9 @@ export default class UserGuidesDetail extends Component {
                                 </View>
                             </View>
                         }
-                        
+
                     </View>
-                   
+
                     <View style={[Styles.itemBottom,{width : width/1.2,}]}>
                         <View style={Styles.buttonContainer}>
                             <Button light onPress={ ()=> this.props.navigation.goBack() }>GO BACK</Button>
@@ -350,16 +350,16 @@ export default class UserGuidesDetail extends Component {
                             <Button dark  onPress={this._share}>SHARE</Button>
                         </View>
                     </View>
-                    <EmailModal 
-                        visible={this.state.modalVisible.email} 
+                    <EmailModal
+                        visible={this.state.modalVisible.email}
                         onSend={this.onSendEmail.bind(this)}
                         onCancel={this.onShareCancel.bind(this)}
                         />
-                    <EmailSentModal 
-                        visible={this.state.modalVisible.emailSent} 
+                    <EmailSentModal
+                        visible={this.state.modalVisible.emailSent}
                         onCancel={this.onShareCancel.bind(this)}
                         />
-                </ScrollView> 
+                </ScrollView>
                 </View>
             </View>
         );

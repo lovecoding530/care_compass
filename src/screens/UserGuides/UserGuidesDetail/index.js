@@ -14,17 +14,14 @@ import {
 } from 'react-native';
 
 import Styles from './styles';
-import Text from '@text'
 import Footer from '@footer'
-import Button from '@button'
 import {Colors, Images, FontSizes} from '@theme';
-
+import {Button, Card, Text} from '@components'
 import { getUserGuides, API_HTML_ROOT } from "@api";
 import HTMLView from 'react-native-htmlview';
 const { width,height } = Dimensions.get('window');
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
-
-
+import {SharedModal} from '../../modals';
 
 function renderNode(node, index, siblings, parent, defaultRenderer) {
 
@@ -62,7 +59,7 @@ function renderNode(node, index, siblings, parent, defaultRenderer) {
                     />
                 );
             }
-            
+
         }
     }
     else
@@ -73,8 +70,8 @@ function renderNode(node, index, siblings, parent, defaultRenderer) {
             var iframeHtml = `<iframe src=\"${atribute.src}" width=\"${width/1.7}\" frameborder=\"0\" allow=\"autoplay; encrypted-media\" allowfullscreen></iframe>`;
             return (
               <View key={index} style={{height: height/4.3,}}>
-                <WebView 
-                    source={{html: iframeHtml}} 
+                <WebView
+                    source={{html: iframeHtml}}
                     style={{backgroundColor: Colors.backgroundPrimary}}
                     javaScriptEnabled={true}
                     domStorageEnabled={true}/>
@@ -116,6 +113,9 @@ export default class UserGuidesDetail extends Component {
             image : '',
             body : '',
             faqs : [],
+            loaderVisible: true,
+            modalVisible : false
+
         })
     }
 
@@ -139,18 +139,20 @@ export default class UserGuidesDetail extends Component {
                body : userguide.body,
                faqs : userguide.faqs,
                 image: API_HTML_ROOT + userguide.featured_image.url,
-            }) 
+            })
         }
 
     }
+
     _showResult(result){
         if(result.action == "sharedAction")
         {
-            alert("Your content has been share successfully.");
+                this.setState({modalVisible: true})
+            console.log("Your content has been share successfully.");
         }
         else
         {
-            alert("You have cancelled sharing.");
+            console.log("You have cancelled sharing.");
         }
     }
 
@@ -161,34 +163,40 @@ export default class UserGuidesDetail extends Component {
         }).then(this._showResult.bind(this));
     }
 
+    closeModal(){
+        this.setState({
+            modalVisible: false
+        })
+    }
+
     renderFAQItem({item, index}){
         return (
-            <View style={Styles.item}>
+            <View style={Styles.faqItem}>
                 <View style={Styles.itemTitle}>
-                    <Text bold style={[Styles.txtQuestion,{fontSize:orientation === 'PORTRAIT' ? width/30 : height/30}]}>{index + 1}: </Text>
+                    <Text bold style={[Styles.txtQuestion]}>{index + 1}: </Text>
                     <Text style={Styles.txtQuestion}>
                         {" "}{item.question}
                     </Text>
                 </View>
-                <Text style={[Styles.txtAnswer,{fontSize:orientation === 'PORTRAIT' ? width/30 : height/30}]}>{item.answer} </Text>
+                <Text style={[Styles.txtAnswer]}>{item.answer} </Text>
             </View>
         )
     }
 
 
-    render() {   
+    render() {
 
         return (
             <ImageBackground source={Images.bg_how_to} resizeMode="stretch" style={Styles.container} >
 
                 <ScrollView contentContainerStyle={Styles.scroll}>
 
-                    <View style={Styles.titleView}>
-                             <Text large style={Styles.title}>How to</Text>
+                   <Card topbar={{color: Colors.Navy}} style={Styles.titleView} contentStyle={Styles.title_content} >
+                             <Text large style={Styles.title}>App Instructions</Text>
                             <Text medium style={Styles.subtitle}>{this.state.title}</Text>
-                    </View>
+                    </Card>
 
-                    <View style={[Styles.itemView]}>
+                      <Card style={Styles.item} contentStyle={Styles.item_content}>
                         <View style={Styles.viewBody}>
                             <HTMLView
                                 value={this.state.body}
@@ -196,15 +204,14 @@ export default class UserGuidesDetail extends Component {
                             />
                         </View>
 
-                         {this.state.image == '' ? null 
-                            
-                            : <View style={Styles.viewImage}>
-                                <Image style={[Styles.middleimage]} source={{uri: this.state.image}}/>
-                              </View>  
-                         }
+                        {this.state.image == '' ? null
 
-                        
-                        {this.state.faqs.length == 0 ? null 
+                            : <View style={Styles.viewImage}>
+                                <Image style={[Styles.middleimage]} source={{uri: this.state.image}} resizeMode='stretch'/>
+                              </View>
+                        }
+
+                        {this.state.faqs.length == 0 ? null
                             : <View>
                                 <View style={Styles.faqTitle}>
                                     <Text bold >FAQ</Text>
@@ -218,12 +225,17 @@ export default class UserGuidesDetail extends Component {
                                 />
                             </View>
                         }
-                    </View>
-                </ScrollView> 
-                <View style={Styles.buttonBackView}>
-                    <Button light onPress={ ()=> this.props.navigation.goBack() } buttonStyles={Styles.buttonBack}>Go back</Button>
-                    <Button dark  onPress={this._share} buttonStyles={Styles.buttonBack}>Share</Button>
+
+                    </Card>
+                </ScrollView>
+                <View style={Styles.buttonBar}>
+                    <Button light bold onPress={ ()=> this.props.navigation.goBack() } >Go back</Button>
+                    <Button dark  bold onPress={this._share} >Share</Button>
                 </View>
+                <SharedModal
+                    visible={this.state.modalVisible}
+                    onCancel={this.closeModal.bind(this)}
+                    />
             </ImageBackground>
         );
     }

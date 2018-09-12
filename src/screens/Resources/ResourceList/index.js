@@ -31,95 +31,111 @@ export default class Resources extends Component {
     }
 
     async componentDidMount() {
-         try 
-            {
-                let value = await AsyncStorage.getItem('lastRefereshTimeResource');
+        // try
+        // {
+        //     let value = await AsyncStorage.getItem('lastRefereshTimeResource');
 
-                if (value != null){
-                  // do something 
-                    var currrentTime = moment(new Date()).format("HH:mm:ss");
-                    var startTime=moment(value, "HH:mm:ss");
-                    var endTime=moment(currrentTime, "HH:mm:ss");
-                    var duration = moment.duration(endTime.diff(startTime));
-                    var difference = moment.utc(+duration).format('H');
+        //     if (value != null){
+        //         // do something
+        //         var currrentTime = moment(new Date()).format("HH:mm:ss");
+        //         var startTime=moment(value, "HH:mm:ss");
+        //         var endTime=moment(currrentTime, "HH:mm:ss");
+        //         var duration = moment.duration(endTime.diff(startTime));
+        //         var difference = moment.utc(+duration).format('H');
 
-                    if(difference >= updateTimeInterval)
-                    {
-                        this.setState({
-                            loaderVisible: true
-                        })
+        //         if(difference >= updateTimeInterval)
+        //         {
+        //             this.setState({
+        //                 loaderVisible: true
+        //             })
 
-                        await AsyncStorage.setItem('lastRefereshTimeResource', currrentTime);
-                        const ds = await getResources()
+        //             await AsyncStorage.setItem('lastRefereshTimeResource', currrentTime);
+        //             const ds = await getResources()
 
-                        var resourceIndexes = [];
-                        for(var i = 0; i < ds.resources.length; i ++){
-                            resourceIndexes.push(ds.resources[i]);
-                        }
+        //             var resourceIndexes = [];
+        //             for(var i = 0; i < ds.resources.length; i ++){
+        //                 resourceIndexes.push(ds.resources[i]);
+        //             }
 
-                        this.setState({
-                            resourceIndexes: resourceIndexes,
-                            loaderVisible: false
-                        })
-                    }
-                    else
-                    {
-                        const ds = await getResources(true)
+        //             this.setState({
+        //                 resourceIndexes: resourceIndexes,
+        //                 loaderVisible: false
+        //             })
+        //         }
+        //         else
+        //         {
+        //             const ds = await getResources(true)
 
-                        var resourceIndexes = [];
-                        for(var i = 0; i < ds.resources.length; i ++){
-                            resourceIndexes.push(ds.resources[i]);
-                        }
+        //             var resourceIndexes = [];
+        //             for(var i = 0; i < ds.resources.length; i ++){
+        //                 resourceIndexes.push(ds.resources[i]);
+        //             }
 
-                        this.setState({
-                            resourceIndexes: resourceIndexes,
-                        })
-                    }   
-                }
-                else {
-                  // do something else
-                    this.setState({
-                            loaderVisible: true
-                        })
+        //             this.setState({
+        //                 resourceIndexes: resourceIndexes,
+        //             })
+        //         }
+        //     }
+        //     else {
+        //         // do something else
+        //         this.setState({
+        //                 loaderVisible: true
+        //             })
 
-                    var currrentTime = moment(new Date()).format("HH:mm:ss");
-                    await AsyncStorage.setItem('lastRefereshTimeResource', currrentTime); 
-                    const ds = await getResources()
+        //         var currrentTime = moment(new Date()).format("HH:mm:ss");
+        //         await AsyncStorage.setItem('lastRefereshTimeResource', currrentTime);
+        //         const ds = await getResources()
 
-                    var resourceIndexes = [];
-                    for(var i = 0; i < ds.resources.length; i ++){
-                        resourceIndexes.push(ds.resources[i]);
-                    }
+        //         var resourceIndexes = [];
+        //         for(var i = 0; i < ds.resources.length; i ++){
+        //             resourceIndexes.push(ds.resources[i]);
+        //         }
 
-                    this.setState({
-                        resourceIndexes: resourceIndexes,
-                        loaderVisible: false
-                    })
-                } 
-            }
-            catch (error) {
-              // Error retrieving data
-            }
-       
+        //         this.setState({
+        //             resourceIndexes: resourceIndexes,
+        //             loaderVisible: false
+        //         })
+        //     }
+        // }
+        // catch (error) {
+        //     // Error retrieving data
+        // }
+
+        var json = await getResources(true)
+        if(!json){
+            this.setState({loaderVisible: true})
+            json = await getResources(false)
+            this.setState({loaderVisible: false})
+        }
+        const resources = json.resources
+        console.log(resources);
+
+        var resourceIndexes = [];
+        for(var i = 0; i < resources.length; i ++){
+            resourceIndexes.push(resources[i]);
+        }
+        this.setState({resourceIndexes})
+
     }
 
     renderResourceItem({item, index}){
         const {navigate} = this.props.navigation
         return (
 
-             <TouchableOpacity style={Styles.item} onPress={()=>{navigate("ResourceDetail", {resourceIndex: index})}}>
+                <TouchableOpacity style={Styles.item} onPress={()=>{navigate("ResourceDetail", {resourceIndex: index})}}>
                             <View style={Styles.cardView}>
-                                <Text medium style={Styles.cardtitle}>{item.title}</Text>
+                                <Text smallmedium bold style={Styles.cardtitle}>{item.title}</Text>
                                 <Image source={Images.icon_left_arrow} resizeMode='contain' />
                             </View>
-            </TouchableOpacity>
+                </TouchableOpacity>
+
         )
     }
 
     render() {
-        return ( 
+        return (
 
-            <ImageBackground source={Images.bg_navigation} resizeMode="stretch" style={Styles.container} >
+            <ImageBackground source={Images.bg_more_information} resizeMode="stretch" style={Styles.container} >
 
                 <ScrollView contentContainerStyle={Styles.scroll}>
                     <Loader loading={this.state.loaderVisible}/>
@@ -133,6 +149,7 @@ export default class Resources extends Component {
                     <MediaQuery minDeviceWidth={768}>
                         <FlatList
                             numColumns = {2}
+                            columnWrapperStyle = {{justifyContent:'center'}}
                             data = {this.state.resourceIndexes}
                             renderItem = {this.renderResourceItem.bind(this)}
                             keyExtractor={item => item.title}
@@ -149,7 +166,7 @@ export default class Resources extends Component {
                     </MediaQuery>
 
                 </ScrollView>
-            </ImageBackground> 
+            </ImageBackground>
         );
     }
 }

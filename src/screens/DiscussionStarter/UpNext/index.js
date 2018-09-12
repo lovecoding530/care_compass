@@ -10,7 +10,7 @@ import Styles from './styles';
 import Button from '@button'
 import Text from '@text'
 
-export default class ActivityList extends Component {
+export default class UpNext extends Component {
     constructor(props) {
         super(props);
         const {activityIndex, discussionStarter} = this.props.navigation.state.params
@@ -34,9 +34,9 @@ export default class ActivityList extends Component {
         for (let index = this.state.activityIndex + 2; index < this.state.activityCount; index++) {
             laterActivities.push(this.state.activities[index])
         }
-        return laterActivities.map(activity=>
-            <Text medium center color={Colors.Navy} style={Styles.currentTitle}>
-                Activity {index + 1}: {activity.stage}
+        return laterActivities.map((activity, index) =>
+            <Text key={index.toString()} medium center color={Colors.Navy} style={Styles.currentTitle}>
+                Activity {this.state.activityIndex + index + 3}: {activity.stage}
             </Text>
         )
     }
@@ -55,7 +55,7 @@ export default class ActivityList extends Component {
                                         Complete
                                     </Text>
                                 </View>
-                                <Button light color={'#fff'} onPress={this.onEdit}>EDIT</Button>
+                                <Button light bold color={'#fff'} onPress={this.onEdit}>Edit</Button>
                             </View>
                             <View style={Styles.currentDescView}>
                                 <Text medium color={Colors.Navy} style={Styles.currentTitle}>Activity {this.state.activityIndex + 1}: {this.state.activities[this.state.activityIndex].stage}</Text>
@@ -68,11 +68,10 @@ export default class ActivityList extends Component {
                     {this.state.nextActivityIndex < this.state.activities.length &&
                     <View style={Styles.next}>
                         <View>
-                            <Text center medium bold color={Colors.Red}> UP NEXT </Text>
+                            <Text center medium bold color={Colors.Red} style={{marginVertical: 8,}}> UP NEXT </Text>
                             <View style={Styles.nextTitle}>
-                                <Text mediumLarge bold>Activity {this.state.nextActivityIndex + 1}: </Text>
-                                <Text mediumLarge>
-                                    {" "}{this.state.activities[this.state.nextActivityIndex].stage}
+                                <Text medium color={Colors.Navy} style={Styles.currentTitle}>
+                                    Activity {this.state.nextActivityIndex + 1}: {this.state.activities[this.state.nextActivityIndex].stage}
                                 </Text>
                             </View>
                             <Text center style={Styles.nextPrecomment}> 
@@ -81,7 +80,7 @@ export default class ActivityList extends Component {
                         </View>
                         {this.state.activityIndex + 2 < this.state.activityCount &&
                         <View style={Styles.later}>
-                            <Text center medium bold color={Colors.Red}> LATER </Text>
+                            <Text center medium bold color={Colors.Red} style={{marginVertical: 8,}}> LATER </Text>
                             {this.renderLaterView()}
                         </View>
                         }
@@ -89,8 +88,8 @@ export default class ActivityList extends Component {
                     }
                 </ScrollView>
                 <View style={Styles.buttonBar}>
-                    <Button light onPress={() => {navigate("Complete", {activityIndex: this.state.nextActivityIndex, discussionStarter: this.state.discussionStarter})}}>FINISH HERE</Button>
-                    <Button dark onPress={() => {navigate("Activity", {activityIndex: this.state.nextActivityIndex, discussionStarter: this.state.discussionStarter})}}>START ACTIVITY {this.state.activityIndex + 2}</Button>
+                    <Button light bold onPress={() => {navigate("Complete", {activityIndex: this.state.nextActivityIndex, discussionStarter: this.state.discussionStarter})}}>Finish here</Button>
+                    <Button dark bold onPress={() => {navigate("Activity", {activityIndex: this.state.nextActivityIndex, discussionStarter: this.state.discussionStarter})}}>Start Activity {this.state.activityIndex + 2}</Button>
                 </View>
             </ImageBackground>
         );
