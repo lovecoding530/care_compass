@@ -48,6 +48,12 @@ const htmlStyles = {
 	},
 	b: {
 		fontWeight: '800'
+	},
+	em: {
+		fontStyle: 'italic'
+	},
+	i: {
+		fontStyle: 'italic'
 	}
 };
 
