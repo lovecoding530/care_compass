@@ -249,23 +249,27 @@ export async function getBundle() {
 }
 
 export async function getDiscussionStarter() {
-  return await getJSONwithCache(ApiDefinitions.discussion_starter);
+  return await getJSONwithCache("discussion_starter");
 }
 
 export async function getCardGame() {
-  return await getJSONwithCache(ApiDefinitions.card_game);
+  return await getJSONwithCache("card_game");
 }
 
 export async function getResources() {
-  return await getJSONwithCache(ApiDefinitions.resources);
+  return await getJSONwithCache("resources");
 }
 
 export async function getPrivacyPolicy() {
-  return await getJSONwithCache(ApiDefinitions.privacy_policy);
+  return await getJSONwithCache("privacy_policy");
 }
 
 export async function getLookingAfterYourself() {
-  return await getJSONwithCache(ApiDefinitions.looking_after_yourself);
+  return await getJSONwithCache("looking_after_yourself");
+}
+
+export async function getUserGuides() {
+  return await getJSONwithCache("user_guides");
 }
 
 export async function getSpeechConstant(key) {
