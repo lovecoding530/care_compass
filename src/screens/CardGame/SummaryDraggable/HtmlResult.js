@@ -1,22 +1,25 @@
-function renderCards(cards){
-    var cardsHtml = `
+function renderCards(cards) {
+	var cardsHtml = `
         <div class="questions">
-            ${cards.map((card, cID) => {
-                const {question, selectedLevel, star} = card;
-                const answerList = ["Skipped", "Not Important", "Somewhat Important", "Very Important"]
-                var response = answerList[selectedLevel+1]
-                return `
+            ${cards
+				.map((card, cID) => {
+					const { question, selectedLevel, star } = card;
+					const answerList = [ 'Skipped', 'Not Important', 'Somewhat Important', 'Very Important' ];
+					var response = answerList[selectedLevel + 1];
+					return `
                     <div>
                         <h4 class="question">Q${cID + 1}: ${question}</h4>
                         <span>${response}</span>
                     </div>
-                `}).join('')}
-        </div>`
-    return cardsHtml
+                `;
+				})
+				.join('')}
+        </div>`;
+	return cardsHtml;
 }
 
 export function getSharingHTMLFromResult(cardGame) {
-    var html = `
+	var html = `
         <html>
             <head>
                 <style>
@@ -37,6 +40,6 @@ export function getSharingHTMLFromResult(cardGame) {
                 ${renderCards(cardGame.cards)}
             </body>
         </html>
-    `
-    return html
+    `;
+	return html;
 }
