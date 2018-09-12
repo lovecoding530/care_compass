@@ -84,6 +84,25 @@ function renderActivities(activities) {
 	return activitiesHtml;
 }
 
+// footer
+const footer = `
+  <div class='footer'>
+    <div class='logo-rfds'>
+      RFDS Logo
+    </div>
+    <div class='logo-pca'>
+      PCA Logo
+    </div>
+  </div>
+`;
+
+// disclaimer
+const disclaimer = `
+  <div class='disclaimer'>
+    <p>This resource should not be considered legal advice and is not an Advanced Care Plan.  People should always consult healthcare professionals for advice about their specific circumstances, including the legislative requirements in their State or Territory.</p>
+  </div>
+`;
+
 // bring the page together
 export function getSharingHTMLFromResult(discussionStarter) {
 	var html = `
@@ -97,6 +116,8 @@ export function getSharingHTMLFromResult(discussionStarter) {
                 ${header}
                 ${details}
                 ${renderActivities(discussionStarter.discussion_starter)}
+                ${footer}
+                ${disclaimer}
             </body>
         </html>
     `;
@@ -139,7 +160,7 @@ const style = `
     justify-content: space-between;
     align-items: center;
     padding-bottom: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     border-bottom: solid 2px ${Colors.Navy};
   }
   .details-name, .details-date {
@@ -170,5 +191,23 @@ const style = `
   }
   .question {
     margin-bottom: 8px;
+  }
+  .footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0 1rem;
+    padding-top: 1rem;
+    border-top: solid 2px ${Colors.Navy};
+  }
+  .disclaimer {
+    display: block;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+  .disclaimer p {
+    font-size: 0.875rem;
+    font-style: italic;
+    margin-bottom: 0;
   }
 `;
