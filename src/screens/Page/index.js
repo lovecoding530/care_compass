@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, ImageBackground, Image, Dimensions } from 'react-native';
+import { View, ScrollView, ImageBackground, Image, Dimensions, Linking } from 'react-native';
 import Styles from './styles';
 import Text from '@text';
 import Button from '@button';
@@ -7,6 +7,8 @@ import { htmlStyles, Images } from '@theme';
 import { getApiData } from '@api';
 import HTML from 'react-native-render-html';
 import { API_HTML_ROOT } from '@api';
+import store from '../../Store';
+import { gotoHome } from 'router';
 
 let { width } = Dimensions.get('window');
 
@@ -36,7 +38,6 @@ export default class Page extends Component {
 
 					<View style={[ Styles.itemView ]}>
 						<View style={Styles.featuredImage}>
-							{console.log(API_HTML_ROOT)}
 							{/* {console.log(this.state.pageContent.featured_image_600.url)} */}
 							{this.state.pageContent.featured_image_full ? width <= 375 ? (
 								<Image
@@ -60,9 +61,30 @@ export default class Page extends Component {
 					</View>
 				</ScrollView>
 				<View style={Styles.buttonBar}>
-					<Button bold light onPress={() => this.props.navigation.navigate('Home')}>
+					<Button
+						bold
+						light
+						onPress={() => {
+							gotoHome();
+							store.activeRoute = null;
+							store.routesInStack = [];
+						}}
+					>
 						Go back
 					</Button>
+					{console.log(this.state)}
+					{this.state.pageContent.read_more_url == '' ? null : (
+						<Button
+							dark
+							bold
+							onPress={() =>
+								Linking.openURL(this.state.pageContent.read_more_url).catch((err) =>
+									console.error('An error occurred', err)
+								)}
+						>
+							Find out more
+						</Button>
+					)}
 				</View>
 			</ImageBackground>
 		);
