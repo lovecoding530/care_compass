@@ -17,12 +17,13 @@ function renderActivities(activities) {
 							question_type,
 							question_choices,
 							answerData,
+							otherData,
 							answerLater,
 							neverAnswer
 						} = questionData;
 						const answerList = question_choices.split('\r\n');
 						var response = '';
-						if (answerData != null && answerData != '')
+						if ((answerData != null && answerData != '') || answerData == 0)
 							switch (question_type) {
 								case 'freetext':
 									response = `<span>${answerData}</span>`;
@@ -32,10 +33,15 @@ function renderActivities(activities) {
 									break;
 								case 'manychoices':
 									var selectedChoices = (response = `
-                                    <url>
+                                    <ul>
                                         ${answerData.map((i) => `<li>${answerList[i]}</li>`).join('')}
-                                    </url>
+                                    </ul>
                                 `);
+								case 'choices_plus_other':
+									var responseObject = (response = `
+										<span>${answerList[answerData]}</span>
+										${otherData ? `<br /><br />Other: ${otherData}` : ''}
+									`);
 									break;
 								default:
 									break;
@@ -46,7 +52,9 @@ function renderActivities(activities) {
                             <h4 class="question">${question}</h4>
                             ${response}
                             <div>
-                                ${answerLater ? 'Answer later' : neverAnswer ? 'Never answer' : ''}
+                                ${answerLater
+									? '<br />I want to think about this'
+									: neverAnswer ? '<br />I don’t want to talk about this' : ''}
                             </div>
                         </div>
                     `;

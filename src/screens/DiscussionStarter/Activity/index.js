@@ -35,11 +35,11 @@ export default class Activity extends Component {
 
 	componentDidMount() {}
 
-	onChangedAnswer(questionIndex, answerData) {
+	onChangedAnswer(questionIndex, answerData, other) {
 		var discussionStarter = this.state.discussionStarter;
 		var activity = discussionStarter.discussion_starter[this.state.activityIndex];
 		var question = activity.questions[questionIndex];
-		question.answerData = answerData;
+		other == 'other' ? (question.otherData = answerData) : (question.answerData = answerData);
 
 		this.setState({ discussionStarter: discussionStarter });
 	}
@@ -118,6 +118,8 @@ export default class Activity extends Component {
 		var startIndex = this.state.pageIndex * 3;
 		var endIndex = startIndex + 3;
 		var pageQuestions = this.state.activity.questions.slice(startIndex, endIndex);
+		console.log('pageQuestions');
+		console.log(pageQuestions);
 		var questionList = pageQuestions.map((questionData, index) => {
 			var questionIndex = startIndex + index;
 			const {
@@ -129,7 +131,8 @@ export default class Activity extends Component {
 				question_choices_audio_urls,
 				answerLater,
 				neverAnswer,
-				answerData
+				answerData,
+				otherData
 			} = questionData;
 			const answerList = question_choices.split('\r\n');
 
@@ -158,7 +161,7 @@ export default class Activity extends Component {
 							scrollViewRef={this.scrollView}
 							questionIndex={questionIndex}
 							data={answerList}
-							selectedIndex={answerData ? answerData : -1}
+							selectedIndex={answerData || answerData == 0 ? answerData : -1}
 							onChangedAnswer={this.onChangedAnswer.bind(this)}
 						/>
 					) : question_type == 'manychoices' ? (
@@ -167,9 +170,57 @@ export default class Activity extends Component {
 							scrollViewRef={this.scrollView}
 							questionIndex={questionIndex}
 							data={answerList}
-							selectedIndexes={answerData ? answerData : []}
+							selectedIndexes={answerData || answerData == 0 ? answerData : []}
 							onChangedAnswer={this.onChangedAnswer.bind(this)}
 						/>
+					) : question_type == 'choices_plus_other' ? (
+						<View>
+							<Choices
+								key={questionIndex.toString() + 'a'}
+								scrollViewRef={this.scrollView}
+								questionIndex={questionIndex}
+								data={answerList}
+								selectedIndex={answerData || answerData == 0 ? answerData : -1}
+								onChangedAnswer={this.onChangedAnswer.bind(this)}
+							/>
+							<View style={{ marginTop: 10 }}>
+								<Text smallMedium color={Colors.textPrimary} style={{ marginBottom: 4 }}>
+									More information:
+								</Text>
+								<TextInput
+									key={questionIndex.toString() + 'b'}
+									style={Styles.textArea}
+									value={otherData ? otherData : ''}
+									multiline={true}
+									numberOfLines={4}
+									onChangeText={(text) => this.onChangedAnswer(questionIndex, text, 'other')}
+								/>
+							</View>
+						</View>
+					) : question_type == 'manychoices_plus_other' ? (
+						<View>
+							<ManyChoices
+								key={questionIndex.toString()}
+								scrollViewRef={this.scrollView}
+								questionIndex={questionIndex}
+								data={answerList}
+								selectedIndexes={answerData || answerData == 0 ? answerData : []}
+								onChangedAnswer={this.onChangedAnswer.bind(this)}
+							/>
+							<View style={{ marginTop: 10 }}>
+								<Text smallMedium color={Colors.textPrimary} style={{ marginBottom: 4 }}>
+									More information:
+								</Text>
+								<TextInput
+									key={questionIndex.toString() + 'b'}
+									style={Styles.textArea}
+									value={otherData ? otherData : ''}
+									multiline={true}
+									numberOfLines={4}
+									onChangeText={(text) => this.onChangedAnswer(questionIndex, text, 'other')}
+								/>
+							</View>
+						</View>
 					) : (
 						<View />
 					)}
