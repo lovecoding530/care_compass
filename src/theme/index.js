@@ -42,6 +42,12 @@ const htmlStyles = {
 	ol: {
 		color: Colors.textPrimary,
 		fontSize: FontSizes.smallMedium
+	},
+	strong: {
+		fontWeight: '800'
+	},
+	b: {
+		fontWeight: '800'
 	}
 };
 
