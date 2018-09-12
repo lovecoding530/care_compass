@@ -71,7 +71,6 @@ export default MediaQueryStyleSheet.create(
 			paddingVertical: deviceWidth(3),
 			marginBottom: width / 35,
 			justifyContent: 'center'
-			// alignItems: 'center',
 		}
 	},
 	{

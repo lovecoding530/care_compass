@@ -51,7 +51,7 @@ export default class Home extends Component {
 							</MediaQuery>
 							<ArrowText medium bold color={Colors.Red} style={Styles.right_item_text}>
 								Use discussion starter
-							</ArrowText>≈≈≈
+							</ArrowText>
 						</Card>
 						<Card
 							topbar={{ color: Colors.Red }}
