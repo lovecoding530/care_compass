@@ -15,6 +15,7 @@ import {
 
 import {PrimaryNav} from "./Router";
 import KeyboardManager from 'react-native-keyboard-manager'
+import store from './Store';
 
 if(Platform.OS === 'ios')
 {
@@ -42,7 +43,7 @@ class App extends Component {
           backgroundColor="blue"
           barStyle="light-content"
         />
-        <PrimaryNav />
+        <PrimaryNav ref={ref=>store.topNavigator = ref}/>
       </View>
     );
   }
