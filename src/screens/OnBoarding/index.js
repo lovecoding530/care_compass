@@ -19,7 +19,9 @@ import Button from '@button';
 import Footer from '@footer';
 import Text from '@text';
 import { Colors, Images, FontSizes } from '@theme';
-var orientation = 'PORTRAIT';
+const initialOrientation = width > height ? 'LANDSCAPE' : 'PORTRAIT';
+// let orientation = 'PORTRAIT';
+let orientation = width > height ? 'LANDSCAPE' : 'PORTRAIT';
 let orientationWidth = width;
 
 let swiperprops; // use to get props for navigating to home screen
@@ -49,8 +51,10 @@ class Swiper extends Component {
 		removeClippedSubviews: true,
 		// Do not adjust content behind nav-, tab- or toolbars automatically
 		automaticallyAdjustContentInsets: false,
-		// Fisrt is screen is active
-		index: 0
+		// First is screen is active
+		index: 0,
+		// IMPORTANT Set this to the number of slides
+		total: 5
 	};
 
 	componentDidMount() {
@@ -65,12 +69,12 @@ class Swiper extends Component {
    * Initialize the state
    */
 	initState(props) {
-		// Get the total number of slides passed as children
-		const total = props.children ? props.children.length || 1 : 0,
-			// Current index
-			index = total > 1 ? Math.min(props.index, total - 1) : 0,
-			// Current offset
-			offset = width * index;
+		// Current index
+		const total = props.total;
+		// Current index
+		const index = total > 1 ? Math.min(props.index, total - 1) : 0;
+		// Current offset
+		const offset = width * index;
 
 		const state = {
 			total,
@@ -160,6 +164,9 @@ class Swiper extends Component {
   * Swipe one slide forward
   */
 	swipe = () => {
+		console.log('swipe');
+		console.log(this.internals.isScrolling);
+		console.log(this.state.total);
 		// Ignore if already scrolling or if there is less than 2 slides
 		if (this.internals.isScrolling || this.state.total < 2) {
 			return;
@@ -221,36 +228,6 @@ class Swiper extends Component {
 	};
 
 	/**
-  * Render ScrollView component
-  */
-	renderScrollView = (pages) => {
-		return (
-			<ScrollView
-				ref={(component) => {
-					this.scrollView = component;
-				}}
-				{...this.props}
-				onScrollBeginDrag={this.onScrollBegin}
-				onMomentumScrollEnd={this.onScrollEnd}
-				onScrollEndDrag={this.onScrollEndDrag}
-			>
-				{pages.map((page, i) => (
-					// Render each slide inside a View
-					<View style={[ Styles.slide, { width: width } ]} key={i}>
-						{page}
-						{/* Render Continue or Done button */}
-						<View style={Styles.buttonpageView}>
-							{this.renderButton()}
-							{/* Render pagination */}
-							{this.renderPagination()}
-						</View>
-					</View>
-				))}
-			</ScrollView>
-		);
-	};
-
-	/**
   * Render pagination indicators
   */
 	renderPagination = () => {
@@ -281,19 +258,17 @@ class Swiper extends Component {
 	};
 
 	/**
-  * Method to handle Done button click
-  */
+* Method to handle Done button click
+*/
 	onDone() {
 		const { navigate } = swiperprops.navigation;
 		navigate('DrawerStack');
 	}
 
 	/**
-   * Render Next or Done button
-   */
+ * Render Next or Done button
+ */
 	renderButton = () => {
-		const lastScreen = this.state.index === this.state.total - 1;
-		const firstScreen = this.state.index === 0;
 		return (
 			<View pointerEvents="box-none">
 				<View style={Styles.buttonContainer}>
@@ -315,10 +290,187 @@ class Swiper extends Component {
 						buttonStyles={Styles.buttonNext}
 						onPress={this.state.index === this.state.total - 1 ? () => this.onDone() : () => this.swipe()}
 					>
-						{lastScreen ? `Done` : `Next`}
+						{this.state.index === this.state.total - 1 ? `Done` : `Next`}
 					</Button>
 				</View>
 			</View>
+		);
+	};
+
+	/**
+  * Render ScrollView component
+  */
+	renderScrollView = () => {
+		return (
+			<ScrollView
+				ref={(component) => {
+					this.scrollView = component;
+				}}
+				{...this.props}
+				onScrollBeginDrag={this.onScrollBegin}
+				onMomentumScrollEnd={this.onScrollEnd}
+				onScrollEndDrag={this.onScrollEndDrag}
+			>
+				{/* Slide 1 */}
+				<View
+					style={[ orientation == 'PORTRAIT' ? Styles.slide : Styles.slideLandscape, { width: width } ]}
+					key="1"
+				>
+					<ImageBackground
+						source={Images.onboarding_icon_background}
+						resizeMode="stretch"
+						style={Styles.middleimage}
+					>
+						<Image
+							style={[ Styles.middleicon ]}
+							resizeMode="contain"
+							source={Images.onboarding_icon_logo}
+						/>
+					</ImageBackground>
+
+					<View style={orientation == 'PORTRAIT' ? Styles.cardDetails : Styles.cardDetailsLandscape}>
+						<View style={[ Styles.textView ]}>
+							<Text smallMedium style={Styles.descText}>
+								This app will help start conversations around end-of-life wishes and planning.
+							</Text>
+						</View>
+						<View style={Styles.buttonpageView}>
+							{this.renderButton()}
+							{/* Render pagination */}
+							{this.renderPagination()}
+						</View>
+					</View>
+				</View>
+
+				{/* Slide 2 */}
+				<View
+					style={[ orientation == 'PORTRAIT' ? Styles.slide : Styles.slideLandscape, { width: width } ]}
+					key="2"
+				>
+					<ImageBackground
+						source={Images.onboarding_icon_background}
+						resizeMode="stretch"
+						style={Styles.middleimage}
+					>
+						<Image
+							style={[ Styles.middleicon ]}
+							resizeMode="contain"
+							source={Images.onboarding_icon_discussion}
+						/>
+					</ImageBackground>
+
+					<View style={orientation == 'PORTRAIT' ? Styles.cardDetails : Styles.cardDetailsLandscape}>
+						<View style={[ Styles.textView ]}>
+							<Text smallMedium style={Styles.descText}>
+								The discussion starter will guide you through talking about how you want to be cared for
+								at the end of your life.
+							</Text>
+						</View>
+						<View style={Styles.buttonpageView}>
+							{this.renderButton()}
+							{/* Render pagination */}
+							{this.renderPagination()}
+						</View>
+					</View>
+				</View>
+
+				{/* Slide 3 */}
+				<View
+					style={[ orientation == 'PORTRAIT' ? Styles.slide : Styles.slideLandscape, { width: width } ]}
+					key="3"
+				>
+					<ImageBackground
+						source={Images.onboarding_icon_background}
+						resizeMode="stretch"
+						style={Styles.middleimage}
+					>
+						<Image
+							style={[ Styles.middleicon ]}
+							resizeMode="contain"
+							source={Images.onboarding_icon_resources}
+						/>
+					</ImageBackground>
+
+					<View style={orientation == 'PORTRAIT' ? Styles.cardDetails : Styles.cardDetailsLandscape}>
+						<View style={[ Styles.textView ]}>
+							<Text smallMedium style={Styles.descText}>
+								You will find resources and more information to support you before, during and after
+								this conversation.
+							</Text>
+						</View>
+						<View style={Styles.buttonpageView}>
+							{this.renderButton()}
+							{/* Render pagination */}
+							{this.renderPagination()}
+						</View>
+					</View>
+				</View>
+
+				{/* Slide 4 */}
+				<View
+					style={[ orientation == 'PORTRAIT' ? Styles.slide : Styles.slideLandscape, { width: width } ]}
+					key="4"
+				>
+					<ImageBackground
+						source={Images.onboarding_icon_background}
+						resizeMode="stretch"
+						style={Styles.middleimage}
+					>
+						<Image
+							style={[ Styles.middleicon ]}
+							resizeMode="contain"
+							source={Images.onboarding_icon_padlock}
+						/>
+					</ImageBackground>
+
+					<View style={orientation == 'PORTRAIT' ? Styles.cardDetails : Styles.cardDetailsLandscape}>
+						<View style={[ Styles.textView ]}>
+							<Text smallMedium style={Styles.descText}>
+								Palliative Care Australia respects the privacy of all app users and will not make any
+								attempt to identify you.
+							</Text>
+						</View>
+						<View style={Styles.buttonpageView}>
+							{this.renderButton()}
+							{/* Render pagination */}
+							{this.renderPagination()}
+						</View>
+					</View>
+				</View>
+
+				{/* Slide 5 */}
+				<View
+					style={[ orientation == 'PORTRAIT' ? Styles.slide : Styles.slideLandscape, { width: width } ]}
+					key="5"
+				>
+					<ImageBackground
+						source={Images.onboarding_icon_background}
+						resizeMode="stretch"
+						style={Styles.middleimage}
+					>
+						<Image
+							style={[ Styles.middleicon ]}
+							resizeMode="contain"
+							source={Images.onboarding_icon_info}
+						/>
+					</ImageBackground>
+
+					<View style={orientation == 'PORTRAIT' ? Styles.cardDetails : Styles.cardDetailsLandscape}>
+						<View style={[ Styles.textView ]}>
+							<Text smallMedium style={Styles.descText}>
+								This resource should not be considered legal advice and is not an Advance Care Plan.
+								People should always consult health care professionals for advice about their specific
+								circumstances.
+							</Text>
+						</View>
+						<View style={Styles.buttonpageView}>
+							{this.renderButton()}
+							{/* Render pagination */}
+							{this.renderPagination()}
+						</View>
+					</View>
+				</View>
+			</ScrollView>
 		);
 	};
 
@@ -420,115 +572,7 @@ export default class OnBoarding extends Component {
     * Render View with Swip
     */
 	render() {
-		return (
-			<Swiper onLayout={this.onLayout.bind(this)}>
-				{/* Slide 1 */}
-				<View>
-					<ImageBackground
-						source={Images.onboarding_icon_background}
-						resizeMode="stretch"
-						style={Styles.middleimage}
-					>
-						<Image
-							style={[ Styles.middleicon ]}
-							resizeMode="contain"
-							source={Images.onboarding_icon_logo}
-						/>
-					</ImageBackground>
-					<View style={[ Styles.textView ]}>
-						<Text smallMedium style={Styles.descText}>
-							This app will help start conversations around end-of-life wishes and planning.
-						</Text>
-					</View>
-				</View>
-
-				{/* Slide 2 */}
-				<View>
-					<ImageBackground
-						source={Images.onboarding_icon_background}
-						resizeMode="stretch"
-						style={Styles.middleimage}
-					>
-						<Image
-							style={[ Styles.middleicon ]}
-							resizeMode="contain"
-							source={Images.onboarding_icon_discussion}
-						/>
-					</ImageBackground>
-					<View style={[ Styles.textView ]}>
-						<Text smallMedium style={Styles.descText}>
-							The discussion starter will guide you through talking about how you want to be cared for at
-							the end of your life.
-						</Text>
-					</View>
-				</View>
-
-				{/* Slide 3 */}
-				<View>
-					<ImageBackground
-						source={Images.onboarding_icon_background}
-						resizeMode="stretch"
-						style={Styles.middleimage}
-					>
-						<Image
-							style={[ Styles.middleicon ]}
-							resizeMode="contain"
-							source={Images.onboarding_icon_resources}
-						/>
-					</ImageBackground>
-
-					<View style={[ Styles.textView ]}>
-						<Text smallMedium style={Styles.descText}>
-							You will find resources and more information to support you before, during and after this
-							conversation.
-						</Text>
-					</View>
-				</View>
-
-				{/* Slide 4 */}
-				<View>
-					<ImageBackground
-						source={Images.onboarding_icon_background}
-						resizeMode="stretch"
-						style={Styles.middleimage}
-					>
-						<Image
-							style={[ Styles.middleicon ]}
-							resizeMode="contain"
-							source={Images.onboarding_icon_padlock}
-						/>
-					</ImageBackground>
-					<View style={[ Styles.textView ]}>
-						<Text smallMedium style={Styles.descText}>
-							Palliative Care Australia respects the privacy of all app users and will not make any
-							attempt to identify you.
-						</Text>
-					</View>
-				</View>
-
-				{/* Slide 5 */}
-				<View>
-					<ImageBackground
-						source={Images.onboarding_icon_background}
-						resizeMode="stretch"
-						style={Styles.middleimage}
-					>
-						<Image
-							style={[ Styles.middleicon ]}
-							resizeMode="contain"
-							source={Images.onboarding_icon_info}
-						/>
-					</ImageBackground>
-					<View style={[ Styles.textView ]}>
-						<Text smallMedium style={Styles.descText}>
-							This resource should not be considered legal advice and is not an Advance Care Plan. People
-							should always consult health care professionals for advice about their specific
-							circumstances.
-						</Text>
-					</View>
-				</View>
-			</Swiper>
-		);
+		return <Swiper onLayout={this.onLayout.bind(this)} />;
 	}
 }
 
