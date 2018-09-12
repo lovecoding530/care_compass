@@ -29,7 +29,7 @@ function renderActivities(activities) {
 									response = `<span>${answerData}</span>`;
 									break;
 								case 'choices':
-									response = `<span>${answerList[answerData]}</span>`;
+									response = `<ul><li>${answerList[answerData]}</li></ul>`;
 									break;
 								case 'manychoices':
 									var selectedChoices = (response = `
@@ -39,8 +39,16 @@ function renderActivities(activities) {
                                 `);
 								case 'choices_plus_other':
 									var responseObject = (response = `
-										<span>${answerList[answerData]}</span>
-										${otherData ? `<br /><br />Other: ${otherData}` : ''}
+										<ul><li>${answerList[answerData]}</li></ul>
+										${otherData ? `Other: ${otherData}` : ''}
+									`);
+									break;
+								case 'manychoices_plus_other':
+									var responseObject = (response = `
+										<ul>
+											${answerData.map((i) => `<li>${answerList[i]}</li>`).join('')}
+										</ul>
+										${otherData ? `Other: ${otherData}` : ''}
 									`);
 									break;
 								default:
