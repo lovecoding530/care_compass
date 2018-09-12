@@ -25,6 +25,7 @@ import { getSharingHTMLFromResult } from "./HtmlResult";
 import RNHTMLtoPDF from "react-native-html-to-pdf";
 import Mailer from "react-native-mail";
 import store from "../../../Store";
+import { gotoHome } from "router";
 
 const levelBarSource = [ 
     { 
@@ -188,7 +189,8 @@ export default class Summary extends Component {
           {
             text: "YES",
             onPress: () => {
-              goBack(store.routesInStack[0]);
+              // goBack(store.routesInStack[0]);
+              gotoHome();
               store.activeRoute = null;
               store.routesInStack = [];
             }

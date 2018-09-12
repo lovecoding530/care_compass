@@ -4,7 +4,7 @@
 
 import React, { Component } from 'react';
 import { Dimensions, Image, StyleSheet, TouchableOpacity, View, SafeAreaView } from 'react-native';
-import { StackNavigator, DrawerNavigator, NavigationActions } from 'react-navigation';
+import { StackNavigator, DrawerNavigator, NavigationActions, StackActions } from 'react-navigation';
 
 const { width, height } = Dimensions.get('window');
 
@@ -25,6 +25,17 @@ import { deviceWidth, deviceHeight } from './components/ResponsiveDimensions';
 import store from './Store';
 
 var drawerNavigator = null;
+
+export const gotoHome = () => {
+	const resetAction = NavigationActions.reset({
+		index: 0,
+		key: "Home",
+		actions: [ 
+			NavigationActions.navigate({ routeName: 'Home' }),
+		]
+	});
+	store.topNavigator.dispatch(resetAction);
+}
 
 const headerStyle = {
 	backgroundColor: Colors.Navy,
@@ -145,10 +156,9 @@ const WelcomeIcon = ({ dispatch }) => {
 					key: null,
 					actions: [
 						NavigationActions.navigate({ routeName: 'OnBoardingScreen' }),
-						NavigationActions.navigate({ routeName: 'DrawerStack' })
 					]
 				});
-				dispatch(resetAction);
+				store.topNavigator.dispatch(resetAction);
 			}}
 		>
 			<Image
@@ -170,15 +180,7 @@ const HomeIcon = (props) => {
 			style={{ height: deviceHeight(4.5), paddingHorizontal: 10 }}
 			backgroundColor={'#0000'}
 			onPress={() => {
-				const resetAction = NavigationActions.reset({
-					index: 1,
-					key: null,
-					actions: [ 
-						NavigationActions.navigate({ routeName: 'OnBoardingScreen' }),
-						NavigationActions.navigate({ routeName: 'DrawerStack' })
-					]
-				});
-				props.dispatch(resetAction);
+				gotoHome();
 				store.activeRoute = null;
 				store.routesInStack = [];
 			}}
@@ -332,7 +334,8 @@ export const HomeStack = StackNavigator(
 		}
 	},
 	{
-		headerMode: 'none'
+		headerMode: 'none',
+		initialRouteKey: 'Home',
 	}
 );
 

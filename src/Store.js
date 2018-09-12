@@ -10,6 +10,7 @@ class Store {
 	activeRoute = null;
 	activePage = null;
 	routesInStack = [];
+	topNavigator=null;
 }
 
 let store = new Store();
