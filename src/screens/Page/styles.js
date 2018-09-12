@@ -71,6 +71,12 @@ export default MediaQueryStyleSheet.create(
 			paddingVertical: deviceWidth(3),
 			marginBottom: width / 35,
 			justifyContent: 'center'
+		},
+		featuredImage: {
+			width: '100%',
+			flexDirection: 'row',
+			marginBottom: deviceWidth(6),
+			justifyContent: 'center'
 		}
 	},
 	{
