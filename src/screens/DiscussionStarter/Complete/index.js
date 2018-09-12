@@ -171,7 +171,6 @@ export default class Complete extends Component {
 						<Text medium color={Colors.Navy} style={Styles.currentTitle}>
 							Activity {item.index + 1}: {item.stage}
 						</Text>
-						<Text style={Styles.currentPrecomment}>{item.pre_commencement_text}</Text>
 					</View>
 				</View>
 			</View>
