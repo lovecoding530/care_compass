@@ -19,6 +19,7 @@ import Mailer from "react-native-mail";
 import { Card } from "@components";
 import { deviceWidth } from "@ResponsiveDimensions";
 import store from "../../../Store";
+import { gotoHome } from "router";
 
 export default class Complete extends Component {
   constructor(props) {
@@ -81,7 +82,8 @@ export default class Complete extends Component {
           {
             text: "YES",
             onPress: () => {
-              goBack(store.routesInStack[0]);
+              // goBack(store.routesInStack[0]);
+              gotoHome();
               store.activeRoute = null;
               store.routesInStack = [];
             }
