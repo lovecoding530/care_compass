@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { View, ScrollView, ImageBackground, StyleSheet } from 'react-native';
+import { View, ScrollView, ImageBackground, Image, Dimensions } from 'react-native';
 import Styles from './styles';
 import Text from '@text';
 import Button from '@button';
 import { htmlStyles, Images } from '@theme';
 import { getApiData } from '@api';
 import HTML from 'react-native-render-html';
+import { API_HTML_ROOT } from '@api';
+
+let { width } = Dimensions.get('window');
 
 export default class Page extends Component {
 	constructor(props) {
@@ -32,6 +35,27 @@ export default class Page extends Component {
 					</View>
 
 					<View style={[ Styles.itemView ]}>
+						<View style={Styles.featuredImage}>
+							{console.log(API_HTML_ROOT)}
+							{/* {console.log(this.state.pageContent.featured_image_600.url)} */}
+							{this.state.pageContent.featured_image_full ? width <= 375 ? (
+								<Image
+									source={{ uri: API_HTML_ROOT + this.state.pageContent.featured_image_600.url }}
+									style={{
+										width: this.state.pageContent.featured_image_600.width,
+										height: this.state.pageContent.featured_image_600.height
+									}}
+								/>
+							) : (
+								<Image
+									source={{ uri: API_HTML_ROOT + this.state.pageContent.featured_image_1200.url }}
+									style={{
+										width: this.state.pageContent.featured_image_1200.width,
+										height: this.state.pageContent.featured_image_1200.height
+									}}
+								/>
+							) : null}
+						</View>
 						<HTML html={this.state.pageContent.body} tagsStyles={htmlStyles} />
 					</View>
 				</ScrollView>

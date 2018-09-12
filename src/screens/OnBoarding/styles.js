@@ -19,7 +19,18 @@ export default MediaQueryStyleSheet.create(
 			shadowColor: '#000',
 			shadowOffset: { width: responsiveWidth(0.5), height: responsiveWidth(0.5) },
 			shadowOpacity: 0.5,
-			shadowRadius: 0
+			shadowRadius: 0,
+			marginBottom: deviceWidth(8)
+		},
+		slideLandscape: {
+			flexDirection: 'row',
+			alignItems: 'center',
+			justifyContent: 'center',
+			shadowColor: '#000',
+			shadowOffset: { width: responsiveWidth(0.5), height: responsiveWidth(0.5) },
+			shadowOpacity: 0.5,
+			shadowRadius: 0,
+			marginBottom: deviceWidth(8)
 		},
 		scrollcontainer: {
 			alignItems: 'center'
@@ -60,6 +71,17 @@ export default MediaQueryStyleSheet.create(
 			justifyContent: 'center',
 			alignItems: 'center'
 		},
+		cardDetails: {
+			alignItems: 'center',
+			backgroundColor: Colors.white
+		},
+		cardDetailsLandscape: {
+			flexDirection: 'column',
+			alignItems: 'center',
+			justifyContent: 'center',
+			backgroundColor: Colors.white,
+			height: deviceHeight(29)
+		},
 		pagination: {
 			flexDirection: 'row',
 			justifyContent: 'center',
@@ -99,16 +121,9 @@ export default MediaQueryStyleSheet.create(
 			marginTop: deviceHeight(1)
 		},
 		buttonpageView: {
-			width: deviceWidth(70),
-			backgroundColor: Colors.white,
-			shadowColor: '#000',
-			shadowOffset: { width: responsiveWidth(0.5), height: responsiveWidth(0.5) },
-			shadowOpacity: 0.5,
-			shadowRadius: 0,
-			marginBottom: deviceWidth(9)
+			width: deviceWidth(70)
 		},
 		textView: {
-			backgroundColor: Colors.white,
 			paddingHorizontal: deviceWidth(2),
 			height: deviceWidth(18),
 			width: deviceWidth(70),
