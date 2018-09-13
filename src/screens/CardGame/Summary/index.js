@@ -419,7 +419,7 @@ export default class Summary extends Component {
 							</Card>
 						)}
 						<View style={Styles.saveView}>
-							<Text medium bold center color={Colors.Navy} style={Styles.saveTitle}>
+							<Text medium center color={Colors.Navy} style={Styles.saveTitle}>
 								Save a copy of my results
 							</Text>
 							<Text bold center style={{ marginVertical: 8 }}>
