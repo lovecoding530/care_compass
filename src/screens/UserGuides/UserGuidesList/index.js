@@ -141,7 +141,7 @@ export default class UserGuidesList extends Component {
 						}}
 					>
 						<MediaQuery minDeviceWidth={768}>
-							<View style={{ flexDirection: 'row' }}>
+							<View style={Styles.icon_wrap}>
 								<Image source={Images.discussion_starter} style={Styles.icon} />
 							</View>
 							<View style={Styles.cardView}>
@@ -178,7 +178,7 @@ export default class UserGuidesList extends Component {
 						}}
 					>
 						<MediaQuery minDeviceWidth={768}>
-							<View style={{ flexDirection: 'row' }}>
+							<View style={Styles.icon_wrap}>
 								<Image source={Images.cardgame} style={Styles.icon} />
 							</View>
 							<View style={Styles.cardView}>
