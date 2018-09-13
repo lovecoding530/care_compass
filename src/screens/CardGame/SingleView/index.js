@@ -66,7 +66,7 @@ export default class SingleView extends Component {
 	}
 
 	async playAudio() {
-		let audio = [ this.state.currentCard.question_audio_url ];
+		let audio = [ this.state.currentCard.question_audio_url, this.state.currentCard.additional_info_audio_url ];
 		let speechConstant = await getSpeechConstant(0);
 		speechConstant ? (audio = [ speechConstant.speech_constants[0].audio_url, ...audio ]) : null;
 		playSounds(audio);
