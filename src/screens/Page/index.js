@@ -37,9 +37,8 @@ export default class Page extends Component {
 					</View>
 
 					<View style={[ Styles.itemView ]}>
-						<View style={Styles.featuredImage}>
-							{/* {console.log(this.state.pageContent.featured_image_600.url)} */}
-							{this.state.pageContent.featured_image_full ? width <= 375 ? (
+						{this.state.pageContent.featured_image_full ? width <= 375 ? (
+							<View style={Styles.featuredImage}>
 								<Image
 									source={{ uri: API_HTML_ROOT + this.state.pageContent.featured_image_600.url }}
 									style={{
@@ -47,7 +46,9 @@ export default class Page extends Component {
 										height: this.state.pageContent.featured_image_600.height
 									}}
 								/>
-							) : (
+							</View>
+						) : (
+							<View style={Styles.featuredImage}>
 								<Image
 									source={{ uri: API_HTML_ROOT + this.state.pageContent.featured_image_1200.url }}
 									style={{
@@ -55,8 +56,8 @@ export default class Page extends Component {
 										height: this.state.pageContent.featured_image_1200.height
 									}}
 								/>
-							) : null}
-						</View>
+							</View>
+						) : null}
 						<HTML html={this.state.pageContent.body} tagsStyles={htmlStyles} />
 					</View>
 				</ScrollView>
