@@ -1,4 +1,5 @@
 const colors = {
+
     Navy: 'rgb(0, 48, 87)',
     Blue: 'rgb(203, 234, 241)',
     Red: 'rgb(160, 50, 32)',
@@ -34,8 +35,15 @@ const colors = {
     golden: '#FFAA00',
     gray: '#AAAAAA',
     lightGray: '#d3d3d3',
-    white: "#fff"
+    white: "#fff",
     
+    navy: '#003057',
+    yellow: '#FDB933',
+    red: '#EA325A',
+    green: '#B5DCB1',
+    black: '#222222',
+    grey: '#EFEEE6',
+    white: '#FEFEFE',
   };
   
   export default colors;

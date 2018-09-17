@@ -364,7 +364,7 @@ export const PrimaryNav = StackNavigator(
 	{
 		headerMode: 'none',
 		navigationOptions: {
-			gesturesEnabled: false
+			gesturesEnabled: true,
 		}
 	}
 );

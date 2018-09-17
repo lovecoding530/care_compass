@@ -33,7 +33,12 @@ class Spinner extends Component {
 			outputRange: [ '0deg', '360deg' ]
 		});
 		return (
-			<View style={[ styles.wrapper, style ]} {...attributes}>
+			<View 
+				style={[ styles.wrapper, style, {
+					width: size, 
+					height: size,
+				}]}
+				{...attributes}>
 				{loading && (
 					<Animated.Image
 						style={{

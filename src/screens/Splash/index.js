@@ -24,35 +24,29 @@ export default class Splash extends Component {
 
   render() {
     return (
-      <ImageBackground
+      <View
         style={Styles.backgroundImage}
-        source={Images.bg_splash_onboarding}
       >
+        <Image source={Images.onboarding_image} style={Styles.onboarding_image}/>
         <ScrollView
           contentContainerStyle={Styles.scrollView}
-          style={{ backgroundColor: "#0009" }}
         >
           <View style={Styles.circle_above}>
-            <Image source={Images.dtt_blue} style={Styles.pca_logo} />
-          </View>
-          <View style={Styles.center_view}>
-            <Text style={Styles.app_name}>Dying to Talk in the Bush</Text>
+            <Image source={Images.dtt_blue} style={Styles.dtt_logo} />
+            <Text style={Styles.app_name}>Care Compass</Text>
             <Text style={Styles.text_desc}>
-              Working out what's right for you
+              Supporting people living with{'\n'}
+              dementia to work out what is{'\n'}
+              right for them
             </Text>
-            {/* <Text style={Styles.text_website}>dyingtotalk.org.au</Text> */}
-          </View>
-          <View style={Styles.bottom_view}>
-            <View style={Styles.circle_center}>
-              <MySpinner
+            <MySpinner
                 loading={this.state.loading}
                 size={deviceWidth(10)}
                 style={Styles.spinner}
               />
-            </View>
           </View>
         </ScrollView>
-      </ImageBackground>
+      </View>
     );
   }
 }
