@@ -11,50 +11,58 @@ export default MediaQueryStyleSheet.create(
 	{
 		container: {
 			flex: 1,
-			backgroundColor: Colors.backgroundPrimary,
-			paddingHorizontal: 32
+			backgroundColor: Colors.yellow,
+			paddingHorizontal: deviceWidth(4),
 		},
 
 		scrollView: {
 			flexGrow: 1,
-			flexDirection: 'row'
+			paddingVertical: deviceWidth(4),
 		},
 
-		containerRight: {
-			flex: 3
+		discussion_starter: {
+			backgroundColor: Colors.navy,
+			height: deviceWidth(75),
 		},
 
-		containerLeft: {
-			flex: 5
+		discussion_starter_content: {
+			flex: 1,
+			padding: deviceWidth(4),
+			alignItems: 'center',
+			justifyContent: 'space-between',
+		},
+
+		ds_icon: {
+			width: '80%',
+			height: '80%',
+			resizeMode: 'contain',
+			tintColor: Colors.red,
+		},
+
+		bottom_container: {
+			flex: 1,
+			flexDirection: 'row',
+			justifyContent: 'space-between',
+			marginTop: deviceWidth(2),
 		},
 
 		item: {
-			margin: 8,
-			flex: 1
+			backgroundColor: Colors.navy,
 		},
 
-		survey_item: {
-			flex: 0.25
+		item_content: {
+			flex: 1,
+			paddingVertical: deviceWidth(4),
+			alignItems: 'center',
+			justifyContent: 'space-between',
 		},
 
-		right_item_text: {
-			fontSize: deviceHeight(2.7)
-		},
-
-		left_item_text: {},
-
-		right_icon: {
+		bottom_icon: {
 			width: '60%',
 			height: '60%',
 			resizeMode: 'contain',
-			marginVertical: 20
-		},
-
-		left_icon: {
-			width: '60%',
-			height: '60%',
-			resizeMode: 'contain',
-			marginVertical: 20
+			tintColor: Colors.red,
+			marginVertical: deviceWidth(1)
 		},
 
 		reduce_opacity: {
@@ -77,22 +85,26 @@ export default MediaQueryStyleSheet.create(
 		}
 	},
 	{
+		[MediaQueries.iPad]: {
+			item: {
+				width: '32%',
+			},
+		},
 		[MediaQueries.iPhone]: {
-			scrollView: {
-				flexDirection: 'column'
+			bottom_container: {
+				flexDirection: 'column',
 			},
-
-			survey_item: {
-				flex: 1
-			},
-			containerLeft: {
-				flex: 3
-			},
-			containerRight: {
-				flex: 5
-			},
+	
 			left_item_text: {
 				fontSize: FontSizes.medium
+			},
+
+			item: {
+				height: '31.5%',
+			},
+
+			item_content: {
+				justifyContent: 'center',
 			}
 		}
 	}

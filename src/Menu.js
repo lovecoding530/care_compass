@@ -87,76 +87,77 @@ export default class Menu extends Component {
 			<ScrollView contentContainerStyle={styles.container} style={{ backgroundColor: Colors.darkNavy }}>
 				<View
 					style={{
-						borderRadius: deviceWidth(15),
 						backgroundColor: '#fff',
 						justifyContent: 'center',
 						alignItems: 'center',
 						alignSelf: 'center',
-						marginTop: deviceWidth(5),
-						width: this.state.orientation == 'PORTRAIT' ? deviceWidth(30) : deviceWidth(18),
-						height: this.state.orientation == 'PORTRAIT' ? deviceWidth(30) : deviceWidth(18)
+						width: '100%',
+						height: 200,
 					}}
 				>
 					<Image
 						source={Images.dtt_blue}
 						style={{
 							resizeMode: 'contain',
-							width: this.state.orientation == 'PORTRAIT' ? deviceWidth(23) : deviceWidth(15),
-							height: this.state.orientation == 'PORTRAIT' ? deviceWidth(23) : deviceWidth(15)
+							width: '70%',
+							height: '80%'
 						}}
 					/>
 				</View>
 				<View style={styles.menu}>
 					<TouchableOpacity style={styles.menuItem} onPress={() => this.goto('Page', 'about_this_app')}>
-						<ArrowText light bold color={Colors.white} style={styles.menuItemText}>
+						<Text light bold color={Colors.white} style={styles.menuItemText}>
 							About this app
-						</ArrowText>
+						</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.menuItem} onPress={() => this.goBackToOnboarding()}>
-						<ArrowText light bold color={Colors.white} style={styles.menuItemText}>
+						<Text light bold color={Colors.white} style={styles.menuItemText}>
 							Welcome slides
-						</ArrowText>
+						</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.menuItem} onPress={() => this.goto('DiscussionStarter')}>
-						<ArrowText light bold color={Colors.white} style={styles.menuItemText}>
+						<Text light bold color={Colors.white} style={styles.menuItemText}>
 							Use discussion starter
-						</ArrowText>
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.menuItem} onPress={() => this.goto('CardGame')}>
-						<ArrowText light bold color={Colors.white} style={styles.menuItemText}>
-							Start discussion cards
-						</ArrowText>
+						</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.menuItem} onPress={() => this.goto('UserGuides')}>
-						<ArrowText light bold color={Colors.white} style={styles.menuItemText}>
+						<Text light bold color={Colors.white} style={styles.menuItemText}>
 							App instructions
-						</ArrowText>
+						</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.menuItem} onPress={() => this.goto('Resources')}>
-						<ArrowText light bold color={Colors.white} style={styles.menuItemText}>
+						<Text light bold color={Colors.white} style={styles.menuItemText}>
 							Resource library
-						</ArrowText>
+						</Text>
 					</TouchableOpacity>
 					<TouchableOpacity
 						style={styles.menuItem}
 						onPress={() => this.goto('Page', 'looking_after_yourself')}
 					>
-						<ArrowText light bold color={Colors.white} style={styles.menuItemText}>
+						<Text light bold color={Colors.white} style={styles.menuItemText}>
 							Looking after yourself
-						</ArrowText>
+						</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.menuItem}>
-						<ArrowText light bold color={Colors.white} style={styles.menuItemText}>
+						<Text light bold color={Colors.white} style={styles.menuItemText}>
 							Take our survey
-						</ArrowText>
+						</Text>
+					</TouchableOpacity>
+					<TouchableOpacity style={styles.menuItem}>
+						<Text light bold color={Colors.white} style={styles.menuItemText}>
+							About the artworks
+						</Text>
+					</TouchableOpacity>
+					<TouchableOpacity style={styles.menuItem}>
+						<Text light bold color={Colors.white} style={styles.menuItemText}>
+							Art Gallery
+						</Text>
 					</TouchableOpacity>
 				</View>
-				<Image source={Images.logo_footer} resizeMode={'contain'} style={styles.logo_pca} />
-				<Image source={Images.flying_doctor_logo} resizeMode={'contain'} style={styles.logo_rfds} />
 				<SafeAreaView style={{ backgroundColor: Colors.darkNavy }}>
 					<View style={styles.footer}>
 						<Text style={styles.text_footer}>
-							Funded by the Australian Government through the Dementia and Aged Care Services Fund
+							Funded by the Australian Government
 						</Text>
 					</View>
 				</SafeAreaView>
@@ -199,24 +200,10 @@ const styles = MediaQueryStyleSheet.create(
 
 		text_footer: {
 			color: '#fff',
-			fontSize: 13,
 			fontStyle: 'italic',
 			textAlign: 'center'
 		},
 
-		logo_pca: {
-			width: deviceHeight(20),
-			height: deviceHeight(5),
-			marginBottom: deviceWidth(1),
-			alignSelf: 'center'
-		},
-
-		logo_rfds: {
-			width: deviceHeight(20),
-			height: deviceHeight(5.5),
-			marginBottom: deviceWidth(1),
-			alignSelf: 'center'
-		}
 	},
 	{
 		[MediaQueries.iPhone]: {
@@ -225,23 +212,8 @@ const styles = MediaQueryStyleSheet.create(
 			},
 
 			footer: {
-				height: deviceHeight(9)
+				height: deviceHeight(6)
 			},
-
-			text_footer: {
-				fontSize: 12
-			},
-
-			logo_pca: {
-				width: '90%',
-				height: deviceHeight(8)
-			},
-
-			logo_rfds: {
-				width: '90%',
-				height: deviceHeight(9),
-				marginBottom: deviceWidth(5)
-			}
 		}
 	}
 );

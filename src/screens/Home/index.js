@@ -36,100 +36,66 @@ export default class Home extends Component {
 
 	render() {
 		return (
-			<ImageBackground source={Images.bg_navigation} style={Styles.container}>
-				<ScrollView contentContainerStyle={Styles.scrollView} scrollEnabled={height < 768}>
-					<View style={Styles.containerLeft}>
+			<View source={Images.bg_navigation} style={Styles.container}>
+				<ScrollView contentContainerStyle={Styles.scrollView}>
+					<Card
+						style={Styles.discussion_starter}
+						contentStyle={Styles.discussion_starter_content}
+						onPress={() => {
+							this.gotoRoute('DiscussionStarter');
+						}}
+					>
+						<Image source={Images.discussion_starter} style={Styles.ds_icon} />
+						<Text medium bold color={Colors.white}>
+							Use discussion starter
+						</Text>
+					</Card>
+					<View style={Styles.bottom_container}>
 						<Card
-							topbar={{ color: Colors.Red }}
 							style={Styles.item}
-							onPress={() => {
-								this.gotoRoute('DiscussionStarter');
-							}}
-						>
-							<MediaQuery minDeviceWidth={768}>
-								<Image source={Images.discussion_starter} style={Styles.right_icon} />
-							</MediaQuery>
-							<ArrowText medium bold color={Colors.Red} style={Styles.right_item_text}>
-								Use discussion starter
-							</ArrowText>
-						</Card>
-						<Card
-							topbar={{ color: Colors.Red }}
-							style={Styles.item}
-							onPress={() => {
-								this.gotoRoute('CardGame');
-							}}
-						>
-							<MediaQuery minDeviceWidth={768}>
-								<Image source={Images.cardgame} style={[ Styles.right_icon, Styles.reduce_opacity ]} />
-							</MediaQuery>
-							<Text
-								medium
-								bold
-								color={Colors.Red}
-								style={[ Styles.right_item_text, Styles.reduce_opacity ]}
-							>
-								Discussion cards
-							</Text>
-							<Text style={Styles.coming_soon}>Coming soon...</Text>
-						</Card>
-					</View>
-					<View style={Styles.containerRight}>
-						<Card
-							topbar={{ color: Colors.Navy }}
-							style={Styles.item}
+							contentStyle={Styles.item_content}
 							onPress={() => {
 								this.gotoRoute('Page', 'looking_after_yourself');
 							}}
 						>
 							<MediaQuery minDeviceWidth={768}>
-								<Image source={Images.looking_after} style={Styles.left_icon} />
+								<Image source={Images.looking_after} style={Styles.bottom_icon} />
 							</MediaQuery>
-							<ArrowText bold color={Colors.Navy} style={Styles.left_item_text}>
+							<Text medium bold light center style={Styles.left_item_text}>
 								Looking after yourself
-							</ArrowText>
+							</Text>
 						</Card>
 						<Card
-							topbar={{ color: Colors.Navy }}
 							style={Styles.item}
+							contentStyle={Styles.item_content}
 							onPress={() => {
 								this.gotoRoute('UserGuides');
 							}}
 						>
 							<MediaQuery minDeviceWidth={768}>
-								<Image source={Images.icon_how_to} style={Styles.left_icon} />
+								<Image source={Images.icon_how_to} style={Styles.bottom_icon} />
 							</MediaQuery>
-							<ArrowText bold color={Colors.Navy} style={Styles.left_item_text}>
+							<Text medium bold light style={Styles.left_item_text}>
 								App instructions
-							</ArrowText>
+							</Text>
 						</Card>
 						<Card
-							topbar={{ color: Colors.Navy }}
 							style={Styles.item}
+							contentStyle={Styles.item_content}
 							onPress={() => {
 								this.gotoRoute('Resources');
 							}}
 						>
 							<MediaQuery minDeviceWidth={768}>
-								<Image source={Images.more_info} style={Styles.left_icon} />
+								<Image source={Images.more_info} style={Styles.bottom_icon} />
 							</MediaQuery>
-							<ArrowText bold color={Colors.Navy} style={Styles.left_item_text}>
+							<Text medium bold light style={Styles.left_item_text}>
 								Resource library
-							</ArrowText>
-						</Card>
-						<Card
-							topbar={{ color: Colors.Navy }}
-							style={[ Styles.item, Styles.survey_item ]}
-							onPress={() => {}}
-						>
-							<Text bold color={Colors.Navy} style={Styles.left_item_text}>
-								Survey
 							</Text>
-							<Text style={Styles.coming_soon}>Coming soon...</Text>
 						</Card>
 					</View>
 				</ScrollView>
-			</ImageBackground>
+			</View>
 		);
 	}
 }
