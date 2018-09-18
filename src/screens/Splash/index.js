@@ -41,7 +41,7 @@ export default class Splash extends Component {
             </Text>
             <MySpinner
                 loading={this.state.loading}
-                size={deviceWidth(10)}
+                size={60}
                 style={Styles.spinner}
               />
           </View>

@@ -41,8 +41,8 @@ export default MediaQueryStyleSheet.create({
     },
 
     dtt_logo: {
-        width: deviceWidth(25),
-        height: deviceWidth(25),
+        width: 200,
+        height: 200,
         resizeMode: 'contain',
     },
 
@@ -52,20 +52,18 @@ export default MediaQueryStyleSheet.create({
 
     app_name: {
         color: Colors.navy,
-        fontSize: FontSizes.mediumLarge,
-        fontWeight: 'bold',
+        fontSize: 40,
         margin: deviceWidth(1),
     },
 
     spinner: {
-        marginVertical: deviceWidth(2),
+        marginVertical: 40,
     },
 
     text_desc: {
         color: Colors.navy,
-        fontSize: FontSizes.medium,
+        fontSize: 27,
         textAlign: 'center',
-        width: deviceWidth(50),
         margin: deviceWidth(1),
     },
 
@@ -79,6 +77,10 @@ export default MediaQueryStyleSheet.create({
     [MediaQueries.iPhone] : {
         scrollView: {
             justifyContent: 'center',
+        },
+        onboarding_image: {
+            height: deviceHeight(50.6),
+            width: '100%'
         }
     },
 })

@@ -13,10 +13,9 @@ import {
 
 import Styles from '@OnBoardingstyles';
 let { width, height } = Dimensions.get('window'); // use for device height and width
-import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions'; // use for responsive screen UI
 import { deviceWidth, deviceHeight, windowHeight, windowWidth } from '@ResponsiveDimensions';
 import Button from '@button';
-import Footer from '@footer';
+import Card from '@card';
 import Text from '@text';
 import { Colors, Images, FontSizes } from '@theme';
 const initialOrientation = width > height ? 'LANDSCAPE' : 'PORTRAIT';
@@ -313,13 +312,13 @@ class Swiper extends Component {
 			>
 				{/* Slide 1 */}
 				<View
-					style={[ orientation == 'PORTRAIT' ? Styles.slide : Styles.slideLandscape, { width: width } ]}
+					style={orientation == 'PORTRAIT' ? Styles.slide : Styles.slideLandscape}
 					key="1"
 				>
 					<ImageBackground
 						source={Images.onboarding_icon_background}
 						resizeMode="stretch"
-						style={Styles.middleimage}
+						style={[Styles.middleimage, orientation == 'PORTRAIT' ? { width: '100%', height: '50%' } : { width: '50%', height: '100%'},  ]}
 					>
 						<Image
 							style={[ Styles.middleicon ]}
@@ -344,13 +343,13 @@ class Swiper extends Component {
 
 				{/* Slide 2 */}
 				<View
-					style={[ orientation == 'PORTRAIT' ? Styles.slide : Styles.slideLandscape, { width: width } ]}
+					style={orientation == 'PORTRAIT' ? Styles.slide : Styles.slideLandscape}
 					key="2"
 				>
 					<ImageBackground
 						source={Images.onboarding_icon_background}
 						resizeMode="stretch"
-						style={Styles.middleimage}
+						style={[Styles.middleimage, orientation == 'PORTRAIT' ? { width: '100%', height: '50%' } : { width: '50%', height: '100%'},  ]}
 					>
 						<Image
 							style={[ Styles.middleicon ]}
@@ -376,13 +375,13 @@ class Swiper extends Component {
 
 				{/* Slide 3 */}
 				<View
-					style={[ orientation == 'PORTRAIT' ? Styles.slide : Styles.slideLandscape, { width: width } ]}
+					style={orientation == 'PORTRAIT' ? Styles.slide : Styles.slideLandscape}
 					key="3"
 				>
 					<ImageBackground
 						source={Images.onboarding_icon_background}
 						resizeMode="stretch"
-						style={Styles.middleimage}
+						style={[Styles.middleimage, orientation == 'PORTRAIT' ? { width: '100%', height: '50%' } : { width: '50%', height: '100%'},  ]}
 					>
 						<Image
 							style={[ Styles.middleicon ]}
@@ -408,13 +407,13 @@ class Swiper extends Component {
 
 				{/* Slide 4 */}
 				<View
-					style={[ orientation == 'PORTRAIT' ? Styles.slide : Styles.slideLandscape, { width: width } ]}
+					style={orientation == 'PORTRAIT' ? Styles.slide : Styles.slideLandscape}
 					key="4"
 				>
 					<ImageBackground
 						source={Images.onboarding_icon_background}
 						resizeMode="stretch"
-						style={Styles.middleimage}
+						style={[Styles.middleimage, orientation == 'PORTRAIT' ? { width: '100%', height: '50%' } : { width: '50%', height: '100%'},  ]}
 					>
 						<Image
 							style={[ Styles.middleicon ]}
@@ -440,13 +439,13 @@ class Swiper extends Component {
 
 				{/* Slide 5 */}
 				<View
-					style={[ orientation == 'PORTRAIT' ? Styles.slide : Styles.slideLandscape, { width: width } ]}
+					style={orientation == 'PORTRAIT' ? Styles.slide : Styles.slideLandscape}
 					key="5"
 				>
 					<ImageBackground
 						source={Images.onboarding_icon_background}
 						resizeMode="stretch"
-						style={Styles.middleimage}
+						style={[Styles.middleimage, orientation == 'PORTRAIT' ? { width: '100%', height: '50%' } : { width: '50%', height: '100%'},  ]}
 					>
 						<Image
 							style={[ Styles.middleicon ]}
@@ -522,26 +521,23 @@ class Swiper extends Component {
 	render = ({ children } = this.props) => {
 		return (
 			<View style={Styles.container} onLayout={this.onLayout.bind(this)}>
-				<ImageBackground source={Images.bg_splash_onboarding} resizeMode="stretch" style={Styles.background}>
-					<ScrollView contentContainerStyle={Styles.scrollcontainer} style={{ backgroundColor: '#0009' }}>
-						{/* Render screens */}
-						<Text bold large style={Styles.titleText}>
-							Dying to Talk in the Bush
+				<ScrollView contentContainerStyle={Styles.scrollcontainer}>
+					{/* Render screens */}
+					<Card topbar={{color: Colors.navy}} style={Styles.title} contentStyle={{padding: deviceWidth(2)}}>
+						<Text mediumLarge style={Styles.titleText}>
+							Care Compass
 						</Text>
-						<View style={Styles.subTitleView}>
-							<Text bold medium style={Styles.subTitleText}>
-								Working out what's right for you
-							</Text>
-							{/* <Text bold medium style={Styles.subTitleText}>dyingtotalk.org.au</Text> */}
-						</View>
+						<Text medium style={Styles.subTitleText}>
+							Supporting people living with dementia to work out what is right for them
+						</Text>
+					</Card>
 
-						{this.renderScrollView(children)}
+					{this.renderScrollView(children)}
 
-						<Button light bold color={Colors.white} onPress={() => this.onDone()}>
-							Skip
-						</Button>
-					</ScrollView>
-				</ImageBackground>
+					<Button dark bold onPress={() => this.onDone()} buttonStyles={[Styles.buttonNext, {alignSelf: 'center'}]}>
+						Skip
+					</Button>
+				</ScrollView>
 			</View>
 		);
 	};

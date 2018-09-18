@@ -15,78 +15,93 @@ import { MediaQueryStyleSheet } from 'react-native-responsive';
 export default MediaQueryStyleSheet.create(
 	{
 		slide: {
+			width: deviceWidth(90),
 			alignItems: 'center',
-			shadowColor: '#000',
-			shadowOffset: { width: responsiveWidth(0.5), height: responsiveWidth(0.5) },
-			shadowOpacity: 0.5,
-			shadowRadius: 0,
-			marginBottom: deviceWidth(8)
+			borderRadius: deviceWidth(1),
+			marginBottom: deviceWidth(8),
+			marginHorizontal: deviceWidth(5),
+			overflow: 'hidden'
 		},
+
 		slideLandscape: {
+			backgroundColor: 'red',
+			width: deviceHeight(100) - deviceWidth(10),
 			flexDirection: 'row',
 			alignItems: 'center',
 			justifyContent: 'center',
-			shadowColor: '#000',
-			shadowOffset: { width: responsiveWidth(0.5), height: responsiveWidth(0.5) },
-			shadowOpacity: 0.5,
-			shadowRadius: 0,
-			marginBottom: deviceWidth(8)
+			borderRadius: deviceWidth(1),
+			marginBottom: deviceWidth(8),
+			marginHorizontal: deviceWidth(5),
+			overflow: 'hidden'
 		},
+
 		scrollcontainer: {
-			alignItems: 'center'
+			flexGrow: 1,
+			paddingVertical: deviceHeight(2)
 		},
-		logo: {
-			marginBottom: deviceHeight(5.5),
-			marginTop: deviceHeight(8),
-			height: deviceHeight(15),
-			width: deviceWidth(25)
-		},
+
 		middleimage: {
-			height: deviceHeight(29),
-			width: deviceWidth(70),
-			padding: deviceWidth(10),
 			alignItems: 'center',
 			justifyContent: 'center'
 		},
+		
 		middleicon: {
 			height: deviceHeight(23),
 			width: deviceWidth(40)
 		},
+
 		descText: {
 			fontSize: deviceHeight(2.0),
 			textAlign: 'center',
 			color: Colors.Navy
 		},
+
+		title: {
+			margin: deviceWidth(5),
+		}, 
+
 		titleText: {
 			textAlign: 'center',
-			color: Colors.white
+			color: Colors.navy
 		},
+
 		subTitleText: {
 			textAlign: 'center',
-			color: Colors.white,
+			color: Colors.navy,
 			marginTop: deviceWidth(1)
 		},
+
 		container: {
 			flex: 1,
+			backgroundColor: Colors.yellow,
 			justifyContent: 'center',
 			alignItems: 'center'
 		},
+
 		cardDetails: {
 			alignItems: 'center',
-			backgroundColor: Colors.white
+			backgroundColor: Colors.white,
+			height: deviceHeight(29),
+			width: '100%',
+			height: '50%',
 		},
+
 		cardDetailsLandscape: {
 			flexDirection: 'column',
 			alignItems: 'center',
 			justifyContent: 'center',
 			backgroundColor: Colors.white,
-			height: deviceHeight(29)
+			height: deviceHeight(29),
+			width: '50%',
+			height: '100%',
 		},
+
 		pagination: {
 			flexDirection: 'row',
 			justifyContent: 'center',
 			marginVertical: deviceHeight(2)
 		},
+
 		dot: {
 			backgroundColor: Colors.white,
 			width: deviceWidth(6),
@@ -96,14 +111,17 @@ export default MediaQueryStyleSheet.create(
 			marginLeft: 2,
 			marginRight: 2
 		},
+
 		activeDot: {
 			backgroundColor: Colors.Olive
 		},
+
 		buttonContainer: {
 			flexDirection: 'row',
 			justifyContent: 'center',
 			alignItems: 'center'
 		},
+
 		buttonPrev: {
 			width: deviceWidth(20),
 			paddingVertical: deviceHeight(1),
@@ -120,66 +138,24 @@ export default MediaQueryStyleSheet.create(
 			justifyContent: 'center',
 			marginTop: deviceHeight(1)
 		},
+
 		buttonpageView: {
-			width: deviceWidth(70)
+			// width: deviceWidth(70)
 		},
+
 		textView: {
 			paddingHorizontal: deviceWidth(2),
-			height: deviceWidth(18),
-			width: deviceWidth(70),
+			flex: 1,
+			width: '100%',
 			alignItems: 'center',
 			justifyContent: 'center'
 		},
-		background: {
-			flex: 1,
-			width: undefined,
-			height: undefined,
-			backgroundColor: 'transparent',
-			alignItems: 'center'
-		}
 	},
 	{
 		[MediaQueries.iPad]: {
-			scrollcontainer: {
-				paddingVertical: deviceHeight(7)
-			},
-			subTitleView: {
-				marginBottom: deviceWidth(5)
-			},
-			subTitleText: {
-				marginTop: deviceWidth(1)
-			},
-			middleimage: {
-				width: deviceWidth(60)
-			},
-			textView: {
-				width: deviceWidth(60),
-				height: deviceWidth(16)
-			},
-			buttonpageView: {
-				width: deviceWidth(60)
-			}
 		},
 		[MediaQueries.iPhone]: {
-			scrollcontainer: {
-				paddingVertical: deviceHeight(10)
-			},
-			subTitleView: {
-				marginBottom: deviceWidth(9)
-			},
-			subTitleText: {
-				marginTop: deviceWidth(2)
-			},
-			middleimage: {
-				width: deviceWidth(70)
-			},
-			textView: {
-				width: deviceWidth(70),
-				height: deviceWidth(16)
-			},
-			buttonpageView: {
-				width: deviceWidth(70)
-			}
+
 		}
 	}
 );

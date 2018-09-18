@@ -11,8 +11,8 @@ export default (props) => {
     const {topbar, style, onPress, children, contentStyle, ...others} = props;
 
     var topbarStyle = topbar ? {
-        height: topbar.height ? topbar.height : deviceWidth(1.2),
-        backgroundColor: topbar.color ? topbar.color : Colors.Red
+        height: topbar.height ? topbar.height : deviceWidth(1),
+        backgroundColor: topbar.color ? topbar.color : Colors.red
     } : {
         height: 0
     }
@@ -20,41 +20,28 @@ export default (props) => {
     const Wrapper = onPress ? TouchableOpacity : View
 
     return(
-        <Wrapper style={[styles.shadow, style]} onPress={onPress}>
-            <View style={styles.radius} >
-                <View style={topbarStyle}/>
-                <View style={[styles.children, contentStyle]}>
-                    {children}
-                </View>
+        <View style={[styles.radius, style]} >
+            <View style={topbarStyle}/>
+            <View style={[styles.children, contentStyle]}>
+                {children}
             </View>
-        </Wrapper>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
-    shadow: {
-        shadowColor: '#000',
-        shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
-        shadowOpacity: 0.4,
-        shadowRadius: 0,
-    },
-
     radius: {
-        flex: 1,
         backgroundColor: '#fff',
-        borderRadius: deviceWidth(1.2),
+        borderRadius: deviceWidth(1),
         overflow: 'hidden'
     },
 
     children: {
-        flex: 1,
         padding: 8,
-        justifyContent: 'center',
-        alignItems: 'center',
     },
 
     topbar: {
-        height: deviceWidth(1.2),
-        backgroundColor: Colors.Red
+        height: deviceWidth(1),
+        backgroundColor: Colors.red
     }
 });
