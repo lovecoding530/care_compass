@@ -15,7 +15,6 @@ export default class ActivityList extends Component {
 		const activities = discussionStarter.discussion_starter;
 		this.state = {
 			discussionStarter,
-			discussionStarter,
 			activities: activities
 		};
 	}

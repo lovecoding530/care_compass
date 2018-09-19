@@ -20,12 +20,12 @@ export default (props) => {
     const Wrapper = onPress ? TouchableOpacity : View
 
     return(
-        <View style={[styles.radius, style]} >
+        <Wrapper style={[styles.radius, style]} onPress={onPress} {...others}>
             <View style={topbarStyle}/>
             <View style={[styles.children, contentStyle]}>
                 {children}
             </View>
-        </View>
+        </Wrapper>
     )
 }
 
