@@ -1,4 +1,4 @@
-package com.palliative_care_app;
+package com.care_compass_app;
 
 import android.app.Application;
 
