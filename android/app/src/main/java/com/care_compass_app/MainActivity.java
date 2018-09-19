@@ -1,4 +1,4 @@
-package com.palliative_care_app;
+package com.care_compass_app;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "palliative_care_app";
+        return "CareCompassApp";
     }
 }
