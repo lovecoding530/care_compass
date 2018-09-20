@@ -10,6 +10,7 @@ import { playSounds } from '@utils';
 import { Card } from '@components';
 import { deviceWidth, deviceHeight } from '@ResponsiveDimensions';
 import HTML from 'react-native-render-html';
+import {Switch} from 'react-native-switch';
 
 export default class Activity extends Component {
 	constructor(props) {
@@ -219,8 +220,8 @@ export default class Activity extends Component {
 						<View />
 					)}
 				</View>
-				<View style={Styles.answerButtonWrapper}>
-					<View>
+				<View style={Styles.itemBottom}>
+					<View style={Styles.answerButtonWrapper}>
 						<TouchableOpacity
 							style={answerLater ? Styles.answerButtonOn : Styles.answerButton}
 							onPress={() => this.onAnswerLater(questionIndex)}
@@ -250,7 +251,7 @@ export default class Activity extends Component {
 							</Text>
 						</TouchableOpacity>
 					</View>
-					<View style={{justifyContent: 'center'}}>
+					<View style={{justifyContent: 'center', alignItems: 'center'}}>
 						<Icon.Button
 							name="md-volume-up"
 							size={FontSizes.medium}
@@ -274,6 +275,11 @@ export default class Activity extends Component {
 		return (
 			<View style={Styles.container}>
 				<Loader loading={this.state.loaderVisible} />
+				<Switch
+					value={true}
+					activeText="YES"
+					inActiveText="NO"
+				/>
 				<ScrollView
 					ref={(ref) => (this.scrollView = ref)}
 					showsVerticalScrollIndicator={false}

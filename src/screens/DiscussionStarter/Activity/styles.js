@@ -89,10 +89,13 @@ export default MediaQueryStyleSheet.create(
 			padding: deviceWidth(3),
 		},
 
-		answerButtonWrapper: {
+		itemBottom: {
 			flexDirection: 'row',
 			justifyContent: 'space-between',
 			padding: deviceWidth(2)
+		},
+
+		answerButtonWrapper: {
 		},
 
 		answerButton: {
@@ -118,9 +121,12 @@ export default MediaQueryStyleSheet.create(
 	},
 	{
 		[MediaQueries.iPhone]: {
-			answerButtonWrapper: {
+			itemBottom: {
 				flexDirection: 'column'
 			},
+			answerButtonWrapper: {
+				marginBottom: deviceWidth(2),
+			}
 		}
 	}
 );
