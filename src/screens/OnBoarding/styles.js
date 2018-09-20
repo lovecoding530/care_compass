@@ -107,13 +107,13 @@ export default MediaQueryStyleSheet.create(
 			width: deviceWidth(6),
 			height: deviceHeight(0.6),
 			borderWidth: 1,
-			borderColor: Colors.Olive,
+			borderColor: Colors.red,
 			marginLeft: 2,
 			marginRight: 2
 		},
 
 		activeDot: {
-			backgroundColor: Colors.Olive
+			backgroundColor: Colors.red
 		},
 
 		buttonContainer: {

@@ -14,11 +14,11 @@ export default MediaQueryStyleSheet.create({
     container: {
         flex: 1, 
         backgroundColor: Colors.yellow,
-        paddingHorizontal: deviceWidth(3),
     },
 
     scrollView: {
         flexGrow: 1, 
+        paddingHorizontal: deviceWidth(3),
     },
 
     title: {
@@ -61,7 +61,8 @@ export default MediaQueryStyleSheet.create({
     },
 
     item_content: {
-        alignItems: 'center'
+        alignItems: 'center',
+        padding: deviceWidth(2),
     },
 
     item_number: {
@@ -69,7 +70,8 @@ export default MediaQueryStyleSheet.create({
     }, 
 
     item_text: {
-        fontWeight: '300'
+        fontWeight: '300',
+        marginVertical: deviceWidth(1),
     },
 
 }, {
