@@ -6,7 +6,8 @@ import {
   View,
   ImageBackground,
   ScrollView,
-  AsyncStorage
+  AsyncStorage,
+  FlatList,
 } from "react-native";
 
 import { Colors, Images } from "@theme";
@@ -15,13 +16,16 @@ import { Button, Loader, Card } from "@components";
 import Text from "@text";
 
 import { getDiscussionStarter } from "@api";
+import { MediaQuery } from 'react-native-responsive';
+import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
 
 export default class Intro extends Component {
   constructor(props) {
     super(props);
     this.state = {
       discussionStarter: {},
-      loaderVisible: false
+      loaderVisible: false,
+      activities: [],
     };
   }
 
@@ -34,63 +38,70 @@ export default class Intro extends Component {
     } else {
       json = await getDiscussionStarter();
     }
-    console.log("componentDidMount");
-    console.log(json);
-    let firstDiscussionStarter = json[0];
+
+    let discussionStarter = json[0];
+    const activities = discussionStarter.discussion_starter;
     this.setState({
-      discussionStarter: firstDiscussionStarter
+      discussionStarter,
+      activities,
     });
   }
 
+	renderActivityItem = ({ item, index }) => {
+    const { navigate } = this.props.navigation;
+    let itemStyle = index % 2 == 0 ? {marginRight: deviceWidth(1)} : {marginLeft: deviceWidth(1)}
+		return (
+			<Card
+				style={[Styles.item, itemStyle]}
+				contentStyle={Styles.item_content}
+				onPress={() => {
+					navigate('Activity', { activityIndex: index, discussionStarter: this.state.discussionStarter });
+				}}
+			>
+				<Text mediumLarge center style={Styles.item_number}>
+					{index + 1}
+				</Text>
+        <Text mediumLarge light center style={Styles.item_text}>
+          {item.stage}
+        </Text>
+				<MediaQuery minDeviceWidth={768}>
+					<Button light color={Colors.white}>
+						Start
+					</Button>
+				</MediaQuery>
+			</Card>
+		);
+  }
+  
   render() {
     const { navigate } = this.props.navigation;
     const { discussionStarter } = this.state;
     return (
-      <ImageBackground
-        source={Images.bg_discussion_starter}
+      <View
         style={Styles.container}
       >
         <Loader loading={this.state.loaderVisible} />
-        <ScrollView contentContainerStyle={Styles.introContainer}>
+        <ScrollView contentContainerStyle={Styles.scrollView}>
           <Card topbar style={Styles.titleView}>
-            <Text mediumLarge center color={Colors.Red} style={Styles.title}>
+            <Text mediumLarge center color={Colors.navy} style={Styles.title}>
               Discussion Starter
             </Text>
             <Text medium bold style={Styles.subtitle} color={Colors.Navy}>
-              {discussionStarter.subheading}
+              {discussionStarter.subheading || "Supporting you to talk about how you want to be cared for at the end of your life"}
             </Text>
           </Card>
           <Card style={Styles.descView}>
-            <Image source={Images.discussion_starter} style={Styles.icon} />
             <Text style={Styles.intro}>{discussionStarter.intro}</Text>
           </Card>
+          <FlatList
+            numColumns={2}
+            data={this.state.activities}
+            renderItem={this.renderActivityItem}
+            keyExtractor={(item, index) => index.toString()}
+            contentContainerStyle={Styles.flatList}
+          />
         </ScrollView>
-        <View style={Styles.buttonBar}>
-          <Button
-            dark
-            bold
-            onPress={() => {
-              navigate("Activity", {
-                activityIndex: 0,
-                discussionStarter: discussionStarter
-              });
-            }}
-          >
-            Start the conversation
-          </Button>
-          <Button
-            light
-            bold
-            onPress={() => {
-              navigate("ActivityList", {
-                discussionStarter: discussionStarter
-              });
-            }}
-          >
-            Skip ahead
-          </Button>
-        </View>
-      </ImageBackground>
+      </View>
     );
   }
 }

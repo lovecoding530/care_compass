@@ -13,12 +13,12 @@ import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@Responsiv
 export default MediaQueryStyleSheet.create({
     container: {
         flex: 1, 
-        backgroundColor: Colors.backgroundPrimary,
+        backgroundColor: Colors.yellow,
+        paddingHorizontal: deviceWidth(3),
     },
 
-    introContainer: {
+    scrollView: {
         flexGrow: 1, 
-        // alignSelf: 'center'
     },
 
     title: {
@@ -43,34 +43,37 @@ export default MediaQueryStyleSheet.create({
         textAlign: 'center',
     },
 
-    buttonBar: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        backgroundColor: '#E6E0D4',
-        paddingHorizontal: deviceWidth(10),
-    },
-
     titleView: {
-        marginVertical: deviceWidth(4),
+        marginVertical: deviceWidth(3),
     },
 
     descView: {
-    }
-}, {
-    [MediaQueries.iPad] : {
-        introContainer: {
-            paddingHorizontal: deviceWidth(10),
-        },
-        buttonBar: {
-            paddingHorizontal: deviceWidth(10),            
-        }
     },
+
+    flatList: {
+        paddingVertical: deviceWidth(3),
+    },
+
+    item: {
+        backgroundColor: Colors.navy,
+        flex: 1,
+        marginBottom: deviceWidth(2),
+    },
+
+    item_content: {
+        alignItems: 'center'
+    },
+
+    item_number: {
+        color: Colors.red,
+    }, 
+
+    item_text: {
+        fontWeight: '300'
+    },
+
+}, {
     [MediaQueries.iPhone] : {
-        introContainer: {
-            paddingHorizontal: deviceWidth(5),
-        },
-        buttonBar: {
-            paddingHorizontal: deviceWidth(5),            
-        }
+
     }
 });
