@@ -73,7 +73,7 @@ export default class Home extends Component {
 							}}
 						>
 							<MediaQuery minDeviceWidth={768}>
-								<Image source={Images.icon_how_to} style={Styles.bottom_icon} />
+								<Image source={Images.more_info} style={Styles.bottom_icon} />
 							</MediaQuery>
 							<Text medium bold light style={Styles.left_item_text}>
 								App instructions
@@ -87,7 +87,7 @@ export default class Home extends Component {
 							}}
 						>
 							<MediaQuery minDeviceWidth={768}>
-								<Image source={Images.more_info} style={Styles.bottom_icon} />
+								<Image source={Images.library_pink} style={Styles.bottom_icon} />
 							</MediaQuery>
 							<Text medium bold light style={Styles.left_item_text}>
 								Resource library
