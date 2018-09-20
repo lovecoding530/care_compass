@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, View, ScrollView, TextInput, ImageBackground, Image } from 'react-native';
-import { Colors, Images, htmlStyles } from '@theme';
+import { Colors, Images, htmlStyles, FontSizes } from '@theme';
 import Styles from './styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -8,7 +8,7 @@ import { Button, Text, ProgressBar, Choices, ManyChoices, Loader } from '@compon
 
 import { playSounds } from '@utils';
 import { Card } from '@components';
-import { deviceWidth } from '@ResponsiveDimensions';
+import { deviceWidth, deviceHeight } from '@ResponsiveDimensions';
 import HTML from 'react-native-render-html';
 
 export default class Activity extends Component {
@@ -19,7 +19,7 @@ export default class Activity extends Component {
 		const activities = discussionStarter.discussion_starter;
 		const activity = activities[activityIndex];
 		activity.isStarted = true;
-		const pageTotalCount = parseInt((activity.questions.length - 1) / 3) + 1;
+		const questionTotalCount = activity.questions.length;
 
 		this.state = {
 			editFromResults,
@@ -27,8 +27,8 @@ export default class Activity extends Component {
 			activityCount: activities.length,
 			activityIndex: activityIndex,
 			activity: activity,
-			pageIndex: 0,
-			pageTotalCount: pageTotalCount,
+			questionIndex: 0,
+			questionTotalCount,
 			loaderVisible: false
 		};
 	}
@@ -65,9 +65,9 @@ export default class Activity extends Component {
 	}
 
 	goBack() {
-		if (this.state.pageIndex > 0) {
+		if (this.state.questionIndex > 0) {
 			this.setState({
-				pageIndex: this.state.pageIndex - 1
+				questionIndex: this.state.questionIndex - 1
 			});
 		} else {
 			const { goBack } = this.props.navigation;
@@ -76,8 +76,8 @@ export default class Activity extends Component {
 	}
 
 	onNext() {
-		if (this.state.pageIndex < this.state.pageTotalCount - 1) {
-			this.setState({ pageIndex: this.state.pageIndex + 1 });
+		if (this.state.questionIndex < this.state.questionTotalCount - 1) {
+			this.setState({ questionIndex: this.state.questionIndex + 1 });
 			setTimeout(() => {
 				this.scrollView.scrollTo(0);
 			});
@@ -88,7 +88,7 @@ export default class Activity extends Component {
 
 	onFinish() {
 		setTimeout(() => {
-			this.setState({ pageIndex: 0 });
+			this.setState({ questionIndex: 0 });
 			this.scrollView.scrollTo({ y: 0 });
 		}, 500);
 
@@ -114,38 +114,32 @@ export default class Activity extends Component {
 		playSounds(audioURLs);
 	}
 
-	renderQuestions() {
-		var startIndex = this.state.pageIndex * 3;
-		var endIndex = startIndex + 3;
-		var pageQuestions = this.state.activity.questions.slice(startIndex, endIndex);
-		console.log('pageQuestions');
-		console.log(pageQuestions);
-		var questionList = pageQuestions.map((questionData, index) => {
-			var questionIndex = startIndex + index;
-			const {
-				question,
-				question_type,
-				question_choices,
-				category,
-				question_audio_url,
-				question_choices_audio_urls,
-				answerLater,
-				neverAnswer,
-				answerData,
-				otherData
-			} = questionData;
-			const answerList = question_choices.split('\r\n');
+	renderQuestion() {
+		let questionData = this.state.activity.questions[this.state.questionIndex];
+		let questionIndex = this.state.questionIndex;
+		const {
+			question,
+			question_type,
+			question_choices,
+			category,
+			question_audio_url,
+			question_choices_audio_urls,
+			answerLater,
+			neverAnswer,
+			answerData,
+			otherData
+		} = questionData;
+		const answerList = question_choices.split('\r\n');
 
-			return (
-				<View style={Styles.questionItem} key={index}>
-					<View style={Styles.questionTitle}>
-						<HTML html={question} containerStyle={Styles.questionContainer} tagsStyles={htmlStyles} />
-						<TouchableOpacity
-							onPress={() => this.playAudios(question_audio_url, question_choices_audio_urls)}
-						>
-							<Image source={Images.sound} style={Styles.sound} />
-						</TouchableOpacity>
-					</View>
+		return (
+			<Card 
+				style={Styles.questionItem}
+				contentStyle={Styles.questionItemContent}
+			>
+				<View style={Styles.questionTitle}>
+					<HTML html={question} containerStyle={Styles.questionContainer} tagsStyles={htmlStyles} />
+				</View>
+				<View style={Styles.itemBody}>
 					{question_type == 'freetext' ? (
 						<TextInput
 							key={questionIndex.toString()}
@@ -224,8 +218,9 @@ export default class Activity extends Component {
 					) : (
 						<View />
 					)}
-					<View style={Styles.answerButtonWrapper}>
-						<View style={{ flex: 1 }} />
+				</View>
+				<View style={Styles.answerButtonWrapper}>
+					<View>
 						<TouchableOpacity
 							style={answerLater ? Styles.answerButtonOn : Styles.answerButton}
 							onPress={() => this.onAnswerLater(questionIndex)}
@@ -233,10 +228,10 @@ export default class Activity extends Component {
 							<Icon
 								name={answerLater ? 'md-checkbox-outline' : 'md-square-outline'}
 								size={24}
-								color={answerLater ? Colors.white : Colors.Navy}
+								color={Colors.navy}
 								style={{ marginRight: deviceWidth(1), marginTop: 4 }}
 							/>
-							<Text bold color={answerLater ? Colors.white : Colors.Navy}>
+							<Text bold color={Colors.navy}>
 								I want to think about this
 							</Text>
 						</TouchableOpacity>
@@ -247,23 +242,37 @@ export default class Activity extends Component {
 							<Icon
 								name={neverAnswer ? 'md-checkbox-outline' : 'md-square-outline'}
 								size={24}
-								color={neverAnswer ? Colors.white : Colors.Navy}
+								color={Colors.navy}
 								style={{ marginRight: deviceWidth(1), marginTop: 4 }}
 							/>
-							<Text bold color={neverAnswer ? Colors.white : Colors.Navy}>
+							<Text bold color={Colors.navy}>
 								I don’t want to talk about this
 							</Text>
 						</TouchableOpacity>
 					</View>
+					<View style={{justifyContent: 'center'}}>
+						<Icon.Button
+							name="md-volume-up"
+							size={FontSizes.medium}
+							style={{ height: deviceHeight(4.5), paddingHorizontal: 10 }}
+							backgroundColor={Colors.navy}
+							onPress={() => {
+								this.playAudios(question_audio_url, question_choices_audio_urls)
+							}}
+						>
+							<Text light bold>
+								Play question
+							</Text>
+						</Icon.Button>
+					</View>
 				</View>
-			);
-		});
-		return questionList;
+			</Card>
+		);
 	}
 
 	render() {
 		return (
-			<ImageBackground source={Images.bg_discussion_starter} style={Styles.container}>
+			<View style={Styles.container}>
 				<Loader loading={this.state.loaderVisible} />
 				<ScrollView
 					ref={(ref) => (this.scrollView = ref)}
@@ -277,31 +286,31 @@ export default class Activity extends Component {
 							</Text>
 						</View>
 						<ProgressBar
-							total={this.state.pageTotalCount}
-							progress={this.state.pageIndex + 1}
+							total={this.state.questionTotalCount}
+							progress={this.state.questionIndex + 1}
 							style={Styles.pregressBar}
 						/>
 					</Card>
-					{this.renderQuestions()}
+					{this.renderQuestion()}
 				</ScrollView>
-				<View style={Styles.buttonBar}>
+				<Card style={Styles.buttonBar} contentStyle={Styles.buttonBarContent}>
 					<View style={{ flexDirection: 'row' }}>
 						<Button light bold onPress={this.goBack.bind(this)}>
 							Go back
 						</Button>
 						<Button light bold onPress={this.onFinish.bind(this)}>
-							Finish
+							Finish here
 						</Button>
 					</View>
 					<Button dark bold onPress={this.onNext.bind(this)}>
-						{this.state.editFromResults && this.state.pageIndex == this.state.pageTotalCount - 1 ? (
+						{this.state.editFromResults && this.state.questionIndex == this.state.questionTotalCount - 1 ? (
 							'Done editing'
 						) : (
-							'Next page'
+							'Continue'
 						)}
 					</Button>
-				</View>
-			</ImageBackground>
+				</Card>
+			</View>
 		);
 	}
 }

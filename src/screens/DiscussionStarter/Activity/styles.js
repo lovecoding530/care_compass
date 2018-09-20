@@ -13,7 +13,7 @@ export default MediaQueryStyleSheet.create(
 	{
 		container: {
 			flex: 1,
-			backgroundColor: Colors.backgroundPrimary
+			backgroundColor: Colors.gray
 		},
 
 		pregressBar: {
@@ -35,16 +35,21 @@ export default MediaQueryStyleSheet.create(
 		questionItem: {
 			marginVertical: deviceWidth(1.5),
 			backgroundColor: '#fff',
-			borderRadius: deviceWidth(1.2),
-			shadowColor: '#000',
-			shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
-			shadowOpacity: 0.4,
-			shadowRadius: 0,
-			padding: deviceWidth(2.5)
+		},
+
+		questionItemContent: {
+			padding: 0,
+		},
+
+		itemBody: {
+			borderColor: Colors.gray,
+			borderTopWidth: 1,
+			borderBottomWidth: 1,
+			padding: deviceWidth(2),
 		},
 
 		questionTitle: {
-			marginBottom: deviceWidth(1.8),
+			margin: deviceWidth(2),
 			flexDirection: 'row',
 			justifyContent: 'space-between'
 		},
@@ -56,7 +61,7 @@ export default MediaQueryStyleSheet.create(
 
 		textArea: {
 			backgroundColor: Colors.backgroundSecondary,
-			height: deviceWidth(16),
+			height: deviceWidth(24),
 			color: Colors.textPrimary,
 			fontSize: FontSizes.smallMedium,
 			padding: deviceWidth(1.2),
@@ -65,10 +70,14 @@ export default MediaQueryStyleSheet.create(
 		},
 
 		buttonBar: {
+			backgroundColor: '#E6E0D4',
+			margin: deviceWidth(3),
+		},
+
+		buttonBarContent: {
 			flexDirection: 'row',
 			justifyContent: 'space-between',
 			backgroundColor: '#E6E0D4',
-			paddingHorizontal: deviceWidth(8)
 		},
 
 		titleView: {
@@ -77,32 +86,26 @@ export default MediaQueryStyleSheet.create(
 
 		scrollView: {
 			flexGrow: 1,
-			paddingTop: deviceWidth(4),
-			paddingHorizontal: deviceWidth(8),
-			paddingBottom: 0
+			padding: deviceWidth(3),
 		},
 
 		answerButtonWrapper: {
 			flexDirection: 'row',
-			justifyContent: 'center'
+			justifyContent: 'space-between',
+			padding: deviceWidth(2)
 		},
 
 		answerButton: {
-			backgroundColor: Colors.Blue,
 			paddingVertical: 4,
 			paddingHorizontal: 8,
-			marginTop: deviceWidth(1),
-			marginLeft: deviceWidth(2),
 			flexDirection: 'row',
 			alignItems: 'center'
 		},
 
 		answerButtonOn: {
-			backgroundColor: Colors.Navy,
+			backgroundColor: Colors.green,
 			paddingVertical: 4,
 			paddingHorizontal: 8,
-			marginTop: deviceWidth(1),
-			marginLeft: deviceWidth(2),
 			flexDirection: 'row',
 			alignItems: 'center'
 		},
@@ -115,29 +118,9 @@ export default MediaQueryStyleSheet.create(
 	},
 	{
 		[MediaQueries.iPhone]: {
-			scrollView: {
-				paddingHorizontal: deviceWidth(2.8)
-			},
-			buttonBar: {
-				paddingHorizontal: deviceWidth(2.8)
-			},
 			answerButtonWrapper: {
 				flexDirection: 'column'
 			},
-			answerButton: {
-				justifyContent: 'center',
-				paddingVertical: 2,
-				paddingHorizontal: 4,
-				marginTop: 8,
-				marginLeft: 0
-			},
-			answerButtonOn: {
-				justifyContent: 'center',
-				paddingVertical: 2,
-				paddingHorizontal: 4,
-				marginTop: 8,
-				marginLeft: 0
-			}
 		}
 	}
 );

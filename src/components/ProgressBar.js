@@ -22,7 +22,7 @@ export default (props) => {
     for(let i = 0; i < total; i++){
         if(i < progress){
             items.push(
-                <View key={i} style={[defaultStyles.item, itemStyle, {backgroundColor: Colors.Olive}]}/>
+                <View key={i} style={[defaultStyles.item, itemStyle, {backgroundColor: Colors.red}]}/>
             )
         }else{
             items.push(
@@ -40,13 +40,13 @@ export default (props) => {
 
 const defaultStyles = StyleSheet.create({
     container: {
-        borderColor: Colors.Olive,
+        borderColor: Colors.red,
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
     item: {
         borderWidth: 1,
-        borderColor: Colors.Olive,
+        borderColor: Colors.red,
         height: deviceWidth(1),
         margin: 1,
         flex: 1,
