@@ -1,5 +1,5 @@
 const images = {
-	check: require('../../assets/images/check.png'),
+	check: require('../../assets/images/icon-tick1.png'),
 
 	levelNot: require('../../assets/images/level_not.png'),
 	levelSomewhat: require('../../assets/images/level_somewhat.png'),

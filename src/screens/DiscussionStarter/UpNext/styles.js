@@ -30,7 +30,7 @@ export default MediaQueryStyleSheet.create(
 		},
 
 		currentHeader: {
-			padding: deviceWidth(1),
+			padding: deviceWidth(0.5),
 			flexDirection: 'row',
 			backgroundColor: Colors.Navy,
 			alignItems: 'center',
@@ -45,10 +45,6 @@ export default MediaQueryStyleSheet.create(
 
 		upnextBody: {
 			padding: deviceWidth(2),
-		},
-
-		complete_text: {
-			fontSize: deviceHeight(3)
 		},
 
 		currentDescView: {
@@ -94,9 +90,6 @@ export default MediaQueryStyleSheet.create(
 			buttonBar: {
 				paddingHorizontal: deviceWidth(2.8)
 			},
-			currentWrapper: {
-				marginVertical: 0
-			}
 		}
 	}
 );

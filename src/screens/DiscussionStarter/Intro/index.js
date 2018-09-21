@@ -47,16 +47,18 @@ export default class Intro extends Component {
     });
   }
 
-	renderActivityItem = ({ item, index }) => {
+  startActivity(activityIndex) {
     const { navigate } = this.props.navigation;
+    navigate('Activity', { activityIndex, discussionStarter: this.state.discussionStarter });
+  }
+
+	renderActivityItem = ({ item, index }) => {
     let itemStyle = index % 2 == 0 ? {marginRight: deviceWidth(1)} : {marginLeft: deviceWidth(1)}
 		return (
 			<Card
 				style={[Styles.item, itemStyle]}
 				contentStyle={Styles.item_content}
-				onPress={() => {
-					navigate('Activity', { activityIndex: index, discussionStarter: this.state.discussionStarter });
-				}}
+				onPress={() => this.startActivity(index)}
 			>
 				<Text mediumLarge center style={Styles.item_number}>
 					{index + 1}
@@ -65,7 +67,11 @@ export default class Intro extends Component {
           {item.stage}
         </Text>
 				<MediaQuery minDeviceWidth={768}>
-					<Button light color={Colors.white}>
+          <Button 
+            light 
+            color={Colors.white} 
+            onPress={() => this.startActivity(index)}
+          >
 						Start
 					</Button>
 				</MediaQuery>
