@@ -156,36 +156,37 @@ export default class Complete extends Component {
 
 	renderActivityItem({ item }) {
 		return (
-			<View style={Styles.currentWrapper}>
-				<View style={Styles.current}>
-					<View style={Styles.currentHeader}>
-						<View style={{ flexDirection: 'row' }}>
-							<Image source={Images.check} style={Styles.checkIcon} />
-							<Text medium bold color={'#fff'} style={Styles.complete_text}>
-								Complete
-							</Text>
-						</View>
-						<Button light bold color={'#fff'} onPress={() => this.onEdit(item.index)}>
-							Edit
-						</Button>
-					</View>
-					<View style={Styles.currentDescView}>
-						<Text medium color={Colors.Navy} style={Styles.currentTitle}>
-							Activity {item.index + 1}: {item.stage}
+			<Card style={Styles.current} contentStyle={{padding: 0}}>
+				<View style={Styles.currentHeader}>
+					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+						<Image source={Images.check} style={Styles.checkIcon} />
+						<Text medium bold light>
+							Complete
 						</Text>
 					</View>
+					<Button light bold color={'#fff'} onPress={() => this.onEdit(item.index)}>
+						Edit
+					</Button>
 				</View>
-			</View>
+				<View style={Styles.currentDescView}>
+					<Text medium color={Colors.Navy} style={Styles.currentTitle}>
+						Activity {item.index + 1}: {item.stage}
+					</Text>
+					<Text center style={Styles.currentPrecomment}>
+						{item.post_completion_text}
+					</Text>
+				</View>
+			</Card>
 		);
 	}
 
 	render() {
 		return (
-			<ImageBackground source={Images.bg_discussion_starter} style={Styles.container}>
+			<View style={Styles.container}>
 				<Loader loading={this.state.loaderVisible} />
 				<ScrollView contentContainerStyle={Styles.contentView}>
-					<Card topbar style={Styles.titleView} contentStyle={{ paddingVertical: deviceWidth(4) }}>
-						<Text mediumLarge center color={Colors.Red} style={{ fontWeight: '300' }}>
+					<Card topbar style={Styles.titleView} contentStyle={{ paddingVertical: deviceWidth(3) }}>
+						<Text mediumLarge center color={Colors.navy} style={{ fontWeight: '300' }}>
 							Your Results
 						</Text>
 					</Card>
@@ -195,13 +196,12 @@ export default class Complete extends Component {
 						keyExtractor={(item, index) => index.toString()}
 						contentContainerStyle={Styles.flatList}
 						ListFooterComponent={() => (
-							<View style={Styles.saveView}>
-								<Text medium bold center color={Colors.Navy} style={Styles.currentTitle}>
-									Save a copy of my results
+							<Card style={Styles.saveView}>
+								<Text medium bold center color={Colors.Navy} style={{marginVertical: deviceWidth(1)}}>
+									Save your results
 								</Text>
-								<Text center style={{ marginVertical: 8 }}>
-									Palliative Care Australia respects the privacy of all app users and will not make
-									any attempt to identify you.
+								<Text center style={{ marginBottom: deviceWidth(1) }}>
+									Personal information will not be stored or used by Palliative Care Australia in any way. Read more here.
 								</Text>
 								<View
 									style={{
@@ -226,16 +226,19 @@ export default class Complete extends Component {
 									>
 										Email
 									</Button>
+									<Button 
+										light 
+										bold 
+										buttonStyles={{ paddingHorizontal: 32 }}
+										onPress={this.onExit.bind(this)}
+									>
+										Exit
+									</Button>
 								</View>
-							</View>
+							</Card>
 						)}
 					/>
 				</ScrollView>
-				<View style={Styles.buttonBar}>
-					<Button light bold onPress={this.onExit.bind(this)}>
-						Exit
-					</Button>
-				</View>
 				<InfoAlert
 					visible={this.state.modalVisible.exported}
 					icon={Images.check}
@@ -248,7 +251,7 @@ export default class Complete extends Component {
 					message="Email sent"
 					onCancel={() => this.closeModal()}
 				/>
-			</ImageBackground>
+			</View>
 		);
 	}
 }

@@ -4,13 +4,12 @@ import { Colors, Images, htmlStyles, FontSizes } from '@theme';
 import Styles from './styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import { Button, Text, ProgressBar, Choices, ManyChoices, Loader } from '@components';
+import { Button, Text, ProgressBar, Choices, ManyChoices, Loader, Switch } from '@components';
 
 import { playSounds } from '@utils';
 import { Card } from '@components';
 import { deviceWidth, deviceHeight } from '@ResponsiveDimensions';
 import HTML from 'react-native-render-html';
-import {Switch} from 'react-native-switch';
 
 export default class Activity extends Component {
 	constructor(props) {
@@ -275,11 +274,6 @@ export default class Activity extends Component {
 		return (
 			<View style={Styles.container}>
 				<Loader loading={this.state.loaderVisible} />
-				<Switch
-					value={true}
-					activeText="YES"
-					inActiveText="NO"
-				/>
 				<ScrollView
 					ref={(ref) => (this.scrollView = ref)}
 					showsVerticalScrollIndicator={false}

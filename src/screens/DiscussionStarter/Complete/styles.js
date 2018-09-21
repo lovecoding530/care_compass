@@ -10,48 +10,32 @@ export default MediaQueryStyleSheet.create(
 	{
 		container: {
 			flex: 1,
-			backgroundColor: Colors.backgroundPrimary
+			backgroundColor: Colors.yellow
 		},
 
 		contentView: {
 			flexGrow: 1,
-			paddingHorizontal: deviceWidth(8),
-			paddingVertical: deviceWidth(2)
+			padding: deviceWidth(3),
 		},
 
 		titleView: {
-			marginVertical: deviceWidth(2),
-			marginHorizontal: deviceWidth(1)
 		},
 
 		flatList: {
 			justifyContent: 'center',
-			paddingHorizontal: deviceWidth(1.2)
-		},
-
-		currentWrapper: {
-			marginVertical: deviceHeight(1),
-			shadowColor: '#000',
-			shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
-			shadowOpacity: 0.4,
-			shadowRadius: 0
+			marginVertical: deviceWidth(2),
 		},
 
 		current: {
-			borderRadius: deviceWidth(1.2),
-			overflow: 'hidden'
+			marginBottom: deviceWidth(2),
 		},
 
 		currentHeader: {
-			padding: deviceWidth(1),
+			padding: deviceWidth(0.5),
 			flexDirection: 'row',
 			backgroundColor: Colors.Navy,
 			alignItems: 'center',
 			justifyContent: 'space-between'
-		},
-
-		complete_text: {
-			fontSize: deviceHeight(3)
 		},
 
 		currentDescView: {
@@ -61,28 +45,12 @@ export default MediaQueryStyleSheet.create(
 		},
 
 		currentTitle: {
-			marginVertical: 8,
-			fontWeight: '300'
+			marginBottom: deviceWidth(1),
 		},
 
 		currentPrecomment: {},
 
 		saveView: {
-			backgroundColor: '#fff',
-			borderRadius: deviceWidth(1.2),
-			shadowColor: '#000',
-			shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
-			shadowOpacity: 0.4,
-			shadowRadius: 0,
-			padding: deviceWidth(1),
-			marginVertical: deviceWidth(1.2)
-		},
-
-		buttonBar: {
-			flexDirection: 'row',
-			justifyContent: 'space-between',
-			backgroundColor: '#E6E0D4',
-			paddingHorizontal: deviceWidth(9)
 		},
 
 		checkIcon: {
@@ -94,9 +62,6 @@ export default MediaQueryStyleSheet.create(
 	},
 	{
 		[MediaQueries.iPhone]: {
-			contentView: {
-				paddingHorizontal: deviceWidth(2.8)
-			},
 			buttonBar: {
 				paddingHorizontal: deviceWidth(2.8)
 			}

@@ -12,42 +12,51 @@ import Text from '@text'
 import { MediaQueryStyleSheet } from "react-native-responsive";
 import { deviceWidth, deviceHeight } from "@ResponsiveDimensions";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Switch from "./Switch";
 
 export default class Choice extends Component {
+    state={
+        switch: false,
+    }
+    
     render() {
-        const {selected} = this.props
+        const {disabled, selected} = this.props
 
         var style = {}
         if(selected){
-            style.backgroundColor = Colors.backgroundSecondary
+            style.backgroundColor = Colors.yellow
         }
         
         return (
             <View style={style}>
-            {this.props.disabled?
+            {disabled?
                 <View style={styles.container}>
                     <Text smallMedium style={styles.text}>{this.props.text}</Text>            
                 </View>
                 :
-                this.props.selected?
-                    <View style={styles.container}>
+                <View style={styles.container}>
+                    {selected && 
                         <Icon name={'check'} color={Colors.Navy} style={styles.icon} size={20}/>
-                        <Text smallMedium style={styles.text}>{this.props.text}</Text>
-                        <Button small light bold color={Colors.Red} 
-                            buttonStyles={{width: deviceHeight(8), paddingHorizontal: 0}} 
-                            onPress={()=>{this.props.onPress(this.props.index)}}>
-                            Remove
-                        </Button>
-                    </View>
-                    :
-                    <View style={styles.container}>
-                        <Text smallMedium style={styles.text}>{this.props.text}</Text>            
-                        <Button small light bold color={Colors.Navy} 
-                            buttonStyles={{width: deviceHeight(8), paddingHorizontal: 0}} 
-                            onPress={()=>{this.props.onPress(this.props.index)}}>
-                            Select
-                        </Button>
-                    </View>
+                    }
+                    <Text smallMedium style={styles.text}>{this.props.text}</Text>
+                    <Switch
+                        value={!selected}
+                        onValueChange={(val) => this.props.onPress(this.props.index)}
+                        activeText={'YES'}
+                        inActiveText={'NO'}
+                        circleSize={deviceHeight(4)}
+                        backgroundActive={Colors.green}
+                        backgroundInactive={Colors.red}
+                        activeTextStyle={{color: Colors.black, fontSize: FontSizes.smallMedium}}
+                        inactiveTextStyle={{fontSize: FontSizes.smallMedium}}
+                        circleBorderWidth={4}
+                        circleActiveBorderColor={Colors.green}
+                        circleInactiveBorderColor={Colors.red}
+                        switchWidthMultiplier={2.25}
+                        switchRightPx={4.5}
+                        switchLeftPx={5}
+                    />
+                </View>
             }
             </View>    
         )
@@ -58,7 +67,7 @@ const styles = MediaQueryStyleSheet.create({
     container: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingLeft: deviceWidth(1),
+        paddingHorizontal: deviceWidth(1),
         minHeight: FontSizes.smallMedium + deviceWidth(5),
     },
 

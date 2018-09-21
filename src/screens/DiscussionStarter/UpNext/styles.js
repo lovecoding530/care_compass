@@ -12,21 +12,12 @@ export default MediaQueryStyleSheet.create(
 	{
 		container: {
 			flex: 1,
-			backgroundColor: Colors.backgroundPrimary
+			backgroundColor: Colors.yellow
 		},
 
 		contentView: {
-			paddingHorizontal: deviceWidth(8),
-			paddingVertical: deviceWidth(2),
-			flexGrow: 1
-		},
-
-		currentWrapper: {
-			marginVertical: deviceHeight(2),
-			shadowColor: '#000',
-			shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
-			shadowOpacity: 0.4,
-			shadowRadius: 0
+			flexGrow: 1,
+			padding: deviceWidth(3),
 		},
 
 		current: {
@@ -35,28 +26,25 @@ export default MediaQueryStyleSheet.create(
 		},
 
 		next: {
-			backgroundColor: '#fff',
 			marginVertical: deviceHeight(2),
-			paddingVertical: deviceHeight(2),
-			borderRadius: deviceWidth(1.2),
-			paddingLeft: 4,
-			paddingRight: 4,
-			shadowColor: '#000',
-			shadowOffset: { width: Metrics.shadowOffset, height: Metrics.shadowOffset },
-			shadowOpacity: 0.4,
-			shadowRadius: 0
 		},
 
 		currentHeader: {
-			padding: deviceWidth(1),
+			padding: deviceWidth(0.5),
 			flexDirection: 'row',
 			backgroundColor: Colors.Navy,
 			alignItems: 'center',
 			justifyContent: 'space-between'
 		},
 
-		complete_text: {
-			fontSize: deviceHeight(3)
+		upnextHeader: {
+			padding: deviceWidth(2),
+			backgroundColor: Colors.Navy,
+			alignItems: 'center',
+		},
+
+		upnextBody: {
+			padding: deviceWidth(2),
 		},
 
 		currentDescView: {
@@ -66,21 +54,17 @@ export default MediaQueryStyleSheet.create(
 		},
 
 		currentTitle: {
-			padding: deviceWidth(2),
-			fontWeight: '300',
-			fontSize: 28
+			marginBottom: deviceWidth(2),
 		},
 
 		nextTitle: {
-			margin: deviceWidth(2),
-			flexDirection: 'row',
-			justifyContent: 'center'
+			marginBottom: deviceWidth(2),
 		},
 
 		nextPrecomment: {},
 
 		later: {
-			marginVertical: deviceWidth(4)
+			marginVertical: deviceWidth(2)
 		},
 
 		later_text: {
@@ -90,8 +74,8 @@ export default MediaQueryStyleSheet.create(
 		buttonBar: {
 			flexDirection: 'row',
 			justifyContent: 'space-between',
-			backgroundColor: '#E6E0D4',
-			paddingHorizontal: deviceWidth(9)
+			paddingHorizontal: deviceWidth(1),
+			paddingBottom: deviceWidth(1)
 		},
 
 		checkIcon: {
@@ -103,16 +87,9 @@ export default MediaQueryStyleSheet.create(
 	},
 	{
 		[MediaQueries.iPhone]: {
-			contentView: {
-				paddingHorizontal: deviceWidth(2.8),
-				paddingVertical: deviceWidth(2.8)
-			},
 			buttonBar: {
 				paddingHorizontal: deviceWidth(2.8)
 			},
-			currentWrapper: {
-				marginVertical: 0
-			}
 		}
 	}
 );

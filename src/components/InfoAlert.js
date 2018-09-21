@@ -17,7 +17,7 @@ export default (InfoAlert = (props) => {
 			<View style={styles.container}>
 				<View style={styles.modal}>
 					<Image source={icon} style={styles.icon} />
-					<Text smallMedium center color={dark ? Colors.textPrimary : Colors.Olive}>
+					<Text smallMedium center color={dark ? Colors.textPrimary : Colors.navy}>
 						{message}
 					</Text>
 					{dark ? (
