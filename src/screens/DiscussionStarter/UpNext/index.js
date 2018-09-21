@@ -4,6 +4,8 @@ import { Colors, Images } from '@theme';
 import Styles from './styles';
 import Button from '@button';
 import Text from '@text';
+import Card from '@card';
+import { deviceWidth, deviceHeight, windowHeight, windowWidth } from '@ResponsiveDimensions';
 
 export default class UpNext extends Component {
 	constructor(props) {
@@ -39,88 +41,87 @@ export default class UpNext extends Component {
 	render() {
 		const { navigate, goBack } = this.props.navigation;
 		return (
-			<ImageBackground source={Images.bg_discussion_starter} style={Styles.container}>
+			<View style={Styles.container}>
 				<ScrollView contentContainerStyle={Styles.contentView}>
-					<View style={Styles.currentWrapper}>
-						<View style={Styles.current}>
-							<View style={Styles.currentHeader}>
-								<View style={{ flexDirection: 'row' }}>
-									<Image source={Images.check} style={Styles.checkIcon} />
-									<Text medium bold color={'#fff'} style={Styles.complete_text}>
-										Complete
-									</Text>
-								</View>
-								<Button light bold color={'#fff'} onPress={this.onEdit}>
-									Edit
-								</Button>
-							</View>
-							<View style={Styles.currentDescView}>
-								<Text medium color={Colors.Navy} style={Styles.currentTitle}>
-									Activity {this.state.activityIndex + 1}:{' '}
-									{this.state.activities[this.state.activityIndex].stage}
-								</Text>
-								<Text center style={Styles.currentPrecomment}>
-									{this.state.activities[this.state.activityIndex].post_completion_text}
+					<Card contentStyle={{padding: 0}}>
+						<View style={Styles.currentHeader}>
+							<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+								<Image source={Images.check} style={Styles.checkIcon} />
+								<Text medium bold light>
+									Complete
 								</Text>
 							</View>
+							<Button light bold color={'#fff'} onPress={this.onEdit}>
+								Edit
+							</Button>
 						</View>
-					</View>
+						<View style={Styles.currentDescView}>
+							<Text medium color={Colors.Navy} style={Styles.currentTitle}>
+								Activity {this.state.activityIndex + 1}:{' '}
+								{this.state.activities[this.state.activityIndex].stage}
+							</Text>
+							<Text center style={Styles.currentPrecomment}>
+								{this.state.activities[this.state.activityIndex].post_completion_text}
+							</Text>
+						</View>
+					</Card>
 					{this.state.nextActivityIndex < this.state.activities.length && (
-						<View style={Styles.next}>
-							<View>
-								<Text center medium bold color={Colors.Red} style={{ marginVertical: 8 }}>
-									{' '}
-									UP NEXT{' '}
+						<Card style={Styles.next} contentStyle={{padding: 0}}>
+							<View style={Styles.upnextHeader}>
+								<Text medium bold light>
+									Up next
 								</Text>
-								<View style={Styles.nextTitle}>
-									<Text medium color={Colors.Navy} style={Styles.currentTitle}>
+							</View>
+							<View style={Styles.upnextBody}>
+								<View style={{alignItems: 'center'}}>
+									<Text medium color={Colors.Navy} style={Styles.nextTitle}>
 										Activity {this.state.nextActivityIndex + 1}:{' '}
 										{this.state.activities[this.state.nextActivityIndex].stage}
 									</Text>
-								</View>
-								<Text center style={Styles.nextPrecomment}>
-									{this.state.activities[this.state.nextActivityIndex].pre_commencement_text}
-								</Text>
-							</View>
-							{this.state.activityIndex + 2 < this.state.activityCount && (
-								<View style={Styles.later}>
-									<Text center medium bold color={Colors.Red} style={{ marginVertical: 8 }}>
-										{' '}
-										LATER{' '}
+									<Text center style={Styles.nextPrecomment}>
+										{this.state.activities[this.state.nextActivityIndex].pre_commencement_text}
 									</Text>
-									{this.renderLaterView()}
 								</View>
-							)}
-						</View>
+								{this.state.activityIndex + 2 < this.state.activityCount && (
+									<View style={Styles.later}>
+										<Text center medium bold color={Colors.Navy} style={{ marginVertical: 8 }}>
+											LATER
+										</Text>
+										{this.renderLaterView()}
+									</View>
+								)}
+							</View>
+							<View style={Styles.buttonBar}>
+								<Button
+									light
+									bold
+									onPress={() => {
+										navigate('Complete', {
+											activityIndex: this.state.nextActivityIndex,
+											discussionStarter: this.state.discussionStarter
+										});
+									}}
+								>
+									Finish here
+								</Button>
+								<Button
+									dark
+									bold
+									onPress={() => {
+										navigate('Activity', {
+											activityIndex: this.state.nextActivityIndex,
+											discussionStarter: this.state.discussionStarter
+										});
+									}}
+								>
+									Start Activity {this.state.activityIndex + 2}
+								</Button>
+							</View>
+						</Card>
 					)}
 				</ScrollView>
-				<View style={Styles.buttonBar}>
-					<Button
-						light
-						bold
-						onPress={() => {
-							navigate('Complete', {
-								activityIndex: this.state.nextActivityIndex,
-								discussionStarter: this.state.discussionStarter
-							});
-						}}
-					>
-						Finish here
-					</Button>
-					<Button
-						dark
-						bold
-						onPress={() => {
-							navigate('Activity', {
-								activityIndex: this.state.nextActivityIndex,
-								discussionStarter: this.state.discussionStarter
-							});
-						}}
-					>
-						Start Activity {this.state.activityIndex + 2}
-					</Button>
-				</View>
-			</ImageBackground>
+
+			</View>
 		);
 	}
 }
