@@ -14,5 +14,20 @@ import MySpinner from "./Spinner";
 import Card from "./Card";
 import ArrowText from "./ArrowText";
 import InfoAlert from "./InfoAlert";
+import Switch from "./Switch";
 
-export {Button, ImageButton, Text, Choice, ManyChoices, Choices, ProgressBar, Loader, MySpinner, Card, ArrowText, InfoAlert}
+export {
+    Button, 
+    ImageButton, 
+    Text, 
+    Choice, 
+    ManyChoices, 
+    Choices, 
+    ProgressBar, 
+    Loader, 
+    MySpinner, 
+    Card, 
+    ArrowText, 
+    InfoAlert,
+    Switch,
+}
