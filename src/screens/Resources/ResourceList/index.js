@@ -91,8 +91,20 @@ export default class Resources extends Component {
                             keyExtractor={item => item.title}
                         />
                     </MediaQuery>
-
+                    
                 </ScrollView>
+                <Image
+                    source={Images.image_resource_library}
+                    style={{
+                        zIndex: -1,
+                        position: 'absolute',
+                        bottom: 0,
+                        right: 0,
+                        width: deviceWidth(50),
+                        height: deviceWidth(50 * 404 / 388),
+                        resizeMode: 'contain'
+                    }}
+                />
             </View>
         );
     }
