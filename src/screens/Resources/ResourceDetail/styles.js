@@ -17,14 +17,15 @@ export default MediaQueryStyleSheet.create({
 
     container: {
        flex: 1, 
-        backgroundColor: Colors.backgroundPrimary,
+       backgroundColor: Colors.yellow,
     },
-    scroll:{
+    scroll: {
         alignSelf: 'center',
+        padding: deviceWidth(3),
     },
     title: {
-        color: Colors.Navy,
-        fontWeight:"200",
+        color: Colors.navy,
+        fontWeight: "300",
     },
     subtitle: {
         color: Colors.textSecondary,
@@ -36,66 +37,19 @@ export default MediaQueryStyleSheet.create({
         width:deviceWidth(60)
     },
     titleView: {
-        backgroundColor: Colors.backgroundPrimary,
-        borderTopColor: Colors.Navy,
-        borderRadius: deviceWidth(1.2),
-        borderTopWidth: deviceWidth(0.5),
-        shadowColor: '#000',
-        shadowOffset: { width: deviceWidth(1.2), height: deviceWidth(1.2) },
-        shadowOpacity: 0.5,
-        shadowRadius: 0, 
-        marginBottom: deviceWidth(3),
-        paddingHorizontal:deviceWidth(5),
-        paddingVertical:deviceWidth(3),
-        justifyContent: 'center',
-        alignItems: 'center',
+        marginBottom: deviceWidth(2),
     },
     buttonBar: {
-        backgroundColor:Colors.Sand,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingVertical: deviceWidth(1),
-        paddingHorizontal: deviceWidth(14),
         alignItems: 'center',
     },
     itemView: {
         flex:1,
-        backgroundColor: Colors.backgroundPrimary,
-        borderRadius: deviceWidth(1.2),
-        shadowColor: '#000',
-        shadowOffset: { width: deviceWidth(1.2), height: deviceWidth(1.2) },
-        shadowOpacity: 0.5,
-        shadowRadius: 0,
-        paddingHorizontal:deviceWidth(5),
-        paddingVertical:deviceWidth(3),
-        justifyContent: 'center',
-        alignItems: 'center',
     },
-
 }, 
 {
-    [MediaQueries.iPad] : {
-        scroll: {
-            paddingVertical:deviceWidth(3),
-            paddingHorizontal: deviceWidth(13),
-        },
-        buttonBar: {
-            paddingHorizontal: deviceWidth(14),            
-        },
-        titleView: {
-            borderTopWidth: deviceWidth(0.5),
-        },
-    },
     [MediaQueries.iPhone] : {
-        scroll: {
-            paddingVertical:deviceWidth(2),
-            paddingHorizontal: deviceWidth(2),
-        },
-        buttonBar: {
-            paddingHorizontal: deviceWidth(3),            
-        },
-         titleView: {
-            borderTopWidth: deviceWidth(1.2),
-        },
+
     }
 });

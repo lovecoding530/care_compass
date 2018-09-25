@@ -10,8 +10,11 @@ import {
 import Styles from "./styles";
 import Text from "@text";
 import Button from "@button";
-import { Images } from "@theme";
+import { Colors, Images } from "@theme";
 import { getResources } from "@api";
+import { Loader, Card } from '@components';
+import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
+
 var BASE_URL = "https://pca.techequipt.com.au";
 
 export default class ResourceDetail extends Component {
@@ -42,50 +45,54 @@ export default class ResourceDetail extends Component {
 
   render() {
     return (
-      <ImageBackground
-        source={Images.bg_more_information}
-        resizeMode="stretch"
+      <View
         style={Styles.container}
       >
         <ScrollView contentContainerStyle={Styles.scroll}>
-          <View style={Styles.titleView}>
-            <Text large style={Styles.title}>
+          <Card 
+            topbar={{color: Colors.navy}}
+            style={Styles.titleView} 
+            contentStyle={{padding:deviceWidth(3)}} 
+          >
+            <Text large center style={Styles.title}>
               {this.state.title}
             </Text>
-          </View>
+          </Card>
 
-          <View style={[Styles.itemView]}>
-            {this.state.image ? (
-              <Image
-                style={[Styles.middleimage]}
-                resizeMode="contain"
-                source={{ uri: this.state.image }}
-              />
-            ) : null}
-            <Text smallMedium style={Styles.subtitle}>
-              {this.state.subtitle}
-            </Text>
-          </View>
+          <Card style={[Styles.itemView]}>
+            <View style={{margin: deviceWidth(3)}}>
+              {this.state.image ? (
+                <Image
+                  style={[Styles.middleimage]}
+                  resizeMode="contain"
+                  source={{ uri: this.state.image }}
+                />
+              ) : null}
+              <Text smallMedium style={Styles.subtitle}>
+                {this.state.subtitle}
+              </Text>
+            </View>
+            <View style={Styles.buttonBar}>
+              <Button light bold onPress={() => this.props.navigation.goBack()}>
+                Back
+              </Button>
+              {this.state.link == "" ? null : (
+                <Button
+                  dark
+                  bold
+                  onPress={() =>
+                    Linking.openURL(this.state.link).catch(err =>
+                      console.error("An error occurred", err)
+                    )
+                  }
+                >
+                  Find out more
+                </Button>
+              )}
+            </View>
+          </Card>
         </ScrollView>
-        <View style={Styles.buttonBar}>
-          <Button light bold onPress={() => this.props.navigation.goBack()}>
-            Go back
-          </Button>
-          {this.state.link == "" ? null : (
-            <Button
-              dark
-              bold
-              onPress={() =>
-                Linking.openURL(this.state.link).catch(err =>
-                  console.error("An error occurred", err)
-                )
-              }
-            >
-              Find out more
-            </Button>
-          )}
-        </View>
-      </ImageBackground>
+      </View>
     );
   }
 }
