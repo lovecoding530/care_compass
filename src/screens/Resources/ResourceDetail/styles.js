@@ -21,11 +21,11 @@ export default MediaQueryStyleSheet.create({
     },
     scroll: {
         alignSelf: 'center',
-        padding: deviceWidth(2),
+        padding: deviceWidth(3),
     },
     title: {
         color: Colors.navy,
-        fontWeight:"300",
+        fontWeight: "300",
     },
     subtitle: {
         color: Colors.textSecondary,
@@ -49,7 +49,6 @@ export default MediaQueryStyleSheet.create({
     },
 }, 
 {
-
     [MediaQueries.iPhone] : {
 
     }
