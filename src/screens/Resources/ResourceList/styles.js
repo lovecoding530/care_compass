@@ -27,7 +27,7 @@ export default MediaQueryStyleSheet.create({
         fontWeight:"300"
     },
     cardView:{
-        flex: 1,
+        flex: 0.5,
         backgroundColor: Colors.navy,
         marginHorizontal: deviceWidth(1),
         marginBottom: deviceWidth(2),
@@ -36,20 +36,6 @@ export default MediaQueryStyleSheet.create({
     subtitle: {
         marginTop:2,
         fontWeight:"300"
-    },
-    item: {
-        flex: 0.5,
-        backgroundColor: Colors.backgroundPrimary,
-        borderRadius: deviceWidth(1.2),
-        shadowColor: '#000',
-        shadowOffset: { width: deviceWidth(1.2), height: deviceWidth(1.2) },
-        shadowOpacity: 0.5,
-        shadowRadius: 0,
-        marginBottom: deviceWidth(3), 
-        marginHorizontal:deviceWidth(1.5),   
-        paddingVertical:deviceWidth(2), 
-        alignItems:'center',
-        justifyContent: 'center',
     },
     titleView: {
         marginBottom: deviceWidth(2), 
