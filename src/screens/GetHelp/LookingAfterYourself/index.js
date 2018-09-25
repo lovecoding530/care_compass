@@ -18,7 +18,7 @@ import Text from "@text";
 import Footer from "@footer";
 import Button from "@button";
 import { Colors, Images, FontSizes } from "@theme";
-import { Loader } from "@components";
+import { Loader, Card } from "@components";
 
 const { width, height } = Dimensions.get("window");
 import {
@@ -69,11 +69,11 @@ export default class LookingAfterYourself extends Component {
         style={Styles.container}
       >
         <ScrollView contentContainerStyle={Styles.scroll}>
-          <View style={Styles.titleView}>
+          <Card topbar={{color: Colors.navy}} style={Styles.titleView}>
             <Text large style={Styles.title}>
               Looking after yourself
             </Text>
-          </View>
+          </Card>
 
           <View style={[Styles.itemView]}>
             <Image

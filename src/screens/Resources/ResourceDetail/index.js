@@ -45,9 +45,7 @@ export default class ResourceDetail extends Component {
 
   render() {
     return (
-      <ImageBackground
-        source={Images.bg_more_information}
-        resizeMode="stretch"
+      <View
         style={Styles.container}
       >
         <ScrollView contentContainerStyle={Styles.scroll}>
@@ -94,7 +92,7 @@ export default class ResourceDetail extends Component {
             </View>
           </Card>
         </ScrollView>
-      </ImageBackground>
+      </View>
     );
   }
 }
