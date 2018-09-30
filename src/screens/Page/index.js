@@ -18,14 +18,14 @@ export default class Page extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			pageContent: ''
+			pageContent: {}
 		};
 	}
 
 	async componentDidMount() {
 		const { pageName } = this.props.navigation.state.params;
 		const content = await getApiData(pageName);
-		this.setState({ pageContent: content[0] });
+		this.setState({ pageContent: content[0] || {} });
 	}
 
 	render() {
