@@ -16,21 +16,23 @@ import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@Responsiv
 export default MediaQueryStyleSheet.create({
 
     container: {
-       flex: 1, 
-        backgroundColor: Colors.backgroundPrimary,
+        flex: 1, 
+        backgroundColor: Colors.yellow,
     },
     scroll:{
         flexGrow: 1,
+        padding: deviceWidth(3),
     },
     title: {
         color: Colors.Navy,
-        fontWeight:"200"
+        fontWeight: '300',
+        textAlign: 'center',
     },
     subtitle: {
-        color: Colors.textSecondary,
+        color: Colors.navy,
         textAlign: 'center',
         marginTop:2,
-        fontWeight:"200"
+        fontWeight: '300'
     },
     viewImage:{
         alignItems: 'center',
@@ -41,11 +43,11 @@ export default MediaQueryStyleSheet.create({
         width:width/1.5
     },
     viewBody:{
-        marginHorizontal : width/9,
+        margin : deviceWidth(2),
         alignItems: 'center'
     },
     faqItem: {
-        marginVertical: height/40,
+        marginVertical: deviceWidth(2),
     },
     itemTitle: {
         padding: 16,
@@ -61,57 +63,40 @@ export default MediaQueryStyleSheet.create({
         borderWidth: 1.5,
         borderColor: Colors.backgroundSecondary,
     },
-    faqTitle: {
-        marginHorizontal : width/10,
+    faqView: {
+        flex: 1,
+        marginHorizontal : deviceWidth(2),
     },
     flatList: {
-        marginHorizontal : width/10,
     },
     imageView:{
         width: width,
         height: height-responsiveHeight(15), 
     },
     titleView: {
-        margin: deviceWidth(1.2), 
         marginBottom: deviceWidth(2),
     },
     title_content: {
         paddingVertical: deviceWidth(2),
     },
-    item: {
-         margin: deviceWidth(1.2), 
+    body: {
     },
-    item_content: {
+    body_content: {
+        flex: 1,
         alignItems: 'center',
-        justifyContent: 'space-between', 
-        paddingVertical: deviceWidth(2),
     },
     buttonBar: {
-        backgroundColor:Colors.Sand,
+        width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingVertical: deviceWidth(0.5),
-        paddingHorizontal: deviceWidth(10),
+        paddingVertical: deviceWidth(1),
+        paddingHorizontal: deviceWidth(1),
         alignItems: 'center',
     },
 },
 {
     [MediaQueries.iPad] : {
-        scroll: {
-            paddingVertical:deviceWidth(3),
-             paddingHorizontal: deviceWidth(8.8),
-        },
-        buttonBar: {
-            paddingHorizontal: deviceWidth(9.8),            
-        },
     },
     [MediaQueries.iPhone] : {
-        scroll: {
-            paddingVertical:deviceWidth(2),
-            paddingHorizontal: deviceWidth(2.8),
-        },
-        buttonBar: {
-            paddingHorizontal: deviceWidth(3.8),            
-        }, 
     }
 });

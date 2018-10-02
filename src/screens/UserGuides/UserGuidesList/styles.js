@@ -12,23 +12,25 @@ export default MediaQueryStyleSheet.create(
 	{
 		container: {
 			flex: 1,
-			backgroundColor: Colors.backgroundPrimary
+			backgroundColor: Colors.yellow
 		},
 		scroll: {
-			flexGrow: 1
+			flexGrow: 1,
+			padding: deviceWidth(3),
 		},
 		title: {
 			color: Colors.Navy,
-			fontWeight: '200'
+			fontWeight: '300',
+			textAlign: 'center',
 		},
 		subtitle: {
-			color: Colors.textSecondary,
+			color: Colors.Navy,
 			textAlign: 'center',
 			marginTop: 2,
-			fontWeight: '200'
+			fontWeight: '300'
 		},
 		cardtitle: {
-			color: Colors.Navy,
+			color: Colors.white,
 			textAlign: 'center',
 			marginHorizontal: deviceWidth(1.5)
 		},
@@ -37,11 +39,13 @@ export default MediaQueryStyleSheet.create(
 			alignItems: 'center'
 		},
 		item: {
-			flex: 1,
-			margin: deviceWidth(1.2)
+			backgroundColor: Colors.navy,
+			marginBottom: deviceWidth(2)
+		},
+		item_content: {
+			alignItems: 'center'
 		},
 		titleView: {
-			margin: deviceWidth(1.2),
 			marginBottom: deviceWidth(2)
 		},
 		title_content: {
@@ -52,8 +56,7 @@ export default MediaQueryStyleSheet.create(
 			height: deviceHeight(15),
 			resizeMode: 'contain',
 			marginVertical: deviceWidth(2),
-			flexDirection: 'row',
-			justifyContent: 'center'
+			tintColor: Colors.red
 		},
 		icon_wrap: {
 			width: deviceWidth(25),
@@ -64,38 +67,22 @@ export default MediaQueryStyleSheet.create(
 			width: deviceWidth(6),
 			height: deviceHeight(4),
 			resizeMode: 'contain',
-			tintColor: Colors.Navy
+			tintColor: Colors.red
 		},
-		buttonBar: {
-			backgroundColor: Colors.Sand,
-			flexDirection: 'row',
-			justifyContent: 'space-between',
-			paddingVertical: deviceWidth(0.5),
-			paddingHorizontal: deviceWidth(10),
-			alignItems: 'center'
-		}
 	},
 	{
 		[MediaQueries.iPad]: {
-			scroll: {
-				paddingVertical: deviceWidth(3),
-				paddingHorizontal: deviceWidth(8.8)
-			},
-			buttonBar: {
-				paddingHorizontal: deviceWidth(9.8)
+			item: {
+				width: '49%',
 			},
 			item_content: {
 				justifyContent: 'space-between',
-				paddingVertical: deviceWidth(2)
+				paddingVertical: deviceWidth(2),
 			}
 		},
 		[MediaQueries.iPhone]: {
-			scroll: {
-				paddingVertical: deviceWidth(2),
-				paddingHorizontal: deviceWidth(2.8)
-			},
-			buttonBar: {
-				paddingHorizontal: deviceWidth(3.8)
+			item: {
+				width: '100%',
 			},
 			item_content: {
 				flexDirection: 'row',

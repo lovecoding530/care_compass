@@ -35,6 +35,8 @@ export default (props) => {
             buttonStyle.borderColor = color;
             textStyle.color=color
         }else if (propKey == 'dark'){
+            buttonStyle.borderWidth = 2;
+            buttonStyle.borderColor = color;
             buttonStyle.backgroundColor = color;
             textStyle.color=Colors.white
         }else if (propKey == 'bold'){

@@ -13,13 +13,10 @@ import {
 } from 'react-native';
 
 import Styles from './styles';
-import Footer from '@footer';
 import { Button, Loader, Card, Text } from '@components';
 import { getUserGuides, updateTimeInterval } from '@api';
-import moment from 'moment';
 import { Colors, Images, FontSizes } from '@theme';
 import { MediaQuery } from 'react-native-responsive';
-import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 import { deviceWidth, deviceHeight, windowHeight, windowWidth } from '@ResponsiveDimensions';
 
 const { width, height } = Dimensions.get('window');
@@ -28,242 +25,75 @@ export default class UserGuidesList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			userguideIndexes: [],
+			discussionStarterGuide: {},
+			cardGameGuide: {},
+			otherUserguides: [],
 			loaderVisible: false
 		};
 	}
 
 	async componentDidMount() {
-		// try
-		// {
-		//     let value = await AsyncStorage.getItem('lastRefereshTimeUserGuide');
 
-		//     if (value != null){
-		//       // do something
-
-		//         var currrentTime = moment(new Date()).format("HH:mm:ss");
-		//         var startTime=moment(value, "HH:mm:ss");
-		//         var endTime=moment(currrentTime, "HH:mm:ss");
-		//         var duration = moment.duration(endTime.diff(startTime));
-		//         var difference = moment.utc(+duration).format('H');
-
-		//         if(difference >= updateTimeInterval)
-		//         {
-		//             this.setState({
-		//                 loaderVisible: true
-		//             })
-
-		//             await AsyncStorage.setItem('lastRefereshTimeUserGuide', currrentTime);
-		//             const ds = await getUserGuides()
-		//             const userguides = ds[0].guides
-
-		//             var userguideIndexes = [];
-		//             for(var i = 0; i < userguides.length; i ++){
-		//                 userguideIndexes.push(userguides[i]);
-		//             }
-
-		//             this.setState({
-		//                 userguideIndexes: userguideIndexes,
-		//                 loaderVisible: false
-		//             })
-		//         }
-		//         else
-		//         {
-
-		//             const ds = await getUserGuides(true)
-		//             const userguides = ds[0].guides
-
-		//             var userguideIndexes = [];
-		//             for(var i = 0; i < userguides.length; i ++){
-		//                 userguideIndexes.push(userguides[i]);
-		//             }
-
-		//             this.setState({
-		//                 userguideIndexes: userguideIndexes,
-		//                 loaderVisible: false
-		//             })
-		//         }
-		//     }
-		//     else {
-		//       // do something else
-		//         this.setState({
-		//             loaderVisible: true
-		//         })
-
-		//         var currrentTime = moment(new Date()).format("HH:mm:ss");
-		//         await AsyncStorage.setItem('lastRefereshTimeUserGuide', currrentTime);
-		//         const ds = await getUserGuides()
-		//         const userguides = ds[0].guides
-
-		//         var userguideIndexes = [];
-		//         for(var i = 0; i < userguides.length; i ++){
-		//             userguideIndexes.push(userguides[i]);
-		//         }
-
-		//         this.setState({
-		//             userguideIndexes: userguideIndexes,
-		//             loaderVisible: false
-		//         })
-		//     }
-		// }
-		// catch (error) {
-		//   // Error retrieving data
-		// }
 		var json = await getUserGuides(true);
 		if (!json) {
 			this.setState({ loaderVisible: true });
 			json = await getUserGuides(false);
 			this.setState({ loaderVisible: false });
 		}
-		const userguides = json[0].guides;
+		const userguides = json[0].guides || [];
 		console.log(userguides);
+		let discussionStarterGuide = userguides.find(ug => ug.slug == 'discussion-starter');
+		let cardGameGuide = userguides.find(ug => ug.slug == 'card-game');
+		let otherUserguides = userguides.filter(ug => ug.slug != 'discussion-starter' && ug.slug != 'card-game');
 
-		var userguideIndexes = [];
-		for (var i = 0; i < userguides.length; i++) {
-			userguideIndexes.push(userguides[i]);
-		}
-		this.setState({ userguideIndexes });
+		this.setState({ discussionStarterGuide, cardGameGuide, otherUserguides });
 	}
 
-	renderUserGuideItem({ item, index }) {
+	renderUserGuideItem = ({ item, index }) => {
 		const { navigate } = this.props.navigation;
-		const first = index === 0;
-		const second = index === 1;
+
 		return (
-			<View style={{ flex: 0.5 }}>
-				{first ? (
-					<Card
-						topbar={{ color: Colors.Red }}
-						style={Styles.item}
-						contentStyle={Styles.item_content}
-						onPress={() => {
-							navigate('UserGuidesDetail', { userguideIndex: index });
+			<Card
+				style={Styles.item}
+				contentStyle={Styles.item_content}
+				onPress={() => {
+					navigate('UserGuidesDetail', { userguide: item });
+				}}
+			>
+				<View style={[ Styles.cardView, { paddingHorizontal: deviceWidth(0.5) } ]}>
+					<View>
+						<Image
+							source={Images.icon_professional}
+							resizeMode="stretch"
+							style={Styles.smallIcon}
+						/>
+					</View>
+					<View
+						style={{
+							flex: 1,
+							flexDirection: 'row',
+							alignItems: 'center',
+							justifyContent: 'center',
+							paddingRight: deviceWidth(5)
 						}}
 					>
-						<MediaQuery minDeviceWidth={768}>
-							<View style={Styles.icon_wrap}>
-								<Image source={Images.discussion_starter} style={Styles.icon} />
-							</View>
-							<View style={Styles.cardView}>
-								<Text smallmedium bold style={[ Styles.cardtitle, { color: Colors.Red } ]}>
-									{item.title}{' '}
-								</Text>
-								<Image
-									source={Images.icon_left_arrow}
-									resizeMode="contain"
-									style={{ tintColor: Colors.Red }}
-								/>
-							</View>
-						</MediaQuery>
-						<MediaQuery maxDeviceWidth={767}>
-							<View style={[ Styles.cardView, { paddingVertical: deviceWidth(4) } ]}>
-								<Text smallmedium bold style={[ Styles.cardtitle, { color: Colors.Red } ]}>
-									{item.title}{' '}
-								</Text>
-								<Image
-									source={Images.icon_left_arrow}
-									resizeMode="contain"
-									style={{ tintColor: Colors.Red }}
-								/>
-							</View>
-						</MediaQuery>
-					</Card>
-				) : second ? (
-					<Card
-						topbar={{ color: Colors.Red }}
-						style={Styles.item}
-						contentStyle={Styles.item_content}
-						onPress={() => {
-							navigate('UserGuidesDetail', { userguideIndex: index });
-						}}
-					>
-						<MediaQuery minDeviceWidth={768}>
-							<View style={Styles.icon_wrap}>
-								<Image source={Images.cardgame} style={Styles.icon} />
-							</View>
-							<View style={Styles.cardView}>
-								<Text smallmedium bold style={[ Styles.cardtitle, { color: Colors.Red } ]}>
-									{item.title}{' '}
-								</Text>
-								<Image
-									source={Images.icon_left_arrow}
-									resizeMode="contain"
-									style={{ tintColor: Colors.Red }}
-								/>
-							</View>
-						</MediaQuery>
-						<MediaQuery maxDeviceWidth={767}>
-							<View style={[ Styles.cardView, { paddingVertical: deviceWidth(4) } ]}>
-								<Text smallmedium bold style={[ Styles.cardtitle, { color: Colors.Red } ]}>
-									{item.title}{' '}
-								</Text>
-								<Image
-									source={Images.icon_left_arrow}
-									resizeMode="contain"
-									style={{ tintColor: Colors.Red }}
-								/>
-							</View>
-						</MediaQuery>
-					</Card>
-				) : (
-					<Card
-						style={Styles.item}
-						contentStyle={Styles.item_content}
-						onPress={() => {
-							navigate('UserGuidesDetail', { userguideIndex: index });
-						}}
-					>
-						<MediaQuery minDeviceWidth={768}>
-							<View style={[ Styles.cardView, { paddingHorizontal: deviceWidth(0.5) } ]}>
-								<View>
-									<Image
-										source={Images.icon_professional}
-										resizeMode="stretch"
-										style={Styles.smallIcon}
-									/>
-								</View>
-								<View
-									style={{
-										flex: 1,
-										flexDirection: 'row',
-										alignItems: 'center',
-										justifyContent: 'center',
-										paddingRight: deviceWidth(5)
-									}}
-								>
-									<Text smallmedium bold style={[ Styles.cardtitle ]}>
-										{item.title}
-									</Text>
-									<Image source={Images.icon_left_arrow} resizeMode="contain" />
-								</View>
-							</View>
-						</MediaQuery>
-						<MediaQuery maxDeviceWidth={767}>
-							<View style={Styles.cardView}>
-								<Image
-									source={Images.icon_professional}
-									resizeMode="stretch"
-									style={Styles.smallIcon}
-								/>
-								<Text smallmedium bold style={Styles.cardtitle}>
-									{item.title}
-								</Text>
-								<Image source={Images.icon_left_arrow} resizeMode="contain" />
-							</View>
-						</MediaQuery>
-					</Card>
-				)}
-			</View>
+						<Text smallmedium bold style={[ Styles.cardtitle ]}>
+							{item.title}
+						</Text>
+					</View>
+				</View>
+			</Card>
 		);
 	}
 
 	render() {
+		const { navigate } = this.props.navigation;
 		return (
-			<ImageBackground source={Images.bg_how_to} resizeMode="stretch" style={Styles.container}>
+			<View style={Styles.container}>
 				<ScrollView contentContainerStyle={Styles.scroll}>
 					<Loader loading={this.state.loaderVisible} />
 					<Card topbar={{ color: Colors.Navy }} style={Styles.titleView} contentStyle={Styles.title_content}>
-						<Text large style={Styles.title}>
+						<Text large center style={Styles.title}>
 							App Instructions
 						</Text>
 						<Text medium style={Styles.subtitle}>
@@ -271,31 +101,58 @@ export default class UserGuidesList extends Component {
 						</Text>
 					</Card>
 
-					<MediaQuery minDeviceWidth={768}>
-						<FlatList
-							numColumns={2}
-							columnWrapperStyle={{ justifyContent: 'center' }}
-							data={this.state.userguideIndexes}
-							renderItem={this.renderUserGuideItem.bind(this)}
-							keyExtractor={(item, index) => index.toString()}
-						/>
-					</MediaQuery>
-
-					<MediaQuery maxDeviceWidth={767}>
-						<FlatList
-							numColumns={1}
-							data={this.state.userguideIndexes}
-							renderItem={this.renderUserGuideItem.bind(this)}
-							keyExtractor={(item, index) => index.toString()}
-						/>
-					</MediaQuery>
+					<FlatList
+						numColumns={width < 768 ? 1 : 2}
+						columnWrapperStyle={width < 768 ? null : { justifyContent: 'space-between' }}
+						ListHeaderComponent={
+							<View style={{alignItems: 'center', marginBottom: deviceWidth(2)}}>
+								<Card
+									style={{backgroundColor: Colors.navy, 
+										width: width < 768 ? '100%' : '60%'
+									}}
+									contentStyle={{alignItems: 'center'}}
+									onPress={() => {
+										navigate('UserGuidesDetail', { userguide: this.state.discussionStarterGuide });
+									}}
+								>
+									<Image
+										source={Images.icon_professional}
+										resizeMode="stretch"
+										style={[Styles.smallIcon,{
+											position: 'absolute',
+											top: 12,
+											left: 4,
+										}]}
+									/>
+									<View style={Styles.icon_wrap}>
+										<Image source={Images.discussion_starter} style={Styles.icon} />
+									</View>
+									<View style={Styles.cardView}>
+										<Text smallmedium light bold style={{marginVertical: deviceWidth(2)}}>
+											Discussion Starter Guide
+										</Text>
+									</View>
+								</Card>
+							</View>
+						}
+						data={this.state.otherUserguides}
+						renderItem={this.renderUserGuideItem}
+						keyExtractor={(item, index) => index.toString()}
+					/>
 				</ScrollView>
-				<View style={Styles.buttonBar}>
-					<Button light bold onPress={() => this.props.navigation.navigate('Home')}>
-						Go back
-					</Button>
-				</View>
-			</ImageBackground>
+				<Image
+                    source={Images.image_app_instructions}
+                    style={{
+                        zIndex: -1,
+                        position: 'absolute',
+                        bottom: 0,
+                        right: 0,
+                        width: deviceWidth(50),
+                        height: deviceWidth(50 * 303 / 388),
+                        resizeMode: 'contain'
+                    }}
+                />
+			</View>
 		);
 	}
 }

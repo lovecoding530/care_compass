@@ -104,50 +104,28 @@ function renderNode(node, index, siblings, parent, defaultRenderer) {
 export default class UserGuidesDetail extends Component {
     constructor(props) {
         super(props);
-        const {userguideIndex} = this.props.navigation.state.params
-        this._share=this._share.bind(this);
-        this._showResult=this._showResult.bind(this);
+        const {userguide} = this.props.navigation.state.params
+
+        let title = userguide.title;
+        let body = userguide.body;
+        let faqs = userguide.faqs;
+        let image = userguide.featured_image ? API_HTML_ROOT + userguide.featured_image.url : '';
+
         this.state = ({
-            userguideIndex: userguideIndex,
-            title : '',
-            image : '',
-            body : '',
-            faqs : [],
+            userguide: userguide,
+            title,
+            image,
+            body,
+            faqs,
             loaderVisible: true,
             modalVisible : false
-
         })
     }
 
-    async componentDidMount() {
-        const ds = await getUserGuides(true)
-        const userguides = ds[0].guides
-        const userguide = userguides[this.state.userguideIndex]
-
-        if(userguide.featured_image == null)
-        {
-            this.setState({
-                title : userguide.title,
-                body : userguide.body,
-                faqs : userguide.faqs,
-            })
-        }
-        else
-        {
-           this.setState({
-               title : userguide.title,
-               body : userguide.body,
-               faqs : userguide.faqs,
-                image: API_HTML_ROOT + userguide.featured_image.url,
-            })
-        }
-
-    }
-
-    _showResult(result){
+    _showResult = (result) => {
         if(result.action == "sharedAction")
         {
-                this.setState({modalVisible: true})
+            this.setState({modalVisible: true});
             console.log("Your content has been share successfully.");
         }
         else
@@ -156,7 +134,7 @@ export default class UserGuidesDetail extends Component {
         }
     }
 
-    _share(){
+    _share = () => {
         Share.share({
             message : 'Dying To Talk',
             url : 'http://www.godeckyourself.com'
@@ -169,7 +147,7 @@ export default class UserGuidesDetail extends Component {
         })
     }
 
-    renderFAQItem({item, index}){
+    renderFAQItem = ({item, index}) => {
         return (
             <View style={Styles.faqItem}>
                 <View style={Styles.itemTitle}>
@@ -187,56 +165,56 @@ export default class UserGuidesDetail extends Component {
     render() {
 
         return (
-            <ImageBackground source={Images.bg_how_to} resizeMode="stretch" style={Styles.container} >
+            <View style={Styles.container} >
 
                 <ScrollView contentContainerStyle={Styles.scroll}>
 
-                   <Card topbar={{color: Colors.Navy}} style={Styles.titleView} contentStyle={Styles.title_content} >
-                             <Text large style={Styles.title}>App Instructions</Text>
-                            <Text medium style={Styles.subtitle}>{this.state.title}</Text>
+                    <Card topbar={{color: Colors.Navy}} style={Styles.titleView} contentStyle={Styles.title_content} >
+                        <Text large style={Styles.title}>App Instructions</Text>
+                        <Text medium style={Styles.subtitle}>{this.state.title}</Text>
                     </Card>
 
-                      <Card style={Styles.item} contentStyle={Styles.item_content}>
+                    <Card style={Styles.body} contentStyle={Styles.body_content}>
                         <View style={Styles.viewBody}>
                             <HTMLView
                                 value={this.state.body}
                                 renderNode={renderNode}
+                                stylesheet={{
+                                    p: {
+                                        fontSize: 20,
+                                    }
+                                }}
                             />
                         </View>
 
-                        {this.state.image == '' ? null
-
-                            : <View style={Styles.viewImage}>
+                        {this.state.image &&
+                            <View style={Styles.viewImage}>
                                 <Image style={[Styles.middleimage]} source={{uri: this.state.image}} resizeMode='stretch'/>
-                              </View>
-                        }
-
-                        {this.state.faqs.length == 0 ? null
-                            : <View>
-                                <View style={Styles.faqTitle}>
-                                    <Text bold >FAQ</Text>
-                                </View>
-
-                                <FlatList
-                                data = {this.state.faqs}
-                                renderItem = {this.renderFAQItem.bind(this)}
-                                keyExtractor = {(item, index) => index.toString()}
-                                style={Styles.flatList}
-                                />
                             </View>
                         }
 
+                        {this.state.faqs.length > 0 &&
+                            <View style={Styles.faqView}>
+                                <Text bold >FAQ</Text>
+                                <FlatList
+                                    data = {this.state.faqs}
+                                    renderItem = {this.renderFAQItem}
+                                    keyExtractor = {(item, index) => index.toString()}
+                                    style={Styles.flatList}
+                                />
+                            </View>
+                        }
+                        <View style={Styles.buttonBar}>
+                            <Button light bold onPress={ ()=> this.props.navigation.goBack() } >Go back</Button>
+                            <Button dark  bold onPress={this._share} >Share</Button>
+                        </View>
                     </Card>
                 </ScrollView>
-                <View style={Styles.buttonBar}>
-                    <Button light bold onPress={ ()=> this.props.navigation.goBack() } >Go back</Button>
-                    <Button dark  bold onPress={this._share} >Share</Button>
-                </View>
                 <SharedModal
                     visible={this.state.modalVisible}
                     onCancel={this.closeModal.bind(this)}
-                    />
-            </ImageBackground>
+                />
+            </View>
         );
     }
 }
