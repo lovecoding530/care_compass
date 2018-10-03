@@ -53,6 +53,10 @@ export default MediaQueryStyleSheet.create(
 		saveView: {
 		},
 
+		saveViewContent: {
+			paddingHorizontal: deviceWidth(7),
+		},
+
 		checkIcon: {
 			width: deviceHeight(3.6),
 			height: deviceHeight(3.6),
@@ -64,7 +68,11 @@ export default MediaQueryStyleSheet.create(
 		[MediaQueries.iPhone]: {
 			buttonBar: {
 				paddingHorizontal: deviceWidth(2.8)
-			}
+			},
+
+			saveViewContent: {
+				paddingHorizontal: deviceWidth(2),
+			},	
 		}
 	}
 );

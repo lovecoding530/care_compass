@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Image, ImageBackground, FlatList, View, Alert, Share, ScrollView } from 'react-native';
-import { Colors, Images, FontSizes } from '@theme';
+import { Colors, Images, FontSizes, htmlStyles } from '@theme';
 import Styles from './styles';
 import { Button, Text, Loader, InfoAlert } from '@components';
 
@@ -12,6 +12,7 @@ import { Card } from "@components";
 import { deviceWidth } from "@ResponsiveDimensions";
 import store from "../../../Store";
 import { gotoHome } from "router";
+import HTML from 'react-native-render-html';
 
 export default class Complete extends Component {
 	constructor(props) {
@@ -196,17 +197,33 @@ export default class Complete extends Component {
 						keyExtractor={(item, index) => index.toString()}
 						contentContainerStyle={Styles.flatList}
 						ListFooterComponent={() => (
-							<Card style={Styles.saveView}>
+							<Card style={Styles.saveView} contentStyle={Styles.saveViewContent}>
 								<Text medium bold center color={Colors.Navy} style={{marginVertical: deviceWidth(1)}}>
 									Save your results
 								</Text>
-								<Text center style={{ marginBottom: deviceWidth(1) }}>
-									Personal information will not be stored or used by Palliative Care Australia in any way. Read more here.
-								</Text>
+								<HTML 
+									html={"<p>Personal information will not be stored or used by Palliative Care Australia in any way. <a href='#'>Read more here</a></p>"} 
+									containerStyle={{ marginBottom: deviceWidth(1) }}
+									tagsStyles={{
+										p: {
+											color: Colors.textPrimary,
+											fontSize: FontSizes.smallMedium,
+											textAlign: 'center',
+										}
+									}}
+									onLinkPress={(a, b)=>{
+										this.props.navigation.navigate(
+											'Page',
+											{
+												pageName: 'privacy_policy'
+											}
+										);
+									}}
+								/>
 								<View
 									style={{
 										flexDirection: 'row',
-										paddingHorizontal: 8,
+										paddingHorizontal: deviceWidth(1),
 										justifyContent: 'center'
 									}}
 								>

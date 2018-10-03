@@ -40,7 +40,7 @@ export default class Choice extends Component {
                     }
                     <Text smallMedium style={styles.text}>{this.props.text}</Text>
                     <Switch
-                        value={!selected}
+                        value={selected}
                         onValueChange={(val) => this.props.onPress(this.props.index)}
                         activeText={'YES'}
                         inActiveText={'NO'}
@@ -77,6 +77,7 @@ const styles = MediaQueryStyleSheet.create({
 
     text: {
         flex: 1,
+        color: Colors.navy,
     },
 
     button: {

@@ -96,7 +96,7 @@ export default class Menu extends Component {
 					}}
 				>
 					<TouchableOpacity style={styles.close} onPress={()=>this.props.navigation.navigate('DrawerClose')}>
-						<Icon name='times' size={24}/>
+						<Icon name='times' size={24} color={Colors.navy}/>
 					</TouchableOpacity>
 					<Image
 						source={Images.dtt_blue}

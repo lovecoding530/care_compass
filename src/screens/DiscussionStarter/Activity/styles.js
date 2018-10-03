@@ -29,7 +29,6 @@ export default MediaQueryStyleSheet.create(
 		},
 
 		questionItem: {
-			marginBottom: deviceWidth(1.5),
 			backgroundColor: '#fff',
 		},
 
@@ -83,7 +82,8 @@ export default MediaQueryStyleSheet.create(
 
 		scrollView: {
 			flexGrow: 1,
-			padding: deviceWidth(3),
+			paddingHorizontal: deviceWidth(3),
+			paddingTop: deviceWidth(3),
 		},
 
 		itemBottom: {

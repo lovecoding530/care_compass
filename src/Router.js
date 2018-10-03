@@ -93,7 +93,7 @@ class Footer extends Component {
 								store.activeRoute = routeName;
 								store.activePage = pageName;
 								store.routesInStack.push(key);
-								props.navigation.navigate(
+								this.props.navigation.navigate(
 									routeName,
 									{
 										pageName: pageName

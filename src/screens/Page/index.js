@@ -68,9 +68,7 @@ export default class Page extends Component {
 								bold
 								light
 								onPress={() => {
-									gotoHome();
-									store.activeRoute = null;
-									store.routesInStack = [];
+									this.props.navigation.goBack(null);
 								}}
 							>
 								Go back
