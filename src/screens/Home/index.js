@@ -36,8 +36,8 @@ export default class Home extends Component {
 
 	render() {
 		return (
-			<View source={Images.bg_navigation} style={Styles.container}>
-				<ScrollView contentContainerStyle={Styles.scrollView}>
+			<View style={Styles.container}>
+				<ScrollView contentContainerStyle={Styles.scrollView} scrollEnabled={width < 768}>
 					<Card
 						style={Styles.discussion_starter}
 						contentStyle={Styles.discussion_starter_content}
@@ -46,9 +46,16 @@ export default class Home extends Component {
 						}}
 					>
 						<Image source={Images.discussion_starter} style={Styles.ds_icon} />
-						<Text medium bold color={Colors.white}>
-							Use discussion starter
-						</Text>
+						<MediaQuery minDeviceWidth={768}>
+							<ArrowText mediumLarge color={Colors.white} style={Styles.ds_text}>
+								Use discussion starter{" "}
+							</ArrowText>
+						</MediaQuery>
+						<MediaQuery maxDeviceWidth={767}>
+							<Text medium bold color={Colors.white}>
+								Use discussion starter
+							</Text>
+						</MediaQuery>
 					</Card>
 					<View style={Styles.bottom_container}>
 						<Card

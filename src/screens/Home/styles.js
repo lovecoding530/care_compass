@@ -3,26 +3,24 @@ import { Platform, StyleSheet, Dimensions } from 'react-native';
 
 import { Colors, MediaQueries, FontSizes, Metrics } from '@theme';
 
-import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 import { MediaQueryStyleSheet } from 'react-native-responsive';
-import { deviceWidth, deviceHeight, windowHeight } from '@ResponsiveDimensions';
+import { deviceWidth, deviceHeight, windowWidth, windowHeight } from '@ResponsiveDimensions';
 
 export default MediaQueryStyleSheet.create(
 	{
 		container: {
 			flex: 1,
 			backgroundColor: Colors.yellow,
-			paddingHorizontal: deviceWidth(4),
 		},
 
 		scrollView: {
 			flexGrow: 1,
-			paddingVertical: deviceWidth(4),
+			padding: deviceWidth(3),
 		},
 
 		discussion_starter: {
 			backgroundColor: Colors.navy,
-			height: deviceWidth(75),
+			flex: 1,
 		},
 
 		discussion_starter_content: {
@@ -39,8 +37,12 @@ export default MediaQueryStyleSheet.create(
 			tintColor: Colors.red,
 		},
 
+		ds_text: {
+			fontWeight: '500'
+		},
+
 		bottom_container: {
-			flex: 1,
+			height: deviceWidth(30),
 			flexDirection: 'row',
 			justifyContent: 'space-between',
 			marginTop: deviceWidth(2),
@@ -93,6 +95,7 @@ export default MediaQueryStyleSheet.create(
 		[MediaQueries.iPhone]: {
 			bottom_container: {
 				flexDirection: 'column',
+				height: '40%'
 			},
 	
 			left_item_text: {
@@ -105,7 +108,8 @@ export default MediaQueryStyleSheet.create(
 
 			item_content: {
 				justifyContent: 'center',
-			}
+				paddingVertical: 0,
+			},
 		}
 	}
 );
