@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     },
 
     children: {
-        padding: 8,
+        padding: deviceWidth(1),
     },
 
     topbar: {

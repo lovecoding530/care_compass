@@ -29,7 +29,6 @@ export default class Activity extends Component {
 			activity: activity,
 			questionIndex: 0,
 			questionTotalCount,
-			loaderVisible: false
 		};
 	}
 
@@ -251,19 +250,17 @@ export default class Activity extends Component {
 						</TouchableOpacity>
 					</View>
 					<View style={{justifyContent: 'center', alignItems: 'center'}}>
-						<Icon.Button
-							name="md-volume-up"
-							size={FontSizes.medium}
-							style={{ height: deviceHeight(4.5), paddingHorizontal: 10 }}
-							backgroundColor={Colors.navy}
+						<TouchableOpacity
+							style={Styles.soundButton}
 							onPress={() => {
 								this.playAudios(question_audio_url, question_choices_audio_urls)
 							}}
 						>
+							<Image source={Images.icon_speaker} style={Styles.sound}/>
 							<Text light bold>
-								Play question
+								{" "}Play question
 							</Text>
-						</Icon.Button>
+						</TouchableOpacity>
 					</View>
 				</View>
 			</Card>
@@ -273,7 +270,6 @@ export default class Activity extends Component {
 	render() {
 		return (
 			<View style={Styles.container}>
-				<Loader loading={this.state.loaderVisible} />
 				<ScrollView
 					ref={(ref) => (this.scrollView = ref)}
 					showsVerticalScrollIndicator={false}
@@ -281,7 +277,7 @@ export default class Activity extends Component {
 				>
 					<Card topbar style={Styles.titleView}>
 						<View style={Styles.title}>
-							<Text mediumLarge center color={Colors.Red} style={{ fontWeight: '300' }}>
+							<Text mediumLarge center color={Colors.navy}>
 								Activity {this.state.activityIndex + 1}: {this.state.activity.stage}
 							</Text>
 						</View>

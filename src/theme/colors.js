@@ -35,7 +35,6 @@ const colors = {
     golden: '#FFAA00',
     gray: '#AAAAAA',
     lightGray: '#d3d3d3',
-    white: "#fff",
     
     navy: '#003057',
     yellow: '#FDB933',

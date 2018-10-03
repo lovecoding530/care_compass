@@ -13,12 +13,12 @@ export default MediaQueryStyleSheet.create(
 	{
 		container: {
 			flex: 1,
-			backgroundColor: Colors.gray
+			backgroundColor: Colors.grey
 		},
 
 		pregressBar: {
 			marginHorizontal: deviceWidth(13),
-			marginVertical: deviceWidth(2)
+			marginVertical: deviceWidth(1)
 		},
 
 		title: {
@@ -28,12 +28,8 @@ export default MediaQueryStyleSheet.create(
 			flexWrap: 'wrap'
 		},
 
-		icon: {
-			height: 200
-		},
-
 		questionItem: {
-			marginVertical: deviceWidth(1.5),
+			marginBottom: deviceWidth(1.5),
 			backgroundColor: '#fff',
 		},
 
@@ -70,14 +66,14 @@ export default MediaQueryStyleSheet.create(
 		},
 
 		buttonBar: {
-			backgroundColor: '#E6E0D4',
+			backgroundColor: Colors.white,
 			margin: deviceWidth(3),
 		},
 
 		buttonBarContent: {
 			flexDirection: 'row',
 			justifyContent: 'space-between',
-			backgroundColor: '#E6E0D4',
+			backgroundColor: Colors.white,
 		},
 
 		titleView: {
@@ -99,24 +95,33 @@ export default MediaQueryStyleSheet.create(
 		},
 
 		answerButton: {
-			paddingVertical: 4,
-			paddingHorizontal: 8,
+			paddingVertical: deviceWidth(0.5),
+			paddingHorizontal: deviceWidth(1),
 			flexDirection: 'row',
 			alignItems: 'center'
 		},
 
 		answerButtonOn: {
 			backgroundColor: Colors.green,
-			paddingVertical: 4,
-			paddingHorizontal: 8,
+			paddingVertical: deviceWidth(0.5),
+			paddingHorizontal: deviceWidth(1),
 			flexDirection: 'row',
 			alignItems: 'center'
 		},
 
 		sound: {
-			width: deviceHeight(2),
+			width: deviceHeight(2*13/11),
 			height: deviceHeight(2),
-			marginLeft: deviceWidth(3)
+		},
+
+		soundButton: { 
+			borderRadius: 5,
+			backgroundColor: Colors.navy, 
+			paddingVertical: deviceWidth(1.7), 
+			paddingHorizontal: deviceWidth(1), 
+			flexDirection: 'row',
+			alignItems: 'center',
+			justifyContent: 'center',
 		}
 	},
 	{
