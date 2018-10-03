@@ -53,19 +53,20 @@ export default class Intro extends Component {
   }
 
 	renderActivityItem = ({ item, index }) => {
-    let itemStyle = index % 2 == 0 ? {marginRight: deviceWidth(1)} : {marginLeft: deviceWidth(1)}
 		return (
 			<Card
-				style={[Styles.item, itemStyle]}
+				style={Styles.item}
 				contentStyle={Styles.item_content}
 				onPress={() => this.startActivity(index)}
 			>
 				<Text mediumLarge center style={Styles.item_number}>
 					{index + 1}
 				</Text>
-        <Text mediumLarge light center style={Styles.item_text}>
-          {item.stage}
-        </Text>
+        <View style={{flex: 1, justifyContent: 'center'}}>
+          <Text light center style={Styles.item_text}>
+            {item.stage}
+          </Text>
+        </View>
 				<MediaQuery minDeviceWidth={768}>
           <Button 
             light 
@@ -92,7 +93,7 @@ export default class Intro extends Component {
             <Text mediumLarge center color={Colors.navy} style={Styles.title}>
               Discussion Starter
             </Text>
-            <Text medium bold style={Styles.subtitle} color={Colors.Navy}>
+            <Text medium style={Styles.subtitle} color={Colors.Navy}>
               {discussionStarter.subheading || "Supporting you to talk about how you want to be cared for at the end of your life"}
             </Text>
           </Card>
@@ -101,6 +102,7 @@ export default class Intro extends Component {
           </Card>
           <FlatList
             numColumns={2}
+            columnWrapperStyle={{justifyContent: 'space-between'}}
             data={this.state.activities}
             renderItem={this.renderActivityItem}
             keyExtractor={(item, index) => index.toString()}

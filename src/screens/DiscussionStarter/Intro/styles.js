@@ -23,13 +23,11 @@ export default MediaQueryStyleSheet.create({
 
     title: {
         marginTop: deviceWidth(1),
-        fontWeight: '300',
     },
 
     subtitle: {
         textAlign: 'center',
         margin: deviceWidth(1),
-        fontWeight: '300',
     },
 
     icon: {
@@ -39,8 +37,8 @@ export default MediaQueryStyleSheet.create({
     },
 
     intro: {
-        margin: 10,
-        textAlign: 'center',
+        margin: deviceWidth(1),
+        textAlign: 'left',
     },
 
     titleView: {
@@ -56,11 +54,12 @@ export default MediaQueryStyleSheet.create({
 
     item: {
         backgroundColor: Colors.navy,
-        flex: 1,
+        width: '49%',
         marginBottom: deviceWidth(2),
     },
 
     item_content: {
+        flex: 1,
         alignItems: 'center',
         padding: deviceWidth(2),
     },
@@ -70,7 +69,7 @@ export default MediaQueryStyleSheet.create({
     }, 
 
     item_text: {
-        fontWeight: '300',
+        fontSize: deviceHeight(3),
         marginVertical: deviceWidth(1),
     },
 
