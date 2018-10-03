@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Image, ImageBackground, Text, View, ScrollView } from "react-native";
-import { MySpinner } from "@components";
+import { MySpinner, Button} from "@components";
 
 import { Images } from "@theme";
 import Styles from "./styles";
@@ -13,12 +13,12 @@ export default class Splash extends Component {
   };
 
   async componentDidMount() {
-    const { navigate } = this.props.navigation;
     let json = await getBundle();
-
-    // alert(JSON.stringify(json))
     this.setState({ loading: false });
+  }
 
+  onBegin = () => {
+    const { navigate } = this.props.navigation;
     navigate("OnBoardingScreen");
   }
 
@@ -39,11 +39,17 @@ export default class Splash extends Component {
               dementia to work out what is{'\n'}
               right for them
             </Text>
-            <MySpinner
+            {this.state.loading ? (
+              <MySpinner
                 loading={this.state.loading}
                 size={60}
                 style={Styles.spinner}
               />
+            ):(
+              <View style={{height: 60, marginVertical: 40}}>
+                <Button dark onPress={this.onBegin} textStyles={{fontSize: 20}}>Begin</Button>
+              </View>
+            )}
           </View>
         </ScrollView>
       </View>

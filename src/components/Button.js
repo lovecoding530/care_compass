@@ -21,6 +21,7 @@ export default (props) => {
         margin: deviceWidth(1),
         justifyContent: 'center',
         alignItems: 'center',
+        borderRadius: 5,
     }
 
     var textStyle = {}
