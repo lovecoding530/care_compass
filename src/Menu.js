@@ -95,6 +95,9 @@ export default class Menu extends Component {
 						height: 200,
 					}}
 				>
+					<TouchableOpacity style={styles.close} onPress={()=>this.props.navigation.navigate('DrawerClose')}>
+						<Icon name='times' size={24}/>
+					</TouchableOpacity>
 					<Image
 						source={Images.dtt_blue}
 						style={{
@@ -157,7 +160,7 @@ export default class Menu extends Component {
 				<SafeAreaView style={{ backgroundColor: Colors.darkNavy }}>
 					<View style={styles.footer}>
 						<Text style={styles.text_footer}>
-							Funded by the Australian Government
+							Funded by the Australian Government through the Dementia and Aged Care Services Fund
 						</Text>
 					</View>
 				</SafeAreaView>
@@ -195,15 +198,21 @@ const styles = MediaQueryStyleSheet.create(
 			backgroundColor: Colors.darkNavy,
 			justifyContent: 'center',
 			alignItems: 'center',
-			height: deviceHeight(6)
+			height: deviceHeight(7)
 		},
 
 		text_footer: {
 			color: '#fff',
+			fontSize: deviceHeight(1.6),
 			fontStyle: 'italic',
 			textAlign: 'center'
 		},
 
+		close: {
+			position: 'absolute',
+			top: deviceWidth(2),
+			left: deviceWidth(2),
+		}
 	},
 	{
 		[MediaQueries.iPhone]: {
