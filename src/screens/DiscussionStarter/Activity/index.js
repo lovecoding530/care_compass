@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, View, ScrollView, TextInput, ImageBackground, Image } from 'react-native';
+import { TouchableOpacity, View, ScrollView, TextInput, Image, Dimensions } from 'react-native';
 import { Colors, Images, htmlStyles, FontSizes } from '@theme';
 import Styles from './styles';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -32,7 +32,11 @@ export default class Activity extends Component {
 		};
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+		Dimensions.addEventListener('change', ()=>{
+			this.forceUpdate();
+		})
+	}
 
 	onChangedAnswer(questionIndex, answerData, other) {
 		var discussionStarter = this.state.discussionStarter;
@@ -114,6 +118,7 @@ export default class Activity extends Component {
 	}
 
 	renderQuestion() {
+		const { height, width } = Dimensions.get('window');
 		let questionData = this.state.activity.questions[this.state.questionIndex];
 		let questionIndex = this.state.questionIndex;
 		const {
@@ -218,8 +223,8 @@ export default class Activity extends Component {
 						<View />
 					)}
 				</View>
-				<View style={Styles.itemBottom}>
-					<View style={Styles.answerButtonWrapper}>
+				<View style={[Styles.itemBottom, {flexDirection: (width > height || width >= 768) ? 'row' : 'column'}]}>
+					<View style={[Styles.answerButtonWrapper, {flexDirection: (width > height) ? 'row' : 'column'}]}>
 						<TouchableOpacity
 							style={answerLater ? Styles.answerButtonOn : Styles.answerButton}
 							onPress={() => this.onAnswerLater(questionIndex)}
@@ -249,7 +254,7 @@ export default class Activity extends Component {
 							</Text>
 						</TouchableOpacity>
 					</View>
-					<View style={{justifyContent: 'center', alignItems: 'center'}}>
+					<View style={{justifyContent: 'center', alignItems: 'flex-start'}}>
 						<TouchableOpacity
 							style={Styles.soundButton}
 							onPress={() => {

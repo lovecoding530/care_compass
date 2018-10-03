@@ -61,48 +61,60 @@ const HeaderTitle = () => {
 	);
 };
 
-const Footer = (props) => {
-	return (
-		<View
-			style={{
-				height: deviceHeight(5),
-				flexDirection: 'row',
-				alignItems: 'center',
-				justifyContent: 'center',
-				paddingHorizontal: deviceWidth(2),
-				backgroundColor: Colors.Navy,
-				overflow: 'hidden'
-			}}
-		>
-			<Text light>© Palliative Care Australia 2018 </Text>
-			<MediaQuery minDeviceWidth={768}>
-				<TouchableOpacity
-					style={{ flex: 1,  flexDirection: 'row', alignItems: 'center', marginHorizontal: deviceWidth(1) }}
-					onPress={() => {
-						let routeName = 'Page';
-						let pageName = 'privacy_policy';
-						const key = `${routeName} ${store.routesInStack.length}`;
-						store.activeRoute = routeName;
-						store.activePage = pageName;
-						store.routesInStack.push(key);
-						props.navigation.navigate(
-							routeName,
-							{
-								pageName: pageName
-							},
-							null,
-							key
-						);
+class Footer extends Component {
+	componentDidMount(){
+		Dimensions.addEventListener('change', ()=>{
+			this.forceUpdate();
+		});
+	}
+	render(){
+		const { height } = Dimensions.get('window');
+		return (
+			height > 414 ? (
+				<View
+					style={{
+						height: deviceHeight(5),
+						flexDirection: 'row',
+						alignItems: 'center',
+						justifyContent: 'center',
+						paddingHorizontal: deviceWidth(2),
+						backgroundColor: Colors.Navy,
+						overflow: 'hidden'
 					}}
 				>
-					<View style={{flex: 1}}/>
-					<Text light right small>
-						Read PCA’s Privacy Statement here
-					</Text>
-				</TouchableOpacity>
-			</MediaQuery>
-		</View>
-	);
+					<Text light>© Palliative Care Australia 2018 </Text>
+					<MediaQuery minDeviceWidth={768}>
+						<TouchableOpacity
+							style={{ flex: 1,  flexDirection: 'row', alignItems: 'center', marginHorizontal: deviceWidth(1) }}
+							onPress={() => {
+								let routeName = 'Page';
+								let pageName = 'privacy_policy';
+								const key = `${routeName} ${store.routesInStack.length}`;
+								store.activeRoute = routeName;
+								store.activePage = pageName;
+								store.routesInStack.push(key);
+								props.navigation.navigate(
+									routeName,
+									{
+										pageName: pageName
+									},
+									null,
+									key
+								);
+							}}
+						>
+							<View style={{flex: 1}}/>
+							<Text light right small>
+								Read PCA’s Privacy Statement here
+							</Text>
+						</TouchableOpacity>
+					</MediaQuery>
+				</View>
+			):(
+				<View />
+			)
+		);
+	}
 };
 
 const withFooter = (Screen) => {
@@ -111,7 +123,7 @@ const withFooter = (Screen) => {
 			<View style={{ flex: 1 }}>
 				<Screen {...props} />
 				<SafeAreaView style={{ backgroundColor: Colors.Navy }}>
-					{height > 414 ? <Footer {...props} /> : <View />}
+					<Footer {...props} />
 				</SafeAreaView>
 			</View>
 		);

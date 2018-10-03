@@ -34,6 +34,7 @@ export default MediaQueryStyleSheet.create(
 		},
 
 		questionItemContent: {
+			flex: 1,
 			padding: 0,
 		},
 
@@ -88,10 +89,12 @@ export default MediaQueryStyleSheet.create(
 		itemBottom: {
 			flexDirection: 'row',
 			justifyContent: 'space-between',
-			padding: deviceWidth(2)
+			paddingHorizontal: deviceWidth(2),
+			paddingVertical: deviceWidth(1)
 		},
 
 		answerButtonWrapper: {
+			marginVertical: deviceWidth(1),
 		},
 
 		answerButton: {
@@ -119,6 +122,7 @@ export default MediaQueryStyleSheet.create(
 			backgroundColor: Colors.navy, 
 			paddingVertical: deviceWidth(1.7), 
 			paddingHorizontal: deviceWidth(1), 
+			marginVertical: deviceWidth(1),
 			flexDirection: 'row',
 			alignItems: 'center',
 			justifyContent: 'center',
@@ -130,7 +134,6 @@ export default MediaQueryStyleSheet.create(
 				flexDirection: 'column'
 			},
 			answerButtonWrapper: {
-				marginBottom: deviceWidth(2),
 			}
 		}
 	}
