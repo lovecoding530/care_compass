@@ -57,7 +57,7 @@ export default MediaQueryStyleSheet.create({
     },
 
     spinner: {
-        marginVertical: 40,
+        marginVertical: 20,
     },
 
     text_desc: {

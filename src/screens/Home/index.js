@@ -37,7 +37,7 @@ export default class Home extends Component {
 	render() {
 		return (
 			<View style={Styles.container}>
-				<ScrollView contentContainerStyle={Styles.scrollView}>
+				<ScrollView contentContainerStyle={Styles.scrollView} scrollEnabled={false}>
 					<Card
 						style={Styles.discussion_starter}
 						contentStyle={Styles.discussion_starter_content}
