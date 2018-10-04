@@ -47,7 +47,7 @@ export default class Home extends Component {
 					>
 						<Image source={Images.discussion_starter} style={Styles.ds_icon} />
 						<MediaQuery minDeviceWidth={768}>
-							<ArrowText mediumLarge color={Colors.white} style={Styles.ds_text}>
+							<ArrowText mediumLarge bold color={Colors.white} style={Styles.ds_text}>
 								Use discussion starter{" "}
 							</ArrowText>
 						</MediaQuery>

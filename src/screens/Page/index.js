@@ -18,14 +18,15 @@ export default class Page extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			pageContent: {}
+			pageContent: {},
+			pageName: '',
 		};
 	}
 
 	async componentDidMount() {
 		const { pageName } = this.props.navigation.state.params;
 		const content = await getApiData(pageName);
-		this.setState({ pageContent: content[0] || {} });
+		this.setState({pageName, pageContent: content[0] || {} });
 	}
 
 	render() {
@@ -89,6 +90,20 @@ export default class Page extends Component {
 						</View>
 					</Card>
 				</ScrollView>
+				{this.state.pageName == 'looking_after_yourself' && 
+					<Image
+						source={Images.image_looking_after}
+						style={{
+							zIndex: -1,
+							position: 'absolute',
+							bottom: -40,
+							right: 0,
+							width: deviceWidth(50),
+							height: deviceWidth(50 * 401 / 388),
+							resizeMode: 'contain'
+						}}
+					/>			
+				}
 			</View>
 		);
 	}

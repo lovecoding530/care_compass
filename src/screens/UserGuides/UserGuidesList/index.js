@@ -115,15 +115,6 @@ export default class UserGuidesList extends Component {
 										navigate('UserGuidesDetail', { userguide: this.state.discussionStarterGuide });
 									}}
 								>
-									<Image
-										source={Images.icon_professional}
-										resizeMode="stretch"
-										style={[Styles.smallIcon,{
-											position: 'absolute',
-											top: 12,
-											left: 4,
-										}]}
-									/>
 									<View style={Styles.icon_wrap}>
 										<Image source={Images.discussion_starter} style={Styles.icon} />
 									</View>

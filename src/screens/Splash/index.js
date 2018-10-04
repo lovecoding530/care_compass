@@ -47,7 +47,7 @@ export default class Splash extends Component {
               />
             ):(
               <View style={{height: 60, marginVertical: 40}}>
-                <Button dark onPress={this.onBegin} textStyles={{fontSize: 20}}>Begin</Button>
+                <Button dark bold onPress={this.onBegin} textStyles={{fontSize: 20}}>Begin</Button>
               </View>
             )}
           </View>

@@ -33,9 +33,6 @@ export const details = `
 // ------
 export const footer = `
   <div class='footer'>
-    <div class='logo-rfds'>
-      <img src=${Images.base64_rfds_logo} alt='' width='241' height='74' />
-    </div>
     <div class='logo-pca'>
       <img src=${Images.base64_pca_logo} alt='' width='225' height='85' />
     </div>
@@ -112,7 +109,7 @@ export const style = `
     border-bottom: solid 1px ${Colors.Navy};
   }
   .activityTitle {
-    color: ${Colors.Red};
+    color: ${Colors.red};
     margin-bottom: 8px;
   }
   .activityPrecomment {

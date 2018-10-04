@@ -46,7 +46,7 @@ export default MediaQueryStyleSheet.create(
 			paddingHorizontal: width / 90
 		},
 		itemView: {
-			flex: 1,
+			// flex: 1,
 		},
 		featuredImage: {
 			width: '100%',

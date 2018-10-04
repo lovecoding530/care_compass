@@ -38,7 +38,7 @@ export default MediaQueryStyleSheet.create(
 		},
 
 		ds_text: {
-			fontWeight: '500'
+			// fontWeight: '500'
 		},
 
 		bottom_container: {
