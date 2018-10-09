@@ -12,8 +12,8 @@ export const updateTimeInterval = 2; // Number of hours to cache response
 const TIMEOUT_IN_MILLISECONDS = updateTimeInterval * 60 * 60 * 1000;
 
 // ENDPOINTS
-export const API_HTML_ROOT = "https://pca.techequipt.com.au";
-const API_ROOT = "https://pca.techequipt.com.au/api";
+export const API_HTML_ROOT = "https://cc-api.techequipt.com.au";
+const API_ROOT = "https://cc-api.techequipt.com.au/api";
 const API_BUNDLE = API_ROOT + "/bundle/";
 const API_DISCUSSION_STARTER = API_ROOT + "/discussion-starter/";
 const API_DISCUSSION_STARTER_LOG_RESPONSE =

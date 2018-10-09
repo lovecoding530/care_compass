@@ -12,10 +12,15 @@ import Text from "@text";
 import Button from "@button";
 import { Colors, Images } from "@theme";
 import { getResources } from "@api";
-import { Loader, Card } from '@components';
-import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
+import { Loader, Card } from "@components";
+import {
+  deviceWidth,
+  deviceHeight,
+  windowHeight,
+  windowWidth
+} from "@ResponsiveDimensions";
 
-var BASE_URL = "https://pca.techequipt.com.au";
+var BASE_URL = "https://cc-api.techequipt.com.au";
 
 export default class ResourceDetail extends Component {
   constructor(props) {
@@ -45,14 +50,12 @@ export default class ResourceDetail extends Component {
 
   render() {
     return (
-      <View
-        style={Styles.container}
-      >
+      <View style={Styles.container}>
         <ScrollView contentContainerStyle={Styles.scroll}>
-          <Card 
-            topbar={{color: Colors.navy}}
-            style={Styles.titleView} 
-            contentStyle={{padding:deviceWidth(3)}} 
+          <Card
+            topbar={{ color: Colors.navy }}
+            style={Styles.titleView}
+            contentStyle={{ padding: deviceWidth(3) }}
           >
             <Text large center style={Styles.title}>
               {this.state.title}
@@ -60,7 +63,7 @@ export default class ResourceDetail extends Component {
           </Card>
 
           <Card style={[Styles.itemView]}>
-            <View style={{margin: deviceWidth(3)}}>
+            <View style={{ margin: deviceWidth(3) }}>
               {this.state.image ? (
                 <Image
                   style={[Styles.middleimage]}
