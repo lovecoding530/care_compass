@@ -30,7 +30,8 @@ const MediaQueries = {
 const htmlStyles = {
 	p: {
 		color: Colors.textPrimary,
-		fontSize: FontSizes.smallMedium
+		fontSize: FontSizes.smallMedium,
+		marginBottom: FontSizes.smallMedium,
 	},
 	a: {
 		fontSize: FontSizes.smallMedium
