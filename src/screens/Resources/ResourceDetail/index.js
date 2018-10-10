@@ -10,7 +10,6 @@ import {
 import Styles from "./styles";
 import Text from "@text";
 import Button from "@button";
-import { Colors, Images } from "@theme";
 import { getResources } from "@api";
 import { Loader, Card } from "@components";
 import {
@@ -19,6 +18,8 @@ import {
   windowHeight,
   windowWidth
 } from "@ResponsiveDimensions";
+import { htmlStyles, Images, Colors } from '@theme';
+import HTML from 'react-native-render-html';
 
 var BASE_URL = "https://cc-api.techequipt.com.au";
 
@@ -64,22 +65,20 @@ export default class ResourceDetail extends Component {
 
           <Card style={[Styles.itemView]}>
             <View style={{ margin: deviceWidth(3) }}>
-              {this.state.image ? (
+              {this.state.image && (
                 <Image
                   style={[Styles.middleimage]}
                   resizeMode="contain"
                   source={{ uri: this.state.image }}
                 />
-              ) : null}
-              <Text smallMedium style={Styles.subtitle}>
-                {this.state.subtitle}
-              </Text>
+              )}
+              <HTML html={this.state.subtitle} tagsStyles={htmlStyles} />
             </View>
             <View style={Styles.buttonBar}>
               <Button light bold onPress={() => this.props.navigation.goBack()}>
                 Back
               </Button>
-              {this.state.link == "" ? null : (
+              {this.state.link && (
                 <Button
                   dark
                   bold

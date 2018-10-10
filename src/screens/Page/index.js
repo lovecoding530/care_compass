@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { View, ScrollView, ImageBackground, Image, Dimensions, Linking } from 'react-native';
+import { 
+	View, 
+	ScrollView, 
+	Image, 
+	Dimensions, 
+	Linking,
+	Share,
+} from 'react-native';
 import Styles from './styles';
 import Text from '@text';
 import Button from '@button';
@@ -11,6 +18,7 @@ import store from '../../Store';
 import { gotoHome } from 'router';
 import { Loader, Card } from "@components";
 import { deviceWidth, deviceHeight, windowHeight, windowWidth } from '@ResponsiveDimensions';
+import {SharedModal} from '../modals';
 
 let { width } = Dimensions.get('window');
 
@@ -20,6 +28,7 @@ export default class Page extends Component {
 		this.state = {
 			pageContent: {},
 			pageName: '',
+			modalVisible : false
 		};
 	}
 
@@ -29,6 +38,25 @@ export default class Page extends Component {
 		this.setState({pageName, pageContent: content[0] || {} });
 	}
 
+    share = () => {
+        Share.share({
+            message : 'Dying To Talk',
+            url : this.state.pageContent.read_more_url
+        }).then(this.showResult);
+	}
+	
+    showResult = (result) => {
+        if(result.action == "sharedAction")
+        {
+            this.setState({modalVisible: true});
+            console.log("Your content has been share successfully.");
+        }
+        else
+        {
+            console.log("You have cancelled sharing.");
+        }
+	}
+	
 	render() {
 		return (
 			<View style={Styles.container}>
@@ -75,17 +103,26 @@ export default class Page extends Component {
 								Go back
 							</Button>
 							{console.log(this.state)}
-							{this.state.pageContent.read_more_url == '' ? null : (
-								<Button
-									dark
-									bold
-									onPress={() =>
-										Linking.openURL(this.state.pageContent.read_more_url).catch((err) =>
-											console.error('An error occurred', err)
-										)}
-								>
-									Find out more
-								</Button>
+							{this.state.pageContent.read_more_url && (
+								this.state.pageName == 'looking_after_yourself' ? 
+									<Button 
+										dark  
+										bold 
+										onPress={this.share}
+									>
+										Share
+									</Button>
+								:
+									<Button
+										dark
+										bold
+										onPress={() =>
+											Linking.openURL(this.state.pageContent.read_more_url).catch((err) =>
+												console.error('An error occurred', err)
+											)}
+									>
+										Find out more
+									</Button>
 							)}
 						</View>
 					</Card>
@@ -104,6 +141,12 @@ export default class Page extends Component {
 						}}
 					/>			
 				}
+				<SharedModal
+                    visible={this.state.modalVisible}
+                    onCancel={()=>this.setState({
+						modalVisible: false
+					})}
+                />
 			</View>
 		);
 	}
