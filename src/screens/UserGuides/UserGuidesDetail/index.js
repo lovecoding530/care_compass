@@ -15,13 +15,14 @@ import {
 
 import Styles from './styles';
 import Footer from '@footer'
-import {Colors, Images, FontSizes} from '@theme';
+import {Colors, Images, FontSizes, htmlStyles} from '@theme';
 import {Button, Card, Text} from '@components'
 import { getUserGuides, API_HTML_ROOT } from "@api";
 import HTMLView from 'react-native-htmlview';
 const { width,height } = Dimensions.get('window');
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 import {SharedModal} from '../../modals';
+import HTML from 'react-native-render-html';
 
 function renderNode(node, index, siblings, parent, defaultRenderer) {
 
@@ -118,27 +119,7 @@ export default class UserGuidesDetail extends Component {
             body,
             faqs,
             loaderVisible: true,
-            modalVisible : false
         })
-    }
-
-    _showResult = (result) => {
-        if(result.action == "sharedAction")
-        {
-            this.setState({modalVisible: true});
-            console.log("Your content has been share successfully.");
-        }
-        else
-        {
-            console.log("You have cancelled sharing.");
-        }
-    }
-
-    _share = () => {
-        Share.share({
-            message : 'Dying To Talk',
-            url : 'http://www.godeckyourself.com'
-        }).then(this._showResult.bind(this));
     }
 
     closeModal(){
@@ -150,13 +131,8 @@ export default class UserGuidesDetail extends Component {
     renderFAQItem = ({item, index}) => {
         return (
             <View style={Styles.faqItem}>
-                <View style={Styles.itemTitle}>
-                    <Text bold style={[Styles.txtQuestion]}>{index + 1}: </Text>
-                    <Text style={Styles.txtQuestion}>
-                        {" "}{item.question}
-                    </Text>
-                </View>
-                <Text style={[Styles.txtAnswer]}>{item.answer} </Text>
+                <Text bold color={Colors.red} style={Styles.faqItemQuestion}>{index + 1}. {item.question} </Text>
+                <Text>{item.answer} </Text>
             </View>
         )
     }
@@ -176,15 +152,7 @@ export default class UserGuidesDetail extends Component {
 
                     <Card style={Styles.body} contentStyle={Styles.body_content}>
                         <View style={Styles.viewBody}>
-                            <HTMLView
-                                value={this.state.body}
-                                renderNode={renderNode}
-                                stylesheet={{
-                                    p: {
-                                        fontSize: 20,
-                                    }
-                                }}
-                            />
+                            <HTML html={this.state.body} tagsStyles={htmlStyles} />
                         </View>
 
                         {this.state.image &&
@@ -194,26 +162,27 @@ export default class UserGuidesDetail extends Component {
                         }
 
                         {this.state.faqs.length > 0 &&
-                            <View style={Styles.faqView}>
-                                <Text bold >FAQ</Text>
-                                <FlatList
-                                    data = {this.state.faqs}
-                                    renderItem = {this.renderFAQItem}
-                                    keyExtractor = {(item, index) => index.toString()}
-                                    style={Styles.flatList}
-                                />
-                            </View>
+                            <FlatList
+                                data = {this.state.faqs}
+                                renderItem = {this.renderFAQItem}
+                                keyExtractor = {(item, index) => index.toString()}
+                                style={Styles.flatList}
+                            />
                         }
                         <View style={Styles.buttonBar}>
-                            <Button light bold onPress={ ()=> this.props.navigation.goBack() } >Go back</Button>
-                            <Button dark  bold onPress={this._share} >Share</Button>
+                            <Button 
+                                light 
+                                bold 
+                                buttonStyles={{
+                                    margin: 0,
+                                }}
+                                onPress={ ()=> this.props.navigation.goBack() } 
+                            >
+                                Go back
+                            </Button>
                         </View>
                     </Card>
                 </ScrollView>
-                <SharedModal
-                    visible={this.state.modalVisible}
-                    onCancel={this.closeModal.bind(this)}
-                />
             </View>
         );
     }

@@ -11,6 +11,7 @@ const { width,height } = Dimensions.get('window');
 import { responsiveWidth, responsiveHeight } from 'react-native-responsive-dimensions';
 import { MediaQueryStyleSheet } from "react-native-responsive";
 import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
+import { FontSizes } from '@theme';
 
 
 export default MediaQueryStyleSheet.create({
@@ -43,7 +44,6 @@ export default MediaQueryStyleSheet.create({
         width:width/1.5
     },
     viewBody:{
-        margin : deviceWidth(2),
         alignItems: 'center'
     },
     faqItem: {
@@ -84,13 +84,15 @@ export default MediaQueryStyleSheet.create({
     body_content: {
         flex: 1,
         alignItems: 'center',
+        padding: deviceWidth(3),
+    },
+    faqItemQuestion: {
+        fontSize: FontSizes.smallMedium * 1.1
     },
     buttonBar: {
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingVertical: deviceWidth(1),
-        paddingHorizontal: deviceWidth(1),
         alignItems: 'center',
     },
 },

@@ -30,7 +30,7 @@ export default class ResourceDetail extends Component {
     this.state = {
       resourceIndex: resourceIndex,
       title: "",
-      subtitle: "",
+      information_text: "",
       link: "",
       image: ""
     };
@@ -43,7 +43,7 @@ export default class ResourceDetail extends Component {
 
     this.setState({
       title: resource.title,
-      subtitle: resource.information_text,
+      information_text: resource.information_text,
       link: resource.link,
       image: resource.image ? BASE_URL + resource.image.url : ""
     });
@@ -72,7 +72,7 @@ export default class ResourceDetail extends Component {
                   source={{ uri: this.state.image }}
                 />
               )}
-              <HTML html={this.state.subtitle} tagsStyles={htmlStyles} />
+              <HTML html={this.state.information_text} tagsStyles={htmlStyles} />
             </View>
             <View style={Styles.buttonBar}>
               <Button light bold onPress={() => this.props.navigation.goBack()}>
