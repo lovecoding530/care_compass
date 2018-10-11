@@ -10,7 +10,7 @@ import {
 import Styles from './styles';
 import Text from '@text';
 import Button from '@button';
-import { htmlStyles, Images, Colors } from '@theme';
+import { htmlStyles, htmlRenderers, Images, Colors } from '@theme';
 import { getApiData } from '@api';
 import HTML from 'react-native-render-html';
 import { API_HTML_ROOT } from '@api';
@@ -92,6 +92,7 @@ export default class Page extends Component {
 							) : null}
 							<HTML 
 								html={this.state.pageContent.body} 
+								renderers = {htmlRenderers}
 								tagsStyles={htmlStyles} 
 								onLinkPress={(e, url) =>{
 									if(url){

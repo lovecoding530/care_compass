@@ -146,12 +146,10 @@ export default class Menu extends Component {
 							Take our survey
 						</Text>
 					</TouchableOpacity>
-					<TouchableOpacity style={styles.menuItem}>
-						<Text light bold color={Colors.white} style={styles.menuItemText}>
-							About the artworks
-						</Text>
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.menuItem}>
+					<TouchableOpacity 
+						style={styles.menuItem}
+						onPress={() => this.goto('Page', 'art-gallery')}
+					>
 						<Text light bold color={Colors.white} style={styles.menuItemText}>
 							Art Gallery
 						</Text>
