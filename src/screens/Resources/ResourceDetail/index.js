@@ -72,7 +72,17 @@ export default class ResourceDetail extends Component {
                   source={{ uri: this.state.image }}
                 />
               )}
-              <HTML html={this.state.information_text} tagsStyles={htmlStyles} />
+              <HTML 
+                html={this.state.information_text} 
+                tagsStyles={htmlStyles} 
+                onLinkPress={(e, url) =>{
+                  if(url){
+                    Linking.openURL(url).catch((err) =>
+                      console.error('An error occurred', err) 
+                    )}
+                  }
+                }
+              />
             </View>
             <View style={Styles.buttonBar}>
               <Button light bold onPress={() => this.props.navigation.goBack()}>

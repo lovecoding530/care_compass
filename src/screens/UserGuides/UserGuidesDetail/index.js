@@ -152,7 +152,17 @@ export default class UserGuidesDetail extends Component {
 
                     <Card style={Styles.body} contentStyle={Styles.body_content}>
                         <View style={Styles.viewBody}>
-                            <HTML html={this.state.body} tagsStyles={htmlStyles} />
+                            <HTML 
+                                html={this.state.body} 
+                                tagsStyles={htmlStyles} 
+                                onLinkPress={(e, url) =>{
+                                    if(url){
+                                        Linking.openURL(url).catch((err) =>
+                                            console.error('An error occurred', err) 
+                                        )}
+                                    }
+                                }              
+                            />
                         </View>
 
                         {this.state.image &&

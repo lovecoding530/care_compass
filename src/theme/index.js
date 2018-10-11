@@ -38,11 +38,13 @@ const htmlStyles = {
 	},
 	ul: {
 		color: Colors.textPrimary,
-		fontSize: FontSizes.smallMedium
+		fontSize: FontSizes.smallMedium,
+		marginBottom: 0,
 	},
 	ol: {
 		color: Colors.textPrimary,
-		fontSize: FontSizes.smallMedium
+		fontSize: FontSizes.smallMedium,
+		marginBottom: 0,
 	},
 	strong: {
 		fontWeight: '800'
