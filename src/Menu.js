@@ -148,7 +148,7 @@ export default class Menu extends Component {
 					</TouchableOpacity>
 					<TouchableOpacity 
 						style={styles.menuItem}
-						onPress={() => this.goto('Page', 'art-gallery')}
+						onPress={() => this.goto('Page', 'art_gallery')}
 					>
 						<Text light bold color={Colors.white} style={styles.menuItemText}>
 							Art Gallery
