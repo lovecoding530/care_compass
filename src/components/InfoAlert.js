@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
 
 	closeButton: {
 		marginTop: 20,
-		width: 100
+		paddingHorizontal: 20,
 	},
 
 	icon: {

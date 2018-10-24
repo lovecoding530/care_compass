@@ -46,7 +46,7 @@ export default class Splash extends Component {
                 style={Styles.spinner}
               />
             ):(
-              <View style={{height: 60, marginVertical: 20, justifyContent: 'center'}}>
+              <View style={{marginVertical: 20, justifyContent: 'center'}}>
                 <Button dark bold onPress={this.onBegin} textStyles={{fontSize: 20}}>Begin</Button>
               </View>
             )}

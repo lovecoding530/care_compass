@@ -6,12 +6,11 @@ import Text from '@text';
 import { deviceWidth, deviceHeight, windowHeight } from '@ResponsiveDimensions';
 import { NavigationActions } from 'react-navigation';
 import store from './Store';
-import { ArrowText } from '@components';
+import {checkAndGo} from './Router';
 import { MediaQueryStyleSheet } from 'react-native-responsive';
 let { width, height } = Dimensions.get('window');
 const initialOrientation = width > height ? 'LANDSCAPE' : 'PORTRAIT';
 
-const CHECK_ROUTES = [ 'DiscussionStarter', 'CardGame' ];
 export default class Menu extends Component {
 	constructor(props) {
 		super(props);
@@ -41,27 +40,9 @@ export default class Menu extends Component {
 			}, 500);
 		};
 
-		if (CHECK_ROUTES.includes(store.activeRoute)) {
-			setTimeout(() => {
-				const { navigate, goBack } = this.props.navigation;
-				Alert.alert(
-					'Are you sure?',
-					'Any information you have entered will be deleted.',
-					[
-						{ text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-						{
-							text: 'YES',
-							onPress: () => {
-								goToRoute(routeName, pageName);
-							}
-						}
-					],
-					{ cancelable: false }
-				);
-			}, 500);
-		} else {
+		checkAndGo(()=>{
 			goToRoute(routeName, pageName);
-		}
+		});
 	}
 
 	async componentDidMount() {
@@ -74,13 +55,16 @@ export default class Menu extends Component {
 	}
 
 	goBackToOnboarding() {
-		const resetAction = NavigationActions.reset({
-			index: 0,
-			key: null,
-			actions: [ NavigationActions.navigate({ routeName: 'OnBoardingScreen' }) ]
+		checkAndGo(()=>{
+			const resetAction = NavigationActions.reset({
+				index: 0,
+				key: null,
+				actions: [ NavigationActions.navigate({ routeName: 'OnBoardingScreen' }) ]
+			});
+			this.props.navigation.dispatch(resetAction);
 		});
-		this.props.navigation.dispatch(resetAction);
 	}
+
 
 	render() {
 		return (
@@ -125,7 +109,7 @@ export default class Menu extends Component {
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.menuItem} onPress={() => this.goto('UserGuides')}>
 						<Text light bold color={Colors.white} style={styles.menuItemText}>
-							App instructions
+							Using the app
 						</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.menuItem} onPress={() => this.goto('Resources')}>
@@ -139,11 +123,6 @@ export default class Menu extends Component {
 					>
 						<Text light bold color={Colors.white} style={styles.menuItemText}>
 							Looking after yourself
-						</Text>
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.menuItem}>
-						<Text light bold color={Colors.white} style={styles.menuItemText}>
-							Take our survey
 						</Text>
 					</TouchableOpacity>
 					<TouchableOpacity 

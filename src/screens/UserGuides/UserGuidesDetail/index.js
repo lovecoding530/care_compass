@@ -146,7 +146,7 @@ export default class UserGuidesDetail extends Component {
                 <ScrollView contentContainerStyle={Styles.scroll}>
 
                     <Card topbar={{color: Colors.Navy}} style={Styles.titleView} contentStyle={Styles.title_content} >
-                        <Text large style={Styles.title}>App Instructions</Text>
+                        <Text large style={Styles.title}>Using the app</Text>
                         <Text medium style={Styles.subtitle}>{this.state.title}</Text>
                     </Card>
 
