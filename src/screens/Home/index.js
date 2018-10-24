@@ -83,7 +83,7 @@ export default class Home extends Component {
 								<Image source={Images.more_info} style={Styles.bottom_icon} />
 							</MediaQuery>
 							<Text medium bold light style={Styles.left_item_text}>
-								App instructions
+								Using the app
 							</Text>
 						</Card>
 						<Card

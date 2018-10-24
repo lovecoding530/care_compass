@@ -3,7 +3,7 @@
  */
 
 import React, { Component } from 'react';
-import { Dimensions, Image, StyleSheet, TouchableOpacity, View, SafeAreaView } from 'react-native';
+import { Dimensions, Image, StyleSheet, TouchableOpacity, View, SafeAreaView, Alert } from 'react-native';
 import { StackNavigator, DrawerNavigator, NavigationActions, StackActions } from 'react-navigation';
 
 const { width, height } = Dimensions.get('window');
@@ -26,6 +26,30 @@ import store from './Store';
 import { MediaQuery } from 'react-native-responsive';
 
 var drawerNavigator = null;
+
+export const checkAndGo = (goCallback) => {
+	const CHECK_ROUTES = [ 'DiscussionStarter', 'CardGame' ];
+	if (CHECK_ROUTES.includes(store.activeRoute)) {
+		setTimeout(() => {
+			Alert.alert(
+				'Are you sure?',
+				'Any information you have entered will be deleted.',
+				[
+					{ text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+					{
+						text: 'YES',
+						onPress: () => {
+							goCallback();
+						}
+					}
+				],
+				{ cancelable: false }
+			);
+		}, 500);
+	} else {
+		goCallback();
+	}
+}
 
 export const gotoHome = () => {
 	const resetAction = NavigationActions.reset({
@@ -182,9 +206,11 @@ const HomeIcon = (props) => {
 			style={{ height: deviceHeight(4.5), paddingHorizontal: 10 }}
 			backgroundColor={'#0000'}
 			onPress={() => {
-				gotoHome();
-				store.activeRoute = null;
-				store.routesInStack = [];
+				checkAndGo(()=>{
+					gotoHome();
+					store.activeRoute = null;
+					store.routesInStack = [];
+				});
 			}}
 		>
 			<Text light bold>

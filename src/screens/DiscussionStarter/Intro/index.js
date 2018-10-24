@@ -73,7 +73,7 @@ export default class Intro extends Component {
             color={Colors.white} 
             onPress={() => this.startActivity(index)}
           >
-						Start
+						Read now
 					</Button>
 				</MediaQuery>
 			</Card>

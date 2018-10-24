@@ -7,7 +7,7 @@ import {
 
 import { MediaQueries, Colors } from '@theme'
 import { MediaQueryStyleSheet } from "react-native-responsive";
-import { deviceWidth, deviceHeight, windowHeight } from "@ResponsiveDimensions";
+import { deviceWidth, deviceHeight, windowWidth } from "@ResponsiveDimensions";
 import { FontSizes } from '../../theme';
 
 export default MediaQueryStyleSheet.create({
@@ -19,7 +19,8 @@ export default MediaQueryStyleSheet.create({
     onboarding_image: {
         position: 'absolute',
         width: '100%',
-        resizeMode: 'stretch',
+        height: windowWidth(100 / 768 * 693),
+        resizeMode: 'contain',
         bottom: 0,
     },
 
