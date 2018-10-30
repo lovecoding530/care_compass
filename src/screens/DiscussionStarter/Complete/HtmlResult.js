@@ -89,9 +89,9 @@ export function getSharingHTMLFromResult(discussionStarter) {
             <body>
                 ${header}
                 ${details}
+                ${disclaimer}
                 ${renderActivities(discussionStarter.discussion_starter)}
                 ${footer}
-                ${disclaimer}
             </body>
         </html>
     `;
