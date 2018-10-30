@@ -18,10 +18,7 @@ export default MediaQueryStyleSheet.create({
 
     onboarding_image: {
         position: 'absolute',
-        width: '100%',
-        height: windowWidth(100 / 768 * 693),
         resizeMode: 'contain',
-        bottom: 0,
     },
 
     scrollView: {

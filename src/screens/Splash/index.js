@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, ImageBackground, Text, View, ScrollView } from "react-native";
+import { Image, ImageBackground, Text, View, ScrollView, Dimensions } from "react-native";
 import { MySpinner, Button} from "@components";
 
 import { Images } from "@theme";
@@ -15,6 +15,9 @@ export default class Splash extends Component {
   async componentDidMount() {
     let json = await getBundle();
     this.setState({ loading: false });
+    Dimensions.addEventListener('change', ()=>{
+			this.forceUpdate();
+		})
   }
 
   onBegin = () => {
@@ -23,11 +26,28 @@ export default class Splash extends Component {
   }
 
   render() {
+    const { height, width } = Dimensions.get('window');
+    let imageHeight = width / 768 * 693;
+    let imageStyle = {
+      width: width,
+      height: imageHeight,
+    }
+    if(imageHeight + 250 > height){
+      imageStyle.top = 250;
+    }else{
+      imageStyle.bottom = 0;
+    }
     return (
       <View
         style={Styles.backgroundImage}
       >
-        <Image source={Images.onboarding_image} style={Styles.onboarding_image}/>
+        <Image 
+          source={Images.onboarding_image} 
+          style={[
+            Styles.onboarding_image,
+            imageStyle
+          ]}
+        />
         <ScrollView
           contentContainerStyle={Styles.scrollView}
         >

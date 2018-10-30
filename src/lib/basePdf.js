@@ -9,11 +9,11 @@ import { Colors, Images } from '@theme';
 export const header = `
   <div class='header'>
     <div class='header-title'>
-      <h1>Dying to Talk in the Bush Study</h1>
+      <h1>Care Compass Study</h1>
     </div>
     <div class='header-logo'><img src=${Images.base64_dtt_logo} alt='' /></div>
   </div>
-  <p class='header-description'>This study is for people living in rural and remote Australia. It aims to help people work out what is right for them, when thinking about if they were really sick or at the end of their life. As you would have discussed with the Royal Flying Doctor Service (RFDS) team, this doesn’t mean you are about to die.</p>
+  <p class='header-description'>This Study is for people living with dementia. It aims to help people work out what is right for them, when thinking about if they were really sick or at the end of their life. As you would have discussed with your aged care team, this does not mean that you are about to die. Instead it is designed to help your family and carers make decisions if you cannot.</p>
 `;
 
 // details
@@ -84,9 +84,7 @@ export const style = `
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 2rem;
     margin-bottom: 2rem;
-    border-bottom: solid 1px ${Colors.Navy};
   }
   .details-name, .details-date {
     display: flex;
@@ -139,8 +137,9 @@ export const style = `
   }
   .disclaimer {
     display: block;
-    margin-top: 1rem;
+    padding-bottom: 2rem;
     margin-bottom: 2rem;
+    border-bottom: solid 1px ${Colors.Navy};
   }
   .disclaimer p {
     font-size: 0.875rem;

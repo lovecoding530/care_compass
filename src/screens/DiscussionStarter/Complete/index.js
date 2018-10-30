@@ -235,14 +235,14 @@ export default class Complete extends Component {
 									>
 										Export
 									</Button>
-									<Button
+									{/* <Button
 										dark
 										bold
 										buttonStyles={{ paddingHorizontal: 32 }}
 										onPress={this.onShareEmail.bind(this)}
 									>
 										Email
-									</Button>
+									</Button> */}
 									<Button 
 										light 
 										bold 

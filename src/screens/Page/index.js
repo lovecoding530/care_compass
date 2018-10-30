@@ -20,7 +20,7 @@ import { Loader, Card } from "@components";
 import { deviceWidth, deviceHeight, windowHeight, windowWidth } from '@ResponsiveDimensions';
 import {SharedModal} from '../modals';
 
-let { width } = Dimensions.get('window');
+let { width, height } = Dimensions.get('window');
 
 export default class Page extends Component {
 	constructor(props) {
@@ -28,7 +28,8 @@ export default class Page extends Component {
 		this.state = {
 			pageContent: {},
 			pageName: '',
-			modalVisible : false
+			modalVisible : false,
+			isVisibleArtwork: false,
 		};
 	}
 
@@ -61,84 +62,110 @@ export default class Page extends Component {
 		return (
 			<View style={Styles.container}>
 				<ScrollView contentContainerStyle={Styles.scroll}>
-					<Card topbar={{color: Colors.navy}} style={Styles.titleView}>
-						<Text large center style={Styles.title}>
-							{this.state.pageContent.title}
-						</Text>
-					</Card>
+					<View 
+						onLayout = {(e)=>{
+							let {height: contentHeight} = e.nativeEvent.layout;
+							let { height } = Dimensions.get('window');
+							let imageHeight = deviceWidth(50 * 401 / 388);
+							this.setState({isVisibleArtwork: (height - contentHeight > imageHeight)});
+						}}
+					>
+						<Card topbar={{color: Colors.navy}} style={Styles.titleView}>
+							<Text large center style={Styles.title}>
+								{this.state.pageContent.title}
+							</Text>
+						</Card>
 
-					<Card style={[ Styles.itemView ]}>
-						<View style={{margin: deviceWidth(3)}}>
-							{this.state.pageContent.featured_image_full ? width <= 375 ? (
-								<View style={Styles.featuredImage}>
-									<Image
-										source={{ uri: API_HTML_ROOT + this.state.pageContent.featured_image_600.url }}
-										style={{
-											width: this.state.pageContent.featured_image_600.width,
-											height: this.state.pageContent.featured_image_600.height
-										}}
-									/>
-								</View>
-							) : (
-								<View style={Styles.featuredImage}>
-									<Image
-										source={{ uri: API_HTML_ROOT + this.state.pageContent.featured_image_1200.url }}
-										style={{
-											width: this.state.pageContent.featured_image_1200.width,
-											height: this.state.pageContent.featured_image_1200.height
-										}}
-									/>
-								</View>
-							) : null}
-							<HTML 
-								html={this.state.pageContent.body} 
-								renderers = {htmlRenderers}
-								tagsStyles={htmlStyles} 
-								onLinkPress={(e, url) =>{
-									if(url){
-										Linking.openURL(url).catch((err) =>
-											console.error('An error occurred', err) 
-										)}
-									}
-								}
-							/>
-						</View>
-						<View style={Styles.buttonBar}>
-							<Button
-								bold
-								light
-								onPress={() => {
-									this.props.navigation.goBack(null);
-								}}
-							>
-								Go back
-							</Button>
-							{console.log(this.state)}
-							{this.state.pageContent.read_more_url && (
-								this.state.pageName == 'looking_after_yourself' ? 
-									<Button 
-										dark  
-										bold 
-										onPress={this.share}
-									>
-										Share
-									</Button>
-								:
+						<Card 
+							style={[ Styles.itemView ]}
+						>
+							{this.state.pageName == 'privacy_policy' &&
+								<View style={{flexDirection: 'row'}}>
 									<Button
-										dark
 										bold
-										onPress={() =>
-											Linking.openURL(this.state.pageContent.read_more_url).catch((err) =>
-												console.error('An error occurred', err)
-											)}
+										light
+										onPress={() => {
+											this.props.navigation.goBack(null);
+										}}
 									>
-										Find out more
+										Go back
 									</Button>
-							)}
-						</View>
-					</Card>
+									<View style={{flex: 1}}/>
+								</View>
+							}
+							<View style={{margin: deviceWidth(3)}}>
+								{this.state.pageContent.featured_image_full ? width <= 375 ? (
+									<View style={Styles.featuredImage}>
+										<Image
+											source={{ uri: API_HTML_ROOT + this.state.pageContent.featured_image_600.url }}
+											style={{
+												width: this.state.pageContent.featured_image_600.width,
+												height: this.state.pageContent.featured_image_600.height
+											}}
+										/>
+									</View>
+								) : (
+									<View style={Styles.featuredImage}>
+										<Image
+											source={{ uri: API_HTML_ROOT + this.state.pageContent.featured_image_1200.url }}
+											style={{
+												width: this.state.pageContent.featured_image_1200.width,
+												height: this.state.pageContent.featured_image_1200.height
+											}}
+										/>
+									</View>
+								) : null}
+								<HTML 
+									html={this.state.pageContent.body} 
+									renderers = {htmlRenderers}
+									tagsStyles={htmlStyles} 
+									onLinkPress={(e, url) =>{
+										if(url){
+											Linking.openURL(url).catch((err) =>
+												console.error('An error occurred', err) 
+											)}
+										}
+									}
+								/>
+							</View>
+							<View style={Styles.buttonBar}>
+								<Button
+									bold
+									light
+									onPress={() => {
+										this.props.navigation.goBack(null);
+									}}
+								>
+									Go back
+								</Button>
+								{console.log(this.state)}
+								{this.state.pageContent.read_more_url && (
+									this.state.pageName == 'looking_after_yourself' ? 
+										<Button 
+											dark  
+											bold 
+											onPress={this.share}
+										>
+											Share
+										</Button>
+									:
+										<Button
+											dark
+											bold
+											onPress={() =>
+												Linking.openURL(this.state.pageContent.read_more_url).catch((err) =>
+													console.error('An error occurred', err)
+												)}
+										>
+											Find out more
+										</Button>
+								)}
+							</View>
+						</Card>
+
+					</View>
 				</ScrollView>
-				{this.state.pageName == 'looking_after_yourself' && 
+				{(this.state.isVisibleArtwork && this.state.pageName == 'looking_after_yourself') && 
 					<Image
 						source={Images.image_looking_after}
 						style={{
