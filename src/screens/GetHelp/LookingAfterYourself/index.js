@@ -50,7 +50,7 @@ export default class LookingAfterYourself extends Component {
 
   _share() {
     Share.share({
-      message: "Dying To Talk",
+      message: "Care Compass",
       url: "http://www.godeckyourself.com"
     }).then(this._showResult.bind(this));
   }
@@ -69,7 +69,7 @@ export default class LookingAfterYourself extends Component {
         style={Styles.container}
       >
         <ScrollView contentContainerStyle={Styles.scroll}>
-          <Card topbar={{color: Colors.navy}} style={Styles.titleView}>
+          <Card topbar={{ color: Colors.navy }} style={Styles.titleView}>
             <Text large style={Styles.title}>
               Looking after yourself
             </Text>
