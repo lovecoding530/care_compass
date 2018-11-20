@@ -3,7 +3,7 @@
  */
 
 import React, { Component } from 'react';
-import { Dimensions, Image, StyleSheet, TouchableOpacity, View, SafeAreaView, Alert } from 'react-native';
+import { Dimensions, Image, StyleSheet, TouchableOpacity, View, SafeAreaView, Alert, Linking } from 'react-native';
 import { StackNavigator, DrawerNavigator, NavigationActions, StackActions } from 'react-navigation';
 
 const { width, height } = Dimensions.get('window');
@@ -26,6 +26,62 @@ import store from './Store';
 import { MediaQuery } from 'react-native-responsive';
 
 var drawerNavigator = null;
+
+export const navigateToUrl = (url, navigation) => {
+	const routeUrls = [
+		{
+			url: "https://cc-api.techequipt.com.au/app/discussion-starter",
+			routeName: "DiscussionStarter",
+			pageName: ""
+		},
+		{
+			url: "https://cc-api.techequipt.com.au/app/user-guides",
+			routeName: "UserGuides",
+			pageName: ""
+		},
+		{
+			url: "https://cc-api.techequipt.com.au/app/resources",
+			routeName: "Resources",
+			pageName: ""
+		},
+		{
+			url: "https://cc-api.techequipt.com.au/app/about-this-app",
+			routeName: "Page",
+			pageName: "about_this_app"
+		},
+		{
+			url: "https://cc-api.techequipt.com.au/app/looking-after-yourself",
+			routeName: "Page",
+			pageName: "looking_after_yourself"
+		},
+		{
+			url: "https://cc-api.techequipt.com.au/app/art-gallery",
+			routeName: "Page",
+			pageName: "art_gallery"
+		},
+	]
+	if(url){
+		let routeUrl = routeUrls.find(routeUrl=>routeUrl.url == url)
+		if(routeUrl){
+			store.activeRoute = routeName;
+			store.activePage = pageName;
+			store.routesInStack.push(routeName);
+			var key = `${routeName} ${store.routesInStack.length}`;
+			navigation.navigate(
+				routeName,
+				{
+					pageName: pageName
+				},
+				null,
+				key
+			);
+		}else{
+			Linking.openURL(url).catch((err) =>
+				console.error('An error occurred', err) 
+			)
+		}
+	}
+}
 
 export const checkAndGo = (goCallback) => {
 	const CHECK_ROUTES = [ 'DiscussionStarter', 'CardGame' ];

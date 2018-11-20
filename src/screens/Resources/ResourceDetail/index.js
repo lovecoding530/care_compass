@@ -20,6 +20,7 @@ import {
 } from "@ResponsiveDimensions";
 import { htmlStyles, Images, Colors } from '@theme';
 import HTML from 'react-native-render-html';
+import {exportHelpPdf} from '@helppdf';
 
 var BASE_URL = "https://cc-api.techequipt.com.au";
 
@@ -48,7 +49,11 @@ export default class ResourceDetail extends Component {
       image: resource.image ? BASE_URL + resource.image.url : ""
     });
   }
-
+  
+  exportPage = async () => {
+		await exportHelpPdf(this.state.title, this.state.information_text)
+  }
+  
   render() {
     return (
       <View style={Styles.container}>
@@ -87,6 +92,14 @@ export default class ResourceDetail extends Component {
             <View style={Styles.buttonBar}>
               <Button light bold onPress={() => this.props.navigation.goBack()}>
                 Back
+              </Button>
+              <View style={{flex: 1}}/>
+              <Button
+                bold
+                light
+                onPress={this.exportPage}
+              >
+                Export
               </Button>
               {this.state.link && (
                 <Button

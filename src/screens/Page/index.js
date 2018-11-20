@@ -19,6 +19,8 @@ import { gotoHome } from 'router';
 import { Loader, Card } from "@components";
 import { deviceWidth, deviceHeight, windowHeight, windowWidth } from '@ResponsiveDimensions';
 import {SharedModal} from '../modals';
+import {exportHelpPdf} from '@helppdf';
+import {navigateToUrl} from 'router';
 
 let { width, height } = Dimensions.get('window');
 
@@ -56,6 +58,10 @@ export default class Page extends Component {
         {
             console.log("You have cancelled sharing.");
         }
+	}
+
+	exportPage = async () => {
+		await exportHelpPdf(this.state.pageContent.title, this.state.pageContent.body)
 	}
 	
 	render() {
@@ -119,13 +125,7 @@ export default class Page extends Component {
 									html={this.state.pageContent.body} 
 									renderers = {htmlRenderers}
 									tagsStyles={htmlStyles} 
-									onLinkPress={(e, url) =>{
-										if(url){
-											Linking.openURL(url).catch((err) =>
-												console.error('An error occurred', err) 
-											)}
-										}
-									}
+									onLinkPress={(e, url) => navigateToUrl(url, this.props.navigation)}
 								/>
 							</View>
 							<View style={Styles.buttonBar}>
@@ -138,7 +138,14 @@ export default class Page extends Component {
 								>
 									Go back
 								</Button>
-								{console.log(this.state)}
+								<View style={{flex: 1}}/>
+								<Button
+									bold
+									light
+									onPress={this.exportPage}
+								>
+									Export
+								</Button>
 								{this.state.pageContent.read_more_url && (
 									this.state.pageName == 'looking_after_yourself' ? 
 										<Button 
