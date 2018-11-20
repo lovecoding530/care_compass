@@ -29,6 +29,7 @@ export default class Activity extends Component {
 			activity: activity,
 			questionIndex: 0,
 			questionTotalCount,
+			isCheckedBody: !activity.body
 		};
 	}
 
@@ -272,6 +273,17 @@ export default class Activity extends Component {
 		);
 	}
 
+	renderBody = () => {
+		return (
+			<Card 
+				style={Styles.questionItem}
+				contentStyle={Styles.questionItemContent}
+			>
+				<HTML html={this.state.activity.body} containerStyle={Styles.questionContainer} tagsStyles={htmlStyles} />
+			</Card>
+		)
+	}
+
 	render() {
 		return (
 			<View style={Styles.container}>
@@ -292,7 +304,7 @@ export default class Activity extends Component {
 							style={Styles.pregressBar}
 						/>
 					</Card>
-					{this.renderQuestion()}
+					{this.state.isCheckedBody ? this.renderQuestion() : this.renderBody()}
 				</ScrollView>
 				<Card style={Styles.buttonBar} contentStyle={Styles.buttonBarContent}>
 					<View style={{ flexDirection: 'row' }}>
@@ -303,13 +315,19 @@ export default class Activity extends Component {
 							Finish here
 						</Button>
 					</View>
-					<Button dark bold onPress={this.onNext.bind(this)}>
-						{this.state.editFromResults && this.state.questionIndex == this.state.questionTotalCount - 1 ? (
-							'Done editing'
-						) : (
-							'Continue'
-						)}
-					</Button>
+					{this.state.isCheckedBody ? 
+						<Button dark bold onPress={this.onNext.bind(this)}>
+							{this.state.editFromResults && this.state.questionIndex == this.state.questionTotalCount - 1 ? (
+								'Done editing'
+							) : (
+								'Continue'
+							)}
+						</Button>
+						:
+						<Button dark bold onPress={()=>this.setState({isCheckedBody: true})}>
+							Continue
+						</Button>
+					}
 				</Card>
 			</View>
 		);
