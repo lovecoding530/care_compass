@@ -21,6 +21,7 @@ import {
 import { htmlStyles, Images, Colors } from '@theme';
 import HTML from 'react-native-render-html';
 import {exportHelpPdf} from '@helppdf';
+import {navigateToUrl} from 'router';
 
 var BASE_URL = "https://cc-api.techequipt.com.au";
 
@@ -80,13 +81,7 @@ export default class ResourceDetail extends Component {
               <HTML 
                 html={this.state.information_text} 
                 tagsStyles={htmlStyles} 
-                onLinkPress={(e, url) =>{
-                  if(url){
-                    Linking.openURL(url).catch((err) =>
-                      console.error('An error occurred', err) 
-                    )}
-                  }
-                }
+                onLinkPress={(e, url) => navigateToUrl(url, this.props.navigation)}
               />
             </View>
             <View style={Styles.buttonBar}>
