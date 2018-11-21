@@ -38,50 +38,6 @@ const style = `
     display: block;
     margin: 0;
   }
-  .details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-  }
-  .details-name, .details-date {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-end;
-  }
-  .details-name {
-    width: 50%;
-  }
-  .details-date {
-    width: 20%;
-  }
-  .details-name p, .details-date p {
-    margin: 0;
-    color: ${Colors.Navy};
-  }
-  .details-name span, .details-date span {
-    display: block;
-    flex-grow: 1;
-    border-bottom: solid 1px ${Colors.Navy};
-  }
-  .activityTitle {
-    color: ${Colors.red};
-    margin-bottom: 8px;
-  }
-  .activityPrecomment {
-    margin-bottom: 16px;
-  }
-  .question {
-    color: ${Colors.Navy};
-    margin-bottom: 8px;
-  }
-  .cardGameTitle {
-    margin-bottom: 8px;
-    color: ${Colors.Red};
-  }
-  .cardGameDescription {
-    margin-bottom: 16px;
-  }
   .footer {
     display: flex;
     justify-content: center;
@@ -93,16 +49,8 @@ const style = `
   .footer .logo-rfds img {
     margin-right: 2rem;
   }
-  .disclaimer {
-    display: block;
-    padding-bottom: 2rem;
-    margin-bottom: 2rem;
-    border-bottom: solid 1px ${Colors.Navy};
-  }
-  .disclaimer p {
-    font-size: 0.875rem;
-    font-style: italic;
-    margin-bottom: 0;
+  .faq-question {
+    color: ${Colors.red};
   }
 `;
 
@@ -125,12 +73,12 @@ export function getSharingHTML(title, body, faqs = []) {
         </div>
     `;
 
-    const faqsHtml = faqs.map(faq=>`
+    const faqsHtml = faqs.map((faq, i)=>`
         <div class='faq'>
-            <h3 class="faq-question">Activity ${faq.question}</h3>
+            <h3 class="faq-question">${i + 1}. ${faq.question}</h3>
             <p class="faq-answer">${faq.answer}</p>             
         </div>
-    `)
+    `).join('')
 
 	var html = `
         <html>
