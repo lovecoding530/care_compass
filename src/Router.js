@@ -63,14 +63,14 @@ export const navigateToUrl = (url, navigation) => {
 	if(url){
 		let routeUrl = routeUrls.find(routeUrl=>routeUrl.url == url)
 		if(routeUrl){
-			store.activeRoute = routeName;
-			store.activePage = pageName;
-			store.routesInStack.push(routeName);
-			var key = `${routeName} ${store.routesInStack.length}`;
+			store.activeRoute = routeUrl.routeName;
+			store.activePage = routeUrl.pageName;
+			store.routesInStack.push(routeUrl.routeName);
+			var key = `${routeUrl.routeName} ${store.routesInStack.length}`;
 			navigation.navigate(
-				routeName,
+				routeUrl.routeName,
 				{
-					pageName: pageName
+					pageName: routeUrl.pageName
 				},
 				null,
 				key

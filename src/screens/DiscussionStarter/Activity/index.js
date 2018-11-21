@@ -119,6 +119,8 @@ export default class Activity extends Component {
 	}
 
 	renderQuestion() {
+		if(this.state.questionTotalCount == 0) return null
+		
 		const { height, width } = Dimensions.get('window');
 		let questionData = this.state.activity.questions[this.state.questionIndex];
 		let questionIndex = this.state.questionIndex;
@@ -277,9 +279,18 @@ export default class Activity extends Component {
 		return (
 			<Card 
 				style={Styles.questionItem}
-				contentStyle={Styles.questionItemContent}
+				contentStyle={{
+					flex: 1,
+					padding: deviceWidth(2)
+				}}
 			>
-				<HTML html={this.state.activity.body} containerStyle={Styles.questionContainer} tagsStyles={htmlStyles} />
+				<HTML 
+					html={this.state.activity.body} 
+					containerStyle={{
+						flexGrow: 1,
+					}} 
+					tagsStyles={htmlStyles} 
+				/>
 			</Card>
 		)
 	}
