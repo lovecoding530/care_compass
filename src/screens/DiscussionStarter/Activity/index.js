@@ -295,6 +295,14 @@ export default class Activity extends Component {
 		)
 	}
 
+	onCheckBody = () => {
+		if(this.state.questionTotalCount > 0){
+			this.setState({isCheckedBody: true});
+		}else{
+			this.onFinish();
+		}
+	}
+
 	render() {
 		return (
 			<View style={Styles.container}>
@@ -335,7 +343,7 @@ export default class Activity extends Component {
 							)}
 						</Button>
 						:
-						<Button dark bold onPress={()=>this.setState({isCheckedBody: true})}>
+						<Button dark bold onPress={this.onCheckBody}>
 							Continue
 						</Button>
 					}
