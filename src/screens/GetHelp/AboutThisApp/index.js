@@ -50,7 +50,7 @@ export default class LookingAfterYourself extends Component {
 
   _share() {
     Share.share({
-      message: "Dying To Talk",
+      message: "Care Compass",
       url: "http://www.godeckyourself.com"
     }).then(this._showResult.bind(this));
   }

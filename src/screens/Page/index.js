@@ -43,11 +43,11 @@ export default class Page extends Component {
 
     share = () => {
         Share.share({
-            message : 'Dying To Talk',
+            message : 'Care Compass',
             url : this.state.pageContent.read_more_url
         }).then(this.showResult);
 	}
-	
+
     showResult = (result) => {
         if(result.action == "sharedAction")
         {
@@ -68,7 +68,7 @@ export default class Page extends Component {
 		return (
 			<View style={Styles.container}>
 				<ScrollView contentContainerStyle={Styles.scroll}>
-					<View 
+					<View
 						onLayout = {(e)=>{
 							let {height: contentHeight} = e.nativeEvent.layout;
 							let { height } = Dimensions.get('window');
@@ -82,7 +82,7 @@ export default class Page extends Component {
 							</Text>
 						</Card>
 
-						<Card 
+						<Card
 							style={[ Styles.itemView ]}
 						>
 							{this.state.pageName == 'privacy_policy' &&
@@ -121,8 +121,8 @@ export default class Page extends Component {
 										/>
 									</View>
 								) : null}
-								<HTML 
-									html={this.state.pageContent.body} 
+								<HTML
+									html={this.state.pageContent.body}
 									renderers = {htmlRenderers}
 									tagsStyles={htmlStyles} 
 									onLinkPress={(e, url) => navigateToUrl(url, this.props.navigation)}
@@ -147,10 +147,10 @@ export default class Page extends Component {
 									Export
 								</Button>
 								{this.state.pageContent.read_more_url && (
-									this.state.pageName == 'looking_after_yourself' ? 
-										<Button 
-											dark  
-											bold 
+									this.state.pageName == 'looking_after_yourself' ?
+										<Button
+											dark
+											bold
 											onPress={this.share}
 										>
 											Share
@@ -184,7 +184,7 @@ export default class Page extends Component {
 							height: deviceWidth(50 * 401 / 388),
 							resizeMode: 'contain'
 						}}
-					/>			
+					/>
 				}
 				<SharedModal
                     visible={this.state.modalVisible}
