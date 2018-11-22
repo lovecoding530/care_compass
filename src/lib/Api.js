@@ -28,6 +28,7 @@ const API_PRIVACY_POLICY = API_ROOT + "/privacy-policy/";
 const API_ABOUT_THIS_APP = API_ROOT + "/about-this-app/";
 const API_SPEECH_CONSTANTS = API_ROOT + "/speech-constants/";
 const API_ART_GALLERY = API_ROOT + "/art-gallery/";
+const API_PRIVACY_COLLECTION = API_ROOT + "/privacy-collection-statement/";
 
 export const ApiDefinitions = {
   // Mapping of Keys to URL's. Keys are used to cache the data.
@@ -42,6 +43,7 @@ export const ApiDefinitions = {
   bundle: API_BUNDLE,
   speech_constants: API_SPEECH_CONSTANTS,
   art_gallery: API_ART_GALLERY,
+  privacy_collection: API_PRIVACY_COLLECTION
 };
 
 // NetInfo workaround due to iOS bug in react native

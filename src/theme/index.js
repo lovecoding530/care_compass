@@ -56,7 +56,8 @@ const htmlStyles = {
     fontStyle: "italic"
   },
   img: {
-    maxWidth: "100%"
+    maxWidth: "100%",
+    height: "auto"
   }
 };
 
