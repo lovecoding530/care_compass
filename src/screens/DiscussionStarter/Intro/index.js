@@ -7,7 +7,7 @@ import {
   ImageBackground,
   ScrollView,
   AsyncStorage,
-  FlatList,
+  FlatList
 } from "react-native";
 
 import { Colors, Images } from "@theme";
@@ -16,8 +16,13 @@ import { Button, Loader, Card } from "@components";
 import Text from "@text";
 
 import { getDiscussionStarter } from "@api";
-import { MediaQuery } from 'react-native-responsive';
-import { deviceWidth, deviceHeight, windowHeight, windowWidth } from "@ResponsiveDimensions";
+import { MediaQuery } from "react-native-responsive";
+import {
+  deviceWidth,
+  deviceHeight,
+  windowHeight,
+  windowWidth
+} from "@ResponsiveDimensions";
 
 export default class Intro extends Component {
   constructor(props) {
@@ -25,7 +30,7 @@ export default class Intro extends Component {
     this.state = {
       discussionStarter: {},
       loaderVisible: false,
-      activities: [],
+      activities: []
     };
   }
 
@@ -43,50 +48,51 @@ export default class Intro extends Component {
     const activities = discussionStarter.discussion_starter;
     this.setState({
       discussionStarter,
-      activities,
+      activities
     });
   }
 
   startActivity(activityIndex) {
     const { navigate } = this.props.navigation;
-    navigate('Activity', { activityIndex, discussionStarter: this.state.discussionStarter });
+    navigate("Activity", {
+      activityIndex,
+      discussionStarter: this.state.discussionStarter
+    });
   }
 
-	renderActivityItem = ({ item, index }) => {
-		return (
-			<Card
-				style={Styles.item}
-				contentStyle={Styles.item_content}
-				onPress={() => this.startActivity(index)}
-			>
-				<Text mediumLarge center style={Styles.item_number}>
-					{index + 1}
-				</Text>
-        <View style={{flex: 1, justifyContent: 'center'}}>
+  renderActivityItem = ({ item, index }) => {
+    return (
+      <Card
+        style={Styles.item}
+        contentStyle={Styles.item_content}
+        onPress={() => this.startActivity(index)}
+      >
+        <Text mediumLarge center style={Styles.item_number}>
+          {index + 1}
+        </Text>
+        <View style={{ flex: 1, justifyContent: "center" }}>
           <Text light center style={Styles.item_text}>
             {item.stage}
           </Text>
         </View>
-				<MediaQuery minDeviceWidth={768}>
-          <Button 
-            light 
-            color={Colors.white} 
+        <MediaQuery minDeviceWidth={768}>
+          <Button
+            light
+            color={Colors.white}
             onPress={() => this.startActivity(index)}
           >
-						Read now
-					</Button>
-				</MediaQuery>
-			</Card>
-		);
-  }
-  
+            {item.body ? "Read Now" : "Start Now"}
+          </Button>
+        </MediaQuery>
+      </Card>
+    );
+  };
+
   render() {
     const { navigate } = this.props.navigation;
     const { discussionStarter } = this.state;
     return (
-      <View
-        style={Styles.container}
-      >
+      <View style={Styles.container}>
         <Loader loading={this.state.loaderVisible} />
         <ScrollView contentContainerStyle={Styles.scrollView}>
           <Card topbar style={Styles.titleView}>
@@ -94,7 +100,8 @@ export default class Intro extends Component {
               Discussion Starter
             </Text>
             <Text medium style={Styles.subtitle} color={Colors.Navy}>
-              {discussionStarter.subheading || "Supporting you to talk about how you want to be cared for at the end of your life"}
+              {discussionStarter.subheading ||
+                "Supporting you to talk about how you want to be cared for at the end of your life"}
             </Text>
           </Card>
           <Card style={Styles.descView}>
@@ -102,7 +109,7 @@ export default class Intro extends Component {
           </Card>
           <FlatList
             numColumns={2}
-            columnWrapperStyle={{justifyContent: 'space-between'}}
+            columnWrapperStyle={{ justifyContent: "space-between" }}
             data={this.state.activities}
             renderItem={this.renderActivityItem}
             keyExtractor={(item, index) => index.toString()}

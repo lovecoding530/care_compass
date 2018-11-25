@@ -26,6 +26,7 @@ import {
 import { SharedModal } from "../modals";
 import { exportHelpPdf } from "@helppdf";
 import { navigateToUrl } from "router";
+import Variables from "@variables";
 
 let { width, height } = Dimensions.get("window");
 
@@ -161,9 +162,13 @@ export default class Page extends Component {
                   Go back
                 </Button>
                 <View style={{ flex: 1 }} />
-                <Button bold light onPress={this.exportPage}>
-                  Export
-                </Button>
+                {!Variables.excludeExportPages.includes(
+                  this.state.pageName
+                ) && (
+                  <Button bold light onPress={this.exportPage}>
+                    Export
+                  </Button>
+                )}
                 {this.state.pageContent.read_more_url &&
                   (this.state.pageName == "looking_after_yourself" ? (
                     <Button dark bold onPress={this.share}>
