@@ -3,7 +3,7 @@
  */
 
 import { AsyncStorage, NetInfo } from "react-native";
-
+import DeviceInfo from "react-native-device-info";
 // Backup file generated during build
 import ApiBackup from "./ApiBackup";
 
@@ -152,9 +152,7 @@ export async function postJSONwithCache(url, json) {
       body: JSON.stringify(json)
     });
     let responseJson = await response.json();
-    console.log(responseJson);
   } catch (error) {
-    console.log("error", error);
     var cachedPost = {};
     cachedPost.url = url;
     cachedPost.json = json;
@@ -205,7 +203,7 @@ export async function postDiscussionAnswers(discussionStarter) {
     var ansswerResponse = {};
     const uniqueId = DeviceInfo.getUniqueID();
     ansswerResponse.uuid = uniqueId;
-    ansswerResponse.starter = discussionStarter.starterSlug;
+    ansswerResponse.starter = discussionStarter.slug;
     ansswerResponse.responses = answers;
     await postJSONwithCache(
       API_DISCUSSION_STARTER_LOG_RESPONSE,
