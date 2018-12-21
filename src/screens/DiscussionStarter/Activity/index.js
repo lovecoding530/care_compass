@@ -218,7 +218,7 @@ export default class Activity extends Component {
 									value={otherData ? otherData : ''}
 									multiline={true}
 									numberOfLines={4}
-									onChangeText={(text) => this.onChangedAnswer(questionIndex, text, 'other')}
+									onBlur={(e) => this.onChangedAnswer(questionIndex, e.nativeEvent.text, 'other')}
 								/>
 							</View>
 						</View>
